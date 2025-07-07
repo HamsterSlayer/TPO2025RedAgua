@@ -13,8 +13,7 @@ public class TransporteDeAgua {
     
     switch opcion{
         
-        8:
-            
+        8: //8 es para salir
         break;
         default:
             System.out.println("Opcion erronea");
