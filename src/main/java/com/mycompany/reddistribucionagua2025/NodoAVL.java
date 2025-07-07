@@ -5,23 +5,26 @@ package com.mycompany.reddistribucionagua2025;
  * @author ivoel
  */
 public class NodoAVL {
-    private Object elem;
+    private Ciudad elem;
     private int altura;
     private NodoAVL derecho;
     private NodoAVL izquierdo;
     
     //Constructores
     
-    public NodoAVL(Object elemento){
+    public NodoAVL(Ciudad elemento){
         this.elem=elemento;
+        this.derecho=null;
+        this.izquierdo=null;
+        this.altura=0;
     }
     
-    public Object getElem(){
+    public Ciudad getElem(){
         return elem;
     }
     
-    public void setElem(Object elemento){
-        this.elem = elemento ;
+    public void setElem(Ciudad elemento){
+        this.elem = elemento;
     }
     
     public int getAltura(){

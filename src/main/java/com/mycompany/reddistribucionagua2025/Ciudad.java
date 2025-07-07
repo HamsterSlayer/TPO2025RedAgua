@@ -19,4 +19,8 @@ public class Ciudad {
     }
     
     //Metodos ---------------------------------------------------------------
+    
+    public String getNombre(){
+        return (this.nombre);
+    }
 }
