@@ -9,5 +9,4 @@ package com.mycompany.reddistribucionagua2025;
  * @author ivoel
  */
 public class Ciudades {
-    
 }
