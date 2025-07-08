@@ -13,6 +13,82 @@ public class ArbolAVObj {
     
     public ArbolAVObj(){}
     
+    //Rotaciones
+    
+    private NodoAVLObj rotarIzquierda(NodoAVLObj r){
+        NodoAVLObj h= r.getDerecho();
+        NodoAVLObj temp=h.getIzquierdo();
+        h.setIzquierdo(r);
+        r.setDerecho(temp);
+        return h;
+    }
+    
+    private NodoAVLObj rotarDerecha(NodoAVLObj r){
+        NodoAVLObj h= r.getIzquierdo();
+        NodoAVLObj temp=h.getDerecho();
+        h.setDerecho(r);
+        r.setIzquierdo(temp);
+        return h;
+    }
+    
+    private void balanceo(NodoAVLObj p,NodoAVLObj n, char hijo){
+            int balancePadre = n.getAltura(),balanceHijo,i,d;
+            if(n.getIzquierdo()!=null){
+                i=n.getIzquierdo().getAltura();
+            }else{i=-1;}
+            if(n.getDerecho()!=null){
+                d=n.getDerecho().getAltura();
+            }else{d=-1;}
+            balanceHijo= i-d;
+        
+            if(balancePadre==2){
+                if(balanceHijo==1 || balanceHijo==0){
+                    if(n==this.raiz){
+                        this.raiz=rotarDerecha(n);
+                    }else{
+                        if(hijo=='D'){
+                            p.setDerecho(rotarDerecha(n));
+                        }else{
+                            p.setIzquierdo(rotarDerecha(n));
+                        }
+                    }
+                }else if(balanceHijo==-1){
+                    if(n==this.raiz){
+                        this.raiz=rotarDerecha(rotarIzquierda(n));
+                    }else{
+                        if(hijo=='D'){
+                            p.setDerecho(rotarDerecha(rotarIzquierda(n)));
+                        }else{
+                            p.setIzquierdo(rotarDerecha(rotarIzquierda(n)));
+                        }
+                    }
+                }
+            }else if(balancePadre==-2){
+                if(balanceHijo==-1 || balanceHijo==0){
+                    
+                    if(n==this.raiz){
+                        this.raiz=rotarIzquierda(n);
+                    }else{
+                        if(hijo=='D'){
+                            p.setDerecho(rotarIzquierda(n));
+                        }else{
+                            p.setIzquierdo(rotarIzquierda(n));
+                        }
+                    }
+                }else if(balanceHijo==1){
+                    if(n==this.raiz){
+                        this.raiz=rotarIzquierda(rotarDerecha(n));
+                    }else{
+                        if(hijo=='D'){
+                            p.setDerecho(rotarIzquierda(rotarDerecha(n)));
+                        }else{
+                            p.setIzquierdo(rotarIzquierda(rotarDerecha(n)));
+                        }
+                    }
+                }
+            }                   
+        }
+    
     //Metodos
     
     private boolean perteneceAux(NodoAVLObj n, Comparable elem){
@@ -48,7 +124,10 @@ public class ArbolAVObj {
         }else if(elem.compareTo(n.getElem())>0){
             if(n.getDerecho()!=null){
                 exito=insertarAux(n.getDerecho(),elem);
-                if(exito){n.recalcularAltura();}
+                if(exito){
+                    n.recalcularAltura();
+                    balanceo(n,n.getIzquierdo(),'D');
+                }
             }else{
                 exito=true;
                 
@@ -58,7 +137,10 @@ public class ArbolAVObj {
         }else{
             if(n.getIzquierdo()!=null){
                 exito=insertarAux(n.getIzquierdo(),elem);
-                if(exito){n.recalcularAltura();}
+                if(exito){
+                    n.recalcularAltura();
+                    balanceo(n,n.getIzquierdo(),'I');
+                }
             }else{
                 exito=true;
                 
@@ -142,12 +224,18 @@ public class ArbolAVObj {
         }else if(elem.compareTo(n.getElem())>0){
             if(n.getDerecho()!=null){
                 exito=eliminarAux(n,n.getDerecho(),'I',elem);
-                if(exito){n.recalcularAltura();}
+                if(exito){
+                    n.recalcularAltura();
+                    balanceo(n,n.getIzquierdo(),'I');
+                }
             }else{exito=false;}
         }else{
             if(n.getIzquierdo()!=null){
                 exito=eliminarAux(n,n.getIzquierdo(),'D',elem);
-                if(exito){n.recalcularAltura();}
+                if(exito){
+                    n.recalcularAltura();
+                    balanceo(n,n.getIzquierdo(),'D');
+                }
             }else{exito=false;}
         }
         
