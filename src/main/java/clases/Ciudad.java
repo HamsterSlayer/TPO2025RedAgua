@@ -1,4 +1,4 @@
-package com.mycompany.reddistribucionagua2025;
+package clases;
 
 public class Ciudad {
     

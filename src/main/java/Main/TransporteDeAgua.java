@@ -1,4 +1,4 @@
-package com.mycompany.reddistribucionagua2025;
+package Main;
 
 import java.util.Scanner;
 

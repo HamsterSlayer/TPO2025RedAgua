@@ -1,5 +1,6 @@
-import com.mycompany.reddistribucionagua2025.Ciudad;
-import com.mycompany.reddistribucionagua2025.NodoAVL;
+package clases;
+
+import clases.NodoAVL;
 
 /**
  *
@@ -156,8 +157,86 @@ public class ArbolAVL {
         return exito;
     }
     
+        private boolean eliminarAux2(NodoAVL p, NodoAVL n, char hijo, Comparable elem){
+        boolean exito;
+        if(elem.compareTo(n.getElem())==0){
+            exito=true;
+            
+            if(this.noHijos(n)){
+                if(hijo=='I'){
+                    p.setIzquierdo(null);
+                }else{
+                    p.setDerecho(null);
+                }
+            }else if(this.dosHijos(n)){
+                
+                NodoAVL aux;
+                aux=menorNodoSacar(p,n.getDerecho());
+                aux.setIzquierdo(n.getIzquierdo());
+                aux.setDerecho(n.getDerecho());
+                if(hijo=='D'){
+                    p.setDerecho(aux);
+                }else{
+                    p.setIzquierdo(aux);
+                }
+                
+            }else{
+                
+                if(n.getIzquierdo()!=null){
+                    if(hijo=='D'){
+                    p.setDerecho(n.getIzquierdo());
+                    }else{
+                    p.setIzquierdo(n.getIzquierdo());
+                    }
+                }else{
+                    if(hijo=='D'){
+                    p.setDerecho(n.getDerecho());
+                    }else{
+                    p.setIzquierdo(n.getDerecho());
+                    }
+                }
+                
+            }
+            
+        }else if(elem.compareTo(n.getElem())>0){
+            if(n.getDerecho()!=null){
+                exito=eliminarAux2(n,n.getDerecho(),'I',elem);
+                if(exito){n.recalcularAltura();}
+            }else{exito=false;}
+        }else{
+            if(n.getIzquierdo()!=null){
+                exito=eliminarAux2(n,n.getIzquierdo(),'D',elem);
+                if(exito){n.recalcularAltura();}
+            }else{exito=false;}
+        }
+        
+        return exito;
+    }
+    
     public boolean esVacio(){
         return (this.raiz==null);
+    }
+    
+    public boolean eliminar(Comparable elem){
+        boolean exito;
+        
+        if(!this.esVacio()){
+            Comparable nombreRaiz= this.raiz.getElem().getNombre();
+            if(nombreRaiz.compareTo(elem)==0){
+                exito=true;
+                
+            }else if(nombreRaiz.compareTo(elem)<0){
+                if(this.raiz.getDerecho()!=null){
+                    exito=eliminarAux2(this.raiz,this.raiz.getDerecho(),'D',elem);
+                }else{exito=false;}
+            }else{
+                if(this.raiz.getDerecho()!=null){
+                    exito=eliminarAux2(this.raiz,this.raiz.getIzquierdo(),'I',elem);
+                }else{exito=false;}
+            }
+        }else{exito=false;}
+        
+        return exito;
     }
     
     public boolean eliminar(Ciudad ciu){
@@ -182,7 +261,7 @@ public class ArbolAVL {
         return exito;
     }
     
-    public Ciudad minimoElem(){
+    public Ciudad minimoElemC(){
         Ciudad devolver;
         if(this.esVacio()){
             NodoAVL aux=this.raiz;
@@ -196,7 +275,35 @@ public class ArbolAVL {
         return devolver;
     }
     
-        public Ciudad maximoElem(){
+    public Object minimoElemO(){
+        Ciudad devolver;
+        if(this.esVacio()){
+            NodoAVL aux=this.raiz;
+            while(aux.getIzquierdo()!=null){
+                aux=aux.getIzquierdo();
+            }
+            devolver = aux.getElem();
+        }else{
+            devolver=null;
+        }
+        return devolver;
+    }
+    
+    public Object maximoElemO(){
+        Ciudad devolver;
+        if(this.esVacio()){
+            NodoAVL aux=this.raiz;
+            while(aux.getDerecho()!=null){
+                aux=aux.getDerecho();
+            }
+            devolver = aux.getElem();
+        }else{
+            devolver=null;
+        }
+        return devolver;
+    }
+    
+    public Ciudad maximoElemC(){
         Ciudad devolver;
         if(this.esVacio()){
             NodoAVL aux=this.raiz;
