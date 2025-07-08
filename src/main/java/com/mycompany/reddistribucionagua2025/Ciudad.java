@@ -47,4 +47,8 @@ public class Ciudad {
         this.nomenclatura = nomenclatura;
         nomenclaturaContador++;
     }
+    
+    public boolean equals(Ciudad otraCiudad) {
+        return (this.nomenclatura).equals(otraCiudad.nomenclatura);
+    }
 }
