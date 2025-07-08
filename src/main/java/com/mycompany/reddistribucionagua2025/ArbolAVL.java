@@ -87,31 +87,18 @@ public class ArbolAVL {
         return (n.getIzquierdo()!=null && n.getDerecho()!=null);
     }
     
-    private NodoAVL menorNodoSacar(NodoAVL n){
+    private NodoAVL menorNodoSacar(NodoAVL p,NodoAVL n){
         NodoAVL devolver;
         if(n.getIzquierdo()==null){
+            p.setIzquierdo(n.getDerecho());
             devolver=n;
         }else{
-            devolver=menorNodoSacar(n.getIzquierdo());
+            devolver=menorNodoSacar(n,n.getIzquierdo());
             n.recalcularAltura();
         }
         return devolver;
     }
-    
-    private void sobreEscribir(NodoAVL p, NodoAVL n,char hijo){
-        
-        NodoAVL aux;
-        aux=menorNodoSacar(n.getDerecho());
-        aux.setIzquierdo(n.getIzquierdo());
-        aux.setDerecho(n.getDerecho());
-        if(hijo=='D'){
-            p.setDerecho(aux);
-        }else{
-            p.setIzquierdo(aux);
-        }
-        
-    }
-    
+   
     private boolean eliminarAux(NodoAVL p, NodoAVL n, char hijo, Comparable nombreBuscado){
         String nombre = n.getElem().getNombre();
         boolean exito;
@@ -126,7 +113,15 @@ public class ArbolAVL {
                 }
             }else if(this.dosHijos(n)){
                 
-                this.sobreEscribir(p,n,hijo);
+                NodoAVL aux;
+                aux=menorNodoSacar(p,n.getDerecho());
+                aux.setIzquierdo(n.getIzquierdo());
+                aux.setDerecho(n.getDerecho());
+                if(hijo=='D'){
+                    p.setDerecho(aux);
+                }else{
+                    p.setIzquierdo(aux);
+                }
                 
             }else{
                 
