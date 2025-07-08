@@ -23,8 +23,8 @@ public class DominioHash {
         return nomOrigen.equals(otroDominio.getNomOrigen()) && nomDestino.equals(otroDominio.getNomDestino());
     }
 
-    // ????? .hashCode()?
-    // No entiendo porque pide implementar .hashCode aqui, cuando cada DominioHash
-    // va a tener un hashcode tambien con el metodo de objeto
+    public int hashCode() {
+        return nomOrigen.hashCode() + nomDestino.hashCode();
+    }
 
 }
