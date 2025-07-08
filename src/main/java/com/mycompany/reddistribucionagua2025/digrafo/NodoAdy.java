@@ -41,5 +41,4 @@ public class NodoAdy {
         this.caudalMaximo = caudalMaximo;
     }
     
-    
 }

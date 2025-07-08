@@ -10,6 +10,11 @@ public class MapaDigrafo {
     private NodoVert inicio;
     
     //Metodos --------------------------------------------------------
+    
+    public MapaDigrafo() {
+        
+    }
+    
     public boolean insertarVertice(Ciudad ciudadNueva) {
         boolean resultado = true;
         
@@ -23,12 +28,15 @@ public class MapaDigrafo {
             boolean repetido = false;
             
             //En un solo recorrido voy al último Nodo y a la vez verifico que no esté repetido
-            while (!repetido && cursor != null) {
-                if (inicio.getElem().equals(ciudadNueva)) {
+            while (!repetido && cursor.getSigVertice() != null) {
+                if (inicio.getSigVertice().getElem().equals(ciudadNueva)) {
                     resultado = false;
                     repetido = true;
-                    cursor = inicio.getSigVertice();
                 }
+                else {
+                    cursor = cursor.getSigVertice();
+                }
+
             }
             
             if (!repetido) {
@@ -47,18 +55,42 @@ public class MapaDigrafo {
             resultado = false;
         }
         else {
-            //Itero sobre el digrafo hasta encontrar uno repetido
-            NodoVert cursor = inicio;
-            boolean encontrado = false;
-            while (cursor != null && !encontrado) {
-                
+            //Itero sobre el digrafo hasta encontrar el nodo anterior a la ciudad buscada.
+            if (inicio.getElem().equals(ciudadVieja)) {
+                //Caso especial: el primer vertice es el que se debe eliminar.
+                inicio = inicio.getSigVertice();
             }
-            
+            else {
+                NodoVert cursor = inicio;
+                boolean encontrado = false;
+                while (cursor.getSigVertice() != null && !encontrado) {
+                    if (cursor.getSigVertice().getElem().equals(ciudadVieja)) {
+                        encontrado = true; //Se encontró la ciudad
+                    } else {
+                        cursor = inicio.getSigVertice();
+                    }
+                }
+                if (encontrado) {
+                    //Caso generico: el vertice está entre otros dos
+                    NodoVert buscado = cursor.getSigVertice();
+                    inicio.setSigVertice(buscado.getSigVertice());
+                }
+                resultado = encontrado;
+            }
         }
+        return resultado;
     }
     
     public boolean esVacio() {
         return this.inicio == null;
     }
     
+    
+    public void debugPrint() {
+        NodoVert temp = inicio;
+        while (temp != null) {
+            System.out.println(temp.getElem().getNombre());
+            temp = temp.getSigVertice();
+        }
+    }
 }

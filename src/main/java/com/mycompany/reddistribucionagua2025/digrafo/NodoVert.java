@@ -41,4 +41,9 @@ public class NodoVert {
         this.primerAdy = primerAdy;
     }
     
+    public boolean equals(NodoVert otroNodo) {
+        //El equals se basa en comparar las ciudades
+        return (this.elem.equals(otroNodo.elem));
+    }
+    
 }
