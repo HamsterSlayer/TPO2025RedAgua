@@ -22,18 +22,39 @@ public class MapaDigrafo {
             NodoVert cursor = inicio;
             boolean repetido = false;
             
-            //En un solo recorrido busco el último Nodo y a la vez verifico que no esté repetido
+            //En un solo recorrido voy al último Nodo y a la vez verifico que no esté repetido
             while (!repetido && cursor != null) {
                 if (inicio.getElem().equals(ciudadNueva)) {
                     resultado = false;
                     repetido = true;
+                    cursor = inicio.getSigVertice();
                 }
-                else {
-                    
-                }
+            }
+            
+            if (!repetido) {
+                //Si no hay ninguno repetido creo el nodo y lo seteo como parte del digrafo
+                NodoVert nuevo = new NodoVert(ciudadNueva);
+                cursor.setSigVertice(nuevo);
             }
         }
         return resultado;
+    }
+    
+    public boolean eliminarVertice(Ciudad ciudadVieja) {
+        boolean resultado = true;
+        if (this.esVacio()) {
+            //Si está vacío no se puede eliminar nada
+            resultado = false;
+        }
+        else {
+            //Itero sobre el digrafo hasta encontrar uno repetido
+            NodoVert cursor = inicio;
+            boolean encontrado = false;
+            while (cursor != null && !encontrado) {
+                
+            }
+            
+        }
     }
     
     public boolean esVacio() {
