@@ -24,7 +24,7 @@ public class DominioHash {
     }
 
     public int hashCode() {
-        return nomOrigen.hashCode() + nomDestino.hashCode();
+        return (nomOrigen + nomDestino).hashCode();
     }
 
 }
