@@ -296,5 +296,32 @@ public class ArbolAVObj {
         return devolver;
     }
     
+    private String auxString(String texto, NodoAVLObj n){
+            texto+=n.getElem()+": (I) ";
+            if(n.getIzquierdo()!=null){
+                texto+=n.getIzquierdo().getElem();
+            }
+            texto+="-(D) ";
+            if(n.getDerecho()!=null){
+                texto+=n.getDerecho().getElem();
+            }
+            texto+="\n";
+            if(n.getIzquierdo()!=null){
+                texto=auxString(texto,n.getIzquierdo());} 
+            
+            if(n.getDerecho()!=null){
+                texto=auxString(texto,n.getDerecho());
+            }
+        return texto;
+    }
+    
+    public String toString(){
+        String texto="Raiz: "+this.raiz.getElem()+"\n";
+              
+        texto+=auxString("",this.raiz);
+        
+        return texto;
+    }
+    
         
 }
