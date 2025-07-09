@@ -11,7 +11,9 @@ public class ArbolAVL {
     
     //Constructor
     
-    public ArbolAVL(){}
+    public ArbolAVL(){
+        this.raiz=null;
+    }
     
     //Metodos
     
@@ -76,7 +78,9 @@ public class ArbolAVL {
         boolean exito;
         if(!this.esVacio()){
             exito=insertarAux(this.raiz,ciu,ciu.getNombre());
-        }else{exito=true;}
+        }else{
+            exito=true;
+        }
         return exito;
     }
     

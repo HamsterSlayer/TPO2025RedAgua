@@ -11,7 +11,9 @@ public class ArbolAVObj {
     
     //Constructor
     
-    public ArbolAVObj(){}
+    public ArbolAVObj(){
+        this.raiz=null;
+    }
     
     //Rotaciones
     
@@ -24,70 +26,65 @@ public class ArbolAVObj {
     }
     
     private NodoAVLObj rotarDerecha(NodoAVLObj r){
-        NodoAVLObj h= r.getIzquierdo();
+        NodoAVLObj h=r.getIzquierdo();
         NodoAVLObj temp=h.getDerecho();
         h.setDerecho(r);
         r.setIzquierdo(temp);
         return h;
     }
     
-    private void balanceo(NodoAVLObj p,NodoAVLObj n, char hijo){
-            int balancePadre = n.getAltura(),balanceHijo,i,d;
+    private NodoAVLObj balanceo(NodoAVLObj p,NodoAVLObj n,char hijo){
+        NodoAVLObj aux=p;
+        if(n!=null){
+            int balancePadre,balanceHijo,i,d,otroLado;
+            
+            if(hijo=='I'){
+                if(p.getDerecho()!=null){
+                    otroLado=p.getDerecho().getAltura();
+                }else{otroLado=-1;}
+                balancePadre=p.getIzquierdo().getAltura()-otroLado;
+            }else{
+                if(p.getIzquierdo()!=null){
+                    otroLado=p.getIzquierdo().getAltura();
+                }else{otroLado=-1;}
+                balancePadre=otroLado-p.getDerecho().getAltura();
+            }
+            
             if(n.getIzquierdo()!=null){
                 i=n.getIzquierdo().getAltura();
             }else{i=-1;}
             if(n.getDerecho()!=null){
                 d=n.getDerecho().getAltura();
             }else{d=-1;}
-            balanceHijo= i-d;
-        
+            balanceHijo=i-d;            
+                        
             if(balancePadre==2){
                 if(balanceHijo==1 || balanceHijo==0){
-                    if(n==this.raiz){
-                        this.raiz=rotarDerecha(n);
-                    }else{
-                        if(hijo=='D'){
-                            p.setDerecho(rotarDerecha(n));
-                        }else{
-                            p.setIzquierdo(rotarDerecha(n));
-                        }
-                    }
+                    if(hijo=='I'){
+                        p.setIzquierdo(rotarDerecha(n));
+                    }else{p.setDerecho(rotarDerecha(n));}
                 }else if(balanceHijo==-1){
-                    if(n==this.raiz){
-                        this.raiz=rotarDerecha(rotarIzquierda(n));
-                    }else{
-                        if(hijo=='D'){
-                            p.setDerecho(rotarDerecha(rotarIzquierda(n)));
-                        }else{
-                            p.setIzquierdo(rotarDerecha(rotarIzquierda(n)));
-                        }
-                    }
+                    if(hijo=='I'){
+                        p.setIzquierdo(rotarIzquierda(n));
+                    }else{p.setDerecho(rotarIzquierda(n));}
+                    aux=rotarDerecha(p);
                 }
             }else if(balancePadre==-2){
                 if(balanceHijo==-1 || balanceHijo==0){
-                    
-                    if(n==this.raiz){
-                        this.raiz=rotarIzquierda(n);
-                    }else{
-                        if(hijo=='D'){
-                            p.setDerecho(rotarIzquierda(n));
-                        }else{
-                            p.setIzquierdo(rotarIzquierda(n));
-                        }
-                    }
+                    if(hijo=='I'){
+                        p.setIzquierdo(rotarIzquierda(n));
+                    }else{p.setDerecho(rotarIzquierda(n));}
                 }else if(balanceHijo==1){
-                    if(n==this.raiz){
-                        this.raiz=rotarIzquierda(rotarDerecha(n));
-                    }else{
-                        if(hijo=='D'){
-                            p.setDerecho(rotarIzquierda(rotarDerecha(n)));
-                        }else{
-                            p.setIzquierdo(rotarIzquierda(rotarDerecha(n)));
-                        }
-                    }
+                    if(hijo=='I'){
+                        p.setIzquierdo(rotarDerecha(n));
+                    }else{p.setDerecho(rotarDerecha(n));}
+                    aux=rotarIzquierda(p);
                 }
-            }                   
+            }
         }
+        return aux;
+    }
+  
     
     //Metodos
     
@@ -116,47 +113,88 @@ public class ArbolAVObj {
         return esta;
     }
     
-    private boolean insertarAux(NodoAVLObj n, Comparable elem){
+    private boolean insertarAux(NodoAVLObj p,NodoAVLObj n, Comparable elem, char hijo){
         boolean exito;
-        
-        if(elem.compareTo(n.getElem())==0){
-            exito=false;
-        }else if(elem.compareTo(n.getElem())>0){
-            if(n.getDerecho()!=null){
-                exito=insertarAux(n.getDerecho(),elem);
-                if(exito){
+        if(n!=null){
+            if(elem.compareTo(n.getElem())==0){
+                exito=false;
+            }else if(elem.compareTo(n.getElem())>0){
+                if(n.getDerecho()!=null){
+                    exito=insertarAux(n,n.getDerecho(),elem,'D');
+                    if(exito){
+                        n.recalcularAltura();
+                        if(hijo=='D'){
+                            p.setDerecho(balanceo(n,n.getDerecho(),'D'));
+                        }else{
+                            p.setIzquierdo(balanceo(n,n.getDerecho(),'D'));
+                        }
+                    }
+                }else{
+                    exito=true;
+                
+                    n.setDerecho(new NodoAVLObj(elem));
                     n.recalcularAltura();
-                    balanceo(n,n.getIzquierdo(),'D');
                 }
             }else{
-                exito=true;
+                if(n.getIzquierdo()!=null){
+                    exito=insertarAux(n,n.getIzquierdo(),elem,'I');
+                    if(exito){
+                        n.recalcularAltura();
+                        if(hijo=='D'){
+                            p.setDerecho(balanceo(n,n.getIzquierdo(),'I'));
+                        }else{
+                            p.setIzquierdo(balanceo(n,n.getIzquierdo(),'I'));
+                        }
+                    }
+                }else{
+                    exito=true;
                 
-                n.setDerecho(new NodoAVLObj(elem));
-                n.recalcularAltura();
-            }
-        }else{
-            if(n.getIzquierdo()!=null){
-                exito=insertarAux(n.getIzquierdo(),elem);
-                if(exito){
+                    n.setIzquierdo(new NodoAVLObj(elem));
                     n.recalcularAltura();
-                    balanceo(n,n.getIzquierdo(),'I');
                 }
-            }else{
-                exito=true;
-                
-                n.setIzquierdo(new NodoAVLObj(elem));
-                n.recalcularAltura();
             }
-        }
-        
+        }else{exito=false;}
         return exito;
     }
     
     public boolean insertar(Comparable elem){
         boolean exito;
         if(!this.esVacio()){
-            exito=insertarAux(this.raiz,elem);
-        }else{exito=true;}
+            
+            if(elem.compareTo(this.raiz.getElem())==0){
+                exito=false;
+            }else if(elem.compareTo(this.raiz.getElem())>0){
+                if(this.raiz.getDerecho()!=null){
+                    exito=insertarAux(this.raiz,this.raiz.getDerecho(),elem,'D');
+                    if(exito){
+                        this.raiz.recalcularAltura();
+                        this.raiz=balanceo(this.raiz,this.raiz.getDerecho(),'D');
+                    }
+                }else{
+                    exito=true;
+                
+                    this.raiz.setDerecho(new NodoAVLObj(elem));
+                    this.raiz.recalcularAltura();
+                }
+            }else{
+                if(this.raiz.getIzquierdo()!=null){
+                    exito=insertarAux(this.raiz,this.raiz.getIzquierdo(),elem,'I');
+                    if(exito){
+                    this.raiz.recalcularAltura();
+                    this.raiz=balanceo(this.raiz,this.raiz.getIzquierdo(),'I');
+                    }
+                }else{
+                    exito=true;
+                
+                    this.raiz.setDerecho(new NodoAVLObj(elem));
+                    this.raiz.recalcularAltura();
+                }
+            }
+            
+        }else{
+            exito=true;
+            this.raiz=new NodoAVLObj(elem);
+        }
         return exito;
     }
     
@@ -185,16 +223,16 @@ public class ArbolAVObj {
         if(elem.compareTo(n.getElem())==0){
             exito=true;
             
-            if(this.noHijos(n)){
+            if(noHijos(n)){
                 if(hijo=='I'){
                     p.setIzquierdo(null);
                 }else{
                     p.setDerecho(null);
                 }
-            }else if(this.dosHijos(n)){
+            }else if(dosHijos(n)){
                 
                 NodoAVLObj aux;
-                aux=menorNodoSacar(p,n.getDerecho());
+                aux=menorNodoSacar(n,n.getDerecho());
                 aux.setIzquierdo(n.getIzquierdo());
                 aux.setDerecho(n.getDerecho());
                 if(hijo=='D'){
@@ -223,18 +261,27 @@ public class ArbolAVObj {
             
         }else if(elem.compareTo(n.getElem())>0){
             if(n.getDerecho()!=null){
-                exito=eliminarAux(n,n.getDerecho(),'I',elem);
+                exito=eliminarAux(n,n.getDerecho(),'D',elem);
                 if(exito){
                     n.recalcularAltura();
-                    balanceo(n,n.getIzquierdo(),'I');
+                    if(hijo=='D'){
+                        p.setDerecho(balanceo(n,n.getDerecho(),'D'));
+                    }else{
+                        p.setIzquierdo(balanceo(n,n.getDerecho(),'D'));
+                    }
+                    
                 }
             }else{exito=false;}
         }else{
             if(n.getIzquierdo()!=null){
-                exito=eliminarAux(n,n.getIzquierdo(),'D',elem);
+                exito=eliminarAux(n,n.getIzquierdo(),'I',elem);
                 if(exito){
                     n.recalcularAltura();
-                    balanceo(n,n.getIzquierdo(),'D');
+                    if(hijo=='D'){
+                        p.setDerecho(balanceo(n,n.getIzquierdo(),'I'));
+                    }else{
+                        p.setIzquierdo(balanceo(n,n.getIzquierdo(),'I'));
+                    }
                 }
             }else{exito=false;}
         }
@@ -253,14 +300,40 @@ public class ArbolAVObj {
             Comparable objRaiz= (Comparable)this.raiz.getElem();
             if(objRaiz.compareTo(elem)==0){
                 exito=true;
+                if(noHijos(this.raiz)){
+                    this.raiz=null;
+                }else if(dosHijos(this.raiz)){
+                    
+                    NodoAVLObj aux;
+                    aux=menorNodoSacar(this.raiz,this.raiz.getDerecho());
+                    aux.setIzquierdo(this.raiz.getIzquierdo());
+                    aux.setDerecho(this.raiz.getDerecho());
+                    this.raiz=null;
+                }else{
+                
+                    if(this.raiz.getIzquierdo()!=null){
+                        this.raiz=this.raiz.getIzquierdo();
+                    }else{
+                        this.raiz=this.raiz.getDerecho();
+                    }
+                
+            }
                 
             }else if(objRaiz.compareTo(elem)<0){
                 if(this.raiz.getDerecho()!=null){
                     exito=eliminarAux(this.raiz,this.raiz.getDerecho(),'D',elem);
+                    if(exito){
+                        this.raiz.recalcularAltura();
+                        this.raiz=balanceo(this.raiz,this.raiz.getDerecho(),'D');
+                    }
                 }else{exito=false;}
             }else{
                 if(this.raiz.getDerecho()!=null){
                     exito=eliminarAux(this.raiz,this.raiz.getIzquierdo(),'I',elem);
+                    if(exito){
+                        this.raiz.recalcularAltura();
+                        this.raiz=balanceo(this.raiz,this.raiz.getIzquierdo(),'I');
+                    }
                 }else{exito=false;}
             }
         }else{exito=false;}

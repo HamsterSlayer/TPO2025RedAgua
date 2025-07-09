@@ -9,4 +9,6 @@ package Main;
  * @author hamst
  */
 public class RedDistribucionAgua2025 {
+    public static void main(String[] args) {
+    }
 }
