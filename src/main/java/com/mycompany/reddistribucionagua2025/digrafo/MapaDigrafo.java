@@ -15,6 +15,7 @@ public class MapaDigrafo {
         
     }
     
+    //Vertices ---------------------------------------------------------
     public boolean insertarVertice(Ciudad ciudadNueva) {
         boolean resultado = true;
         
@@ -94,12 +95,106 @@ public class MapaDigrafo {
         return existe;
     }
     
+    //Arcos----------------------------------------------------------------------
     public boolean insertarArco(Ciudad origen, Ciudad destino, float etiqueta) {
-        boolean existe = false;
+        //Debo de buscar ambos vertices
+        boolean realizado = false;
         NodoVert cursor = this.inicio;
-        while (cursor != null) {
-            
+        NodoVert nodoOrigen = null;
+        NodoVert nodoDestino = null;
+        while (cursor != null && !realizado) {
+            if (cursor.getElem().equals(origen)) {
+                //Si encuentro el cursor de origen, lo registro y verifico que se pueda terminar el while.
+                nodoOrigen = cursor;
+                realizado = nodoDestino != null;
+            }
+            else if (cursor.getElem().equals(destino)) {
+                //Si encuentro el cursor de destino, lo registro y verifico que se pueda terminar el while.
+                nodoDestino = cursor;
+                realizado = nodoOrigen != null;
+            }
+            cursor = cursor.getSigVertice();
         }
+        
+        if (realizado) {
+            //Si se han encontrado ambos vertices entonces se procede a crear el arco
+            realizado = crearArco(nodoOrigen, nodoDestino, etiqueta);
+        }
+        return realizado;
+    }
+    
+    private boolean crearArco(NodoVert origen, NodoVert destino, float etiqueta) {
+        boolean exito = true;
+        //Hay dos posibles casos.
+        if (origen.getPrimerAdy() == null) {
+            //El nodo origen no tiene nodos adyacentes por lo que se crea el primero
+            NodoAdy nuevo = new NodoAdy(destino, etiqueta);
+            origen.setPrimerAdy(nuevo);
+        }
+        else {
+            //El nodo origen tiene nodos adyacentes, por lo que debo ir a la ultima
+            //Aqui puede ocurrir que ya exista el arco, por lo que se verifica.
+            NodoAdy cursor = origen.getPrimerAdy();
+            while (cursor.getSigAdyacente() != null && exito) {
+                if (cursor.getVertice().equals(destino)) {
+                    exito = false;
+                }
+                cursor = cursor.getSigAdyacente();
+            }
+            if (exito) {
+                NodoAdy nuevo = new NodoAdy(destino, etiqueta);
+                cursor.setSigAdyacente(nuevo);   
+            }
+        }
+        return exito;
+    }
+    
+    public boolean eliminarArco(Ciudad ciudadOrigen, Ciudad ciudadEliminada) {
+        //Debo de buscar El nodo en primer lugar.
+        boolean realizado = false;
+        NodoVert cursor = this.inicio;
+        while (cursor != null && !realizado) {
+            if (cursor.getElem().equals(ciudadOrigen)) {
+                realizado = true;
+            }
+            else {
+                cursor = cursor.getSigVertice();    
+            }
+        }
+        if (realizado) {
+            realizado = eliminarArcoAux(cursor, ciudadEliminada);
+        }
+        return realizado;
+    }
+    
+    private boolean eliminarArcoAux(NodoVert nodo, Ciudad ciudadEliminada) {
+        boolean exito = false;
+        //Hay dos casos al eliminar.
+        if (nodo.getPrimerAdy() != null) {
+            NodoVert verticeAdy = nodo.getPrimerAdy().getVertice();
+            if (verticeAdy.getElem().equals(ciudadEliminada)) {
+                //Primer caso: Se desea eliminar el arco inicial.
+                nodo.setPrimerAdy(nodo.getPrimerAdy().getSigAdyacente());
+                exito = true;
+            } else {
+                //Segundo caso: Se desea eliminar un arco entre dos arcos.
+                NodoAdy cursor = nodo.getPrimerAdy();
+                while (cursor.getSigAdyacente() != null && !exito) {
+                    NodoVert tempAdy = cursor.getSigAdyacente().getVertice();
+                    if (verticeAdy.getElem().equals(ciudadEliminada)) {
+                        exito = true;
+                    }
+                    else {
+                        cursor = cursor.getSigAdyacente();
+                    }
+                }
+                if (exito) {
+                    //Si se encuentra, entonces simplemente lo borro.
+                    cursor.setSigAdyacente(cursor.getSigAdyacente().getSigAdyacente());
+                }
+            }
+        }
+        return exito;
     }
     
     
