@@ -197,6 +197,34 @@ public class MapaDigrafo {
         return exito;
     }
     
+    public boolean existeArco(Ciudad ciudadOrigen, Ciudad ciudadBuscada) {
+        boolean existe = false;
+        NodoVert cursor = this.inicio;
+        while (cursor != null && !existe) {
+            if (cursor.getElem().equals(ciudadOrigen)) {
+                existe = true;
+            }
+            else {
+                cursor = cursor.getSigVertice();
+            }
+        }
+        if (existe) {
+            existe = existeEnNodo(cursor, ciudadBuscada);
+        }
+        return existe;
+    }
+    
+    private boolean existeEnNodo(NodoVert cursor, Ciudad ciudadBuscada) {
+        boolean resultado = false;
+        NodoAdy cursorAdy = cursor.getPrimerAdy();
+        while (cursorAdy != null && !resultado) {
+            if (cursorAdy.getVertice().getElem().equals(ciudadBuscada)) {
+                resultado = true;
+            }
+        }
+        return resultado;
+    }
+    
     
     
     public boolean esVacio() {
@@ -204,10 +232,23 @@ public class MapaDigrafo {
     }
     
     
-    public void debugPrint() {
+    public void debugPrintVertices() {
         NodoVert temp = inicio;
         while (temp != null) {
             System.out.println(temp.getElem().getNombre());
+            temp = temp.getSigVertice();
+        }
+    }
+    
+    public void debugPrintArcos() {
+        NodoVert temp = inicio;
+        while (temp != null) {
+            String nombre = temp.getElem().getNombre();
+            NodoAdy malaPracticaProg = temp.getPrimerAdy();
+            while (malaPracticaProg != null) {
+                System.out.println("De " + nombre + " A " + malaPracticaProg.getVertice().getElem().getNombre());
+                malaPracticaProg = malaPracticaProg.getSigAdyacente();
+            }
             temp = temp.getSigVertice();
         }
     }
