@@ -1,5 +1,10 @@
 package com.mycompany.reddistribucionagua2025;
 
+/**
+ * Representa una ciudad en el sistema de tuberías. La nomenclatura es su clave primaria.
+ * Tiene datos importantes como: cantHabitantes,consumo promedio, etc.
+ * @author hamst
+ */
 public class Ciudad {
     
     //Atributos ---------------------------------------------------------------
