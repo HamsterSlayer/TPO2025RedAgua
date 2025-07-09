@@ -40,27 +40,9 @@ public class ArbolAVObj {
     private NodoAVLObj balanceo(NodoAVLObj p,NodoAVLObj n,char hijo){
         NodoAVLObj aux=p;
         if(n!=null){
-            int balancePadre,balanceHijo,i,d,otroLado;
-            
-            if(hijo=='I'){
-                if(p.getDerecho()!=null){
-                    otroLado=p.getDerecho().getAltura();
-                }else{otroLado=-1;}
-                balancePadre=p.getIzquierdo().getAltura()-otroLado;
-            }else{
-                if(p.getIzquierdo()!=null){
-                    otroLado=p.getIzquierdo().getAltura();
-                }else{otroLado=-1;}
-                balancePadre=otroLado-p.getDerecho().getAltura();
-            }
-            
-            if(n.getIzquierdo()!=null){
-                i=n.getIzquierdo().getAltura();
-            }else{i=-1;}
-            if(n.getDerecho()!=null){
-                d=n.getDerecho().getAltura();
-            }else{d=-1;}
-            balanceHijo=i-d;            
+            int balancePadre,balanceHijo;
+            balancePadre=getBalance(p);
+            balanceHijo=getBalance(n);           
                         
             if(balancePadre==2){
                 if(balanceHijo==1 || balanceHijo==0){
@@ -85,7 +67,16 @@ public class ArbolAVObj {
         return aux;
     }
   
-    
+    private int getBalance(NodoAVLObj n){
+        int i,d;
+        if(n.getIzquierdo()!=null){
+            i=n.getIzquierdo().getAltura();
+        }else{i=-1;}
+        if(n.getDerecho()!=null){
+            d=n.getDerecho().getAltura();
+        }else{d=-1;}
+        return (i-d);
+    }
     //Metodos
     
     private boolean perteneceAux(NodoAVLObj n, Comparable elem){
@@ -214,6 +205,7 @@ public class ArbolAVObj {
         }else{
             devolver=menorNodoSacar(n,n.getIzquierdo());
             n.recalcularAltura();
+            p.setDerecho(balanceo(n,n.getDerecho(),'D'));
         }
         return devolver;
     }
@@ -265,9 +257,9 @@ public class ArbolAVObj {
                 if(exito){
                     n.recalcularAltura();
                     if(hijo=='D'){
-                        p.setDerecho(balanceo(n,n.getDerecho(),'D'));
+                        p.setDerecho(balanceo(n,n.getIzquierdo(),'I'));
                     }else{
-                        p.setIzquierdo(balanceo(n,n.getDerecho(),'D'));
+                        p.setIzquierdo(balanceo(n,n.getIzquierdo(),'I'));
                     }
                     
                 }
@@ -278,9 +270,9 @@ public class ArbolAVObj {
                 if(exito){
                     n.recalcularAltura();
                     if(hijo=='D'){
-                        p.setDerecho(balanceo(n,n.getIzquierdo(),'I'));
+                        p.setDerecho(balanceo(n,n.getDerecho(),'D'));
                     }else{
-                        p.setIzquierdo(balanceo(n,n.getIzquierdo(),'I'));
+                        p.setIzquierdo(balanceo(n,n.getDerecho(),'D'));
                     }
                 }
             }else{exito=false;}
@@ -308,7 +300,7 @@ public class ArbolAVObj {
                     aux=menorNodoSacar(this.raiz,this.raiz.getDerecho());
                     aux.setIzquierdo(this.raiz.getIzquierdo());
                     aux.setDerecho(this.raiz.getDerecho());
-                    this.raiz=null;
+                    this.raiz=aux;
                 }else{
                 
                     if(this.raiz.getIzquierdo()!=null){
@@ -324,7 +316,7 @@ public class ArbolAVObj {
                     exito=eliminarAux(this.raiz,this.raiz.getDerecho(),'D',elem);
                     if(exito){
                         this.raiz.recalcularAltura();
-                        this.raiz=balanceo(this.raiz,this.raiz.getDerecho(),'D');
+                        this.raiz=balanceo(this.raiz,this.raiz.getIzquierdo(),'I');
                     }
                 }else{exito=false;}
             }else{
@@ -332,7 +324,7 @@ public class ArbolAVObj {
                     exito=eliminarAux(this.raiz,this.raiz.getIzquierdo(),'I',elem);
                     if(exito){
                         this.raiz.recalcularAltura();
-                        this.raiz=balanceo(this.raiz,this.raiz.getIzquierdo(),'I');
+                        this.raiz=balanceo(this.raiz,this.raiz.getDerecho(),'D');
                     }
                 }else{exito=false;}
             }
