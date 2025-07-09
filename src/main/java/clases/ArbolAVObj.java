@@ -22,8 +22,8 @@ public class ArbolAVObj {
         NodoAVLObj temp=h.getIzquierdo();
         h.setIzquierdo(r);
         r.setDerecho(temp);
-        h.recalcularAltura();
         r.recalcularAltura();
+        h.recalcularAltura();
         return h;
     }
     
@@ -32,8 +32,8 @@ public class ArbolAVObj {
         NodoAVLObj temp=h.getDerecho();
         h.setDerecho(r);
         r.setIzquierdo(temp);
-        h.recalcularAltura();
         r.recalcularAltura();
+        h.recalcularAltura();
         return h;
     }
     
@@ -64,31 +64,21 @@ public class ArbolAVObj {
                         
             if(balancePadre==2){
                 if(balanceHijo==1 || balanceHijo==0){
-                    if(hijo=='I'){
-                        aux=(rotarDerecha(p));
-                    }else{aux=(rotarDerecha(p));}
-                    p.recalcularAltura();
+                    aux=rotarDerecha(p);
                 }else if(balanceHijo==-1){
                     if(hijo=='I'){
                         p.setIzquierdo(rotarIzquierda(n));
                     }else{p.setDerecho(rotarIzquierda(n));}
-                    p.recalcularAltura();
                     aux=rotarDerecha(p);
-                    aux.recalcularAltura();
                 }
             }else if(balancePadre==-2){
                 if(balanceHijo==-1 || balanceHijo==0){
-                    if(hijo=='I'){
-                        aux=(rotarIzquierda(p));
-                    }else{aux=(rotarIzquierda(p));}
-                    p.recalcularAltura();
+                    aux=rotarIzquierda(p);
                 }else if(balanceHijo==1){
                     if(hijo=='I'){
                         p.setIzquierdo(rotarDerecha(n));
                     }else{p.setDerecho(rotarDerecha(n));}
-                    p.recalcularAltura();
                     aux=rotarIzquierda(p);
-                    aux.recalcularAltura();
                 }
             }
         }

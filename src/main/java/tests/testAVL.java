@@ -13,8 +13,8 @@ public class testAVL {
         int a=0,aux;
         /*
         Strings que andan mal
-        "406, 290, 58, 470, 171, 383, 129, 326, 132, 240, " //Solo tiene 2 elementos //Solucionado
-        "32, 168, 291, 336, 214, 305, 304, 311, 474, 260, " //Balancea mal
+        "406, 290, 58, 470, 171, 383, 129, 326, 132, 240, " //Solo tiene 2 elementos //Solucionado //Hubo error devuelta // Solucionado x2
+        "32, 168, 291, 336, 214, 305, 304, 311, 474, 260, " //Balancea mal //Solucionado
         */
         
         String entrada="32, 168, 291, 336, 214, 305, 304, 311, 474, 260, "; //Dejalo vacio ("") para que genere automatico
