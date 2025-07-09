@@ -1,5 +1,6 @@
 package com.mycompany.reddistribucionagua2025;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -11,6 +12,7 @@ public class TransporteDeAgua {
     // Menu
     public static void main(String[] args) {
         int opcion;
+        HashMap<DominioHash, Tuberias> mapeoTuberias = new HashMap<>();
         Scanner in = new Scanner(System.in);
         do {
             mostrarMenuGeneral();
