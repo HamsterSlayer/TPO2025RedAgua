@@ -16,6 +16,8 @@ public class TesteosDigrafo {
         mapa.insertarVertice(nueva2);
         mapa.insertarVertice(nueva3);
         mapa.eliminarVertice(nueva);
+        System.out.println(mapa.existeVertice(nueva));
+        System.out.println(mapa.existeVertice(nueva2));
         mapa.debugPrint();
     }
 }

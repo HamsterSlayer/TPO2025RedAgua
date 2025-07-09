@@ -81,6 +81,29 @@ public class MapaDigrafo {
         return resultado;
     }
     
+    public boolean existeVertice(Ciudad ciudadExistente) {
+        boolean existe = false;
+        NodoVert cursor = this.inicio;
+        //El recorrido es N sí o sí en el peor de los casos.
+        while (cursor != null && !existe) {
+            if (cursor.getElem().equals(ciudadExistente)) {
+                existe = true;
+            }
+            cursor = cursor.getSigVertice();
+        }
+        return existe;
+    }
+    
+    public boolean insertarArco(Ciudad origen, Ciudad destino, float etiqueta) {
+        boolean existe = false;
+        NodoVert cursor = this.inicio;
+        while (cursor != null) {
+            
+        }
+    }
+    
+    
+    
     public boolean esVacio() {
         return this.inicio == null;
     }

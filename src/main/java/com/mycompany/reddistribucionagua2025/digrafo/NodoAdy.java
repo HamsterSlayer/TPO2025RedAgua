@@ -8,9 +8,8 @@ public class NodoAdy {
     
     
     //Metodos --------------------------------------------------------
-    public NodoAdy(NodoVert vertice, NodoAdy sigAdyacente, float caudalMaximo) {
+    public NodoAdy(NodoVert vertice, float caudalMaximo) {
         this.vertice = vertice;
-        this.sigAdyacente = sigAdyacente;
         this.caudalMaximo = caudalMaximo;
     }
 
