@@ -1,3 +1,5 @@
+package com.mycompany.reddistribucionagua2025;
+
 import com.mycompany.reddistribucionagua2025.Ciudad;
 import com.mycompany.reddistribucionagua2025.NodoAVL;
 
