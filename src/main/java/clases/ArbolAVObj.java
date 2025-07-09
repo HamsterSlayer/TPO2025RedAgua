@@ -22,6 +22,8 @@ public class ArbolAVObj {
         NodoAVLObj temp=h.getIzquierdo();
         h.setIzquierdo(r);
         r.setDerecho(temp);
+        h.recalcularAltura();
+        r.recalcularAltura();
         return h;
     }
     
@@ -30,6 +32,8 @@ public class ArbolAVObj {
         NodoAVLObj temp=h.getDerecho();
         h.setDerecho(r);
         r.setIzquierdo(temp);
+        h.recalcularAltura();
+        r.recalcularAltura();
         return h;
     }
     
@@ -61,24 +65,30 @@ public class ArbolAVObj {
             if(balancePadre==2){
                 if(balanceHijo==1 || balanceHijo==0){
                     if(hijo=='I'){
-                        p.setIzquierdo(rotarDerecha(n));
-                    }else{p.setDerecho(rotarDerecha(n));}
+                        aux=(rotarDerecha(p));
+                    }else{aux=(rotarDerecha(p));}
+                    p.recalcularAltura();
                 }else if(balanceHijo==-1){
                     if(hijo=='I'){
                         p.setIzquierdo(rotarIzquierda(n));
                     }else{p.setDerecho(rotarIzquierda(n));}
+                    p.recalcularAltura();
                     aux=rotarDerecha(p);
+                    aux.recalcularAltura();
                 }
             }else if(balancePadre==-2){
                 if(balanceHijo==-1 || balanceHijo==0){
                     if(hijo=='I'){
-                        p.setIzquierdo(rotarIzquierda(n));
-                    }else{p.setDerecho(rotarIzquierda(n));}
+                        aux=(rotarIzquierda(p));
+                    }else{aux=(rotarIzquierda(p));}
+                    p.recalcularAltura();
                 }else if(balanceHijo==1){
                     if(hijo=='I'){
                         p.setIzquierdo(rotarDerecha(n));
                     }else{p.setDerecho(rotarDerecha(n));}
+                    p.recalcularAltura();
                     aux=rotarIzquierda(p);
+                    aux.recalcularAltura();
                 }
             }
         }
@@ -131,7 +141,6 @@ public class ArbolAVObj {
                     }
                 }else{
                     exito=true;
-                
                     n.setDerecho(new NodoAVLObj(elem));
                     n.recalcularAltura();
                 }
@@ -145,6 +154,7 @@ public class ArbolAVObj {
                         }else{
                             p.setIzquierdo(balanceo(n,n.getIzquierdo(),'I'));
                         }
+                        
                     }
                 }else{
                     exito=true;
@@ -180,13 +190,13 @@ public class ArbolAVObj {
                 if(this.raiz.getIzquierdo()!=null){
                     exito=insertarAux(this.raiz,this.raiz.getIzquierdo(),elem,'I');
                     if(exito){
-                    this.raiz.recalcularAltura();
-                    this.raiz=balanceo(this.raiz,this.raiz.getIzquierdo(),'I');
+                        this.raiz.recalcularAltura();
+                        this.raiz=balanceo(this.raiz,this.raiz.getIzquierdo(),'I');
                     }
                 }else{
                     exito=true;
                 
-                    this.raiz.setDerecho(new NodoAVLObj(elem));
+                    this.raiz.setIzquierdo(new NodoAVLObj(elem));
                     this.raiz.recalcularAltura();
                 }
             }
