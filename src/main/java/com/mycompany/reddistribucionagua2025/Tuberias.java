@@ -60,4 +60,13 @@ public class Tuberias {
         estado = elEstado;
     }
 
+    public String getInformacion() {
+        String informacion;
+        informacion = "Tuberia: " + nomenclatura + "\n" +
+                "Caudal Mínimo: " + caudalMinimo + "\n" +
+                "Caudal Máximo: " + caudalMaximo + "\n" +
+                "Diametro: " + diametro + "\n" +
+                "Estado: " + estado;
+        return informacion;
+    }
 }

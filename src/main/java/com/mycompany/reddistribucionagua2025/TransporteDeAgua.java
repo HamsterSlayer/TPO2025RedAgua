@@ -12,7 +12,7 @@ public class TransporteDeAgua {
     // Menu
     public static void main(String[] args) {
         int opcion;
-
+        HashMap<DominioHash, String> mapeoTuberias = new HashMap<>();
         Scanner in = new Scanner(System.in);
         do {
             mostrarMenuGeneral();
