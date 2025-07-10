@@ -3,20 +3,20 @@ package com.mycompany.reddistribucionagua2025;
 /**
  * Representa una ciudad en el sistema de tuberías. La nomenclatura es su clave primaria.
  * Tiene datos importantes como: cantHabitantes,consumo promedio, etc.
- * @author hamst
+ * @author FAI-4489
  */
 public class Ciudad {
     
     //Atributos ---------------------------------------------------------------
-    private String nombre; 
-    private final int cantHabitantes;
+    private final String nombre; 
+    private int[][] cantHabitantes; //Matriz de 10 filas (años) con 12 columnas (meses) ;
     private String nomenclatura;
     private float superficie;
-    private float consumoPromedio;
+    private float consumoPromedio; //Matriz de 10 filas (años) con 12 columnas (meses) ;
     private static int nomenclaturaContador = 3000;
     
     //Constructor --------------------------------------------------------------
-    public Ciudad(String nombre, int cantHabitantes, float superficie, float consumoPromedio)   {
+    public Ciudad(String nombre, int[][] cantHabitantes, float superficie, float consumoPromedio)   {
         this.nombre = nombre;
         this.cantHabitantes = cantHabitantes;
         this.superficie = superficie;
@@ -26,10 +26,13 @@ public class Ciudad {
     
     //Metodos ---------------------------------------------------------------
     
+    //Nombre ---------------
     public String getNombre(){
         return (this.nombre);
     }
+    //-----------------------
     
+    //Nomenclatura ---------------
     public String getNomenclatura() {
         return this.nomenclatura;
     }
@@ -52,7 +55,47 @@ public class Ciudad {
         this.nomenclatura = nomenclatura;
         nomenclaturaContador++;
     }
+     //---------------
+
+    //Habitantes ------------------
+    public void setCantHabitantes(int[][] habitantes) {
+        this.cantHabitantes = habitantes;
+    }
     
+    public int[][] getCantHabitantes() {
+        return cantHabitantes;
+    }
+    
+    /**
+     * 
+     * @param año recibe el año dentro del rango (por ejemplo: 2010)
+     * @return devuelve el consumo anual como un FLOAT.
+     */
+    public float getConsumoAnual(int año) {
+        
+    }
+    //---------------
+
+    //Superficie -------------------
+    public void setSuperficie(float superficie) {
+        this.superficie = superficie;
+    }
+
+    public float getSuperficie() {
+        return superficie;
+    }
+    //---------------
+    
+    //ConsumoPromedio -------------------
+    public void setConsumoPromedio(float consumoPromedio) {
+        this.consumoPromedio = consumoPromedio;
+    }
+
+    public float getConsumoPromedio() {
+        return consumoPromedio;
+    }
+    //---------------
+
     public boolean equals(Ciudad otraCiudad) {
         return (this.nomenclatura).equals(otraCiudad.nomenclatura);
     }
