@@ -1,5 +1,7 @@
 package com.mycompany.reddistribucionagua2025;
 
+import com.mycompany.reddistribucionagua2025.Ciudad;
+
 /**
  *
  * @author ivoel

@@ -9,4 +9,6 @@ package com.mycompany.reddistribucionagua2025;
  * @author hamst
  */
 public class RedDistribucionAgua2025 {
+    public static void main(String[] args) {
+    }
 }
