@@ -23,4 +23,8 @@ public class Ciudad {
     public String getNombre(){
         return (this.nombre);
     }
+    
+    public int consumoAnual(int a){
+        return a;
+    }
 }
