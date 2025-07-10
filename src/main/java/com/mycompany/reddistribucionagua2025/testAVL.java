@@ -1,7 +1,6 @@
-package tests;
+package com.mycompany.reddistribucionagua2025;
 
-import clases.ArbolAVObj;
-import clases.Ciudad;
+import com.mycompany.reddistribucionagua2025.Ciudad;
 import java.util.Random;
 import java.util.Scanner;
 

@@ -1,24 +1,23 @@
-package clases;
-
-import clases.NodoAVL;
+package com.mycompany.reddistribucionagua2025;
 
 /**
  *
  * @author ivoel
  */
-public class ArbolAVL {
-    private NodoAVL raiz;
+public class ArbolAVObj {
+    private NodoAVLObj raiz;
     
     //Constructor
     
-    public ArbolAVL(){
+    public ArbolAVObj(){
         this.raiz=null;
     }
     
-    //Metodos para el balanceo
-    private NodoAVL rotarIzquierda(NodoAVL r){
-        NodoAVL h= r.getDerecho();
-        NodoAVL temp=h.getIzquierdo();
+    //Rotaciones
+    
+    private NodoAVLObj rotarIzquierda(NodoAVLObj r){
+        NodoAVLObj h= r.getDerecho();
+        NodoAVLObj temp=h.getIzquierdo();
         h.setIzquierdo(r);
         r.setDerecho(temp);
         r.recalcularAltura();
@@ -26,9 +25,9 @@ public class ArbolAVL {
         return h;
     }
     
-    private NodoAVL rotarDerecha(NodoAVL r){
-        NodoAVL h=r.getIzquierdo();
-        NodoAVL temp=h.getDerecho();
+    private NodoAVLObj rotarDerecha(NodoAVLObj r){
+        NodoAVLObj h=r.getIzquierdo();
+        NodoAVLObj temp=h.getDerecho();
         h.setDerecho(r);
         r.setIzquierdo(temp);
         r.recalcularAltura();
@@ -36,8 +35,8 @@ public class ArbolAVL {
         return h;
     }
     
-    private NodoAVL balanceo(NodoAVL p,NodoAVL n,char hijo){
-        NodoAVL aux=p;
+    private NodoAVLObj balanceo(NodoAVLObj p,NodoAVLObj n,char hijo){
+        NodoAVLObj aux=p;
         if(n!=null){
             int balancePadre,balanceHijo;
             balancePadre=getBalance(p);
@@ -66,7 +65,7 @@ public class ArbolAVL {
         return aux;
     }
   
-    private int getBalance(NodoAVL n){
+    private int getBalance(NodoAVLObj n){
         int i,d;
         if(n.getIzquierdo()!=null){
             i=n.getIzquierdo().getAltura();
@@ -76,21 +75,19 @@ public class ArbolAVL {
         }else{d=-1;}
         return (i-d);
     }
-    
     //Metodos
     
-    private boolean perteneceAux(NodoAVL n, Comparable nombreBuscado){
-        String nombre = n.getElem().getNombre();
+    private boolean perteneceAux(NodoAVLObj n, Comparable elem){
         boolean exito;
-        if(nombreBuscado.compareTo(nombre)==0){
+        if(elem.compareTo(n.getElem())==0){
             exito=true;
-        }else if(nombreBuscado.compareTo(nombre)>0){
+        }else if(elem.compareTo(n.getElem())>0){
             if(n.getDerecho()!=null){
-                exito=perteneceAux(n.getDerecho(),nombreBuscado);
+                exito=perteneceAux(n.getDerecho(),elem);
             }else{exito=false;}
         }else{
             if(n.getIzquierdo()!=null){
-                exito=perteneceAux(n.getIzquierdo(),nombreBuscado);
+                exito=perteneceAux(n.getIzquierdo(),elem);
             }else{exito=false;}
         }
         
@@ -105,101 +102,101 @@ public class ArbolAVL {
         return esta;
     }
     
-    private boolean insertarAux(NodoAVL p, NodoAVL n, Ciudad ciu,Comparable elem,char hijo){
-        boolean exito=false;
-        String nombre = n.getElem().getNombre();
-        
-        if(elem.compareTo(nombre)==0){
-            exito=false;
-        }else if(elem.compareTo(nombre)>0){
-            if(n.getDerecho()!=null){
-                exito=insertarAux(n,n.getDerecho(),ciu,elem,'D');
-                if(exito){
-                    n.recalcularAltura();
-                    if(hijo=='D'){
-                        p.setDerecho(balanceo(n,n.getDerecho(),'D'));
-                    }else{
-                        p.setIzquierdo(balanceo(n,n.getDerecho(),'D'));
+    private boolean insertarAux(NodoAVLObj p,NodoAVLObj n, Comparable elem, char hijo){
+        boolean exito;
+        if(n!=null){
+            if(elem.compareTo(n.getElem())==0){
+                exito=false;
+            }else if(elem.compareTo(n.getElem())>0){
+                if(n.getDerecho()!=null){
+                    exito=insertarAux(n,n.getDerecho(),elem,'D');
+                    if(exito){
+                        n.recalcularAltura();
+                        if(hijo=='D'){
+                            p.setDerecho(balanceo(n,n.getDerecho(),'D'));
+                        }else{
+                            p.setIzquierdo(balanceo(n,n.getDerecho(),'D'));
+                        }
                     }
+                }else{
+                    exito=true;
+                    n.setDerecho(new NodoAVLObj(elem));
+                    n.recalcularAltura();
                 }
             }else{
-                exito=true;
-                
-                n.setDerecho(new NodoAVL(ciu));
-                n.recalcularAltura();
-            }
-        }else{
-            if(n.getIzquierdo()!=null){
-                exito=insertarAux(n,n.getIzquierdo(),ciu,elem,'I');
-                if(exito){
-                    n.recalcularAltura();
-                    if(hijo=='D'){
-                        p.setDerecho(balanceo(n,n.getIzquierdo(),'I'));
-                    }else{
-                        p.setIzquierdo(balanceo(n,n.getIzquierdo(),'I'));
-                    }
-                }
+                if(n.getIzquierdo()!=null){
+                    exito=insertarAux(n,n.getIzquierdo(),elem,'I');
+                    if(exito){
+                        n.recalcularAltura();
+                        if(hijo=='D'){
+                            p.setDerecho(balanceo(n,n.getIzquierdo(),'I'));
+                        }else{
+                            p.setIzquierdo(balanceo(n,n.getIzquierdo(),'I'));
+                        }
                         
-            }else{
-                exito=true;
+                    }
+                }else{
+                    exito=true;
                 
-                n.setIzquierdo(new NodoAVL(ciu));
-                n.recalcularAltura();
+                    n.setIzquierdo(new NodoAVLObj(elem));
+                    n.recalcularAltura();
+                }
             }
+        }else{exito=false;}
+        return exito;
+    }
+    
+    public boolean insertar(Comparable elem){
+        boolean exito;
+        if(!this.esVacio()){
+            
+            if(elem.compareTo(this.raiz.getElem())==0){
+                exito=false;
+            }else if(elem.compareTo(this.raiz.getElem())>0){
+                if(this.raiz.getDerecho()!=null){
+                    exito=insertarAux(this.raiz,this.raiz.getDerecho(),elem,'D');
+                    if(exito){
+                        this.raiz.recalcularAltura();
+                        this.raiz=balanceo(this.raiz,this.raiz.getDerecho(),'D');
+                    }
+                }else{
+                    exito=true;
+                
+                    this.raiz.setDerecho(new NodoAVLObj(elem));
+                    this.raiz.recalcularAltura();
+                }
+            }else{
+                if(this.raiz.getIzquierdo()!=null){
+                    exito=insertarAux(this.raiz,this.raiz.getIzquierdo(),elem,'I');
+                    if(exito){
+                        this.raiz.recalcularAltura();
+                        this.raiz=balanceo(this.raiz,this.raiz.getIzquierdo(),'I');
+                    }
+                }else{
+                    exito=true;
+                
+                    this.raiz.setIzquierdo(new NodoAVLObj(elem));
+                    this.raiz.recalcularAltura();
+                }
+            }
+            
+        }else{
+            exito=true;
+            this.raiz=new NodoAVLObj(elem);
         }
         return exito;
     }
     
-    public boolean insertar(Ciudad ciu){
-        boolean exito;
-        String nombre = ciu.getNombre();
-        if(!this.esVacio()){
-            if(nombre.compareTo(this.raiz.getElem().getNombre())==0){
-                exito=false;
-                }else if(nombre.compareTo(this.raiz.getElem().getNombre())>0){
-                if(this.raiz.getDerecho()!=null){
-                    exito=insertarAux(this.raiz,this.raiz.getDerecho(),ciu,nombre,'D');
-                        if(exito){
-                            this.raiz.recalcularAltura();
-                            this.raiz=(balanceo(this.raiz,this.raiz.getDerecho(),'D'));
-                        }
-                    }else{
-                    exito=true;
-                
-                    this.raiz.setDerecho(new NodoAVL(ciu));
-                    this.raiz.recalcularAltura();
-                    }
-                }else{
-                    if(this.raiz.getIzquierdo()!=null){
-                        exito=insertarAux(this.raiz,this.raiz.getIzquierdo(),ciu,nombre,'I');
-                        if(exito){
-                            this.raiz.recalcularAltura();
-                            this.raiz=(balanceo(this.raiz,this.raiz.getIzquierdo(),'I'));
-                        }                        
-                }else{
-                    exito=true;
-                
-                    this.raiz.setIzquierdo(new NodoAVL(ciu));
-                    this.raiz.recalcularAltura();
-                }
-            }
-        }else{
-                exito=true;
-                this.raiz=(new NodoAVL(ciu));
-            }
-        return exito;
-    }
-    
-    private boolean noHijos(NodoAVL n){
+    private boolean noHijos(NodoAVLObj n){
         return (n.getIzquierdo()==null && n.getDerecho()==null);
     }
     
-    private boolean dosHijos(NodoAVL n){
+    private boolean dosHijos(NodoAVLObj n){
         return (n.getIzquierdo()!=null && n.getDerecho()!=null);
     }
     
-    private NodoAVL menorNodoSacar(NodoAVL p,NodoAVL n){
-        NodoAVL devolver;
+    private NodoAVLObj menorNodoSacar(NodoAVLObj p,NodoAVLObj n){
+        NodoAVLObj devolver;
         if(n.getIzquierdo()==null){
             p.setIzquierdo(n.getDerecho());
             devolver=n;
@@ -211,10 +208,9 @@ public class ArbolAVL {
         return devolver;
     }
    
-    private boolean eliminarAux(NodoAVL p, NodoAVL n, char hijo, Comparable nombreBuscado){
-        String nombre = n.getElem().getNombre();
+    private boolean eliminarAux(NodoAVLObj p, NodoAVLObj n, char hijo, Comparable elem){
         boolean exito;
-        if(nombreBuscado.compareTo(nombre)==0){
+        if(elem.compareTo(n.getElem())==0){
             exito=true;
             
             if(noHijos(n)){
@@ -225,7 +221,7 @@ public class ArbolAVL {
                 }
             }else if(dosHijos(n)){
                 
-                NodoAVL aux;
+                NodoAVLObj aux;
                 aux=menorNodoSacar(n,n.getDerecho());
                 aux.setIzquierdo(n.getIzquierdo());
                 aux.setDerecho(n.getDerecho());
@@ -253,9 +249,9 @@ public class ArbolAVL {
                 
             }
             
-        }else if(nombreBuscado.compareTo(nombre)>0){
+        }else if(elem.compareTo(n.getElem())>0){
             if(n.getDerecho()!=null){
-                exito=eliminarAux(n,n.getDerecho(),'D',nombreBuscado);
+                exito=eliminarAux(n,n.getDerecho(),'D',elem);
                 if(exito){
                     n.recalcularAltura();
                     if(hijo=='D'){
@@ -268,7 +264,7 @@ public class ArbolAVL {
             }else{exito=false;}
         }else{
             if(n.getIzquierdo()!=null){
-                exito=eliminarAux(n,n.getIzquierdo(),'I',nombreBuscado);
+                exito=eliminarAux(n,n.getIzquierdo(),'I',elem);
                 if(exito){
                     n.recalcularAltura();
                     if(hijo=='D'){
@@ -287,19 +283,18 @@ public class ArbolAVL {
         return (this.raiz==null);
     }
     
-    public boolean eliminar(Ciudad ciu){
+    public boolean eliminar(Comparable elem){
         boolean exito;
-        String nombre=ciu.getNombre();
         
         if(!this.esVacio()){
-            Comparable objRaiz= (Comparable)this.raiz.getElem().getNombre();
-            if(objRaiz.compareTo(nombre)==0){
+            Comparable objRaiz= (Comparable)this.raiz.getElem();
+            if(objRaiz.compareTo(elem)==0){
                 exito=true;
                 if(noHijos(this.raiz)){
                     this.raiz=null;
                 }else if(dosHijos(this.raiz)){
                     
-                    NodoAVL aux;
+                    NodoAVLObj aux;
                     aux=menorNodoSacar(this.raiz,this.raiz.getDerecho());
                     aux.setIzquierdo(this.raiz.getIzquierdo());
                     aux.setDerecho(this.raiz.getDerecho());
@@ -314,9 +309,9 @@ public class ArbolAVL {
                 
             }
                 
-            }else if(objRaiz.compareTo(nombre)<0){
+            }else if(objRaiz.compareTo(elem)<0){
                 if(this.raiz.getDerecho()!=null){
-                    exito=eliminarAux(this.raiz,this.raiz.getDerecho(),'D',nombre);
+                    exito=eliminarAux(this.raiz,this.raiz.getDerecho(),'D',elem);
                     if(exito){
                         this.raiz.recalcularAltura();
                         this.raiz=balanceo(this.raiz,this.raiz.getIzquierdo(),'I');
@@ -324,7 +319,7 @@ public class ArbolAVL {
                 }else{exito=false;}
             }else{
                 if(this.raiz.getDerecho()!=null){
-                    exito=eliminarAux(this.raiz,this.raiz.getIzquierdo(),'I',nombre);
+                    exito=eliminarAux(this.raiz,this.raiz.getIzquierdo(),'I',elem);
                     if(exito){
                         this.raiz.recalcularAltura();
                         this.raiz=balanceo(this.raiz,this.raiz.getDerecho(),'D');
@@ -336,56 +331,10 @@ public class ArbolAVL {
         return exito;
     }
     
-    private Ciudad recuperarAux(Comparable nombre,NodoAVL n){
-        Ciudad devuelvo;
-        if(nombre.compareTo(n.getElem().getNombre())==0){
-            devuelvo=n.getElem();
-        }else if(nombre.compareTo(n.getElem().getNombre())>0){
-            if(n.getDerecho()!=null){
-                devuelvo=recuperarAux(nombre,n.getDerecho());
-            }else{devuelvo=null;}
-        }else{
-            if(n.getIzquierdo()!=null){
-                devuelvo=recuperarAux(nombre,n.getIzquierdo());
-            }else{devuelvo=null;}
-        }
-        return devuelvo;
-    }
-    
-    public Ciudad recuperar(String nombre){
-        Ciudad devuelvo;
-        if(!this.esVacio()){
-            devuelvo=recuperarAux(nombre,this.raiz);
-        }else{devuelvo=null;}
-        return devuelvo;
-    }
-    
-    private void crearPorConsumoAux(NodoAVL n, ArbolAVLConsumo a, int b){
-        if(n.getIzquierdo()!=null){
-            crearPorConsumoAux(n.getIzquierdo(),a,b);
-        }
-        a.insertar(n.getElem(),b);
-        if(n.getDerecho()!=null){
-            crearPorConsumoAux(n.getDerecho(),a,b);
-        }
-    }
-    
-    public ArbolAVLConsumo crearPorConsumoAnual(int a){
-        ArbolAVLConsumo arbolito;
-        if(!this.esVacio()){
-            arbolito=new ArbolAVLConsumo();
-            crearPorConsumoAux(this.raiz,arbolito,a);
-        }else{
-            arbolito=null;
-        }
-        
-        return arbolito;
-    }
-    
-    public Ciudad minimoElem(){
-        Ciudad devolver;
+    public Object minimoElem(){
+        Object devolver;
         if(this.esVacio()){
-            NodoAVL aux=this.raiz;
+            NodoAVLObj aux=this.raiz;
             while(aux.getIzquierdo()!=null){
                 aux=aux.getIzquierdo();
             }
@@ -396,10 +345,10 @@ public class ArbolAVL {
         return devolver;
     }
     
-    public Ciudad maximoElem(){
-        Ciudad devolver;
+    public Object maximoElem(){
+        Object devolver;
         if(this.esVacio()){
-            NodoAVL aux=this.raiz;
+            NodoAVLObj aux=this.raiz;
             while(aux.getDerecho()!=null){
                 aux=aux.getDerecho();
             }
@@ -410,28 +359,32 @@ public class ArbolAVL {
         return devolver;
     }
     
-    private String toStringInOrderAux(NodoAVL n){
-        String texto="";
-        
-        if(n.getIzquierdo()!=null){
-            texto=toStringInOrderAux(n.getIzquierdo());
-        }
-        texto+=n.getElem().getNombre()+", ";
-        if(n.getDerecho()!=null){
-            texto+=toStringInOrderAux(n.getDerecho());
-        }
+    private String auxString(String texto, NodoAVLObj n){
+            texto+=n.getElem()+": (I) ";
+            if(n.getIzquierdo()!=null){
+                texto+=n.getIzquierdo().getElem();
+            }
+            texto+="-(D) ";
+            if(n.getDerecho()!=null){
+                texto+=n.getDerecho().getElem();
+            }
+            texto+="\n";
+            if(n.getIzquierdo()!=null){
+                texto=auxString(texto,n.getIzquierdo());} 
+            
+            if(n.getDerecho()!=null){
+                texto=auxString(texto,n.getDerecho());
+            }
+        return texto;
+    }
+    
+    public String toString(){
+        String texto="Raiz: "+this.raiz.getElem()+"\n";
+              
+        texto+=auxString("",this.raiz);
         
         return texto;
     }
     
-    public String toStringInOrder(){
-        String texto;
-        if(!this.esVacio()){
-            texto=toStringInOrderAux(this.raiz);
-        }else{
-            texto="";
-        }
         
-        return texto;
-    }
 }

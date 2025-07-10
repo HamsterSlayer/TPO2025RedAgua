@@ -1,17 +1,15 @@
-package clases;
-
-import clases.NodoAVL;
+package com.mycompany.reddistribucionagua2025;
 
 /**
  *
  * @author ivoel
  */
-public class ArbolAVLConsumo {
+public class ArbolAVL {
     private NodoAVL raiz;
     
     //Constructor
     
-    public ArbolAVLConsumo(){
+    public ArbolAVL(){
         this.raiz=null;
     }
     
@@ -79,41 +77,41 @@ public class ArbolAVLConsumo {
     
     //Metodos
     
-    private boolean perteneceAux(NodoAVL n, Comparable nombreBuscado, int b){
-        Comparable nombre = n.getElem().consumoAnual(b);
+    private boolean perteneceAux(NodoAVL n, Comparable nombreBuscado){
+        String nombre = n.getElem().getNombre();
         boolean exito;
         if(nombreBuscado.compareTo(nombre)==0){
             exito=true;
         }else if(nombreBuscado.compareTo(nombre)>0){
             if(n.getDerecho()!=null){
-                exito=perteneceAux(n.getDerecho(),nombreBuscado,b);
+                exito=perteneceAux(n.getDerecho(),nombreBuscado);
             }else{exito=false;}
         }else{
             if(n.getIzquierdo()!=null){
-                exito=perteneceAux(n.getIzquierdo(),nombreBuscado,b);
+                exito=perteneceAux(n.getIzquierdo(),nombreBuscado);
             }else{exito=false;}
         }
         
         return exito;
     }
     
-    public boolean pertenece(Comparable elem,int b){
+    public boolean pertenece(Comparable elem){
         boolean esta;
         if(!this.esVacio()){
-            esta=perteneceAux(this.raiz,elem,b);
+            esta=perteneceAux(this.raiz,elem);
         }else{esta=false;}
         return esta;
     }
     
-    private boolean insertarAux(NodoAVL p, NodoAVL n, Ciudad ciu,Comparable elem,char hijo,int b){
+    private boolean insertarAux(NodoAVL p, NodoAVL n, Ciudad ciu,Comparable elem,char hijo){
         boolean exito=false;
-        Comparable nombre = n.getElem().consumoAnual(b);
+        String nombre = n.getElem().getNombre();
         
         if(elem.compareTo(nombre)==0){
             exito=false;
         }else if(elem.compareTo(nombre)>0){
             if(n.getDerecho()!=null){
-                exito=insertarAux(n,n.getDerecho(),ciu,elem,'D',b);
+                exito=insertarAux(n,n.getDerecho(),ciu,elem,'D');
                 if(exito){
                     n.recalcularAltura();
                     if(hijo=='D'){
@@ -130,7 +128,7 @@ public class ArbolAVLConsumo {
             }
         }else{
             if(n.getIzquierdo()!=null){
-                exito=insertarAux(n,n.getIzquierdo(),ciu,elem,'I',b);
+                exito=insertarAux(n,n.getIzquierdo(),ciu,elem,'I');
                 if(exito){
                     n.recalcularAltura();
                     if(hijo=='D'){
@@ -150,15 +148,15 @@ public class ArbolAVLConsumo {
         return exito;
     }
     
-    public boolean insertar(Ciudad ciu, int b){
+    public boolean insertar(Ciudad ciu){
         boolean exito;
-        Comparable nombre = ciu.consumoAnual(b);
+        String nombre = ciu.getNombre();
         if(!this.esVacio()){
-            if(nombre.compareTo(this.raiz.getElem().consumoAnual(b))==0){
+            if(nombre.compareTo(this.raiz.getElem().getNombre())==0){
                 exito=false;
-                }else if(nombre.compareTo(this.raiz.getElem().consumoAnual(b))>0){
+                }else if(nombre.compareTo(this.raiz.getElem().getNombre())>0){
                 if(this.raiz.getDerecho()!=null){
-                    exito=insertarAux(this.raiz,this.raiz.getDerecho(),ciu,nombre,'D',b);
+                    exito=insertarAux(this.raiz,this.raiz.getDerecho(),ciu,nombre,'D');
                         if(exito){
                             this.raiz.recalcularAltura();
                             this.raiz=(balanceo(this.raiz,this.raiz.getDerecho(),'D'));
@@ -171,7 +169,7 @@ public class ArbolAVLConsumo {
                     }
                 }else{
                     if(this.raiz.getIzquierdo()!=null){
-                        exito=insertarAux(this.raiz,this.raiz.getIzquierdo(),ciu,nombre,'I',b);
+                        exito=insertarAux(this.raiz,this.raiz.getIzquierdo(),ciu,nombre,'I');
                         if(exito){
                             this.raiz.recalcularAltura();
                             this.raiz=(balanceo(this.raiz,this.raiz.getIzquierdo(),'I'));
@@ -211,8 +209,8 @@ public class ArbolAVLConsumo {
         return devolver;
     }
    
-    private boolean eliminarAux(NodoAVL p, NodoAVL n, char hijo, Comparable nombreBuscado, int b){
-        int nombre = n.getElem().consumoAnual(b);
+    private boolean eliminarAux(NodoAVL p, NodoAVL n, char hijo, Comparable nombreBuscado){
+        String nombre = n.getElem().getNombre();
         boolean exito;
         if(nombreBuscado.compareTo(nombre)==0){
             exito=true;
@@ -255,7 +253,7 @@ public class ArbolAVLConsumo {
             
         }else if(nombreBuscado.compareTo(nombre)>0){
             if(n.getDerecho()!=null){
-                exito=eliminarAux(n,n.getDerecho(),'D',nombreBuscado,b);
+                exito=eliminarAux(n,n.getDerecho(),'D',nombreBuscado);
                 if(exito){
                     n.recalcularAltura();
                     if(hijo=='D'){
@@ -268,7 +266,7 @@ public class ArbolAVLConsumo {
             }else{exito=false;}
         }else{
             if(n.getIzquierdo()!=null){
-                exito=eliminarAux(n,n.getIzquierdo(),'I',nombreBuscado,b);
+                exito=eliminarAux(n,n.getIzquierdo(),'I',nombreBuscado);
                 if(exito){
                     n.recalcularAltura();
                     if(hijo=='D'){
@@ -287,12 +285,12 @@ public class ArbolAVLConsumo {
         return (this.raiz==null);
     }
     
-    public boolean eliminar(Ciudad ciu, int b){
+    public boolean eliminar(Ciudad ciu){
         boolean exito;
-        int nombre=ciu.consumoAnual(b);
+        String nombre=ciu.getNombre();
         
         if(!this.esVacio()){
-            Comparable objRaiz= (Comparable)this.raiz.getElem().consumoAnual(b);
+            Comparable objRaiz= (Comparable)this.raiz.getElem().getNombre();
             if(objRaiz.compareTo(nombre)==0){
                 exito=true;
                 if(noHijos(this.raiz)){
@@ -316,7 +314,7 @@ public class ArbolAVLConsumo {
                 
             }else if(objRaiz.compareTo(nombre)<0){
                 if(this.raiz.getDerecho()!=null){
-                    exito=eliminarAux(this.raiz,this.raiz.getDerecho(),'D',nombre,b);
+                    exito=eliminarAux(this.raiz,this.raiz.getDerecho(),'D',nombre);
                     if(exito){
                         this.raiz.recalcularAltura();
                         this.raiz=balanceo(this.raiz,this.raiz.getIzquierdo(),'I');
@@ -324,7 +322,7 @@ public class ArbolAVLConsumo {
                 }else{exito=false;}
             }else{
                 if(this.raiz.getDerecho()!=null){
-                    exito=eliminarAux(this.raiz,this.raiz.getIzquierdo(),'I',nombre,b);
+                    exito=eliminarAux(this.raiz,this.raiz.getIzquierdo(),'I',nombre);
                     if(exito){
                         this.raiz.recalcularAltura();
                         this.raiz=balanceo(this.raiz,this.raiz.getDerecho(),'D');
@@ -336,28 +334,50 @@ public class ArbolAVLConsumo {
         return exito;
     }
     
-    private Ciudad recuperarAux(Comparable nombre,NodoAVL n,int b){
+    private Ciudad recuperarAux(Comparable nombre,NodoAVL n){
         Ciudad devuelvo;
-        if(nombre.compareTo(n.getElem().consumoAnual(b))==0){
+        if(nombre.compareTo(n.getElem().getNombre())==0){
             devuelvo=n.getElem();
-        }else if(nombre.compareTo(n.getElem().consumoAnual(b))>0){
+        }else if(nombre.compareTo(n.getElem().getNombre())>0){
             if(n.getDerecho()!=null){
-                devuelvo=recuperarAux(nombre,n.getDerecho(),b);
+                devuelvo=recuperarAux(nombre,n.getDerecho());
             }else{devuelvo=null;}
         }else{
             if(n.getIzquierdo()!=null){
-                devuelvo=recuperarAux(nombre,n.getIzquierdo(),b);
+                devuelvo=recuperarAux(nombre,n.getIzquierdo());
             }else{devuelvo=null;}
         }
         return devuelvo;
     }
     
-    public Ciudad recuperar(int nombre,int b){
+    public Ciudad recuperar(String nombre){
         Ciudad devuelvo;
         if(!this.esVacio()){
-            devuelvo=recuperarAux(nombre,this.raiz,b);
+            devuelvo=recuperarAux(nombre,this.raiz);
         }else{devuelvo=null;}
         return devuelvo;
+    }
+    
+    private void crearPorConsumoAux(NodoAVL n, ArbolAVLConsumo a, int b){
+        if(n.getIzquierdo()!=null){
+            crearPorConsumoAux(n.getIzquierdo(),a,b);
+        }
+        a.insertar(n.getElem(),b);
+        if(n.getDerecho()!=null){
+            crearPorConsumoAux(n.getDerecho(),a,b);
+        }
+    }
+    
+    public ArbolAVLConsumo crearPorConsumoAnual(int a){
+        ArbolAVLConsumo arbolito;
+        if(!this.esVacio()){
+            arbolito=new ArbolAVLConsumo();
+            crearPorConsumoAux(this.raiz,arbolito,a);
+        }else{
+            arbolito=null;
+        }
+        
+        return arbolito;
     }
     
     public Ciudad minimoElem(){
@@ -388,24 +408,24 @@ public class ArbolAVLConsumo {
         return devolver;
     }
     
-    private String toStringInOrderAux(NodoAVL n,int b){
+    private String toStringInOrderAux(NodoAVL n){
         String texto="";
         
         if(n.getIzquierdo()!=null){
-            texto=toStringInOrderAux(n.getIzquierdo(),b);
+            texto=toStringInOrderAux(n.getIzquierdo());
         }
-        texto+=n.getElem().consumoAnual(b)+", ";
+        texto+=n.getElem().getNombre()+", ";
         if(n.getDerecho()!=null){
-            texto+=toStringInOrderAux(n.getDerecho(),b);
+            texto+=toStringInOrderAux(n.getDerecho());
         }
         
         return texto;
     }
     
-    public String toStringInOrder(int b){
+    public String toStringInOrder(){
         String texto;
         if(!this.esVacio()){
-            texto=toStringInOrderAux(this.raiz,b);
+            texto=toStringInOrderAux(this.raiz);
         }else{
             texto="";
         }

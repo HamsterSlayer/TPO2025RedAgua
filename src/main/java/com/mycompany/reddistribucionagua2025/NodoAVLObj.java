@@ -1,4 +1,4 @@
-package clases;
+package com.mycompany.reddistribucionagua2025;
 
 /**
  *
