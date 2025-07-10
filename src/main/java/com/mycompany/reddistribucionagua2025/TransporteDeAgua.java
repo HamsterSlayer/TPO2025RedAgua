@@ -44,6 +44,7 @@ public class TransporteDeAgua {
                 break;
             case 2:
                 cambiosTuberias();
+                break;
             case 3:
                 altaHabitantes();
                 break;
@@ -58,6 +59,7 @@ public class TransporteDeAgua {
                 break;
             case 7:
                 // mostrarSistema()
+                break;
             default:
 
         }
@@ -93,10 +95,10 @@ public class TransporteDeAgua {
     public static void activarCambioCiudad(int opcion) {
         switch (opcion) {
             case 1:
-                // darAltaCiudad(grafo¿)
+                darAltaCiudad(/* cualquier cosa */);
                 break;
             case 2:
-                // darBajaCiudad(nomenclatura,grafo¿)
+                // darBajaCiudad(/*cualquier cosa */)
                 break;
             case 3:
                 // modificarCiudad(nomenclatura,grafo¿)
@@ -131,7 +133,7 @@ public class TransporteDeAgua {
     public static void activarCambioTuberia(int opcion) {
         switch (opcion) {
             case 1:
-                // darAltaTuberia(grafo¿)
+                // darAltaTuberia(/*cualquier cosa */)
                 break;
             case 2:
                 // darBajaTuberia(nomenclatura,grafo¿)
@@ -219,6 +221,72 @@ public class TransporteDeAgua {
                 break;
             default:
         }
+    }
+
+    public static void darAltaCiudad(/* qcyo algo seguro hay que pasar por aqui */) {
+        boolean valido = false;
+        Ciudad nuevaCiudad;
+        while (/* ! */valido) {
+            nuevaCiudad = crearCiudad();
+            // valido = verificarPresencia(nuevaCiudad); VERIFICA SI ESTÁ EN EL GRAFO
+        }
+        // adicionar ciudad a grafo
+        // adicionar ciudad a AVL
+    }
+
+    public static Ciudad crearCiudad() {
+        Scanner in = new Scanner(System.in);
+        Ciudad nuevaCiudad;
+        String nombre = new String();
+        float superficie;
+        float consumoDiario;
+        System.out.println("*****   Creando ciudad   *****");
+        System.out.println("Nombre de la ciudad:");
+        nombre = in.nextLine();
+        System.out.println("Superfície en metros cuadrados: ");
+        superficie = in.nextFloat();
+        System.out.println("Consumo promedio de água diário (por persona)");
+        consumoDiario = in.nextFloat();
+        // !! CAMBIAR ESTO CUANDO EL CONSTRUCTOR SE ARREGLE
+        nuevaCiudad = new Ciudad(nombre, 0, superficie, consumoDiario);
+        return nuevaCiudad;
+    }
+
+    public static void darAltaTuberia() {
+        boolean valido = false;
+        Tuberias nuevaTuberia;
+        while (/* ! */ valido) {
+            nuevaTuberia = crearTuberia();
+            // valido = verificarPresencia(nuevaTuberia); Verifica si esta en uhhhhh el
+            // hash?
+        }
+
+        // Adicionar al grafo
+        // Adicionar a uhhhhh
+    }
+
+    public static Tuberias crearTuberia() {
+        Scanner in = new Scanner(System.in);
+        Tuberias nuevaTuberia;
+        String nomenclatura = new String();
+        float caudalMaximo;
+        float caudalMinimo;
+        float diametro;
+        String estado;
+
+        System.out.println("*****   Creando tubería   *****");
+        System.out.println("Nomenclatura: ");
+        nomenclatura = in.nextLine();
+        System.out.println("Caudal Máximo: ");
+        caudalMaximo = in.nextFloat();
+        System.out.println("Caudal Mínimo: ");
+        caudalMinimo = in.nextFloat();
+        System.out.println("Diametro: ");
+        diametro = in.nextFloat();
+        System.out.println("Estado del tubo: ");
+        estado = in.nextLine();
+        nuevaTuberia = new Tuberias(nomenclatura, caudalMaximo, caudalMinimo, diametro, estado);
+        return nuevaTuberia
     }
 
 }
