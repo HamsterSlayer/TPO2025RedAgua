@@ -71,7 +71,7 @@ public class Ciudad {
      * @param año recibe el año dentro del rango (por ejemplo: 2010)
      * @return devuelve el consumo anual como un FLOAT.
      */
-    public float getConsumoAnual(int año) {
+    public float consumoAnual(int año) {
         
     }
     //---------------

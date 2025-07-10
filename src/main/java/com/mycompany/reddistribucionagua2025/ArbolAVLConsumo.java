@@ -213,7 +213,7 @@ public class ArbolAVLConsumo {
     }
    
     private boolean eliminarAux(NodoAVL p, NodoAVL n, char hijo, Comparable nombreBuscado, int b){
-        int nombre = n.getElem().consumoAnual(b);
+        Comparable nombre = n.getElem().consumoAnual(b);
         boolean exito;
         if(nombreBuscado.compareTo(nombre)==0){
             exito=true;
@@ -290,7 +290,7 @@ public class ArbolAVLConsumo {
     
     public boolean eliminar(Ciudad ciu, int b){
         boolean exito;
-        int nombre=ciu.consumoAnual(b);
+        Comparable nombre=ciu.consumoAnual(b);
         
         if(!this.esVacio()){
             Comparable objRaiz= (Comparable)this.raiz.getElem().consumoAnual(b);
