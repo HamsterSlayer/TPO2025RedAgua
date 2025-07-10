@@ -336,6 +336,30 @@ public class ArbolAVL {
         return exito;
     }
     
+    private Ciudad recuperarAux(Comparable nombre,NodoAVL n){
+        Ciudad devuelvo;
+        if(nombre.compareTo(n.getElem().getNombre())==0){
+            devuelvo=n.getElem();
+        }else if(nombre.compareTo(n.getElem().getNombre())>0){
+            if(n.getDerecho()!=null){
+                devuelvo=recuperarAux(nombre,n.getDerecho());
+            }else{devuelvo=null;}
+        }else{
+            if(n.getIzquierdo()!=null){
+                devuelvo=recuperarAux(nombre,n.getIzquierdo());
+            }else{devuelvo=null;}
+        }
+        return devuelvo;
+    }
+    
+    public Ciudad recuperar(String nombre){
+        Ciudad devuelvo;
+        if(!this.esVacio()){
+            devuelvo=recuperarAux(nombre,this.raiz);
+        }else{devuelvo=null;}
+        return devuelvo;
+    }
+    
     public Ciudad minimoElem(){
         Ciudad devolver;
         if(this.esVacio()){
