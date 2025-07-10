@@ -8,11 +8,12 @@ public class TesteosDigrafo {
         Ciudad nueva = new Ciudad("Neuquen", 5,79,100);
         Ciudad nueva2 = new Ciudad("Pampa", 5,79,100);
         Ciudad nueva3 = new Ciudad("Nueva York", 5,79,100);
+        Ciudad nueva4 = new Ciudad("Lorenzo", 5,79,100);
         
         //Test Nomenclaturas
         System.out.println(nueva.getNomenclatura() + " " + nueva2.getNomenclatura() + " " + nueva3.getNomenclatura());
         //Test vertices
-        //Casos especiales: Si se elimina el vertice se deben eliminar sus arcos también? HACER.
+        //Casos especiales: Si se elimina el vertice se deben eliminar sus arcos también? HECHO.
         MapaDigrafo mapa = new MapaDigrafo();
         mapa.insertarVertice(nueva);
         mapa.insertarVertice(nueva2);
@@ -20,14 +21,17 @@ public class TesteosDigrafo {
         //mapa.eliminarVertice(nueva);
         //System.out.println(mapa.existeVertice(nueva));
         //System.out.println(mapa.existeVertice(nueva2));
-        //mapa.debugPrint();
+        System.out.println(mapa.debugPrintVertices());
         //Test Arcos
         //CASOS Especiales: Ciudad origen no existe, ciudad destino no existe. Ninguna existe.
-        mapa.insertarArco(nueva, nueva2, 2);
+       /* mapa.insertarArco(nueva4, nueva2, 2);
+        mapa.insertarArco(nueva, nueva3, 2);
         mapa.insertarArco(nueva2, nueva3, 0);
+        mapa.insertarArco(nueva3, nueva2, 0);
         mapa.insertarArco(nueva3, nueva, 0);
-        mapa.eliminarArco(nueva, nueva2);
+        //mapa.eliminarArco(nueva, nueva2);
         System.out.println(mapa.existeArco(nueva2, nueva3));
-        mapa.debugPrintArcos();
+        mapa.eliminarVertice(nueva2);
+        mapa.debugPrintArcos();*/
     }
 }

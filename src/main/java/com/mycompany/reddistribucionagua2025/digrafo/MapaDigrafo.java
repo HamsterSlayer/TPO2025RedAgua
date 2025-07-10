@@ -1,16 +1,19 @@
 package com.mycompany.reddistribucionagua2025.digrafo;
-//Digrafo simple etiquetado
 
 import com.mycompany.reddistribucionagua2025.Ciudad;
 
-
+/**
+ * Digrafo simple etiquetado de ciudades. Las etiquetas son el caudalMaximo de la ciudadOrigen.
+ * @see Ciudades.
+ * Solo puede existir un arco entre dos ciudades (un arco puede tener dos nodos iguales pero la dirección debe ser diferente).
+ * @author FAI-4489
+ */
 public class MapaDigrafo {
 
     //Atributos --------------------------------------------------------
     private NodoVert inicio;
     
-    //Metodos --------------------------------------------------------
-    
+    //Constructor --------------------------------------------------------
     public MapaDigrafo() {
         
     }
@@ -21,16 +24,20 @@ public class MapaDigrafo {
         
         if (this.esVacio()) {
             //Si está vacío simplemente creo un nuevo nodo en inicio
-            inicio = new NodoVert(ciudadNueva);
+            this.inicio = new NodoVert(ciudadNueva);
+        }
+        else if (this.inicio.getElem().equals(ciudadNueva)) {
+            //Si el primer elemento es igual al insertado
+            resultado = false;
         }
         else {
             //Si no está vacío debo verificar que la ciudad no exista y a la vez debo de insertarlo a lo ultimo
-            NodoVert cursor = inicio;
+            NodoVert cursor = this.inicio;
             boolean repetido = false;
             
             //En un solo recorrido voy al último Nodo y a la vez verifico que no esté repetido
             while (!repetido && cursor.getSigVertice() != null) {
-                if (inicio.getSigVertice().getElem().equals(ciudadNueva)) {
+                if (cursor.getSigVertice().getElem().equals(ciudadNueva)) {
                     resultado = false;
                     repetido = true;
                 }
@@ -51,33 +58,41 @@ public class MapaDigrafo {
     
     public boolean eliminarVertice(Ciudad ciudadVieja) {
         boolean resultado = true;
+        boolean nodoEliminado = false;
+        //COMPROBACIÓN VACÍO
         if (this.esVacio()) {
             //Si está vacío no se puede eliminar nada
             resultado = false;
         }
+        //ELIMINACIÓN
         else {
-            //Itero sobre el digrafo hasta encontrar el nodo anterior a la ciudad buscada.
+            //Se debe de tratar el primer caso de forma especial.
             if (inicio.getElem().equals(ciudadVieja)) {
                 //Caso especial: el primer vertice es el que se debe eliminar.
                 inicio = inicio.getSigVertice();
+                nodoEliminado = true;
             }
             else {
-                NodoVert cursor = inicio;
-                boolean encontrado = false;
-                while (cursor.getSigVertice() != null && !encontrado) {
-                    if (cursor.getSigVertice().getElem().equals(ciudadVieja)) {
-                        encontrado = true; //Se encontró la ciudad
-                    } else {
-                        cursor = inicio.getSigVertice();
-                    }
-                }
-                if (encontrado) {
+                //Sino simplemente se verifica que no tenga arcos con la ciudad.
+                eliminarArcoAux(inicio, ciudadVieja); //Uso un metodo auxiliar usado en la eliminacion de arcos
+            }
+            //---
+            
+            //Siempre se tendrá que recorrer todo el grafo para eliminar los arcos
+            NodoVert cursor = inicio;
+            while (cursor.getSigVertice() != null) {
+                if (!nodoEliminado && cursor.getSigVertice().getElem().equals(ciudadVieja)) {
+                    nodoEliminado = true; //Se encontró la ciudad
                     //Caso generico: el vertice está entre otros dos
                     NodoVert buscado = cursor.getSigVertice();
-                    inicio.setSigVertice(buscado.getSigVertice());
+                    cursor.setSigVertice(buscado.getSigVertice());
+                } else {
+                    //Si no es el nodo entonces elimino cualquier arco hacia la ciudad.
+                    eliminarArcoAux(cursor.getSigVertice(), ciudadVieja); //Uso un metodo auxiliar usado en la eliminacion de arcos
+                    cursor = cursor.getSigVertice();
                 }
-                resultado = encontrado;
             }
+            resultado = nodoEliminado;
         }
         return resultado;
     }
@@ -221,6 +236,7 @@ public class MapaDigrafo {
             if (cursorAdy.getVertice().getElem().equals(ciudadBuscada)) {
                 resultado = true;
             }
+            cursorAdy = cursorAdy.getSigAdyacente();
         }
         return resultado;
     }
@@ -231,13 +247,14 @@ public class MapaDigrafo {
         return this.inicio == null;
     }
     
-    
-    public void debugPrintVertices() {
+    public String debugPrintVertices() {
         NodoVert temp = inicio;
+        String resultado = "";
         while (temp != null) {
-            System.out.println(temp.getElem().getNombre());
+            resultado += temp.getElem().getNombre() + "\n";
             temp = temp.getSigVertice();
         }
+        return resultado;
     }
     
     public void debugPrintArcos() {
