@@ -382,6 +382,62 @@ public class ArbolAVL {
         return arbolito;
     }
     
+    
+    private void listarRangoAux(NodoAVL n ,Comparable minNomb ,Comparable maxNomb ,int minVol ,int maxVol ,int m ,int a ,Lista l ){
+        
+        if(n.getDerecho()!=null && maxNomb.compareTo(n.getElem().getNombre())<0){
+            listarRangoAux(n.getDerecho(),minNomb,maxNomb,minVol,maxVol,m,a,l);
+        }
+        if(minNomb.compareTo(n.getElem().getNombre())<0 && maxNomb.compareTo(n.getElem().getNombre())>0){
+            float consumo=n.getElem().consumoMensual(m,a);
+            if(consumo>minVol && consumo<maxVol){
+                l.insertar(n.getElem().getNombre(),1);//Esta en inOrder invertido para que la lista liste en orden sin necesidad de usar longitud().
+            }
+        }
+        if(n.getIzquierdo()!=null && minNomb.compareTo(n.getElem().getNombre())>0){
+            listarRangoAux(n.getIzquierdo(),minNomb,maxNomb,minVol,maxVol,m,a,l);
+        }
+        
+    }
+    
+    public Lista listarPorRango(Comparable minNomb, Comparable maxNomb, int minVol,int maxVol,int mes,int anio){
+        Lista listado;
+        if(!this.esVacio()){
+            listado=new Lista();
+            listarRangoAux(this.raiz,minNomb,maxNomb,minVol,maxVol,mes,anio,listado);
+        }else{
+            listado=null;
+        }
+        
+        return listado;
+    }
+    
+    private void listarAux(NodoAVL n, Lista l){
+        
+        if(n.getDerecho()!=null){
+            listarAux(n.getDerecho(),l);
+        }
+        
+        l.insertar(n.getElem().getNombre(),1);//Esta en inOrder invertido para que la lista liste en orden sin necesidad de usar longitud().
+        
+        if(n.getIzquierdo()!=null){
+            listarAux(n.getIzquierdo(),l);
+        }
+        
+    }
+    
+    public Lista listar(){
+        Lista listado;
+        if(!this.esVacio()){
+            listado=new Lista();
+            listarAux(this.raiz,listado);
+        }else{
+            listado=null;
+        }
+        
+        return listado;
+    }
+    
     public Ciudad minimoElem(){
         Ciudad devolver;
         if(this.esVacio()){
@@ -434,4 +490,32 @@ public class ArbolAVL {
         
         return texto;
     }
+    
+    private String auxString(String texto, NodoAVL n){
+        texto+=n.getElem().getNombre()+": (I) ";
+        if(n.getIzquierdo()!=null){
+            texto+=n.getIzquierdo().getElem().getNombre();
+        }
+            texto+="-(D) ";
+        if(n.getDerecho()!=null){
+            texto+=n.getDerecho().getElem().getNombre();
+        }
+            texto+="\n";
+        if(n.getIzquierdo()!=null){
+            texto=auxString(texto,n.getIzquierdo());} 
+            
+        if(n.getDerecho()!=null){
+            texto=auxString(texto,n.getDerecho());
+            }
+    return texto;
+    }
+    
+    public String toString(){
+        String texto="Raiz: "+this.raiz.getElem().getNombre()+"\n";
+              
+        texto+=auxString("",this.raiz);
+        
+        return texto;
+    }
+    
 }
