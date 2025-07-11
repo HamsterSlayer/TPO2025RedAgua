@@ -1,5 +1,6 @@
 package com.mycompany.reddistribucionagua2025;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -104,6 +105,7 @@ public class TransporteDeAgua {
     }
 
     public static void cambiosTuberias() {
+        HashMap<DominioHash, Tuberias> mapeoTuberias = new HashMap<>();
         int opcion;
         Scanner in = new Scanner(System.in);
         System.out.println("Qué desea hacer?");
@@ -213,10 +215,69 @@ public class TransporteDeAgua {
                 // obtenerMinimoCaudal(String ciudad1, String ciudad2, grafo ¿);
                 break;
             case 2:
-                // minimaCantCiudades(String ciudad1, String ciudad2, grafo ¿);
+                // caminoMinCiudades(ciudad1, ciudad2/* GRAFO */);
                 break;
             default:
         }
     }
 
+    public static void caminoMinCiudades(String ciudad1, String ciudad2, HashMap mapeoTuberias /* GRAFO */) {
+        String estado;
+        Lista menorCamino = new Lista();// new lista se va a comentar una vez que se haga el codigo de verdad
+        // menorCamino = grafo.caminoMasCorto(ciudad1,ciudad2);
+        if (menorCamino.esVacia()) {
+            System.out.println("No existe camino entre las dos ciudades indicadas");
+        }
+
+        else {
+            System.out.println("El camino es: ");
+            System.out.print(caminoToString(menorCamino));
+            System.out.println("Estado del camino: " + getEstadoCamino(menorCamino, mapeoTuberias));
+        }
+    }
+
+    public static String caminoToString(Lista camino) {
+        String caminoString = "";
+        int i = 1;
+        while (i <= camino.longitud()) {
+            caminoString += ((Ciudad) camino.recuperar(i)).getNombre();
+            if (i != camino.longitud) {
+                caminoString += "-";
+            }
+        }
+        return caminoString;
+    }
+
+    public static String getEstadoCamino(Lista camino, HashMap mapeoTuberias) {
+        String estado = "activo";
+        String nom1;
+        String nom2;
+        String estadoAux;
+        Tuberias aux;
+        DominioHash dominioAux;
+        int i = 1;
+        int tam = camino.longitud;
+        while (i + 1 <= tam && !estado.equals("disenio")) {
+            nom1 = ((Ciudad) (camino.recuperar(i))).getNomenclatura();
+            nom2 = ((Ciudad) (camino.recuperar(i + 1))).getNomenclatura();
+            dominioAux = new DominioHash(nom1, nom2);
+            aux = (Tuberias) mapeoTuberias.get(dominioAux);
+            estadoAux = aux.getEstado();
+            if (estado.equals("activo")) {
+                if (!estadoAux.equals("activo")) {
+                    estado = estadoAux;
+                }
+            } else if (estado.equals("en reparacion")) {
+                if (!estadoAux.equals("activo") && !estado.equals("en reparacion")) {
+                    estado = estadoAux;
+                }
+            } else {
+                if (estadoAux.equals("disenio")) {
+                    estado = estadoAux;
+                }
+            }
+            i++;
+        }
+        return estado;
+    }
 }
