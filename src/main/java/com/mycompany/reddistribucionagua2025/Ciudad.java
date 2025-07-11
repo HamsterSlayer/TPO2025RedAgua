@@ -1,10 +1,5 @@
 package com.mycompany.reddistribucionagua2025;
 
-/**
- * Representa una ciudad en el sistema de tuberías. La nomenclatura es su clave primaria.
- * Tiene datos importantes como: cantHabitantes,consumo promedio, etc.
- * @author hamst
- */
 public class Ciudad {
     
     //Atributos ---------------------------------------------------------------
@@ -32,6 +27,14 @@ public class Ciudad {
     
     public String getNomenclatura() {
         return this.nomenclatura;
+    }
+    
+    public int consumoMensual(int m,int a){
+        return 0;
+    }
+    
+    public int consumoAnual(int a){
+        return 0;
     }
     
     private void calcularNomenclatura() {

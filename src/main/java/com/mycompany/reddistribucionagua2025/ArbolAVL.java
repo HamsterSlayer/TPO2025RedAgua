@@ -285,9 +285,8 @@ public class ArbolAVL {
         return (this.raiz==null);
     }
     
-    public boolean eliminar(Ciudad ciu){
+    public boolean eliminar(String nombre){
         boolean exito;
-        String nombre=ciu.getNombre();
         
         if(!this.esVacio()){
             Comparable objRaiz= (Comparable)this.raiz.getElem().getNombre();
