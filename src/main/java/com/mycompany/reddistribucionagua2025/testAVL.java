@@ -19,7 +19,7 @@ public class testAVL {
         "32_168_291_336_214_305_304_311_474_260_" //Balancea mal //Solucionado
         */
         
-        if(true){
+        if(false){
         String ciudades="America, Eurasia, Europa, Africa, Cuba, Croacia, El_Salvador, Buenos_Aires, Toledo, La_Paz, San_Jose_del_Estero, El_Escorial";
         auxS=ciudades.split(", ");
         for(int i=0;i<auxS.length;i++){
@@ -30,19 +30,19 @@ public class testAVL {
         System.out.println(arbolitoCiudades.toStringInOrder());
         System.out.println(arbolitoCiudades.listar().toString());
         }else{
-        /*
+
         String entrada="158_409_250_185_57_4_244_329_218_72_"; //Dejalo vacio ("") para que genere automatico
             if(!"".equals(entrada)){
                 auxS=entrada.split("_");
                 for(int i=0;i<auxS.length;i++){
                     a=Integer.parseInt(auxS[i]);
-                    arbolitoCiudades.insertar(a);
+                    arbolitoCiudades.insertar(a,a);
                 }
             }else{
                 for(int i=0;i<10;i++){
                     a= r.nextInt(500)+1;
                     entrada+=a+"_";
-                    arbolitoCiudades.insertar(a);
+                    arbolitoCiudades.insertar(a,a);
                 }
             }
         
@@ -57,7 +57,6 @@ public class testAVL {
                 }
             }
             System.out.println(arbolitoCiudades.toString());
-            */
         }
     }
 }

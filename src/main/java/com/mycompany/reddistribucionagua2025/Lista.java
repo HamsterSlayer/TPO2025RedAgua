@@ -100,6 +100,10 @@ public class Lista {
         this.longitud=0;
     }
     
+    public void ordenarPorConsumo(){
+        
+    }
+    
     public Lista clone(){
         Lista otraLista= new Lista();
         Nodo auxN = this.cabecera;
