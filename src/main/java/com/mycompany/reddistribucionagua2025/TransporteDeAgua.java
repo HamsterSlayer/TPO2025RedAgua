@@ -15,31 +15,42 @@ import java.util.Scanner;
 public class TransporteDeAgua {
     private static Scanner in = new Scanner(System.in);
     private static boolean exit = false;
-    //MENU ---------------------------------------
+    //PROGRAMA PRINCIPAL ---------------------------------------
     public static void main(String[] args) {
-        int opcion;
-        do {
-            mostrarMenuGeneral();
-            System.out.print("Introduzca una opcion [1-8]: ");opcion = in.nextInt();
-            if (esValida(opcion, 8)) {
-                activarOpcionGeneral(opcion);
-            }
-            else {
-                opcionInvalida();
-            }
-        } while (opcion != 8 && !exit);
+       int opcion;
+       while (!exit) {
+       opcion = crearMenu(mostrarMenuGeneral(),8);
+       activarOpcionGeneral(opcion);
+       }
     }
 
     //---------------------------------------------
     
+    //MENU Y AUXILIARES
     private static int crearMenu(String opciones, int numOpciones) {
-        System.out.println(opciones);
-        int opcion;
-        return 0;
+        limpiarPantalla();
+        int opcion = -1;
+        boolean exito = false;
+        while(!exito) {
+            System.out.println(opciones);
+            System.out.printf("Introduzca una opcion [1-%d]:",numOpciones);opcion = in.nextInt();
+            if (!esValida(opcion,numOpciones)) {
+                opcionInvalida();
+            }
+            else {
+                exito = true;
+            }
+        }
+        return opcion;
     }
-    //OPCIONES MENU -------------------------------
-    private static void mostrarMenuGeneral() {
-        System.out.println("""
+    
+    private static boolean esValida(int opcion, int max) {
+        return (1 <= opcion && opcion <= max);
+    }
+    
+    //MENU GENERAL -------------------------------
+    private static String mostrarMenuGeneral() {
+        return("""
             ================================================================================
                                       SISTEMA DE GESTION DE AGUA                             
             ================================================================================
@@ -86,35 +97,25 @@ public class TransporteDeAgua {
                 adios();
                 break;
             default:
-                opcionInvalida();
-                
+        }
+    }
+    
+    //OPCION 1: CAMBIOS CIUDADES ------------------------------
+    //Menu de Ciudad ------------------------------
+    private static void cambiosCiudades() {
+        boolean exitTemp = false;
+        int opcion;
+        while (!exitTemp) {
+            opcion = crearMenu(menuCambioCiudades(),4);
+            if (opcion == 4) {
+                exitTemp = true;
+            }
+            activarCambioCiudad(opcion); // TODO
         }
     }
 
-    private static boolean esValida(int opcion, int max) {
-        return (1 <= opcion && opcion <= max);
-    }
-
-    //OPCION 1: CAMBIOS CIUDADES ------------------------------
-    
-    //Menu de Ciudad ------------------------------
-    private static void cambiosCiudades() {
-        boolean exit = false;
-        int opcion;
-        do {
-            menuCambioCiudades();
-            System.out.print("Introduzca una opcion [1-4]: ");
-            opcion = in.nextInt();opcion = in.nextInt();
-            if (esValida(opcion, 4)) {
-                activarCambioCiudad(opcion); // TODO   
-            }
-
-        } while (opcion != 4 && !exit);
-    }
-
-    private static void menuCambioCiudades() {
-        limpiarPantalla();
-        System.out.println("""
+    private static String menuCambioCiudades() {
+        return ("""
             ================================================================================
                                             GESTION CIUDAD                             
             ================================================================================
@@ -328,6 +329,7 @@ public class TransporteDeAgua {
     //OPCION 8: SALIR --------------------------------------------------------
     private static void adios() {
                 limpiarPantalla();
+                exit = true;
         System.out.println("""
                            ================================================================================
                                                             ADIOS...
@@ -340,9 +342,8 @@ public class TransporteDeAgua {
     }
     
     private static void limpiarPantalla() {
-        for (int i = 0; i < 25; i++) {
-            System.out.println("");
-        }
+        //Habian varias formas de hacerlo, pero esta es la más eficiente:
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
     
     private static void opcionInvalida() {
@@ -350,6 +351,7 @@ public class TransporteDeAgua {
         System.out.println("""
                            ================================================================================
                                                         OPCION INVALIDA
+                                                            [ENTER]
                            ================================================================================
                            """);
         in.nextLine();
