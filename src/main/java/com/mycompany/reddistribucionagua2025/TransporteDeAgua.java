@@ -13,36 +13,51 @@ import java.util.Scanner;
  * @author hamst
  */
 public class TransporteDeAgua {
-
+    private static Scanner in = new Scanner(System.in);
+    private static boolean exit = false;
     //MENU ---------------------------------------
     public static void main(String[] args) {
         int opcion;
-        Scanner in = new Scanner(System.in);
         do {
             mostrarMenuGeneral();
-            opcion = in.nextInt();
+            System.out.print("Introduzca una opcion [1-8]: ");opcion = in.nextInt();
             if (esValida(opcion, 8)) {
                 activarOpcionGeneral(opcion);
             }
-        } while (opcion != 8);
+            else {
+                opcionInvalida();
+            }
+        } while (opcion != 8 && !exit);
     }
 
     //---------------------------------------------
     
+    private static int crearMenu(String opciones, int numOpciones) {
+        System.out.println(opciones);
+        int opcion;
+        return 0;
+    }
     //OPCIONES MENU -------------------------------
     private static void mostrarMenuGeneral() {
-        separador();
-        System.out.println("Elija la operacion que desea ejecutar.");
-        separador();
-        System.out.println("[1] Altas, bajas y modificaciones de ciudades");
-        System.out.println("[2] Altas, bajas y modificaciones de tuberías");
-        System.out.println("[3] Alta de información de la cantidad de habitantes para año dado y ciudad dada");
-        System.out.println("[4] Consultas sobre ciudades");
-        System.out.println("[5] Consultas sobre transporte de agua");
-        System.out.println("[6] Listado de ciudades por orden de consumo de água en un año específico");
-        System.out.println("[7] Mostrar sistema");
-        System.out.println("[8] Cerrar programa");
-        separador();
+        System.out.println("""
+            ================================================================================
+                                      SISTEMA DE GESTION DE AGUA                             
+            ================================================================================
+            GESTION:
+            [1] Ciudades ... Altas, Bajas, Modificaciones.
+            [2] Tuberias ... Altas, Bajas, Modificaciones.
+            [3] Poblacion ... Registrar habitantes por ciudad/anio.
+                               
+            CONSULTAS:
+            [4] Ciudades ... Consulta sobre una ciudad.
+            [5] Transporte De Agua ... Consultas sobre dos ciudades A y B.
+            [6] Listado Consumo ... Lista las ciudades por su consumo en año especifico
+                               
+            SISTEMA:
+            [7] Mostrar Sistema ... Debugging.
+            [8] Cerrar Programa ... Cierra el programa
+            ================================================================================
+    """);
     }
 
     private static void activarOpcionGeneral(int opcion) {
@@ -66,8 +81,13 @@ public class TransporteDeAgua {
                 break;
             case 7:
                 // mostrarSistema()
+                break;
+            case 8:
+                adios();
+                break;
             default:
-
+                opcionInvalida();
+                
         }
     }
 
@@ -76,27 +96,35 @@ public class TransporteDeAgua {
     }
 
     //OPCION 1: CAMBIOS CIUDADES ------------------------------
+    
+    //Menu de Ciudad ------------------------------
     private static void cambiosCiudades() {
+        boolean exit = false;
         int opcion;
-        Scanner in = new Scanner(System.in);
-        System.out.println("Qué desea hacer?");
         do {
             menuCambioCiudades();
-            do {
-                opcion = in.nextInt();
-            } while (!esValida(opcion, 4));
+            System.out.print("Introduzca una opcion [1-4]: ");
+            opcion = in.nextInt();opcion = in.nextInt();
+            if (esValida(opcion, 4)) {
+                activarCambioCiudad(opcion); // TODO   
+            }
 
-            activarCambioCiudad(opcion); // TODO
-
-        } while (opcion != 4);
+        } while (opcion != 4 && !exit);
     }
 
     private static void menuCambioCiudades() {
-        System.out.println("-------Elija el cambio que desea hacer. *****");
-        System.out.println("1: Alta de una nueva ciudad");
-        System.out.println("2: Baja de una ciudad");
-        System.out.println("3: Modificacion de una ciudad");
-        System.out.println("4: Volver al menu general");
+        limpiarPantalla();
+        System.out.println("""
+            ================================================================================
+                                            GESTION CIUDAD                             
+            ================================================================================
+            GESTION:
+            [1] Dar de alta una nueva ciudad ... Crea una ciudad
+            [2] Dar de baja una ciudad existente ... Elimina una ciudad.
+            [3] Modificar una ciudad ... Se modifcan los datos de una ciudad
+            [4] Salir ... Vuelve al menu principal
+            ================================================================================
+        """);
     }
 
     private static void activarCambioCiudad(int opcion) {
@@ -110,7 +138,11 @@ public class TransporteDeAgua {
             case 3:
                 // modificarCiudad(nomenclatura,grafo¿)
                 break;
+            case 4:
+                //salir
+                break;
             default:
+                opcionInvalida();
         }
     }
 
@@ -133,7 +165,7 @@ public class TransporteDeAgua {
 
     private static void menuCambioTuberia() {
         separador();
-        System.out.println("***** Elija el cambio que desea hacer. *****");
+        System.out.println("SISTEMA GESTION DE AGUA");
         System.out.println("1: Alta de una nueva tubería");
         System.out.println("2: Baja de una tubería");
         System.out.println("3: Modificacion de una tubería");
@@ -293,7 +325,34 @@ public class TransporteDeAgua {
         return estado;
     }
     
+    //OPCION 8: SALIR --------------------------------------------------------
+    private static void adios() {
+                limpiarPantalla();
+        System.out.println("""
+                           ================================================================================
+                                                            ADIOS...
+                           ================================================================================
+                           """);
+    }
+    //AUXILIARES -------------------------------------------------------------
     private static void separador() {
-        System.out.println("------------------------------------------");
+        System.out.println ("================================================================================");
+    }
+    
+    private static void limpiarPantalla() {
+        for (int i = 0; i < 25; i++) {
+            System.out.println("");
+        }
+    }
+    
+    private static void opcionInvalida() {
+        limpiarPantalla();
+        System.out.println("""
+                           ================================================================================
+                                                        OPCION INVALIDA
+                           ================================================================================
+                           """);
+        in.nextLine();
+        in.nextLine();
     }
 }

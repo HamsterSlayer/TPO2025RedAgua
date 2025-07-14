@@ -7,25 +7,35 @@ import com.mycompany.reddistribucionagua2025.Ciudad;
  * @author ivoel
  */
 public class NodoAVL {
-    private Ciudad elem;
+    private Comparable clave;
+    private Object elem;
     private int altura;
     private NodoAVL derecho;
     private NodoAVL izquierdo;
     
     //Constructores
     
-    public NodoAVL(Ciudad elemento){
+    public NodoAVL(Object elemento, Comparable cla){
+        this.clave=cla;
         this.elem=elemento;
         this.derecho=null;
         this.izquierdo=null;
         this.altura=0;
     }
     
-    public Ciudad getElem(){
+    public Comparable getClave(){
+        return clave;
+    }
+    
+    public void setClave(Comparable c){
+        this.clave=c;
+    }
+    
+    public Object getElem(){
         return elem;
     }
     
-    public void setElem(Ciudad elemento){
+    public void setElem(Object elemento){
         this.elem = elemento;
     }
     
