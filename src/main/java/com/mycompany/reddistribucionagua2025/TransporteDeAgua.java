@@ -5,38 +5,47 @@ import java.util.Scanner;
 
 /**
  *
- * @author ivoel
+ * @author Todos
+ */
+
+/**
+ * De aquí se ejecuta el programa principal. Contiene el menú.
+ * @author hamst
  */
 public class TransporteDeAgua {
 
-    // Menu
+    //MENU ---------------------------------------
     public static void main(String[] args) {
         int opcion;
         Scanner in = new Scanner(System.in);
         do {
             mostrarMenuGeneral();
-            do {
-                opcion = in.nextInt();
-            } while (!esValida(opcion, 8));
-
-            activarOpcionGeneral(opcion);
-
+            opcion = in.nextInt();
+            if (esValida(opcion, 8)) {
+                activarOpcionGeneral(opcion);
+            }
         } while (opcion != 8);
     }
 
-    public static void mostrarMenuGeneral() {
-        System.out.println("***** Elija la operacion que desea ejecutar. *****");
-        System.out.println("1: Altas, bajas y modificaciones de ciudades");
-        System.out.println("2: Altas, bajas y modificaciones de tuberías");
-        System.out.println("3: Alta de información de la cantidad de habitantes para año dado y ciudad dada");
-        System.out.println("4: Consultas sobre ciudades");
-        System.out.println("5: Consultas sobre transporte de agua");
-        System.out.println("6: Listado de ciudades por orden de consumo de água en un año específico");
-        System.out.println("7: Mostrar sistema");
-        System.out.println("8: Cerrar programa");
+    //---------------------------------------------
+    
+    //OPCIONES MENU -------------------------------
+    private static void mostrarMenuGeneral() {
+        separador();
+        System.out.println("Elija la operacion que desea ejecutar.");
+        separador();
+        System.out.println("[1] Altas, bajas y modificaciones de ciudades");
+        System.out.println("[2] Altas, bajas y modificaciones de tuberías");
+        System.out.println("[3] Alta de información de la cantidad de habitantes para año dado y ciudad dada");
+        System.out.println("[4] Consultas sobre ciudades");
+        System.out.println("[5] Consultas sobre transporte de agua");
+        System.out.println("[6] Listado de ciudades por orden de consumo de água en un año específico");
+        System.out.println("[7] Mostrar sistema");
+        System.out.println("[8] Cerrar programa");
+        separador();
     }
 
-    public static void activarOpcionGeneral(int opcion) {
+    private static void activarOpcionGeneral(int opcion) {
         switch (opcion) {
             case 1:
                 cambiosCiudades();
@@ -62,11 +71,12 @@ public class TransporteDeAgua {
         }
     }
 
-    public static boolean esValida(int opcion, int max) {
+    private static boolean esValida(int opcion, int max) {
         return (1 <= opcion && opcion <= max);
     }
 
-    public static void cambiosCiudades() {
+    //OPCION 1: CAMBIOS CIUDADES ------------------------------
+    private static void cambiosCiudades() {
         int opcion;
         Scanner in = new Scanner(System.in);
         System.out.println("Qué desea hacer?");
@@ -81,15 +91,15 @@ public class TransporteDeAgua {
         } while (opcion != 4);
     }
 
-    public static void menuCambioCiudades() {
-        System.out.println("***** Elija el cambio que desea hacer. *****");
+    private static void menuCambioCiudades() {
+        System.out.println("-------Elija el cambio que desea hacer. *****");
         System.out.println("1: Alta de una nueva ciudad");
         System.out.println("2: Baja de una ciudad");
         System.out.println("3: Modificacion de una ciudad");
         System.out.println("4: Volver al menu general");
     }
 
-    public static void activarCambioCiudad(int opcion) {
+    private static void activarCambioCiudad(int opcion) {
         switch (opcion) {
             case 1:
                 // darAltaCiudad(grafo¿)
@@ -104,7 +114,8 @@ public class TransporteDeAgua {
         }
     }
 
-    public static void cambiosTuberias() {
+    //OPCION 2: CAMBIOS TUBERIAS ------------------------------
+    private static void cambiosTuberias() {
         HashMap<DominioHash, Tuberias> mapeoTuberias = new HashMap<>();
         int opcion;
         Scanner in = new Scanner(System.in);
@@ -120,7 +131,8 @@ public class TransporteDeAgua {
         } while (opcion != 4);
     }
 
-    public static void menuCambioTuberia() {
+    private static void menuCambioTuberia() {
+        separador();
         System.out.println("***** Elija el cambio que desea hacer. *****");
         System.out.println("1: Alta de una nueva tubería");
         System.out.println("2: Baja de una tubería");
@@ -128,7 +140,7 @@ public class TransporteDeAgua {
         System.out.println("4: Volver al menu general");
     }
 
-    public static void activarCambioTuberia(int opcion) {
+    private static void activarCambioTuberia(int opcion) {
         switch (opcion) {
             case 1:
                 // darAltaTuberia(grafo¿)
@@ -143,11 +155,11 @@ public class TransporteDeAgua {
         }
     }
 
-    public static void altaHabitantes() {
+    private static void altaHabitantes() {
         // pregunta el año y la ciudad y ingresa el valor en donde corresponda
     }
 
-    public static void consultarCiudades() {
+    private static void consultarCiudades() {
         int opcion;
         Scanner in = new Scanner(System.in);
         System.out.println("Qué desea hacer?");
@@ -162,14 +174,14 @@ public class TransporteDeAgua {
         } while (opcion != 3);
     }
 
-    public static void menuConsultaCiudades() {
+    private static void menuConsultaCiudades() {
         System.out.println("***** Elija la consulta que desea hacer. *****");
         System.out.println("1: Informacion populacional y de água en determinado año y mes");
         System.out.println("2: Informacion de ciudades dentro de un rango alfabético y de consumo de água");
         System.out.println("3: Volver al menu general");
     }
 
-    public static void activarConsultaCiudad(int opcion) {
+    private static void activarConsultaCiudad(int opcion) {
         switch (opcion) {
             case 1:
                 // mostrarInformacionEnFecha(int anio, int mes, String nomenclatura);
@@ -182,7 +194,7 @@ public class TransporteDeAgua {
         }
     }
 
-    public static void consultarTuberias() {
+    private static void consultarTuberias() {
         int opcion;
         Scanner in = new Scanner(System.in);
         // TODO loop que pide que ingrese dos ciudades y verifica que existan
@@ -200,14 +212,14 @@ public class TransporteDeAgua {
         } while (opcion != 3);
     }
 
-    public static void menuConsultaTuberias() {
+    private static void menuConsultaTuberias() {
         System.out.println("***** Elija la consulta que desea hacer. *****");
         System.out.println("1: Obtener el camino con mínimo caudal pleno");
         System.out.println("2: Obtener el camino que pasa por la mínima cantidad de ciudades");
         System.out.println("3: Volver al menu general");
     }
 
-    public static void activarConsultaTuberia(int opcion) {
+    private static void activarConsultaTuberia(int opcion) {
         switch (opcion) {
 
             // !Nombres terribles y provisórios
@@ -221,7 +233,7 @@ public class TransporteDeAgua {
         }
     }
 
-    public static void caminoMinCiudades(String ciudad1, String ciudad2, HashMap mapeoTuberias /* GRAFO */) {
+    private static void caminoMinCiudades(String ciudad1, String ciudad2, HashMap mapeoTuberias /* GRAFO */) {
         String estado;
         Lista menorCamino = new Lista();// new lista se va a comentar una vez que se haga el codigo de verdad
         // menorCamino = grafo.caminoMasCorto(ciudad1,ciudad2);
@@ -236,7 +248,7 @@ public class TransporteDeAgua {
         }
     }
 
-    public static String caminoToString(Lista camino) {
+    private static String caminoToString(Lista camino) {
         String caminoString = "";
         int i = 1;
         while (i <= camino.longitud()) {
@@ -248,7 +260,7 @@ public class TransporteDeAgua {
         return caminoString;
     }
 
-    public static String getEstadoCamino(Lista camino, HashMap mapeoTuberias) {
+    private static String getEstadoCamino(Lista camino, HashMap mapeoTuberias) {
         String estado = "activo";
         String nom1;
         String nom2;
@@ -279,5 +291,9 @@ public class TransporteDeAgua {
             i++;
         }
         return estado;
+    }
+    
+    private static void separador() {
+        System.out.println("------------------------------------------");
     }
 }

@@ -5,23 +5,23 @@ import com.mycompany.reddistribucionagua2025.Ciudad;
 
 public class TesteosDigrafo {
     public static void main(String[] args) {
-        Ciudad nueva = new Ciudad("Neuquen", 5,79,100);
+        /*Ciudad nueva = new Ciudad("Neuquen", 5,79,100);
         Ciudad nueva2 = new Ciudad("Pampa", 5,79,100);
         Ciudad nueva3 = new Ciudad("Nueva York", 5,79,100);
-        Ciudad nueva4 = new Ciudad("Lorenzo", 5,79,100);
+        Ciudad nueva4 = new Ciudad("Lorenzo", 5,79,100);*/
         
         //Test Nomenclaturas
-        System.out.println(nueva.getNomenclatura() + " " + nueva2.getNomenclatura() + " " + nueva3.getNomenclatura());
+        /*System.out.println(nueva.getNomenclatura() + " " + nueva2.getNomenclatura() + " " + nueva3.getNomenclatura());
         //Test vertices
         //Casos especiales: Si se elimina el vertice se deben eliminar sus arcos también? HECHO.
         MapaDigrafo mapa = new MapaDigrafo();
         mapa.insertarVertice(nueva);
         mapa.insertarVertice(nueva2);
-        mapa.insertarVertice(nueva3);
+        mapa.insertarVertice(nueva3);*/
         //mapa.eliminarVertice(nueva);
         //System.out.println(mapa.existeVertice(nueva));
         //System.out.println(mapa.existeVertice(nueva2));
-        System.out.println(mapa.debugPrintVertices());
+        //System.out.println(mapa.debugPrintVertices());
         //Test Arcos
         //CASOS Especiales: Ciudad origen no existe, ciudad destino no existe. Ninguna existe.
        /* mapa.insertarArco(nueva4, nueva2, 2);

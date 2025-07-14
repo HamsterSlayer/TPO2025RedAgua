@@ -12,9 +12,11 @@ public class digrafoTest {
     private MapaDigrafo crearDigrafo() {
         //Creamos un digrafo de ejemplo.
         MapaDigrafo mapa = new MapaDigrafo();
-        Ciudad nueva = new Ciudad("Neuquen", 5,79,100);
-        Ciudad nueva2 = new Ciudad("Pampa", 4,71,10);
-        Ciudad nueva3 = new Ciudad("Nueva York", 2,34,150);
+        int[][] hola = {{2,1}};
+        float[][] prueba = {{3,21}};
+        Ciudad nueva = new Ciudad("Neuquen", 5, hola, 79,prueba);
+        Ciudad nueva2 = new Ciudad("Pampa", 4,hola,71,prueba);
+        Ciudad nueva3 = new Ciudad("Nueva York",5, hola,34,prueba);
         mapa.insertarVertice(nueva);
         mapa.insertarVertice(nueva2);
         mapa.insertarVertice(nueva3);
@@ -25,7 +27,9 @@ public class digrafoTest {
     public void pruebaInsercion() {
         //Se comprueba el existe vertice funcione bien
         MapaDigrafo mapa = crearDigrafo();
-        Ciudad nueva4 = new Ciudad("Lorenzo", 5,79,100);
+        int[][] hola = {{2,1}};
+        float[][] prueba = {{3,21}};
+        Ciudad nueva4 = new Ciudad("Lorenzo",5, hola,79,prueba);
         assertEquals(mapa.existeVertice(nueva4), false);
         
         //Se comprueba el insertar vertice funcione
@@ -43,7 +47,9 @@ public class digrafoTest {
     @Test
     public void pruebaEliminarNodos() {
         MapaDigrafo mapa = crearDigrafo();
-        Ciudad nueva4 = new Ciudad("Lorenzo", 5,79,100);
+        int[][] hola = {{2,1}};
+        float[][] prueba = {{3,21}};
+        Ciudad nueva4 = new Ciudad("Lorenzo",5, hola,79,prueba);
         
         //Lo inserto y lo elimino
         mapa.insertarVertice(nueva4);
