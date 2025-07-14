@@ -24,7 +24,7 @@ public class testAVL {
         auxS=ciudades.split(", ");
         for(int i=0;i<auxS.length;i++){
                     auxC = new Ciudad(auxS[i],r.nextInt(1000),r.nextInt(1000),r.nextInt(1000));
-                    arbolitoCiudades.insertar(auxC);
+                    arbolitoCiudades.insertar(auxC,auxS[i]);
                 }
         System.out.println(arbolitoCiudades.toString());
         System.out.println(arbolitoCiudades.toStringInOrder());
