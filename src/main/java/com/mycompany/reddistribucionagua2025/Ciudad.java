@@ -27,6 +27,13 @@ public class Ciudad {
         calcularNomenclatura();
     }
     
+    public Ciudad(String nombre, int añoInicial, float superficie) {
+        this.nombre = nombre;
+        this.añoInicial = añoInicial;
+        this.superficie = superficie;
+        calcularNomenclatura();
+    }
+    
     //Metodos ---------------------------------------------------------------
     
     //Nombre ---------------

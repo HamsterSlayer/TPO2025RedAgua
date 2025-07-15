@@ -1,5 +1,6 @@
 package com.mycompany.reddistribucionagua2025;
 
+import com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -9,44 +10,33 @@ import java.util.Scanner;
  */
 
 /**
- * De aquí se ejecuta el programa principal. Contiene el menú.
+ * De aquí se ejecuta el programa principal. Contiene el menú y las variables a usar
  * @author hamst
  */
 public class TransporteDeAgua {
+    //Variables del Programa ----------------------------------
+    //Estas variables se usarán para modificar y operar el programa
+    //private int añoInicial = fetchAñoInicial(); //El año inicial debe ser conseguido mediante la precarga
+    private static ArbolAVL tablaBusqueda = new ArbolAVL();
+    private static MapaDigrafo mapaCiudad = new MapaDigrafo();
+    private static HashMap<DominioHash, Tuberias> mapeoTuberias = new HashMap<>();
+    //Variables del Menu --------------------------------------
+    //Estas variables pueden ser ignoradas. Se usan para operar con el menu
     private static Scanner in = new Scanner(System.in);
     private static boolean exit = false;
+    //----------------------------------------------------------
+    
     //PROGRAMA PRINCIPAL ---------------------------------------
     public static void main(String[] args) {
        int opcion;
        while (!exit) {
+       //El loop consiste del menú hasta que se desea salir.
        opcion = crearMenu(mostrarMenuGeneral(),8);
        activarOpcionGeneral(opcion);
        }
     }
 
     //---------------------------------------------
-    
-    //MENU Y AUXILIARES
-    private static int crearMenu(String opciones, int numOpciones) {
-        limpiarPantalla();
-        int opcion = -1;
-        boolean exito = false;
-        while(!exito) {
-            System.out.println(opciones);
-            System.out.printf("Introduzca una opcion [1-%d]:",numOpciones);opcion = in.nextInt();
-            if (!esValida(opcion,numOpciones)) {
-                opcionInvalida();
-            }
-            else {
-                exito = true;
-            }
-        }
-        return opcion;
-    }
-    
-    private static boolean esValida(int opcion, int max) {
-        return (1 <= opcion && opcion <= max);
-    }
     
     //MENU GENERAL -------------------------------
     private static String mostrarMenuGeneral() {
@@ -99,6 +89,8 @@ public class TransporteDeAgua {
             default:
         }
     }
+    //---------------------------------------------
+    
     
     //OPCION 1: CAMBIOS CIUDADES ------------------------------
     //Menu de Ciudad ------------------------------
@@ -110,7 +102,7 @@ public class TransporteDeAgua {
             if (opcion == 4) {
                 exitTemp = true;
             }
-            activarCambioCiudad(opcion); // TODO
+            activarCambioCiudad(opcion);
         }
     }
 
@@ -131,7 +123,7 @@ public class TransporteDeAgua {
     private static void activarCambioCiudad(int opcion) {
         switch (opcion) {
             case 1:
-                // darAltaCiudad(grafo¿)
+                darAltaCiudad();
                 break;
             case 2:
                 // darBajaCiudad(nomenclatura,grafo¿)
@@ -146,10 +138,21 @@ public class TransporteDeAgua {
                 opcionInvalida();
         }
     }
+    
+    //subOpcion1: Dar Alta Ciudad ---------------------------------------------
+    private static void darAltaCiudad() {
+        String datosSinFormato = "";
+        String[] datos = new String[2];
+        limpiarPantalla();
+        System.out.println(menuCrearCiudad);
+        System.out.print("Por favor introduzca los datos: ");
+        in.nextLine();
+    }
+    
+    
 
     //OPCION 2: CAMBIOS TUBERIAS ------------------------------
     private static void cambiosTuberias() {
-        HashMap<DominioHash, Tuberias> mapeoTuberias = new HashMap<>();
         int opcion;
         Scanner in = new Scanner(System.in);
         System.out.println("Qué desea hacer?");
@@ -336,13 +339,35 @@ public class TransporteDeAgua {
                            ================================================================================
                            """);
     }
+    
     //AUXILIARES -------------------------------------------------------------
+    private static int crearMenu(String opciones, int numOpciones) {
+        limpiarPantalla();
+        int opcion = -1;
+        boolean exito = false;
+        while(!exito) {
+            System.out.println(opciones);
+            System.out.printf("Introduzca una opcion [1-%d]:",numOpciones);opcion = in.nextInt();
+            if (!esValida(opcion,numOpciones)) {
+                opcionInvalida();
+            }
+            else {
+                exito = true;
+            }
+        }
+        return opcion;
+    }
+    
+    private static boolean esValida(int opcion, int max) {
+        return (1 <= opcion && opcion <= max);
+    }
+    
     private static void separador() {
         System.out.println ("================================================================================");
     }
     
     private static void limpiarPantalla() {
-        //Habian varias formas de hacerlo, pero esta es la más eficiente:
+        //Habian varias formas de hacerlo, pero esta es la más eficiente...?
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
     
@@ -354,7 +379,19 @@ public class TransporteDeAgua {
                                                             [ENTER]
                            ================================================================================
                            """);
+        //Dos nextLine evitan el error del buffer quedando cargado y produciendo misinputs.
         in.nextLine();
         in.nextLine();
     }
+    
+    //MENUS. Son almacenados en un string.
+    private static String menuCrearCiudad = """
+                                                ================================================================================
+                                                                                CREAR CIUDAD                             
+                                                ================================================================================
+                                                Una ciudad debe de contener dos datos minimos.
+                                                >(ciudad,superficie)
+                                                >Ejemplo de como debe de introducirse los datos: Neuquen,59353.21
+                                                ================================================================================
+                                            """;
 }
