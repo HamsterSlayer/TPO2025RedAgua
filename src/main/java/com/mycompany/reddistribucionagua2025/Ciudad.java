@@ -158,4 +158,8 @@ public class Ciudad {
     public boolean equals(Ciudad otraCiudad) {
         return (this.nomenclatura).equals(otraCiudad.nomenclatura);
     }
+    
+    public String toString(){
+        return String.format("Ciudad de Nombre:%s con superficie %f", this.nombre, this.superficie);
+    }
 }

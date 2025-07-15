@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class TransporteDeAgua {
     //Variables del Programa ----------------------------------
     //Estas variables se usarán para modificar y operar el programa
-    //private int añoInicial = fetchAñoInicial(); //El año inicial debe ser conseguido mediante la precarga
+    private static int añoInicial = 0;//fetchAñoInicial(); //El año inicial debe ser conseguido mediante la precarga
     private static ArbolAVL tablaBusqueda = new ArbolAVL();
     private static MapaDigrafo mapaCiudad = new MapaDigrafo();
     private static HashMap<DominioHash, Tuberias> mapeoTuberias = new HashMap<>();
@@ -126,7 +126,7 @@ public class TransporteDeAgua {
                 darAltaCiudad();
                 break;
             case 2:
-                // darBajaCiudad(nomenclatura,grafo¿)
+                darBajaCiudad();
                 break;
             case 3:
                 // modificarCiudad(nomenclatura,grafo¿)
@@ -142,15 +142,33 @@ public class TransporteDeAgua {
     //subOpcion1: Dar Alta Ciudad ---------------------------------------------
     private static void darAltaCiudad() {
         String datosSinFormato = "";
-        String[] datos = new String[2];
+        String[] datos;
+        //Tomo los datos
         limpiarPantalla();
         System.out.println(menuCrearCiudad);
         System.out.print("Por favor introduzca los datos: ");
-        in.nextLine();
+        in.nextLine(); //Evita errores del buffer 
+        datosSinFormato = in.nextLine();
+        datos = datosSinFormato.split(",");
+        
+        //Inserto la nueva ciudad en las estructuras
+        Ciudad nuevaCiudad = new Ciudad(datos[0],añoInicial,Float.parseFloat(datos[1]));
+        tablaBusqueda.insertar(nuevaCiudad, nuevaCiudad.getNombre());
+        mapaCiudad.insertarVertice(nuevaCiudad);
     }
+    //------------------------------------------------------------------------
     
+    //subOpcion2: darBajaCiudad ----------------------------------------------
+    private static void darBajaCiudad(){
+        System.out.println(menuEliminarCiudad);
+        System.out.print("Por favor introduzca los datos: ");
+        in.nextLine(); //Evita errores del buffer 
+        String nombreCiudad = in.nextLine();
+        
+    }
+        
+    //------------------------------------------------------------------------
     
-
     //OPCION 2: CAMBIOS TUBERIAS ------------------------------
     private static void cambiosTuberias() {
         int opcion;
@@ -394,4 +412,13 @@ public class TransporteDeAgua {
                                                 >Ejemplo de como debe de introducirse los datos: Neuquen,59353.21
                                                 ================================================================================
                                             """;
+    
+    private static String menuEliminarCiudad = """
+                                               ================================================================================
+                                                                               ELIMINAR CIUDAD                             
+                                               ================================================================================
+                                               Eliminar una ciudad eliminará todos sus datos y conexiones.
+                                               Debe de introducir el nombre de la ciudad.
+                                               ================================================================================
+                                               """;
 }
