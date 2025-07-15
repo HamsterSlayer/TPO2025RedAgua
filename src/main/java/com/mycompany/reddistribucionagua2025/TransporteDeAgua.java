@@ -129,7 +129,7 @@ public class TransporteDeAgua {
                 darBajaCiudad();
                 break;
             case 3:
-                // modificarCiudad(nomenclatura,grafo¿)
+                modificarCiudad();
                 break;
             case 4:
                 //salir
@@ -164,10 +164,16 @@ public class TransporteDeAgua {
         System.out.print("Por favor introduzca los datos: ");
         in.nextLine(); //Evita errores del buffer 
         String nombreCiudad = in.nextLine();
-        
+        //TERMINAR DE HACER ESTA PARTE ######################################################################
     }
         
     //------------------------------------------------------------------------
+    
+    //subOpcion3: modificarCiudad ---------------------------------------------
+    private static void modificarCiudad() {
+        //System.out.println(MenuModificarCiudad);
+    }
+    
     
     //OPCION 2: CAMBIOS TUBERIAS ------------------------------
     private static void cambiosTuberias() {
@@ -421,4 +427,13 @@ public class TransporteDeAgua {
                                                Debe de introducir el nombre de la ciudad.
                                                ================================================================================
                                                """;
+    
+    private static String menuModificarCiudad = """
+                                                ================================================================================
+                                                                               MODIFICAR CIUDAD                             
+                                                ================================================================================
+                                                [1] Modificar datos de habitantes
+                                                [2] Modificar datos de consumo
+                                                ================================================================================
+                                                """;
 }

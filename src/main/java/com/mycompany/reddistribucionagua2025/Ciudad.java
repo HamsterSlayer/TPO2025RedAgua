@@ -10,7 +10,7 @@ public class Ciudad {
     
     //Atributos ---------------------------------------------------------------
     private final String nombre;
-    private int añoInicial; //Se registra el año inicial, de esta forma se puede conseguir el año de cualquier posicion sumandole el añoInicial.
+    private final int añoInicial; //Se registra el año inicial, de esta forma se puede conseguir el año de cualquier posicion sumandole el añoInicial.
     private int[][] cantHabitantes; //Matriz de 10 filas (años) con 12 columnas (meses) ;
     private String nomenclatura;
     private float superficie;
