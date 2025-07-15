@@ -393,7 +393,7 @@ public class ArbolAVL {
         if(minNomb.compareTo(n.getClave())<0 && maxNomb.compareTo(n.getClave())>0){
             float consumo= ((Ciudad) n.getElem()).consumoMensual(m,a);
             if(consumo>minVol && consumo<maxVol){
-                l.insertar(n.getClave(),1);//Esta en inOrder invertido para que la lista liste en orden sin necesidad de usar longitud().
+                l.insertarEnOrden(n.getElem(),consumo);//Esta en inOrder invertido para que la lista liste en orden sin necesidad de usar longitud().
             }
         }
         if(n.getIzquierdo()!=null && minNomb.compareTo(n.getClave())>0){
@@ -420,7 +420,7 @@ public class ArbolAVL {
             listarAux(n.getDerecho(),l);
         }
         
-        l.insertar(n.getClave(),1);//Esta en inOrder invertido para que la lista liste en orden sin necesidad de usar longitud().
+        l.insertarEnOrden(n.getElem(),n.getClave());//Esta en inOrder invertido para que la lista liste en orden sin necesidad de usar longitud().
         
         if(n.getIzquierdo()!=null){
             listarAux(n.getIzquierdo(),l);
