@@ -4,6 +4,7 @@ import com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo;
 import java.util.HashMap;
 import java.util.Scanner;
 import com.mycompany.reddistribucionagua2025.readtxt.CargaArchivos;
+import com.mycompany.reddistribucionagua2025.readtxt.EscrituraArchivos;
 
 /**
  *
@@ -22,6 +23,7 @@ public class TransporteDeAgua {
     private static MapaDigrafo mapaCiudad = new MapaDigrafo();
     private static HashMap<DominioHash, Tuberias> mapeoTuberias = new HashMap<>();
     private static CargaArchivos Info = new CargaArchivos("src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\Informacion.txt");
+    private static EscrituraArchivos log = new EscrituraArchivos("src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\sesion.LOG");
     //Variables del Menu --------------------------------------
     //Estas variables pueden ser ignoradas. Se usan para operar con el menu
     private static Scanner in = new Scanner(System.in);
@@ -373,8 +375,53 @@ public class TransporteDeAgua {
                            """);
     }
     
-    //-----------------------------------------------------------------------
+    //Metodos LOGS------------------------------------------------------------
     
+    private static void logInsertoEliminoCiudad(String c, boolean caso){
+        if(caso){
+            log.agregarLinea("Se inserto la ciudad "+c);
+        }else{
+            log.agregarLinea("Se elimino la ciudad "+c);
+        }
+    }
+    
+    private static void logMostroInformacionCiudad(String c){
+        log.agregarLinea("Se mostro informacion de la ciudad "+c);
+    }
+    
+    private static void logInformacionTransporteAgua(String c1,String c2,boolean caminoMinimo){
+        if(caminoMinimo){//Si se pidio el camino minimo entre 2 ciudades
+            log.agregarLinea("Se mostro informacion del recorrido entre "+c1+" y "+c2+" donde el caudal pleno es el minimo entre las tuberias");
+        }else{
+            log.agregarLinea("Se mostro el recorrido entre "+c1+" y "+c2+" mas corto posible");
+        }
+    }
+    
+    private static void logCiudadesPorConsumo(){
+        log.agregarLinea("Se mostro todas las ciudades ordenadas por Consumo");
+    }
+    
+    private static void logDebug(){
+        log.agregarLinea("Se mostro todas las estructuras (DEBUG)");
+    }
+    
+    private static void logInsertoEliminoTuberia(String t, boolean caso){
+        if(caso){
+            log.agregarLinea("Se inserto la tuberia "+t);
+        }else{
+            log.agregarLinea("Se elimino la tuberia "+t);
+        }
+    }
+    
+    private static void logCargoAniosCiudad(String c, int a){
+        log.agregarLinea("Se cargaron los datos del año "+a+" de la ciudad "+c);
+    }
+    
+    private static void logFinalizar(ArbolAVL a,MapaDigrafo d,HashMap h){
+        log.agregarLinea(a.toString());
+        log.agregarLinea(d.toString());
+        log.agregarLinea(h.toString());
+    }
     
     
     
