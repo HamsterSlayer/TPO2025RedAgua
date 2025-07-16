@@ -23,104 +23,60 @@ public class TransporteDeAgua {
     //Variables del Menu --------------------------------------
     //Estas variables pueden ser ignoradas. Se usan para operar con el menu
     private static Scanner in = new Scanner(System.in);
-    private static boolean exit = false;
+    //----------------------------------------------------------
+    //PRECARGA ----------------------------------------------------------------
+    
     //----------------------------------------------------------
     
     //PROGRAMA PRINCIPAL ---------------------------------------
     public static void main(String[] args) {
-       int opcion;
-       while (!exit) {
-       //El loop consiste del menú hasta que se desea salir.
-       opcion = crearMenu(mostrarMenuGeneral(),8);
-       activarOpcionGeneral(opcion);
-       }
-    }
-
-    //---------------------------------------------
-    
-    //MENU GENERAL -------------------------------
-    private static String mostrarMenuGeneral() {
-        return("""
-            ================================================================================
-                                      SISTEMA DE GESTION DE AGUA                             
-            ================================================================================
-            GESTION:
-            [1] Ciudades ... Altas, Bajas, Modificaciones.
-            [2] Tuberias ... Altas, Bajas, Modificaciones.
-            [3] Poblacion ... Registrar habitantes por ciudad/anio.
-                               
-            CONSULTAS:
-            [4] Ciudades ... Consulta sobre una ciudad.
-            [5] Transporte De Agua ... Consultas sobre dos ciudades A y B.
-            [6] Listado Consumo ... Lista las ciudades por su consumo en año especifico
-                               
-            SISTEMA:
-            [7] Mostrar Sistema ... Debugging.
-            [8] Cerrar Programa ... Cierra el programa
-            ================================================================================
-    """);
-    }
-
-    private static void activarOpcionGeneral(int opcion) {
-        switch (opcion) {
-            case 1:
-                cambiosCiudades();
-                break;
-            case 2:
-                cambiosTuberias();
-            case 3:
-                altaHabitantes();
-                break;
-            case 4:
-                consultarCiudades();
-                break;
-            case 5:
-                consultarTuberias();
-                break;
-            case 6:
-                // listadoPorConsumoEnAnio()
-                break;
-            case 7:
-                // mostrarSistema()
-                break;
-            case 8:
-                adios();
-                break;
-            default:
+        int opcion;
+        boolean exit = false;
+        while (!exit) {
+            //El loop consiste del menú hasta que se desea salir.
+            opcion = crearMenu(menuGeneral, 7);
+            switch (opcion) {
+                case 1:
+                    cambiosCiudades();
+                    break;
+                case 2:
+                    cambiosTuberias();
+                case 3:
+                    altaHabitantes();
+                    break;
+                case 4:
+                    consultarCiudades();
+                    break;
+                case 5:
+                    consultarTuberias();
+                    break;
+                case 6:
+                    // listadoPorConsumoEnAnio()
+                    break;
+                case 7:
+                    debugSistema();
+                    break;
+                case 0:
+                    exit = true;
+                    adios();
+                    break;
+                default:
+                    opcionInvalida();
+            }
+            limpiarPantalla();
         }
     }
+
     //---------------------------------------------
     
     
     //OPCION 1: CAMBIOS CIUDADES ------------------------------
     //Menu de Ciudad ------------------------------
     private static void cambiosCiudades() {
-        boolean exitTemp = false;
+        boolean exit = false;
         int opcion;
-        while (!exitTemp) {
-            opcion = crearMenu(menuCambioCiudades(),4);
-            if (opcion == 4) {
-                exitTemp = true;
-            }
-            activarCambioCiudad(opcion);
-        }
-    }
-
-    private static String menuCambioCiudades() {
-        return ("""
-            ================================================================================
-                                            GESTION CIUDAD                             
-            ================================================================================
-            GESTION:
-            [1] Dar de alta una nueva ciudad ... Crea una ciudad
-            [2] Dar de baja una ciudad existente ... Elimina una ciudad.
-            [3] Modificar una ciudad ... Se modifcan los datos de una ciudad
-            [4] Salir ... Vuelve al menu principal
-            ================================================================================
-        """);
-    }
-
-    private static void activarCambioCiudad(int opcion) {
+        while (!exit) {
+            opcion = crearMenu(menuCambioCiudades,3);
         switch (opcion) {
             case 1:
                 darAltaCiudad();
@@ -131,11 +87,12 @@ public class TransporteDeAgua {
             case 3:
                 modificarCiudad();
                 break;
-            case 4:
-                //salir
+            case 0:
+                exit = true;
                 break;
             default:
                 opcionInvalida();
+        }
         }
     }
     
@@ -165,6 +122,7 @@ public class TransporteDeAgua {
         in.nextLine(); //Evita errores del buffer 
         String nombreCiudad = in.nextLine();
         //TERMINAR DE HACER ESTA PARTE ######################################################################
+        
     }
         
     //------------------------------------------------------------------------
@@ -353,16 +311,44 @@ public class TransporteDeAgua {
         return estado;
     }
     
+    //OPCION 7: DEBUGGING -----------------------------------------------------
+    
+    private static void debugSistema() {
+        int opcion;
+        boolean exitTemp = false;
+        while (!exitTemp) {
+            opcion = crearMenu(menuDebug,1);
+            switch(opcion) {
+                case 0: {
+                    exitTemp = true;
+                    break;
+                }
+                case 1: {
+                    confirmarParaContinuar(formato(mapaCiudad.debugPrintVertices()));
+                    break;
+                }
+                default:
+            }
+        }
+    }
+    
+    
+    //-------------------------------------------------------------------------
+    
     //OPCION 8: SALIR --------------------------------------------------------
     private static void adios() {
                 limpiarPantalla();
-                exit = true;
         System.out.println("""
                            ================================================================================
                                                             ADIOS...
                            ================================================================================
                            """);
     }
+    
+    //-----------------------------------------------------------------------
+    
+    
+    
     
     //AUXILIARES -------------------------------------------------------------
     private static int crearMenu(String opciones, int numOpciones) {
@@ -371,7 +357,7 @@ public class TransporteDeAgua {
         boolean exito = false;
         while(!exito) {
             System.out.println(opciones);
-            System.out.printf("Introduzca una opcion [1-%d]:",numOpciones);opcion = in.nextInt();
+            System.out.printf("Introduzca una opcion [0-%d]:",numOpciones);opcion = in.nextInt();
             if (!esValida(opcion,numOpciones)) {
                 opcionInvalida();
             }
@@ -383,12 +369,9 @@ public class TransporteDeAgua {
     }
     
     private static boolean esValida(int opcion, int max) {
-        return (1 <= opcion && opcion <= max);
+        return (0 <= opcion && opcion <= max);
     }
-    
-    private static void separador() {
-        System.out.println ("================================================================================");
-    }
+
     
     private static void limpiarPantalla() {
         //Habian varias formas de hacerlo, pero esta es la más eficiente...?
@@ -396,19 +379,61 @@ public class TransporteDeAgua {
     }
     
     private static void opcionInvalida() {
-        limpiarPantalla();
-        System.out.println("""
+        String invalido = """
                            ================================================================================
                                                         OPCION INVALIDA
                                                             [ENTER]
                            ================================================================================
-                           """);
+                           """;
+        confirmarParaContinuar(invalido);
+    }
+    
+    private static void confirmarParaContinuar(String display) {
+        limpiarPantalla();
+        System.out.println(display);
         //Dos nextLine evitan el error del buffer quedando cargado y produciendo misinputs.
         in.nextLine();
         in.nextLine();
     }
     
+    private static String formato(String texto) {
+        return (separador() + texto + separador());
+    }
     //MENUS. Son almacenados en un string.
+    
+    private static String menuGeneral =("""
+            ================================================================================
+                                      SISTEMA DE GESTION DE AGUA                             
+            ================================================================================
+            GESTION:
+            [1] Ciudades ... Altas, Bajas, Modificaciones.
+            [2] Tuberias ... Altas, Bajas, Modificaciones.
+            [3] Poblacion ... Registrar habitantes por ciudad/anio.
+                               
+            CONSULTAS:
+            [4] Ciudades ... Consulta sobre una ciudad.
+            [5] Transporte De Agua ... Consultas sobre dos ciudades A y B.
+            [6] Listado Consumo ... Lista las ciudades por su consumo en año especifico
+                               
+            SISTEMA:
+            [7] Mostrar Sistema ... Debugging.
+            [0] Cerrar Programa ... Cierra el programa
+            ================================================================================
+    """);
+    
+    
+    private static String menuCambioCiudades ="""
+            ================================================================================
+                                            GESTION CIUDAD                             
+            ================================================================================
+            GESTION:
+            [1] Dar de alta una nueva ciudad ... Crea una ciudad
+            [2] Dar de baja una ciudad existente ... Elimina una ciudad.
+            [3] Modificar una ciudad ... Se modifcan los datos de una ciudad
+            [0] Salir ... Vuelve al menu principal
+            ================================================================================
+        """;
+    
     private static String menuCrearCiudad = """
                                                 ================================================================================
                                                                                 CREAR CIUDAD                             
@@ -436,4 +461,18 @@ public class TransporteDeAgua {
                                                 [2] Modificar datos de consumo
                                                 ================================================================================
                                                 """;
+    
+    private static String menuDebug = """
+                                      ================================================================================
+                                                                        DEBUGGING                             
+                                      ================================================================================
+                                      [1] Listar todas las ciudades
+                                      [0] Salir
+                                      ================================================================================
+                                      """;
+    
+        
+    private static String separador() {
+        return "================================================================================\n";
+    }
 }
