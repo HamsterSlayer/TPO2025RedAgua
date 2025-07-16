@@ -309,7 +309,12 @@ public class MapaDigrafo {
         }
         return objetivo;
     }
-
+    
+    public Ciudad obtenerCiudad(String ciudad) {
+        NodoVert nodoCiudad = localizarVertice(this.inicio, ciudad);
+        return nodoCiudad.getElem();
+    }
+    
     private Lista caminoMasCorto(NodoVert origen, NodoVert destino) {
         Lista masCorto;
         masCorto = masCortoDesde(origen, destino);

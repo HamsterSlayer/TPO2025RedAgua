@@ -331,9 +331,11 @@ public class TransporteDeAgua {
         return devuelto;
     }
     
-    
     private static void caminoMasCorto(String ciudadA, String ciudadB) {
-        System.out.println("");
+        System.out.println("Pedido: " + ciudadA + "," + ciudadB);
+        Ciudad ciudadOrigen = mapaCiudad.obtenerCiudad(ciudadA);
+        Ciudad ciudadDestino = mapaCiudad.obtenerCiudad(ciudadB);
+        System.out.println("Conseguido: " + ciudadOrigen + "," + ciudadDestino);
     }
     //-------------------------------------------------------------------------
     
