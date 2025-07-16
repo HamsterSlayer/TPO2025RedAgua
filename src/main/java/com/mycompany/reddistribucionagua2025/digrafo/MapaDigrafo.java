@@ -1,6 +1,8 @@
 package com.mycompany.reddistribucionagua2025.digrafo;
 
 import com.mycompany.reddistribucionagua2025.Ciudad;
+import com.mycompany.reddistribucionagua2025.Cola;
+import com.mycompany.reddistribucionagua2025.Lista;
 
 /**
  * Digrafo simple etiquetado de ciudades. Las etiquetas son el caudalMaximo de
@@ -265,5 +267,91 @@ public class MapaDigrafo {
             }
             temp = temp.getSigVertice();
         }
+    }
+
+    public Lista caminoMasCorto(String nombre1, String nombre2) {
+        Lista camino = new Lista();
+        NodoVert origen;
+        NodoVert destino;
+        origen = localizarVertice(inicio, nombre1);
+        destino = localizarVertice(inicio, nombre2);
+        if (origen != null && destino != null && origen != destino) {
+            camino = caminoMasCorto(origen, destino);
+        }
+        return camino;
+    }
+
+    private NodoVert localizarVertice(NodoVert n, String nombre) {
+        Lista visitados = new Lista();
+        Cola q = new Cola();
+        boolean encontrado = false;
+        NodoVert u;
+        NodoVert objetivo = null;
+        NodoAdy aux;
+        q.poner(n);
+        while (!q.esVacia() && !encontrado) {
+            u = (NodoVert) q.obtenerFrente();
+            q.sacar();
+            if (u.getElem().getNombre() == nombre) {
+                encontrado = true;
+                objetivo = u;
+            }
+            aux = u.getPrimerAdy();
+            if (!encontrado) {
+                while (aux != null) {
+                    if (visitados.localizar(aux) == -1) {
+                        visitados.insertar(aux, visitados.longitud() + 1);
+                        q.poner(aux.getVertice());
+                    }
+                    aux = aux.getSigAdyacente();
+                }
+            }
+        }
+        return objetivo;
+    }
+
+    private Lista caminoMasCorto(NodoVert origen, NodoVert destino) {
+        Lista masCorto;
+        masCorto = masCortoDesde(origen, destino);
+        return masCorto;
+    }
+
+    private Lista masCortoDesde(NodoVert verticeInicial, NodoVert destino) {
+        Lista visitados = new Lista();
+        Lista masCorto = new Lista();
+        Cola q = new Cola();
+        boolean encontrado = false;
+        NodoVert u;
+        NodoAdy aux;
+        q.poner(verticeInicial);
+        while (!q.esVacia() && !encontrado) {
+            u = (NodoVert) q.obtenerFrente();
+            q.sacar();
+            if (u == destino) {
+                encontrado = true;
+            } else {
+                masCorto.insertar(u, masCorto.longitud() + 1);
+            }
+            aux = u.getPrimerAdy();
+            if (!encontrado) {
+
+                if (aux == null || visitados.localizar(aux) != -1) {
+                    masCorto.eliminar(masCorto.localizar(u));
+
+                } else {
+                    while (aux != null) {
+                        if (visitados.localizar(aux) == -1) {
+                            visitados.insertar(aux, visitados.longitud() + 1);
+                            q.poner(aux.getVertice());
+                        }
+                        aux = aux.getSigAdyacente();
+                    }
+                }
+            }
+        }
+        if (!encontrado) {
+            masCorto.vaciar();
+        }
+        return masCorto;
     }
 }
