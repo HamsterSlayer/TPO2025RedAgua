@@ -36,6 +36,7 @@ public class TransporteDeAgua {
         int opcion;
         boolean exit = false;
         while (!exit) {
+            limpiarPantalla();
             //El loop consiste del menú hasta que se desea salir.
             opcion = crearMenu(menuGeneral, 7);
             switch (opcion) {
@@ -51,10 +52,10 @@ public class TransporteDeAgua {
                     consultarCiudades();
                     break;
                 case 5:
-                    consultarTuberias();
+                    consultarTransporte();
                     break;
                 case 6:
-                    // listadoPorConsumoEnAnio()
+                    //listadoPorConsumoEnAnio();
                     break;
                 case 7:
                     debugSistema();
@@ -66,7 +67,6 @@ public class TransporteDeAgua {
                 default:
                     opcionInvalida();
             }
-            limpiarPantalla();
         }
     }
 
@@ -133,6 +133,7 @@ public class TransporteDeAgua {
     //subOpcion3: modificarCiudad ---------------------------------------------
     private static void modificarCiudad() {
         //System.out.println(MenuModificarCiudad);
+        //TERMINAR DE HACER ESTA PARTE ######################################################################
     }
     
     
@@ -215,24 +216,6 @@ public class TransporteDeAgua {
         }
     }
 
-    private static void consultarTuberias() {
-        int opcion;
-        Scanner in = new Scanner(System.in);
-        // TODO loop que pide que ingrese dos ciudades y verifica que existan
-        // se van a pasar por parametro despues en el activar pero aún no las coloco
-
-        System.out.println("Qué desea hacer?");
-        do {
-            menuConsultaTuberias();
-            do {
-                opcion = in.nextInt();
-            } while (!esValida(opcion, 3));
-
-            activarConsultaTuberia(opcion); // TODO
-
-        } while (opcion != 3);
-    }
-
     private static void menuConsultaTuberias() {
         System.out.println("***** Elija la consulta que desea hacer. *****");
         System.out.println("1: Obtener el camino con mínimo caudal pleno");
@@ -313,6 +296,48 @@ public class TransporteDeAgua {
         }
         return estado;
     }
+    
+    //OPCION 5: CONSULTA TRANSPORTE AGUA --------------------------------------
+    private static void consultarTransporte() {
+        boolean exit = false;
+        while (!exit) {
+            String[] ciudades;
+            int opcion =crearMenu(menuTransporteAgua,2);
+            switch (opcion) {
+                case 0: {
+                    exit = true;
+                    break;
+                }
+                case 1: {
+                    ciudades = pedirDosCiudades();
+                    //caudalPleno(); TODo
+                    break;
+                }
+                case 2: {
+                    ciudades = pedirDosCiudades();
+                    caminoMasCorto(ciudades[0],ciudades[1]);
+                }
+            }
+        }
+    }
+    private static String[] pedirDosCiudades() {
+        limpiarPantalla();
+        System.out.println(menuPedirDosCiudades);
+        String[] devuelto;
+        in.nextLine(); //Evita error buffer... ayuda
+        System.out.print("Ciudades:");devuelto = (in.nextLine()).split(",");
+        return devuelto;
+    }
+    
+    
+    private static void caminoMasCorto(String ciudadA, String ciudadB) {
+        System.out.println("");
+    }
+    //-------------------------------------------------------------------------
+    
+    //OPCION 6: RANKING CIUDADES -----------------------------------------------
+    
+    //--------------------------------------------------------------------------
     
     //OPCION 7: DEBUGGING -----------------------------------------------------
     
@@ -416,7 +441,7 @@ public class TransporteDeAgua {
             CONSULTAS:
             [4] Ciudades ... Consulta sobre una ciudad.
             [5] Transporte De Agua ... Consultas sobre dos ciudades A y B.
-            [6] Listado Consumo ... Lista las ciudades por su consumo en año especifico
+            [6] Listado Consumo ... Lista las ciudades por su consumo en anio especifico
                                
             SISTEMA:
             [7] Mostrar Sistema ... Debugging.
@@ -432,7 +457,7 @@ public class TransporteDeAgua {
             GESTION:
             [1] Dar de alta una nueva ciudad ... Crea una ciudad
             [2] Dar de baja una ciudad existente ... Elimina una ciudad.
-            [3] Modificar una ciudad ... Se modifcan los datos de una ciudad
+            [3] Modificar una ciudad ... Se modifican los datos de una ciudad
             [0] Salir ... Vuelve al menu principal
             ================================================================================
         """;
@@ -474,8 +499,48 @@ public class TransporteDeAgua {
                                       ================================================================================
                                       """;
     
-        
+    
+    private static String menuTransporteAgua =
+            """
+            ================================================================================
+                                            TRANSPORTE DE AGUA                            
+            ================================================================================
+            CONSULTA ENTRE DOS CIUDADES:
+            [1] Caudal Pleno
+            [2] Camino Mas Corto
+            [0] Salir
+            ================================================================================
+            """;
+    
+    private static String menuPedirDosCiudades = 
+            """
+            ================================================================================
+                                            INTRODUCIR CIUDADES                            
+            ================================================================================
+            Por favor Introduzca dos ciudades separadas por coma
+            Ejemplo: Neuquen,New York
+            ================================================================================
+            """;
+    
     private static String separador() {
         return "================================================================================\n";
     }
 }
+
+/*CHECKLIST PARA MI:
+    -Parcialmente hecho, Hecho, Falta
+    OPCION 1
+    cambiosCiudades() #p
+        darAltaCiudad() #p
+        darBajaCiudad()#f
+        modificarCiudad() #f
+    OPCION 2
+    OPCION 3
+    OPCION 4
+    OPCION 5
+        Caudal Pleno
+        Camino Mas Corto
+    OPCION 6
+    OPCION 7
+    OPCION 8
+*/
