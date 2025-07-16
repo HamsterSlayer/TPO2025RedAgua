@@ -126,8 +126,10 @@ public class TransporteDeAgua {
         System.out.print("Por favor introduzca los datos: ");
         in.nextLine(); //Evita errores del buffer 
         String nombreCiudad = in.nextLine();
-        //TERMINAR DE HACER ESTA PARTE ######################################################################
-        
+        //TERMINAR DE VERIFICAR ######################################################################
+        tablaBusqueda.eliminar(nombreCiudad);
+        Ciudad ciudadBuscada = mapaCiudad.obtenerCiudad(nombreCiudad);
+        mapaCiudad.eliminarVertice(ciudadBuscada);
     }
         
     //------------------------------------------------------------------------
@@ -591,5 +593,7 @@ public class TransporteDeAgua {
         Camino Mas Corto
     OPCION 6
     OPCION 7
-    OPCION 8
+    
+    OPCION 8 #H
+        adios() #H
 */
