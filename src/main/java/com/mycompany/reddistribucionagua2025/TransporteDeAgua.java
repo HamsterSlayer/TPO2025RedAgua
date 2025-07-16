@@ -3,6 +3,7 @@ package com.mycompany.reddistribucionagua2025;
 import com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo;
 import java.util.HashMap;
 import java.util.Scanner;
+import com.mycompany.reddistribucionagua2025.readtxt.CargaArchivos;
 
 /**
  *
@@ -20,6 +21,7 @@ public class TransporteDeAgua {
     private static ArbolAVL tablaBusqueda = new ArbolAVL();
     private static MapaDigrafo mapaCiudad = new MapaDigrafo();
     private static HashMap<DominioHash, Tuberias> mapeoTuberias = new HashMap<>();
+    private static CargaArchivos Info = new CargaArchivos("src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\Informacion.txt");
     //Variables del Menu --------------------------------------
     //Estas variables pueden ser ignoradas. Se usan para operar con el menu
     private static Scanner in = new Scanner(System.in);
@@ -30,6 +32,7 @@ public class TransporteDeAgua {
     
     //PROGRAMA PRINCIPAL ---------------------------------------
     public static void main(String[] args) {
+        Info.insertarLineasArbol(tablaBusqueda);
         int opcion;
         boolean exit = false;
         while (!exit) {

@@ -1,0 +1,30 @@
+Buenos Aires, 856723
+Ciudad de México, 451298
+Río de Janeiro, 723456
+Santiago, 398765
+Lima, 912345
+Bogotá, 678901
+Quito, 234567
+Caracas, 567890
+Montevideo, 890123
+La Paz, 123456
+Asunción, 456789
+San José, 789012
+Panamá, 345678
+Tegucigalpa, 678901
+Managua, 901234
+San Salvador, 234567
+Habana, 567890
+Santo Domingo, 890123
+San Juan, 123456
+Tijuana, 456789
+Guadalajara, 789012
+Monterrey, 345678
+Puebla, 678901
+Medellín, 901234
+Cali, 234567
+Barranquilla, 567890
+Brasília, 890123
+Salvador, 123456
+Recife, 456789
+Fortaleza, 789012

@@ -15,7 +15,7 @@ public class Lista {
             caso=false;
         }else{
             if(pos==1){
-                this.cabecera = new Nodo(elem,pos,this.cabecera);
+                this.cabecera = new Nodo(elem,null,this.cabecera);
             }else{
                 Nodo aux = this.cabecera;
                 int i = 1;
@@ -23,7 +23,7 @@ public class Lista {
                     aux=aux.getEnlace();
                     i++;
                 }
-                Nodo nuevo = new Nodo(elem,pos,aux.getEnlace());
+                Nodo nuevo = new Nodo(elem,null,aux.getEnlace());
                 aux.setEnlace(nuevo);
             }
             caso=true;
@@ -33,29 +33,34 @@ public class Lista {
     }
     
     public boolean insertarEnOrden(Object elem, Comparable clave){
+        boolean cancelar = false;
         if(this.cabecera !=null){
-            if(clave.compareTo(this.cabecera.getClave())>0){
-                Nodo aux = this.cabecera;
-                this.cabecera = new Nodo(elem,clave,aux);
-            }else{
-                Nodo anterior=this.cabecera, actual=this.cabecera.getEnlace();
-                boolean cierre=false;
-                while(actual!=null && !cierre){
-                    if(clave.compareTo(actual.getClave())>0){
-                        cierre=true;
-                    }else{
-                        anterior=actual;
-                        actual=actual.getEnlace();
+            if(this.cabecera.getClave()!=null){// Si se uso el otro insertar, este insertar no se puede usar
+                if(clave.compareTo(this.cabecera.getClave())>0){
+                    Nodo aux = this.cabecera;
+                    this.cabecera = new Nodo(elem,clave,aux);
+                }else{
+                    Nodo anterior=this.cabecera, actual=this.cabecera.getEnlace();
+                    boolean cierre=false;
+                    while(actual!=null && !cierre && !cancelar){
+                        if(actual.getClave()!=null){ // Si se uso el otro insertar, este insertar no se puede usar
+                            if(clave.compareTo(actual.getClave())>0){
+                                cierre=true;
+                            }else{
+                                anterior=actual;
+                                actual=actual.getEnlace();
+                            }
+                        }else{cancelar=true;}
                     }
+                    anterior.setEnlace(new Nodo(elem,clave,actual));
                 }
-                anterior.setEnlace(new Nodo(elem,clave,actual));
-            }
+            }else{cancelar=true;}
             
         }else{
             this.cabecera=new Nodo(elem,clave,null);
         }
         longitud++;
-        return true;
+        return !cancelar;
     }
     
     public boolean eliminar(int pos){
@@ -130,7 +135,7 @@ public class Lista {
         Lista otraLista= new Lista();
         Nodo auxN = this.cabecera;
         while(auxN!=null){
-            otraLista.insertarEnOrden(auxN.getElemento(),auxN.getClave());
+            otraLista.insertar(auxN.getElemento(),otraLista.longitud+1);
             auxN=auxN.getEnlace();
         }
         return otraLista;
