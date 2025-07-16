@@ -17,7 +17,7 @@ import com.mycompany.reddistribucionagua2025.readtxt.CargaArchivos;
 public class TransporteDeAgua {
     //Variables del Programa ----------------------------------
     //Estas variables se usarán para modificar y operar el programa
-    private static int añoInicial = 0;//fetchAñoInicial(); //El año inicial debe ser conseguido mediante la precarga
+    private static int añoInicial; //El año inicial debe ser conseguido mediante la precarga
     private static ArbolAVL tablaBusqueda = new ArbolAVL();
     private static MapaDigrafo mapaCiudad = new MapaDigrafo();
     private static HashMap<DominioHash, Tuberias> mapeoTuberias = new HashMap<>();
@@ -26,13 +26,13 @@ public class TransporteDeAgua {
     //Estas variables pueden ser ignoradas. Se usan para operar con el menu
     private static Scanner in = new Scanner(System.in);
     //----------------------------------------------------------
-    //PRECARGA ----------------------------------------------------------------
-    
-    //----------------------------------------------------------
     
     //PROGRAMA PRINCIPAL ---------------------------------------
     public static void main(String[] args) {
-        Info.insertarLineasArbol(tablaBusqueda);
+        //precarga
+        Info.cargarRedDistribucion(tablaBusqueda, mapaCiudad);
+        añoInicial = Info.conseguirAñoInicial();
+        //Menu
         int opcion;
         boolean exit = false;
         while (!exit) {
