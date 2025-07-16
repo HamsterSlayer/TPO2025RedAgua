@@ -420,7 +420,7 @@ public class ArbolAVL {
             listarAux(n.getDerecho(),l);
         }
         
-        l.insertarEnOrden(n.getElem(),n.getClave());//Esta en inOrder invertido para que la lista liste en orden sin necesidad de usar longitud().
+        l.insertar(n.getElem(),1);//Esta en inOrder invertido para que la lista liste en orden sin necesidad de usar longitud().
         
         if(n.getIzquierdo()!=null){
             listarAux(n.getIzquierdo(),l);
