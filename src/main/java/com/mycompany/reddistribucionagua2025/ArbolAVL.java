@@ -440,6 +440,28 @@ public class ArbolAVL {
         return listado;
     }
     
+    private void listarConsumoAux(NodoAVL n, Lista l,int anio){
+        if(n.getIzquierdo()!=null){
+            listarAux(n.getIzquierdo(),l);
+        }
+        Ciudad aux = (Ciudad) n.getElem();
+        l.insertarEnOrden(aux,aux.consumoAnual(anio));//La lista los ordena sola   
+        if(n.getDerecho()!=null){
+            listarAux(n.getDerecho(),l);
+        }
+    }
+    
+    public Lista listarPorConsumo(int anio){
+        Lista listado;
+        if(!this.esVacio()){
+            listado=new Lista();
+            listarConsumoAux(this.raiz,listado,anio);
+        }else{
+            listado=null;
+        }
+        return listado;
+    }
+    
     private String toStringInOrderAux(NodoAVL n){
         String texto="";
         

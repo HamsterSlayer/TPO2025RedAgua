@@ -363,7 +363,23 @@ public class TransporteDeAgua {
     
     //OPCION 6: RANKING CIUDADES -----------------------------------------------
     
-    //private static void logCiudadesPorConsumo()// <-- en algun lugar de aca se usara
+    //logCiudadesPorConsumo()// <-- en algun lugar de aca se usara
+    
+   /* private static void {
+        System.out.println("Indique el nombre de 2 ciudades "+"Indique minVol y maxVol "+"Indique mes y anio");
+        String[] aux = (in.nextLine()).split(",");
+        tablaBusqueda.listarPorRango(aux[0],aux[1],Integer.parseInt(aux[2]),Integer.parseInt(aux[3]),Integer.parseInt(aux[4]),Integer.parseInt(aux[5]));
+        
+    } */ //Me equivoque, esto(^) es para el ejercicio 4.b
+    
+    private static void listadoPorConsumoEnAnio(){
+        System.out.println("Indique un año");
+        Lista ciudades=tablaBusqueda.listarPorConsumo(in.nextInt());
+        System.out.println(ciudades.toString());
+    }
+    
+    
+    
     
     //--------------------------------------------------------------------------
     
