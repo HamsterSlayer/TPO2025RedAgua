@@ -114,6 +114,21 @@ public class MapaDigrafo {
         return existe;
     }
 
+    private NodoVert localizarVertice(String ciudad) {
+        ciudad = formatoNombre(ciudad);
+        NodoVert nodo = this.inicio;
+        NodoVert devuelto = null;
+        boolean encontrado = false;
+        while (nodo != null && !encontrado) {
+            String nombreNodo = formatoNombre(nodo.getElem().getNombre());
+            if (nombreNodo.equals(ciudad)) {
+                encontrado = true;
+                devuelto = nodo;
+            }
+            nodo = nodo.getSigVertice();
+        }
+        return devuelto;
+    }
     // Arcos----------------------------------------------------------------------
     public boolean insertarArco(Ciudad origen, Ciudad destino, float etiqueta) {
         // Debo de buscar ambos vertices
@@ -246,6 +261,7 @@ public class MapaDigrafo {
         return this.inicio == null;
     }
 
+    //DEBUG --------------------------------------------------------------------
     public String debugPrintVertices() {
         NodoVert temp = inicio;
         String resultado = "";
@@ -268,21 +284,36 @@ public class MapaDigrafo {
             temp = temp.getSigVertice();
         }
     }
+    
+    //--------------------------------------------------------------------------
+    
 
-    public Lista caminoMasCorto(String nombre1, String nombre2) {
+    //Busqueda de Paises para camino mas corto ---------------------------------
+    public Ciudad obtenerCiudad(String ciudad) {
+        Ciudad devuelto = null;
+        NodoVert nodoCiudad = localizarVertice(ciudad);
+        if (nodoCiudad != null) {
+            devuelto = nodoCiudad.getElem();
+        }
+        return devuelto;
+    }
+    
+    public Lista caminoMasCorto(String ciudadOrigen, String ciudadDestino) {
         Lista camino = new Lista();
         NodoVert origen;
-        NodoVert destino;
-        origen = localizarVertice(inicio, nombre1);
-        destino = localizarVertice(inicio, nombre2);
-        if (origen != null && destino != null && origen != destino) {
-            camino = caminoMasCorto(origen, destino);
+        //Se debe de verificar que el primer pais exista sí o sí.
+        origen = localizarVertice(ciudadOrigen);
+        if (origen != null && ciudadOrigen.equals(ciudadDestino)) {
+            camino = caminoMasCorto(origen,ciudadDestino);
         }
         return camino;
     }
-
-    private NodoVert localizarVertice(NodoVert n, String nombre) {
-        //Como regla todos los nombres al ser comparados se les saca espacios y mayusculas, esto ayuda a evitar errores pequeños.
+    
+    /*
+    No sé qué hice acá Pedro xD
+    //Busqueda Por Anchura ----------------------------------------------------
+    private NodoVert busquedaAnchura(NodoVert n, String nombre) {
+        //Variables
         nombre = formatoNombre(nombre);
         Lista visitados = new Lista();
         Cola q = new Cola();
@@ -290,17 +321,20 @@ public class MapaDigrafo {
         NodoVert u;
         NodoVert objetivo = null;
         NodoAdy aux;
-        q.poner(n);
+        q.poner(n); //Pongo el primer nodo (usualmente la raiz)
+        
         while (!q.esVacia() && !encontrado) {
+            //Pongo el primer nodo en la cola y luego lo saco
             u = (NodoVert) q.obtenerFrente();
             q.sacar();
-            
             String nodoNombreFormato = formatoNombre(u.getElem().getNombre());
+            
             if (nodoNombreFormato.equals(nombre)) {
+                //Si encuentro el nodo que busco levanto la bandera encontrado.
                 encontrado = true;
                 objetivo = u;
             }
-            aux = u.getPrimerAdy();
+            aux = u.getPrimerAdy(); //Consigo el adyacente
             if (!encontrado) {
                 while (aux != null) {
                     if (visitados.localizar(aux) == -1) {
@@ -312,51 +346,22 @@ public class MapaDigrafo {
             }
         }
         return objetivo;
-    }
+    }*/
     
-    //Manejo Entrada del Usuario ------------------------------------------------
-    
-    //Como regla todos los nombres al ser comparados se les saca espacios y mayusculas, esto ayuda a evitar errores pequeños.
-    private String formatoNombre (String nombre) {
-        String devuelto = nombre.replace(" ", "").trim().toLowerCase();
-        //Caso acentos
-        devuelto = sacarAcentos(devuelto);
-        System.out.println(devuelto);
-        return devuelto;
-    }
-    
-    private String sacarAcentos(String texto) {
-    return texto.replace("á", "a")
-                .replace("é", "e")
-                .replace("í", "i")
-                .replace("ó", "o")
-                .replace("ú", "u")
-                .replace("ñ", "n")
-                .replace("ü", "u")
-                .replace("ç", "c");
-    }
-    
-    // --------------------------------------------------------------------------
-    
-    public Ciudad obtenerCiudad(String ciudad) {
-        NodoVert nodoCiudad = localizarVertice(this.inicio, ciudad);
-        Ciudad devuelto;
-        if (nodoCiudad == null) {
-            devuelto = null;
-        }
-        else {
-            devuelto = nodoCiudad.getElem();
-        }
-        return devuelto;
-    }
-    
-    private Lista caminoMasCorto(NodoVert origen, NodoVert destino) {
+    /**
+     * Recibe el nodo desde donde se buscará. 
+     * @param origen NodoVert
+     * @param ciudadDestino ciudad buscada string
+     * @return La lista del camino mas corto
+     */
+    private Lista caminoMasCorto(NodoVert origen, String ciudadDestino) {
         Lista masCorto;
-        masCorto = masCortoDesde(origen, destino);
+        masCorto = masCortoDesde(origen, ciudadDestino);
         return masCorto;
     }
 
-    private Lista masCortoDesde(NodoVert verticeInicial, NodoVert destino) {
+    private Lista masCortoDesde(NodoVert verticeInicial, String destino) {
+        //Variables
         Lista visitados = new Lista();
         Lista masCorto = new Lista();
         Cola q = new Cola();
@@ -364,14 +369,17 @@ public class MapaDigrafo {
         NodoVert u;
         NodoAdy aux;
         q.poner(verticeInicial);
+        //Se itera sobre los adyacentes
         while (!q.esVacia() && !encontrado) {
             u = (NodoVert) q.obtenerFrente();
             q.sacar();
-            if (u == destino) {
+            if (u.getElem().getNombre().equals(destino)) {
                 encontrado = true;
-            } else {
+            }
+            else {
                 masCorto.insertar(u, masCorto.longitud() + 1);
             }
+            
             aux = u.getPrimerAdy();
             if (!encontrado) {
 
@@ -394,4 +402,32 @@ public class MapaDigrafo {
         }
         return masCorto;
     }
+    
+    
+    //-------------------------------------------------------------------------
+    
+    //Manejo Entrada del Usuario ------------------------------------------------
+    
+    //Como regla todos los nombres al ser comparados se les saca espacios y mayusculas, esto ayuda a evitar errores pequeños. 
+    //Quizá debería estar en CIUDAD
+    private String formatoNombre (String nombre) {
+        String devuelto = nombre.replace(" ", "").trim().toLowerCase();
+        //Caso acentos
+        devuelto = sacarAcentos(devuelto);
+        return devuelto;
+    }
+    
+    private String sacarAcentos(String texto) {
+    return texto.replace("á", "a")
+                .replace("é", "e")
+                .replace("í", "i")
+                .replace("ó", "o")
+                .replace("ú", "u")
+                .replace("ñ", "n")
+                .replace("ü", "u")
+                .replace("ç", "c");
+    }
+    
+    // --------------------------------------------------------------------------
+    
 }

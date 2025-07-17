@@ -27,11 +27,13 @@ public class TransporteDeAgua {
     //Variables del Menu --------------------------------------
     //Estas variables pueden ser ignoradas. Se usan para operar con el menu
     private static Scanner in = new Scanner(System.in);
+    private static String ultimaAccion = "";
     //----------------------------------------------------------
     
     //PROGRAMA PRINCIPAL ---------------------------------------
     public static void main(String[] args) {
         //precarga
+        actualizarUltimaAccion("Se cargo la tabla de ciudades");
         Info.cargarRedDistribucion(tablaBusqueda, mapaCiudad);
         añoInicial = Info.conseguirAñoInicial();
         //Menu
@@ -116,25 +118,41 @@ public class TransporteDeAgua {
         
         //Inserto la nueva ciudad en las estructuras
         Ciudad nuevaCiudad = new Ciudad(datos[0],añoInicial,Float.parseFloat(datos[1]));
-        tablaBusqueda.insertar(nuevaCiudad, nuevaCiudad.getNombre());
-        mapaCiudad.insertarVertice(nuevaCiudad);
-        logInsertoEliminoCiudad(datos[0],true);
+        //Verifico que no exista ya
+        boolean noExiste = true;
+        noExiste = tablaBusqueda.insertar(nuevaCiudad, nuevaCiudad.getNombre());
+        if (noExiste) {
+            mapaCiudad.insertarVertice(nuevaCiudad);
+            actualizarUltimaAccion(String.format("Se creo la ciudad %s",datos[0]));
+            logInsertoEliminoCiudad(datos[0],true); //Logeo
+        }
+        else {
+            actualizarUltimaAccion(String.format("Ya existe la ciudad %s",datos[0]));
+        }
     }
     //------------------------------------------------------------------------
     
     //subOpcion2: darBajaCiudad ----------------------------------------------
     private static void darBajaCiudad(){
+        limpiarPantalla();
         System.out.println(menuEliminarCiudad);
         System.out.print("Por favor introduzca los datos: ");
         in.nextLine(); //Evita errores del buffer 
         String nombreCiudad = in.nextLine();
-        //TERMINAR DE VERIFICAR ######################################################################
-        tablaBusqueda.eliminar(nombreCiudad);
-        Ciudad ciudadBuscada = mapaCiudad.obtenerCiudad(nombreCiudad);
-        mapaCiudad.eliminarVertice(ciudadBuscada);
-        logInsertoEliminoCiudad(nombreCiudad,false);
-    }
         
+        //Lo elimino de la tabla de busqueda
+        if (tablaBusqueda.eliminar(nombreCiudad)) {
+            Ciudad ciudadBuscada = mapaCiudad.obtenerCiudad(nombreCiudad);
+            //Lo elimino del digrafo
+            mapaCiudad.eliminarVertice(ciudadBuscada);
+            logInsertoEliminoCiudad(nombreCiudad,false); //Logeo
+            actualizarUltimaAccion(String.format("Se elimino la ciudad %s", nombreCiudad));
+        }
+        else {
+            actualizarUltimaAccion(String.format("No existe la ciudad %s",nombreCiudad));
+        }
+
+    }
     //------------------------------------------------------------------------
     
     //subOpcion3: modificarCiudad ---------------------------------------------
@@ -144,46 +162,48 @@ public class TransporteDeAgua {
     }
     
     
+    
     //OPCION 2: CAMBIOS TUBERIAS ------------------------------
     private static void cambiosTuberias() {
+        boolean exit = false;
         int opcion;
-        Scanner in = new Scanner(System.in);
-        System.out.println("Qué desea hacer?");
-        do {
-            menuCambioTuberia();
-            do {
-                opcion = in.nextInt();
-            } while (!esValida(opcion, 4));
-
-            activarCambioTuberia(opcion); // TODO
-
-        } while (opcion != 4);
-    }
-
-    private static void menuCambioTuberia() {
-        separador();
-        System.out.println("SISTEMA GESTION DE AGUA");
-        System.out.println("1: Alta de una nueva tubería");
-        System.out.println("2: Baja de una tubería");
-        System.out.println("3: Modificacion de una tubería");
-        System.out.println("4: Volver al menu general");
-    }
-
-    private static void activarCambioTuberia(int opcion) {
+        while (!exit) {
+            opcion = crearMenu(menuCambioTuberias,3);
         switch (opcion) {
             case 1:
-                // darAltaTuberia(grafo¿)
+                darAltaTuberia();
                 break;
             case 2:
-                // darBajaTuberia(nomenclatura,grafo¿)
+                darBajaTuberia();
                 break;
             case 3:
-                // modificarTuberia(nomenclatura,grafo¿)
+                modificarTuberia();
+                break;
+            case 0:
+                exit = true;
                 break;
             default:
+                opcionInvalida();
+        }
         }
     }
-
+    
+    //Subopcion1 Alta tuberia---------------------------------------------------------------
+    private static void darAltaTuberia() {
+        
+    }
+    
+    //SubOpcion2 Baja Tuberia ------------------------------------------------------------
+    private static void darBajaTuberia() {
+        
+    }
+    
+    //SubOpcion3 Modificar Tuberia ------------------------------------------------------------
+    private static void modificarTuberia() {
+        
+    }
+    
+    // ------------------------------------------------------------------------
     private static void altaHabitantes() {
         // pregunta el año y la ciudad y ingresa el valor en donde corresponda
     }
@@ -304,6 +324,8 @@ public class TransporteDeAgua {
         return estado;
     }
     
+    
+    
     //OPCION 5: CONSULTA TRANSPORTE AGUA --------------------------------------
     private static void consultarTransporte() {
         boolean exit = false;
@@ -327,6 +349,7 @@ public class TransporteDeAgua {
             }
         }
     }
+    
     private static String[] pedirDosCiudades() {
         limpiarPantalla();
         System.out.println(menuPedirDosCiudades);
@@ -336,19 +359,19 @@ public class TransporteDeAgua {
         return devuelto;
     }
     
+    //subOpcion1
+    //acá iria caudalPleno
+    
+    //subOpcion2
     private static void caminoMasCorto(String ciudadA, String ciudadB) {
-        System.out.println("Pedido: " + ciudadA + "," + ciudadB);
-        Ciudad ciudadOrigen = mapaCiudad.obtenerCiudad(ciudadA);
-        Ciudad ciudadDestino = mapaCiudad.obtenerCiudad(ciudadB);
-        String nombreO = "noExiste";
-        String nombreD = "noExiste";
-        if(ciudadOrigen != null) {
-            nombreO = ciudadOrigen.getNombre();
+        Lista devuelto = mapaCiudad.caminoMasCorto(ciudadA, ciudadB);
+        //Como puede devolver nulo, creo una excepcion
+        if (devuelto != null || devuelto.esVacia()) {
+            System.out.println(devuelto.toString());
         }
-        if (ciudadDestino != null) {
-            nombreD = ciudadDestino.getNombre();
+        else {
+            System.out.println("No existe camino");
         }
-        System.out.println("Conseguido: " + nombreO + "," + nombreD);
     }
     //-------------------------------------------------------------------------
     
@@ -390,8 +413,9 @@ public class TransporteDeAgua {
                            """);
     }
     
-    //Metodos LOGS------------------------------------------------------------
     
+    //Metodos LOGS------------------------------------------------------------
+    //MOVER A OTRO LADO #########
     private static void logInsertoEliminoCiudad(String c, boolean caso){
         if(caso){
             log.agregarLinea("Se inserto la ciudad "+c);
@@ -438,6 +462,8 @@ public class TransporteDeAgua {
         log.agregarLinea(h.toString());
     }
     
+    //------------------------------------------------------------------------
+    
     
     
     //AUXILIARES -------------------------------------------------------------
@@ -447,6 +473,7 @@ public class TransporteDeAgua {
         boolean exito = false;
         while(!exito) {
             System.out.println(opciones);
+            System.out.println(ultimaAccion);
             System.out.printf("Introduzca una opcion [0-%d]:",numOpciones);opcion = in.nextInt();
             if (!esValida(opcion,numOpciones)) {
                 opcionInvalida();
@@ -468,15 +495,6 @@ public class TransporteDeAgua {
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
     
-    private static void opcionInvalida() {
-        String invalido = """
-                           ================================================================================
-                                                        OPCION INVALIDA
-                                                            [ENTER]
-                           ================================================================================
-                           """;
-        confirmarParaContinuar(invalido);
-    }
     
     private static void confirmarParaContinuar(String display) {
         limpiarPantalla();
@@ -489,7 +507,12 @@ public class TransporteDeAgua {
     private static String formato(String texto) {
         return (separador() + texto + separador());
     }
-    //MENUS. Son almacenados en un string.
+    
+    private static void actualizarUltimaAccion(String accion) {
+        ultimaAccion = String.format("\t#Ultimo Movimiento: %s", accion);
+    }
+    
+    //MENUS. Son almacenados en un string. --------------------------------------------------
     
     private static String menuGeneral =("""
             ================================================================================
@@ -513,15 +536,15 @@ public class TransporteDeAgua {
     
     
     private static String menuCambioCiudades ="""
-            ================================================================================
-                                            GESTION CIUDAD                             
-            ================================================================================
-            GESTION:
-            [1] Dar de alta una nueva ciudad ... Crea una ciudad
-            [2] Dar de baja una ciudad existente ... Elimina una ciudad.
-            [3] Modificar una ciudad ... Se modifican los datos de una ciudad
-            [0] Salir ... Vuelve al menu principal
-            ================================================================================
+                ================================================================================
+                                                GESTION CIUDAD                             
+                ================================================================================
+                GESTION:
+                [1] Dar de alta una nueva ciudad ... Crea una ciudad
+                [2] Dar de baja una ciudad existente ... Elimina una ciudad.
+                [3] Modificar una ciudad ... Se modifican los datos de una ciudad
+                [0] Salir ... Vuelve al menu principal
+                ================================================================================
         """;
     
     private static String menuCrearCiudad = """
@@ -538,7 +561,7 @@ public class TransporteDeAgua {
                                                ================================================================================
                                                                                ELIMINAR CIUDAD                             
                                                ================================================================================
-                                               Eliminar una ciudad eliminará todos sus datos y conexiones.
+                                               Eliminar una ciudad eliminara todos sus datos y conexiones.
                                                Debe de introducir el nombre de la ciudad.
                                                ================================================================================
                                                """;
@@ -584,8 +607,31 @@ public class TransporteDeAgua {
             ================================================================================
             """;
     
+    private static String menuCambioTuberias = 
+            """
+                    ================================================================================
+                                                    GESTION TUBERIAS                            
+                    ================================================================================
+                    GESTION:
+                    [1] Alta de Tuberia ... Crea una tuberia
+                    [2] Baja de Tuberia ... Elimina una tuberia
+                    [3] Modificacion de Tuberia ... Modifica datos de una tuberia
+                    [0] Salir ... Vuelve al menu principal
+                    ================================================================================
+            """;
+    
     private static String separador() {
         return "================================================================================\n";
+    }
+    
+    private static void opcionInvalida() {
+        String invalido = """
+                           ================================================================================
+                                                        OPCION INVALIDA
+                                                            [ENTER]
+                           ================================================================================
+                           """;
+        confirmarParaContinuar(invalido);
     }
 }
 
@@ -593,15 +639,18 @@ public class TransporteDeAgua {
     -Parcialmente hecho, Hecho, Falta
     OPCION 1
     cambiosCiudades() #p
-        darAltaCiudad() #p
-        darBajaCiudad()#f
+        darAltaCiudad() #H
+        darBajaCiudad()#H
         modificarCiudad() #f
     OPCION 2
+        darAltaTuberia() #f
+        darBajaTuberia()#f
+        modificarTuberia() #f
     OPCION 3
     OPCION 4
     OPCION 5
         Caudal Pleno
-        Camino Mas Corto
+        Camino Mas Corto #H
     OPCION 6
     OPCION 7
     
