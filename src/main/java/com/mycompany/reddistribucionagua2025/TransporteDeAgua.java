@@ -118,6 +118,7 @@ public class TransporteDeAgua {
         Ciudad nuevaCiudad = new Ciudad(datos[0],añoInicial,Float.parseFloat(datos[1]));
         tablaBusqueda.insertar(nuevaCiudad, nuevaCiudad.getNombre());
         mapaCiudad.insertarVertice(nuevaCiudad);
+        logInsertoEliminoCiudad(datos[0],true);
     }
     //------------------------------------------------------------------------
     
@@ -131,6 +132,7 @@ public class TransporteDeAgua {
         tablaBusqueda.eliminar(nombreCiudad);
         Ciudad ciudadBuscada = mapaCiudad.obtenerCiudad(nombreCiudad);
         mapaCiudad.eliminarVertice(ciudadBuscada);
+        logInsertoEliminoCiudad(nombreCiudad,false);
     }
         
     //------------------------------------------------------------------------
