@@ -140,6 +140,7 @@ public class TransporteDeAgua {
     private static void modificarCiudad() {
         //System.out.println(MenuModificarCiudad);
         //TERMINAR DE HACER ESTA PARTE ######################################################################
+        //logCargoAniosCiudad(nombreCiudad, anio);
     }
     
     
@@ -172,9 +173,11 @@ public class TransporteDeAgua {
         switch (opcion) {
             case 1:
                 // darAltaTuberia(grafo¿)
+                //logInsertoEliminoTuberia(nomenclatura,true); ^Esto quizas deberia ir dentro del mismo metodo darAltaTuberia
                 break;
             case 2:
                 // darBajaTuberia(nomenclatura,grafo¿)
+                //logInsertoEliminoTuberia(nomenclatura,false);
                 break;
             case 3:
                 // modificarTuberia(nomenclatura,grafo¿)
@@ -213,10 +216,13 @@ public class TransporteDeAgua {
         switch (opcion) {
             case 1:
                 // mostrarInformacionEnFecha(int anio, int mes, String nomenclatura);
+                // logMostroInformacionCiudad(nomenclatura); ^Creo que en vez de nomenclatura, deberia ser Nombre. atte: Ivo
                 break;
             case 2:
                 // Lista ciudades = listarCiudadesEnRango();
-                // System.out.println(ciudades.toString());
+                // String temp = ciudades.toString();
+                // System.out.println(temp);
+                // logMostroInformacionCiudad(temp);
                 break;
             default:
         }
@@ -317,11 +323,13 @@ public class TransporteDeAgua {
                 case 1: {
                     ciudades = pedirDosCiudades();
                     //caudalPleno(); TODo
+                    logInformacionTransporteAgua(ciudades[0],ciudades[1],true);
                     break;
                 }
                 case 2: {
                     ciudades = pedirDosCiudades();
                     caminoMasCorto(ciudades[0],ciudades[1]);
+                    logInformacionTransporteAgua(ciudades[0],ciudades[1],false);
                 }
             }
         }
@@ -366,6 +374,7 @@ public class TransporteDeAgua {
                 default:
             }
         }
+        logDebug();
     }
     
     
