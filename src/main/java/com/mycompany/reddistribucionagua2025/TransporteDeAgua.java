@@ -65,6 +65,7 @@ public class TransporteDeAgua {
                 case 0:
                     exit = true;
                     adios();
+                    logFinalizar(tablaBusqueda,mapaCiudad,mapeoTuberias);
                     break;
                 default:
                     opcionInvalida();
@@ -352,6 +353,8 @@ public class TransporteDeAgua {
     //-------------------------------------------------------------------------
     
     //OPCION 6: RANKING CIUDADES -----------------------------------------------
+    
+    //private static void logCiudadesPorConsumo()// <-- en algun lugar de aca se usara
     
     //--------------------------------------------------------------------------
     
