@@ -282,6 +282,8 @@ public class MapaDigrafo {
     }
 
     private NodoVert localizarVertice(NodoVert n, String nombre) {
+        //Como regla todos los nombres al ser comparados se les saca espacios y mayusculas, esto ayuda a evitar errores pequeños.
+        nombre = formatoNombre(nombre);
         Lista visitados = new Lista();
         Cola q = new Cola();
         boolean encontrado = false;
@@ -292,7 +294,9 @@ public class MapaDigrafo {
         while (!q.esVacia() && !encontrado) {
             u = (NodoVert) q.obtenerFrente();
             q.sacar();
-            if (u.getElem().getNombre() == nombre) {
+            
+            String nodoNombreFormato = formatoNombre(u.getElem().getNombre());
+            if (nodoNombreFormato.equals(nombre)) {
                 encontrado = true;
                 objetivo = u;
             }
@@ -310,9 +314,40 @@ public class MapaDigrafo {
         return objetivo;
     }
     
+    //Manejo Entrada del Usuario ------------------------------------------------
+    
+    //Como regla todos los nombres al ser comparados se les saca espacios y mayusculas, esto ayuda a evitar errores pequeños.
+    private String formatoNombre (String nombre) {
+        String devuelto = nombre.replace(" ", "").trim().toLowerCase();
+        //Caso acentos
+        devuelto = sacarAcentos(devuelto);
+        System.out.println(devuelto);
+        return devuelto;
+    }
+    
+    private String sacarAcentos(String texto) {
+    return texto.replace("á", "a")
+                .replace("é", "e")
+                .replace("í", "i")
+                .replace("ó", "o")
+                .replace("ú", "u")
+                .replace("ñ", "n")
+                .replace("ü", "u")
+                .replace("ç", "c");
+    }
+    
+    // --------------------------------------------------------------------------
+    
     public Ciudad obtenerCiudad(String ciudad) {
         NodoVert nodoCiudad = localizarVertice(this.inicio, ciudad);
-        return nodoCiudad.getElem();
+        Ciudad devuelto;
+        if (nodoCiudad == null) {
+            devuelto = null;
+        }
+        else {
+            devuelto = nodoCiudad.getElem();
+        }
+        return devuelto;
     }
     
     private Lista caminoMasCorto(NodoVert origen, NodoVert destino) {

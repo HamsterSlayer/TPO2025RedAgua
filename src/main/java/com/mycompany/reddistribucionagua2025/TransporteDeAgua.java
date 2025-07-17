@@ -47,6 +47,7 @@ public class TransporteDeAgua {
                     break;
                 case 2:
                     cambiosTuberias();
+                    break;
                 case 3:
                     altaHabitantes();
                     break;
@@ -337,7 +338,15 @@ public class TransporteDeAgua {
         System.out.println("Pedido: " + ciudadA + "," + ciudadB);
         Ciudad ciudadOrigen = mapaCiudad.obtenerCiudad(ciudadA);
         Ciudad ciudadDestino = mapaCiudad.obtenerCiudad(ciudadB);
-        System.out.println("Conseguido: " + ciudadOrigen + "," + ciudadDestino);
+        String nombreO = "noExiste";
+        String nombreD = "noExiste";
+        if(ciudadOrigen != null) {
+            nombreO = ciudadOrigen.getNombre();
+        }
+        if (ciudadDestino != null) {
+            nombreD = ciudadDestino.getNombre();
+        }
+        System.out.println("Conseguido: " + nombreO + "," + nombreD);
     }
     //-------------------------------------------------------------------------
     
