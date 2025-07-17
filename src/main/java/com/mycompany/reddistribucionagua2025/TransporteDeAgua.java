@@ -68,6 +68,7 @@ public class TransporteDeAgua {
                 case 0:
                     exit = true;
                     adios();
+                    logFinalizar(tablaBusqueda,mapaCiudad,mapeoTuberias);
                     break;
                 default:
                     opcionInvalida();
@@ -159,6 +160,7 @@ public class TransporteDeAgua {
     private static void modificarCiudad() {
         //System.out.println(MenuModificarCiudad);
         //TERMINAR DE HACER ESTA PARTE ######################################################################
+        //logCargoAniosCiudad(nombreCiudad, anio);
     }
     
     
@@ -216,6 +218,17 @@ public class TransporteDeAgua {
             menuConsultaCiudades();
             do {
                 opcion = in.nextInt();
+                switch(opcion){
+                    case 1:
+                        //
+                        break;
+                    case 2:
+                        ciudadesEnRango();
+                        break;
+                    case 3:
+                        //Opcion 3 es salir
+                        break;
+                }
             } while (!esValida(opcion, 3));
 
             activarConsultaCiudad(opcion); // TODO
@@ -229,15 +242,25 @@ public class TransporteDeAgua {
         System.out.println("2: Informacion de ciudades dentro de un rango alfabético y de consumo de água");
         System.out.println("3: Volver al menu general");
     }
+    
+    private static void ciudadesEnRango(){
+        System.out.println("Indique el nombre de 2 ciudades "+"Indique minVol y maxVol "+"Indique mes y anio");
+        String[] aux = (in.nextLine()).split(",");
+        System.out.println(tablaBusqueda.listarPorRango(aux[0],aux[1],Integer.parseInt(aux[2]),Integer.parseInt(aux[3]),Integer.parseInt(aux[4]),Integer.parseInt(aux[5])).toString());
+        logMostroInfoCiudadesRango(aux[0],aux[1],Integer.parseInt(aux[2]),Integer.parseInt(aux[3]),Integer.parseInt(aux[4]),Integer.parseInt(aux[5]));
+    }
 
     private static void activarConsultaCiudad(int opcion) {
         switch (opcion) {
             case 1:
                 // mostrarInformacionEnFecha(int anio, int mes, String nomenclatura);
+                // logMostroInformacionCiudad(nomenclatura); ^Creo que en vez de nomenclatura, deberia ser Nombre. atte: Ivo
                 break;
             case 2:
                 // Lista ciudades = listarCiudadesEnRango();
-                // System.out.println(ciudades.toString());
+                // String temp = ciudades.toString();
+                // System.out.println(temp);
+                // logMostroInformacionCiudad(temp);
                 break;
             default:
         }
@@ -340,11 +363,13 @@ public class TransporteDeAgua {
                 case 1: {
                     ciudades = pedirDosCiudades();
                     //caudalPleno(); TODo
+                    logInformacionTransporteAgua(ciudades[0],ciudades[1],true);
                     break;
                 }
                 case 2: {
                     ciudades = pedirDosCiudades();
                     caminoMasCorto(ciudades[0],ciudades[1]);
+                    logInformacionTransporteAgua(ciudades[0],ciudades[1],false);
                 }
             }
         }
@@ -377,6 +402,16 @@ public class TransporteDeAgua {
     
     //OPCION 6: RANKING CIUDADES -----------------------------------------------
     
+    private static void listadoPorConsumoEnAnio(){
+        System.out.println("Indique un año");
+        Lista ciudades=tablaBusqueda.listarPorConsumo(in.nextInt());
+        System.out.println(ciudades.toString());
+        logCiudadesPorConsumo();
+    }
+    
+    
+    
+    
     //--------------------------------------------------------------------------
     
     //OPCION 7: DEBUGGING -----------------------------------------------------
@@ -398,6 +433,7 @@ public class TransporteDeAgua {
                 default:
             }
         }
+        logDebug();
     }
     
     
@@ -426,6 +462,11 @@ public class TransporteDeAgua {
     
     private static void logMostroInformacionCiudad(String c){
         log.agregarLinea("Se mostro informacion de la ciudad "+c);
+    }
+    
+    private static void logMostroInfoCiudadesRango(String c1, String c2, int minVol,int maxVol, int a, int m){
+        System.out.println("Se mostro informaciones de las ciudades alfabeticamente entre "+c1+" y "+c2+
+                           "que tienen un consumo entre "+minVol+" y "+maxVol+" en el año "+a+" y mes "+m);
     }
     
     private static void logInformacionTransporteAgua(String c1,String c2,boolean caminoMinimo){
