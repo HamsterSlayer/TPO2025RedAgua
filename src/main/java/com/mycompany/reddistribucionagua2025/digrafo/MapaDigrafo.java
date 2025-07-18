@@ -266,23 +266,28 @@ public class MapaDigrafo {
         NodoVert temp = inicio;
         String resultado = "";
         while (temp != null) {
-            resultado += temp.getElem().getNombre() + "\n";
+            resultado += temp.getElem().getNombre() + " " + temp.getElem().getNomenclatura() + "\n";
             temp = temp.getSigVertice();
         }
         return resultado;
     }
 
-    public void debugPrintArcos() {
+    public String debugPrintArcos() {
         NodoVert temp = inicio;
+        String resultado = "";
         while (temp != null) {
             String nombre = temp.getElem().getNombre();
             NodoAdy malaPracticaProg = temp.getPrimerAdy();
             while (malaPracticaProg != null) {
-                System.out.println("De " + nombre + " A " + malaPracticaProg.getVertice().getElem().getNombre());
+                resultado += ("De " + nombre + " A " + malaPracticaProg.getVertice().getElem().getNombre() + "\n");
                 malaPracticaProg = malaPracticaProg.getSigAdyacente();
             }
             temp = temp.getSigVertice();
         }
+        if (resultado.isEmpty()) {
+            resultado = "No hay arcos \n";
+        }
+        return resultado;
     }
     
     //--------------------------------------------------------------------------
@@ -309,6 +314,19 @@ public class MapaDigrafo {
         return camino;
     }
     
+    public Ciudad obtenerCiudadNomenclatura(String nomenclatura) {
+        boolean existe = false;
+        NodoVert nodo = this.inicio;
+        Ciudad ciudadEncontrada = null;
+        while (nodo != null && !existe) {
+            if (nodo.getElem().getNomenclatura().equals(nomenclatura)) {
+                existe = true;
+                ciudadEncontrada = nodo.getElem();
+            }
+            nodo = nodo.getSigVertice();
+        }
+        return ciudadEncontrada;
+    }
     /*
     No sé qué hice acá Pedro xD
     //Busqueda Por Anchura ----------------------------------------------------

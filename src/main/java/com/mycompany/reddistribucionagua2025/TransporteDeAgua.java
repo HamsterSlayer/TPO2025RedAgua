@@ -201,19 +201,24 @@ public class TransporteDeAgua {
         String [] nomenclaturas = datos[0].split("-");
         String nomenclaturaOrigen = nomenclaturas[0];
         String nomenclaturaDestino = nomenclaturas[1];
-        DominioHash nuevoHash = new DominioHash(nomenclaturaOrigen, nomenclaturaDestino);
-        boolean existeEnHash = mapeoTuberias.containsKey(nuevoHash);
+        DominioHash keyTuberia = new DominioHash(nomenclaturaOrigen, nomenclaturaDestino);
+        boolean existeEnHash = mapeoTuberias.containsKey(keyTuberia);
+        Ciudad origen = mapaCiudad.obtenerCiudadNomenclatura(nomenclaturaOrigen);
+        Ciudad destino = mapaCiudad.obtenerCiudadNomenclatura(nomenclaturaDestino);
         
         //Verifico las condiciones para la tuberia
-        if( && existeEnHash ) {
-            
-            
+        if(origen != null && destino != null && !existeEnHash ) {          
+            //Creo la tuberia
+            Tuberias tuberiaNueva = new Tuberias(datos[0],Float.parseFloat(datos[1]),Float.parseFloat(datos[2]),Float.parseFloat(datos[3]),datos[4]);
+            //Lo meto en el hash 
+            mapeoTuberias.put(keyTuberia, tuberiaNueva);
+            //Lo meto el mapa ciudad
+            mapaCiudad.insertarArco(origen, destino, tuberiaNueva.getCaudalMaximo());
+            actualizarUltimaAccion(String.format("Tuberia de %s a %s creada con exito", origen.getNombre(),destino.getNombre()));
         }
-        
-        //Creo la tuberia
-        Tuberias tuberiaNueva = new Tuberias(datos[0],Float.parseFloat(datos[1]),Float.parseFloat(datos[2]),Float.parseFloat(datos[3]),datos[4]);
-        //Lo meto en el hash
-        System.out.println(tuberiaNueva.toString());
+        else {
+            actualizarUltimaAccion("Fallo en crear tubería");
+        }
     }
     //SubOpcion2 Baja Tuberia ------------------------------------------------------------
     private static void darBajaTuberia() {
@@ -441,7 +446,7 @@ public class TransporteDeAgua {
         int opcion;
         boolean exitTemp = false;
         while (!exitTemp) {
-            opcion = crearMenu(menuDebug,1);
+            opcion = crearMenu(menuDebug,2);
             switch(opcion) {
                 case 0: {
                     exitTemp = true;
@@ -449,6 +454,10 @@ public class TransporteDeAgua {
                 }
                 case 1: {
                     confirmarParaContinuar(formato(mapaCiudad.debugPrintVertices()));
+                    break;
+                }
+                case 2: {
+                    confirmarParaContinuar(formato(mapaCiudad.debugPrintArcos()));
                     break;
                 }
                 default:
@@ -572,6 +581,8 @@ public class TransporteDeAgua {
     private static void actualizarUltimaAccion(String accion) {
         ultimaAccion = String.format("\t#Ultimo Movimiento: %s", accion);
     }
+    
+    
     
     //MENUS. Son almacenados en un string. --------------------------------------------------
     
@@ -716,7 +727,7 @@ public class TransporteDeAgua {
         darBajaCiudad()#H
         modificarCiudad() #f
     OPCION 2
-        darAltaTuberia() #f
+        darAltaTuberia() #H
         darBajaTuberia()#f
         modificarTuberia() #f
     OPCION 3
