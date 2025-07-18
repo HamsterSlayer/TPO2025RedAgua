@@ -1,2 +1,8 @@
 /target/
 /nbproject/
+*.class
+*.jar
+*.war
+.idea/
+*.iml
+.vscode/
