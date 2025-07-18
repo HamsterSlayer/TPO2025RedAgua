@@ -138,7 +138,6 @@ public class TransporteDeAgua {
         limpiarPantalla();
         System.out.println(menuEliminarCiudad);
         System.out.print("Por favor introduzca los datos: ");
-        in.nextLine(); //Evita errores del buffer 
         String nombreCiudad = in.nextLine();
         
         //Lo elimino de la tabla de busqueda
@@ -192,9 +191,30 @@ public class TransporteDeAgua {
     
     //Subopcion1 Alta tuberia---------------------------------------------------------------
     private static void darAltaTuberia() {
+        limpiarPantalla();
+        //Recibir datos del usuario
+        System.out.println(menuAltaTuberia);
+        System.out.print("Introduzca los datos: ");
+        String datosSinFormato = in.nextLine();
+        String[] datos = datosSinFormato.split(",");
+        //---
+        String [] nomenclaturas = datos[0].split("-");
+        String nomenclaturaOrigen = nomenclaturas[0];
+        String nomenclaturaDestino = nomenclaturas[1];
+        DominioHash nuevoHash = new DominioHash(nomenclaturaOrigen, nomenclaturaDestino);
+        boolean existeEnHash = mapeoTuberias.containsKey(nuevoHash);
         
+        //Verifico las condiciones para la tuberia
+        if( && existeEnHash ) {
+            
+            
+        }
+        
+        //Creo la tuberia
+        Tuberias tuberiaNueva = new Tuberias(datos[0],Float.parseFloat(datos[1]),Float.parseFloat(datos[2]),Float.parseFloat(datos[3]),datos[4]);
+        //Lo meto en el hash
+        System.out.println(tuberiaNueva.toString());
     }
-    
     //SubOpcion2 Baja Tuberia ------------------------------------------------------------
     private static void darBajaTuberia() {
         
@@ -218,6 +238,7 @@ public class TransporteDeAgua {
             menuConsultaCiudades();
             do {
                 opcion = in.nextInt();
+                in.nextLine(); //limpio buffer
                 switch(opcion){
                     case 1:
                         //
@@ -379,7 +400,6 @@ public class TransporteDeAgua {
         limpiarPantalla();
         System.out.println(menuPedirDosCiudades);
         String[] devuelto;
-        in.nextLine(); //Evita error buffer... ayuda
         System.out.print("Ciudades:");devuelto = (in.nextLine()).split(",");
         return devuelto;
     }
@@ -405,6 +425,7 @@ public class TransporteDeAgua {
     private static void listadoPorConsumoEnAnio(){
         System.out.println("Indique un año");
         Lista ciudades=tablaBusqueda.listarPorConsumo(in.nextInt());
+        in.nextLine();
         System.out.println(ciudades.toString());
         logCiudadesPorConsumo();
     }
@@ -516,6 +537,7 @@ public class TransporteDeAgua {
             System.out.println(opciones);
             System.out.println(ultimaAccion);
             System.out.printf("Introduzca una opcion [0-%d]:",numOpciones);opcion = in.nextInt();
+            in.nextLine();
             if (!esValida(opcion,numOpciones)) {
                 opcionInvalida();
             }
@@ -540,8 +562,6 @@ public class TransporteDeAgua {
     private static void confirmarParaContinuar(String display) {
         limpiarPantalla();
         System.out.println(display);
-        //Dos nextLine evitan el error del buffer quedando cargado y produciendo misinputs.
-        in.nextLine();
         in.nextLine();
     }
     
@@ -621,6 +641,7 @@ public class TransporteDeAgua {
                                                                         DEBUGGING                             
                                       ================================================================================
                                       [1] Listar todas las ciudades
+                                      [2] Listar todas las tuberias
                                       [0] Salir
                                       ================================================================================
                                       """;
@@ -659,6 +680,17 @@ public class TransporteDeAgua {
                     [3] Modificacion de Tuberia ... Modifica datos de una tuberia
                     [0] Salir ... Vuelve al menu principal
                     ================================================================================
+            """;
+    
+    private static String menuAltaTuberia =
+            """
+                ================================================================================
+                                                CREAR TUBERIA                             
+                ================================================================================
+                Se requiere:
+                >(nom1-nom2,caudalMaximo,caudalMinimo,diametro,estado)
+                >Ejemplo de como debe de introducirse los datos: NE3000-NY3121,38482.21,1.2,34,ACTIVO
+                ================================================================================
             """;
     
     private static String separador() {
