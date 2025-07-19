@@ -129,7 +129,7 @@ public class TransporteDeAgua {
         if (noExiste) {
             mapaCiudad.insertarVertice(nuevaCiudad);
             actualizarUltimaAccion(String.format("Se creo la ciudad %s",datos[0]));
-            logInsertoEliminoCiudad(datos[0],true); //Logeo
+            //logInsertoEliminoCiudad(datos[0],true); //Logeo
         }
         else {
             actualizarUltimaAccion(String.format("Ya existe la ciudad %s",datos[0]));
@@ -149,7 +149,7 @@ public class TransporteDeAgua {
             Ciudad ciudadBuscada = mapaCiudad.obtenerCiudad(nombreCiudad);
             //Lo elimino del digrafo
             mapaCiudad.eliminarVertice(ciudadBuscada);
-            logInsertoEliminoCiudad(nombreCiudad,false); //Logeo
+            //logInsertoEliminoCiudad(nombreCiudad,false); //Logeo
             actualizarUltimaAccion(String.format("Se elimino la ciudad %s", nombreCiudad));
         }
         else {
@@ -307,7 +307,7 @@ public class TransporteDeAgua {
         System.out.println("Indique el nombre de 2 ciudades "+"Indique minVol y maxVol "+"Indique mes y anio");
         String[] aux = (in.nextLine()).split(",");
         System.out.println(tablaBusqueda.listarPorRango(aux[0],aux[1],Integer.parseInt(aux[2]),Integer.parseInt(aux[3]),Integer.parseInt(aux[4]),Integer.parseInt(aux[5])).toString());
-        logMostroInfoCiudadesRango(aux[0],aux[1],Integer.parseInt(aux[2]),Integer.parseInt(aux[3]),Integer.parseInt(aux[4]),Integer.parseInt(aux[5]));
+        //logMostroInfoCiudadesRango(aux[0],aux[1],Integer.parseInt(aux[2]),Integer.parseInt(aux[3]),Integer.parseInt(aux[4]),Integer.parseInt(aux[5]));
     }
 
     private static void activarConsultaCiudad(int opcion) {
@@ -423,13 +423,13 @@ public class TransporteDeAgua {
                 case 1: {
                     ciudades = pedirDosCiudades();
                     //caudalPleno(); TODo
-                    logInformacionTransporteAgua(ciudades[0],ciudades[1],true);
+                    //logInformacionTransporteAgua(ciudades[0],ciudades[1],true);
                     break;
                 }
                 case 2: {
                     ciudades = pedirDosCiudades();
                     caminoMasCorto(ciudades[0],ciudades[1]);
-                    logInformacionTransporteAgua(ciudades[0],ciudades[1],false);
+                    //logInformacionTransporteAgua(ciudades[0],ciudades[1],false);
                 }
             }
         }
@@ -466,7 +466,7 @@ public class TransporteDeAgua {
         Lista ciudades=tablaBusqueda.listarPorConsumo(in.nextInt());
         in.nextLine();
         System.out.println(ciudades.toString());
-        logCiudadesPorConsumo();
+        //logCiudadesPorConsumo();
     }
     
     
@@ -497,7 +497,7 @@ public class TransporteDeAgua {
                 default:
             }
         }
-        logDebug();
+        //logDebug();
     }
     
     
@@ -516,55 +516,12 @@ public class TransporteDeAgua {
     
     //Metodos LOGS------------------------------------------------------------
     //MOVER A OTRO LADO #########
-    private static void logInsertoEliminoCiudad(String c, boolean caso){
-        if(caso){
-            log.agregarLinea("Se inserto la ciudad "+c);
-        }else{
-            log.agregarLinea("Se elimino la ciudad "+c);
-        }
-    }
-    
-    private static void logMostroInformacionCiudad(String c){
-        log.agregarLinea("Se mostro informacion de la ciudad "+c);
-    }
-    
-    private static void logMostroInfoCiudadesRango(String c1, String c2, int minVol,int maxVol, int a, int m){
-        System.out.println("Se mostro informaciones de las ciudades alfabeticamente entre "+c1+" y "+c2+
-                           "que tienen un consumo entre "+minVol+" y "+maxVol+" en el año "+a+" y mes "+m);
-    }
-    
-    private static void logInformacionTransporteAgua(String c1,String c2,boolean caminoMinimo){
-        if(caminoMinimo){//Si se pidio el camino minimo entre 2 ciudades
-            log.agregarLinea("Se mostro informacion del recorrido entre "+c1+" y "+c2+" donde el caudal pleno es el minimo entre las tuberias");
-        }else{
-            log.agregarLinea("Se mostro el recorrido entre "+c1+" y "+c2+" mas corto posible");
-        }
-    }
-    
-    private static void logCiudadesPorConsumo(){
-        log.agregarLinea("Se mostro todas las ciudades ordenadas por Consumo");
-    }
-    
-    private static void logDebug(){
-        log.agregarLinea("Se mostro todas las estructuras (DEBUG)");
-    }
-    
-    private static void logInsertoEliminoTuberia(String t, boolean caso){
-        if(caso){
-            log.agregarLinea("Se inserto la tuberia "+t);
-        }else{
-            log.agregarLinea("Se elimino la tuberia "+t);
-        }
-    }
-    
-    private static void logCargoAniosCiudad(String c, int a){
-        log.agregarLinea("Se cargaron los datos del año "+a+" de la ciudad "+c);
-    }
-    
     private static void logFinalizar(ArbolAVL a,MapaDigrafo d,HashMap h){
+        log.agregarLinea("ESTRUCTURAS:\n");
         log.agregarLinea(a.toString());
         log.agregarLinea(d.toString());
         log.agregarLinea(h.toString());
+        log.cerrar();
     }
     
     //------------------------------------------------------------------------

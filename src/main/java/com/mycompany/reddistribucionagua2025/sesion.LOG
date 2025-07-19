@@ -1,1 +1,34 @@
-Se mostro todas las estructuras (DEBUG)
+Raiz: Montevideo
+Montevideo: (I) Ciudad de México-(D) San Juan
+Ciudad de México: (I) Buenos Aires-(D) Lima
+Buenos Aires: (I) Barranquilla-(D) Caracas
+Barranquilla: (I) Asunción-(D) Bogotá
+Asunción: (I) -(D) 
+Bogotá: (I) -(D) Brasília
+Brasília: (I) -(D) 
+Caracas: (I) Cali-(D) 
+Cali: (I) -(D) 
+Lima: (I) Habana-(D) Medellín
+Habana: (I) Guadalajara-(D) La Paz
+Guadalajara: (I) Fortaleza-(D) 
+Fortaleza: (I) -(D) 
+La Paz: (I) -(D) 
+Medellín: (I) Managua-(D) Monterrey
+Managua: (I) -(D) 
+Monterrey: (I) -(D) 
+San Juan: (I) Río de Janeiro-(D) Santiago
+Río de Janeiro: (I) Puebla-(D) San José
+Puebla: (I) Panamá-(D) Quito
+Panamá: (I) -(D) 
+Quito: (I) -(D) Recife
+Recife: (I) -(D) 
+San José: (I) Salvador-(D) 
+Salvador: (I) -(D) 
+Santiago: (I) San Salvador-(D) Tegucigalpa
+San Salvador: (I) -(D) 
+Tegucigalpa: (I) Santo Domingo-(D) Tijuana
+Santo Domingo: (I) -(D) 
+Tijuana: (I) -(D) 
+
+com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo@6f94fa3e
+{}
