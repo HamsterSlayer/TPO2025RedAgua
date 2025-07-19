@@ -29,13 +29,17 @@ public class TransporteDeAgua {
     private static Scanner in = new Scanner(System.in);
     private static String ultimaAccion = "";
     //----------------------------------------------------------
-    
     //PROGRAMA PRINCIPAL ---------------------------------------
     public static void main(String[] args) {
         //precarga
         actualizarUltimaAccion("Se cargo la tabla de ciudades");
         Info.cargarRedDistribucion(tablaBusqueda, mapaCiudad);
         añoInicial = Info.conseguirAñoInicial();
+        
+        //Carga debug
+        Ciudad buenosAires = mapaCiudad.obtenerCiudad("Buenos Aires");
+        Ciudad santiago = mapaCiudad.obtenerCiudad("Santiago");
+        //mapaCiudad.inserta
         //Menu
         int opcion;
         boolean exit = false;
@@ -224,17 +228,45 @@ public class TransporteDeAgua {
     }
     //SubOpcion2 Baja Tuberia ------------------------------------------------------------
     private static void darBajaTuberia() {
-        
-        
-        //log.log("Se mando a eliminar una tuberia",exito);
+        limpiarPantalla();
+        //Recibir datos del usuario
+        System.out.println(menuBajaTuberia);
+        System.out.print("Introduzca los datos: ");
+        String datosSinFormato = in.nextLine();
+        String[] ciudades = datosSinFormato.split(",");
+        //--
+        //Obtengo las dos ciudades
+        Ciudad origen = mapaCiudad.obtenerCiudad(ciudades[0]);
+        Ciudad destino = mapaCiudad.obtenerCiudad(ciudades[1]);
+        System.out.println(origen + " <Origen Destino> "+ destino);
+        if (origen != null && destino != null) {
+            //Si ambas existen procedo a eliminar las tuberias
+            DominioHash llave = new DominioHash(origen.getNomenclatura(),destino.getNomenclatura());
+            boolean existeEnHash = mapeoTuberias.containsKey(llave);
+            if (existeEnHash) {
+                mapaCiudad.eliminarArco(origen, destino);
+                actualizarUltimaAccion("Exito en baja de tuberia");
+            }
+            else {
+                actualizarUltimaAccion("No existe la tuberia entre" + origen + " y " + destino);
+            }
+        }
+        else {
+            actualizarUltimaAccion("Error en baja de tuberia");
+        }
     }
     
-    //SubOpcion3 Modificar Tuberia ------------------------------------------------------------
+    //SubOpcion3 Modificar Tuberia ------------------------------------------
     private static void modificarTuberia() {
         //log.log("Se cambio parametros de una tuberia",exito);
     }
     
     // ------------------------------------------------------------------------
+    
+    
+    
+    //OPCION 3: ALTA HABITANTES ----------------------------------------------------------------------------
+    
     private static void altaHabitantes() {
         // pregunta el año y la ciudad y ingresa el valor en donde corresponda
         //log.log("Se actualizo informacion de habitantes del mes "+mes+"y año "+anio,exito);
@@ -546,6 +578,12 @@ public class TransporteDeAgua {
         ultimaAccion = String.format("\t#Ultimo Movimiento: %s", accion);
     }
     
+    /*private String formatoMenu(String titulo, String contenido) {
+        String resultado = separador() + titulo + separador();
+        resultado += contenido + "\n" + separador();
+        return resultado;
+    }*/
+    
     
     
     //MENUS. Son almacenados en un string. --------------------------------------------------
@@ -612,13 +650,13 @@ public class TransporteDeAgua {
                                                 """;
     
     private static String menuDebug = """
-                                      ================================================================================
-                                                                        DEBUGGING                             
-                                      ================================================================================
-                                      [1] Listar todas las ciudades
-                                      [2] Listar todas las tuberias
-                                      [0] Salir
-                                      ================================================================================
+                                            ================================================================================
+                                                                              DEBUGGING                             
+                                            ================================================================================
+                                            [1] Listar todas las ciudades
+                                            [2] Listar todas las tuberias
+                                            [0] Salir
+                                            ================================================================================
                                       """;
     
     
@@ -668,6 +706,17 @@ public class TransporteDeAgua {
                 ================================================================================
             """;
     
+    private static String menuBajaTuberia =
+            """
+                ================================================================================
+                                                ELIMINAR TUBERIA                             
+                ================================================================================
+                Se requiere:
+                >Ciudad de origen y Ciudad de destino. El orden importa.
+                >Ejemplo: Buenos Aires,Brasilia
+                ================================================================================
+            """;
+    
     private static String separador() {
         return "================================================================================\n";
     }
@@ -701,11 +750,12 @@ public class TransporteDeAgua {
         darAltaCiudad() #H
         darBajaCiudad()#H
         modificarCiudad() #f
-    OPCION 2
-        darAltaTuberia() #H
-        darBajaTuberia()#f
+    OPCION 2 #p
+        darAltaTuberia() #H //Hay un problema con las nomenclaturas Ciudad De Mexico es Cd en vez de CM
+        darBajaTuberia()#H
         modificarTuberia() #f
     OPCION 3
+
     OPCION 4
     OPCION 5
         Caudal Pleno
