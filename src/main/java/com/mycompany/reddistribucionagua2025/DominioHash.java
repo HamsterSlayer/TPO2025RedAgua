@@ -23,6 +23,7 @@ public class DominioHash {
         return nomOrigen.equals(otroDominio.getNomOrigen()) && nomDestino.equals(otroDominio.getNomDestino());
     }
     
+    //El Hash de Java usa el equals con Object por lo que es necesario sobreescribirlo.
     @Override
     public boolean equals(Object otroDominio) {
         DominioHash elemento = (DominioHash) otroDominio;

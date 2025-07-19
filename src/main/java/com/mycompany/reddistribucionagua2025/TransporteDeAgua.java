@@ -202,18 +202,15 @@ public class TransporteDeAgua {
         String datosSinFormato = in.nextLine();
         String[] datos = datosSinFormato.split(",");
         //---
-        String [] nomenclaturas = datos[0].split("-");
-        String nomenclaturaOrigen = nomenclaturas[0];
-        String nomenclaturaDestino = nomenclaturas[1];
-        DominioHash keyTuberia = new DominioHash(nomenclaturaOrigen, nomenclaturaDestino);
+        Ciudad origen = mapaCiudad.obtenerCiudad(datos[0]);
+        Ciudad destino = mapaCiudad.obtenerCiudad(datos[1]);
+        DominioHash keyTuberia = new DominioHash(origen.getNomenclatura(), destino.getNomenclatura());
         boolean existeEnHash = mapeoTuberias.containsKey(keyTuberia);
-        Ciudad origen = mapaCiudad.obtenerCiudadNomenclatura(nomenclaturaOrigen);
-        Ciudad destino = mapaCiudad.obtenerCiudadNomenclatura(nomenclaturaDestino);
         
         //Verifico las condiciones para la tuberia
         if(origen != null && destino != null && !existeEnHash ) {          
             //Creo la tuberia
-            Tuberias tuberiaNueva = new Tuberias(datos[0],Float.parseFloat(datos[1]),Float.parseFloat(datos[2]),Float.parseFloat(datos[3]),datos[4]);
+            Tuberias tuberiaNueva = new Tuberias(origen.getNomenclatura()+"-"+destino.getNomenclatura(),Float.parseFloat(datos[2]),Float.parseFloat(datos[3]),Float.parseFloat(datos[4]),datos[5]);
             //Lo meto en el hash 
             mapeoTuberias.put(keyTuberia, tuberiaNueva);
             //Lo meto el mapa ciudad
@@ -266,9 +263,49 @@ public class TransporteDeAgua {
     //OPCION 3: ALTA HABITANTES ----------------------------------------------------------------------------
     
     private static void altaHabitantes() {
-        // pregunta el año y la ciudad y ingresa el valor en donde corresponda
+        limpiarPantalla();
+        boolean exit = false;
+        do {
+            int opcion = crearMenu(menuAltaPoblacion,2);
+            switch (opcion) {
+                case 0: {
+                    exit = true;
+                    break;
+                }
+                case 1: {
+                    modificarAño();
+                    break;
+                }
+                case 2: {
+                    modificarMes();
+                    break;
+                }
+                default:
+                    opcionInvalida();
+            }
+        }
+        while (!exit);
+        
     }
+    
+    //subOpcion1: modificar año completo----------------------------------------
+    private static void modificarAño(){
+        
+    }
+    
+    //subOpcion2: modificar solo un mes ---------------------------------------
+    private static void modificarMes(){
+        
+    }
+    
+    private static String menuModificarAnio = """
+                                              """;
+    
+    //--------------
 
+    
+    
+    //OPCION 4: CONSULTAS CIUDADES -----------------------------------------------
     private static void consultarCiudades() {
         int opcion;
         Scanner in = new Scanner(System.in);
@@ -326,53 +363,6 @@ public class TransporteDeAgua {
         }
     }
 
-    private static void menuConsultaTuberias() {
-        System.out.println("***** Elija la consulta que desea hacer. *****");
-        System.out.println("1: Obtener el camino con mínimo caudal pleno");
-        System.out.println("2: Obtener el camino que pasa por la mínima cantidad de ciudades");
-        System.out.println("3: Volver al menu general");
-    }
-
-    private static void activarConsultaTuberia(int opcion) {
-        switch (opcion) {
-
-            // !Nombres terribles y provisórios
-            case 1:
-                // obtenerMinimoCaudal(String ciudad1, String ciudad2, grafo ¿);
-                break;
-            case 2:
-                // caminoMinCiudades(ciudad1, ciudad2/* GRAFO */);
-                break;
-            default:
-        }
-    }
-
-    private static void caminoMinCiudades(String ciudad1, String ciudad2, HashMap mapeoTuberias /* GRAFO */) {
-        String estado;
-        Lista menorCamino = new Lista();// new lista se va a comentar una vez que se haga el codigo de verdad
-        // menorCamino = grafo.caminoMasCorto(ciudad1,ciudad2);
-        if (menorCamino.esVacia()) {
-            System.out.println("No existe camino entre las dos ciudades indicadas");
-        }
-
-        else {
-            System.out.println("El camino es: ");
-            System.out.print(caminoToString(menorCamino));
-            System.out.println("Estado del camino: " + getEstadoCamino(menorCamino, mapeoTuberias));
-        }
-    }
-
-    private static String caminoToString(Lista camino) {
-        String caminoString = "";
-        int i = 1;
-        while (i <= camino.longitud()) {
-            caminoString += ((Ciudad) camino.recuperar(i)).getNombre();
-            if (i != camino.longitud) {
-                caminoString += "-";
-            }
-        }
-        return caminoString;
-    }
 
     private static String getEstadoCamino(Lista camino, HashMap mapeoTuberias) {
         String estado = "activo";
@@ -480,7 +470,7 @@ public class TransporteDeAgua {
         int opcion;
         boolean exitTemp = false;
         while (!exitTemp) {
-            opcion = crearMenu(menuDebug,2);
+            opcion = crearMenu(menuDebug,3);
             switch(opcion) {
                 case 0: {
                     exitTemp = true;
@@ -493,6 +483,9 @@ public class TransporteDeAgua {
                 case 2: {
                     confirmarParaContinuar(formato(mapaCiudad.debugPrintArcos()));
                     break;
+                }
+                case 3: {
+                    confirmarParaContinuar(formato(mapeoTuberias.toString() + "\n"));
                 }
                 default:
             }
@@ -512,6 +505,8 @@ public class TransporteDeAgua {
                            ================================================================================
                            """);
     }
+    
+    
     
     
     //Metodos LOGS------------------------------------------------------------
@@ -648,8 +643,9 @@ public class TransporteDeAgua {
                                             ================================================================================
                                                                               DEBUGGING                             
                                             ================================================================================
-                                            [1] Listar todas las ciudades
-                                            [2] Listar todas las tuberias
+                                            [1] Listar todas las ciudades [Digrafo]
+                                            [2] Listar todas las tuberias [Digrafo]
+                                            [3] Listar tuberias en HASH.
                                             [0] Salir
                                             ================================================================================
                                       """;
@@ -662,7 +658,7 @@ public class TransporteDeAgua {
             ================================================================================
             CONSULTA ENTRE DOS CIUDADES:
             [1] Caudal Pleno
-            [2] Camino Mas Corto
+            [2] Camino Mas Corto ... Devuelve una lista con el camino mas corto entre A y B
             [0] Salir
             ================================================================================
             """;
@@ -696,8 +692,8 @@ public class TransporteDeAgua {
                                                 CREAR TUBERIA                             
                 ================================================================================
                 Se requiere:
-                >(nom1-nom2,caudalMaximo,caudalMinimo,diametro,estado)
-                >Ejemplo de como debe de introducirse los datos: NE3000-NY3121,38482.21,1.2,34,ACTIVO
+                >(ciudad1,ciudad2,caudalMaximo,caudalMinimo,diametro,estado)
+                >Ejemplo de como debe de introducirse los datos: Buenos Aires,Santiago,38482.21,1.2,34,ACTIVO
                 ================================================================================
             """;
     
@@ -709,6 +705,19 @@ public class TransporteDeAgua {
                 Se requiere:
                 >Ciudad de origen y Ciudad de destino. El orden importa.
                 >Ejemplo: Buenos Aires,Brasilia
+                ================================================================================
+            """;
+    
+    private static String menuAltaPoblacion = 
+            """
+                ================================================================================
+                                                GESTION POBLACION                            
+                ================================================================================
+                ACTUALIZAR:
+                Se actualizara la informacion de los habitantes para un anio y ciudad dada.
+                [1] Actualizar Anio entero ... reemplazar todo un anio
+                [2] Actualizar mes ... reemplazara solo un mes de un anio
+                [0] Salir
                 ================================================================================
             """;
     
@@ -736,17 +745,20 @@ public class TransporteDeAgua {
         modificarCiudad() #f
     OPCION 2 #p
         darAltaTuberia() #H //Hay un problema con las nomenclaturas Ciudad De Mexico es Cd en vez de CM
+        //Posible mejora: En vez de dividir las dos ciudades por "-" hacerlo por ",".
         darBajaTuberia()#H
         modificarTuberia() #f
     OPCION 3
-
+        modificarAño
+        modificarMes
     OPCION 4
     OPCION 5
         Caudal Pleno
         Camino Mas Corto #H
     OPCION 6
     OPCION 7
-    
-    OPCION 8 #H
+
+COMPLETO:
+        OPCION 8 #H
         adios() #H
 */

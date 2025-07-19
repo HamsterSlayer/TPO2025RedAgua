@@ -29,7 +29,6 @@ public class Tuberias {
     private float diametro;
     private EstadoTuberia estado;
     //--------------------------------------------------------------------------
-    // verificar si string y float son realmente apropiados para estos datos.
 
     public Tuberias(String nomenc, float cMaximo, float cMinimo, float dim, String elEstado) {
             nomenclatura = nomenc;
