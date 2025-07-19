@@ -64,7 +64,7 @@ public class TransporteDeAgua {
                     consultarTransporte();
                     break;
                 case 6:
-                    //listadoPorConsumoEnAnio();
+                    listadoPorConsumoEnAnio();
                     break;
                 case 7:
                     debugSistema();
@@ -125,15 +125,16 @@ public class TransporteDeAgua {
         Ciudad nuevaCiudad = new Ciudad(datos[0],añoInicial,Float.parseFloat(datos[1]));
         //Verifico que no exista ya
         boolean noExiste = true;
-        noExiste = tablaBusqueda.insertar(nuevaCiudad, nuevaCiudad.getNombre());
+            noExiste = tablaBusqueda.insertar(nuevaCiudad, sacarAcentos(nuevaCiudad.getNombre().trim().toLowerCase()));
         if (noExiste) {
             mapaCiudad.insertarVertice(nuevaCiudad);
             actualizarUltimaAccion(String.format("Se creo la ciudad %s",datos[0]));
-            //logInsertoEliminoCiudad(datos[0],true); //Logeo
+
         }
         else {
             actualizarUltimaAccion(String.format("Ya existe la ciudad %s",datos[0]));
         }
+        log.log("Se mando a crear una nueva ciudad: "+datos[0],noExiste); //Logeo
     }
     //------------------------------------------------------------------------
     
@@ -142,14 +143,13 @@ public class TransporteDeAgua {
         limpiarPantalla();
         System.out.println(menuEliminarCiudad);
         System.out.print("Por favor introduzca los datos: ");
-        String nombreCiudad = in.nextLine();
+        String nombreCiudad = sacarAcentos(in.nextLine().trim().toLowerCase());
         
         //Lo elimino de la tabla de busqueda
         if (tablaBusqueda.eliminar(nombreCiudad)) {
             Ciudad ciudadBuscada = mapaCiudad.obtenerCiudad(nombreCiudad);
             //Lo elimino del digrafo
-            mapaCiudad.eliminarVertice(ciudadBuscada);
-            //logInsertoEliminoCiudad(nombreCiudad,false); //Logeo
+            log.log("Se mando a eliminar la ciudad: "+nombreCiudad,mapaCiudad.eliminarVertice(ciudadBuscada)||tablaBusqueda.eliminar(nombreCiudad)); //Logeo
             actualizarUltimaAccion(String.format("Se elimino la ciudad %s", nombreCiudad));
         }
         else {
@@ -163,7 +163,7 @@ public class TransporteDeAgua {
     private static void modificarCiudad() {
         //System.out.println(MenuModificarCiudad);
         //TERMINAR DE HACER ESTA PARTE ######################################################################
-        //logCargoAniosCiudad(nombreCiudad, anio);
+        //log.agregarLinea("Se cargo informacion en la ciudad" +ciudadNombre);
     }
     
     
@@ -216,9 +216,11 @@ public class TransporteDeAgua {
             //Lo meto el mapa ciudad
             mapaCiudad.insertarArco(origen, destino, tuberiaNueva.getCaudalMaximo());
             actualizarUltimaAccion(String.format("Tuberia de %s a %s creada con exito", origen.getNombre(),destino.getNombre()));
+            log.log("Se mando a crear una tuberia entre "+origen.getNombre()+" y "+destino.getNombre(),true);
         }
         else {
             actualizarUltimaAccion("Fallo en crear tubería");
+            log.log("Se mando a crear una tuberia",false);
         }
     }
     //SubOpcion2 Baja Tuberia ------------------------------------------------------------
@@ -245,15 +247,17 @@ public class TransporteDeAgua {
             else {
                 actualizarUltimaAccion("No existe la tuberia entre" + origen + " y " + destino);
             }
+            log.log("Se mando a eliminar una tuberia",existeEnHash);
         }
         else {
             actualizarUltimaAccion("Error en baja de tuberia");
+            log.log("Se mando a eliminar una tuberia",false);
         }
     }
     
     //SubOpcion3 Modificar Tuberia ------------------------------------------
     private static void modificarTuberia() {
-        
+        //log.log("Se cambio parametros de una tuberia",exito);
     }
     
     // ------------------------------------------------------------------------
@@ -331,6 +335,7 @@ public class TransporteDeAgua {
             activarConsultaCiudad(opcion); // TODO
 
         } while (opcion != 3);
+        log.agregarLinea("Se fue al menu de consulta de ciudades");
     }
 
     private static void menuConsultaCiudades() {
@@ -344,20 +349,20 @@ public class TransporteDeAgua {
         System.out.println("Indique el nombre de 2 ciudades "+"Indique minVol y maxVol "+"Indique mes y anio");
         String[] aux = (in.nextLine()).split(",");
         System.out.println(tablaBusqueda.listarPorRango(aux[0],aux[1],Integer.parseInt(aux[2]),Integer.parseInt(aux[3]),Integer.parseInt(aux[4]),Integer.parseInt(aux[5])).toString());
-        //logMostroInfoCiudadesRango(aux[0],aux[1],Integer.parseInt(aux[2]),Integer.parseInt(aux[3]),Integer.parseInt(aux[4]),Integer.parseInt(aux[5]));
+        log.agregarLinea("Se mostro las ciudades en rango entre nombres:"+aux[0]+" y "+aux[1]+", con rango de vol entre: "+aux[2]+" y "+aux[3]+" en mes:"+aux[4]+" y año "+aux[5]);
     }
 
     private static void activarConsultaCiudad(int opcion) {
         switch (opcion) {
             case 1:
                 // mostrarInformacionEnFecha(int anio, int mes, String nomenclatura);
-                // logMostroInformacionCiudad(nomenclatura); ^Creo que en vez de nomenclatura, deberia ser Nombre. atte: Ivo
+                // log.agregarLinea("Se mostro informacion de la ciudad "+nomenclatura); ^Creo que en vez de nomenclatura, deberia ser Nombre. atte: Ivo
                 break;
             case 2:
                 // Lista ciudades = listarCiudadesEnRango();
                 // String temp = ciudades.toString();
                 // System.out.println(temp);
-                // logMostroInformacionCiudad(temp);
+                // log.agregarLinea("Se mostro la informacion de ciudades: "+temp);
                 break;
             default:
         }
@@ -413,13 +418,14 @@ public class TransporteDeAgua {
                 case 1: {
                     ciudades = pedirDosCiudades();
                     //caudalPleno(); TODo
-                    //logInformacionTransporteAgua(ciudades[0],ciudades[1],true);
+                    log.agregarLinea("Se consulto el transporte con menos caudal entre "+ciudades[0]+ " y "+ciudades[1]);
                     break;
                 }
                 case 2: {
                     ciudades = pedirDosCiudades();
                     caminoMasCorto(ciudades[0],ciudades[1]);
                     //logInformacionTransporteAgua(ciudades[0],ciudades[1],false);
+                    log.agregarLinea("Se consulto el transporte mas corto entre "+ciudades[0]+ " y "+ciudades[1]);
                 }
             }
         }
@@ -453,10 +459,10 @@ public class TransporteDeAgua {
     
     private static void listadoPorConsumoEnAnio(){
         System.out.println("Indique un año");
-        Lista ciudades=tablaBusqueda.listarPorConsumo(in.nextInt());
-        in.nextLine();
+        int aux=in.nextInt();
+        Lista ciudades=tablaBusqueda.listarPorConsumo(aux);
         System.out.println(ciudades.toString());
-        //logCiudadesPorConsumo();
+        log.agregarLinea("Se mostro ciudades ordenadas por consumo en el año "+aux);
     }
     
     
@@ -490,7 +496,7 @@ public class TransporteDeAgua {
                 default:
             }
         }
-        //logDebug();
+        log.agregarLinea("Se fue al menu de Debug para mostrar las estructuras");
     }
     
     
@@ -733,6 +739,17 @@ public class TransporteDeAgua {
                            ================================================================================
                            """;
         confirmarParaContinuar(invalido);
+    }
+    
+        public static String sacarAcentos(String texto) {
+        return texto.replace("á", "a")
+                .replace("é", "e")
+                .replace("í", "i")
+                .replace("ó", "o")
+                .replace("ú", "u")
+                .replace("ñ", "n")
+                .replace("ü", "u")
+                .replace("ç", "c");
     }
 }
 
