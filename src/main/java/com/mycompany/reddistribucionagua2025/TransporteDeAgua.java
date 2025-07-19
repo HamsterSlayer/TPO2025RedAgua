@@ -250,9 +250,11 @@ public class TransporteDeAgua {
             else {
                 actualizarUltimaAccion("No existe la tuberia entre" + origen + " y " + destino);
             }
+            log.log("Se mando a eliminar una tuberia",existeEnHash);
         }
         else {
             actualizarUltimaAccion("Error en baja de tuberia");
+            log.log("Se mando a eliminar una tuberia",false);
         }
     }
     
