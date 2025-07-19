@@ -22,6 +22,12 @@ public class DominioHash {
     public boolean equals(DominioHash otroDominio) {
         return nomOrigen.equals(otroDominio.getNomOrigen()) && nomDestino.equals(otroDominio.getNomDestino());
     }
+    
+    @Override
+    public boolean equals(Object otroDominio) {
+        DominioHash elemento = (DominioHash) otroDominio;
+        return nomOrigen.equals(elemento.getNomOrigen()) && nomDestino.equals(elemento.getNomDestino());
+    }
 
     public int hashCode() {
         return (nomOrigen + nomDestino).hashCode();
