@@ -452,51 +452,6 @@ public class TransporteDeAgua {
     
     //Metodos LOGS------------------------------------------------------------
     //MOVER A OTRO LADO #########
-    private static void logInsertoEliminoCiudad(String c, boolean caso){
-        if(caso){
-            log.agregarLinea("Se inserto la ciudad "+c);
-        }else{
-            log.agregarLinea("Se elimino la ciudad "+c);
-        }
-    }
-    
-    private static void logMostroInformacionCiudad(String c){
-        log.agregarLinea("Se mostro informacion de la ciudad "+c);
-    }
-    
-    private static void logMostroInfoCiudadesRango(String c1, String c2, int minVol,int maxVol, int a, int m){
-        System.out.println("Se mostro informaciones de las ciudades alfabeticamente entre "+c1+" y "+c2+
-                           "que tienen un consumo entre "+minVol+" y "+maxVol+" en el año "+a+" y mes "+m);
-    }
-    
-    private static void logInformacionTransporteAgua(String c1,String c2,boolean caminoMinimo){
-        if(caminoMinimo){//Si se pidio el camino minimo entre 2 ciudades
-            log.agregarLinea("Se mostro informacion del recorrido entre "+c1+" y "+c2+" donde el caudal pleno es el minimo entre las tuberias");
-        }else{
-            log.agregarLinea("Se mostro el recorrido entre "+c1+" y "+c2+" mas corto posible");
-        }
-    }
-    
-    private static void logCiudadesPorConsumo(){
-        log.agregarLinea("Se mostro todas las ciudades ordenadas por Consumo");
-    }
-    
-    private static void logDebug(){
-        log.agregarLinea("Se mostro todas las estructuras (DEBUG)");
-    }
-    
-    private static void logInsertoEliminoTuberia(String t, boolean caso){
-        if(caso){
-            log.agregarLinea("Se inserto la tuberia "+t);
-        }else{
-            log.agregarLinea("Se elimino la tuberia "+t);
-        }
-    }
-    
-    private static void logCargoAniosCiudad(String c, int a){
-        log.agregarLinea("Se cargaron los datos del año "+a+" de la ciudad "+c);
-    }
-    
     private static void logFinalizar(ArbolAVL a,MapaDigrafo d,HashMap h){
         log.agregarLinea(a.toString());
         log.agregarLinea(d.toString());

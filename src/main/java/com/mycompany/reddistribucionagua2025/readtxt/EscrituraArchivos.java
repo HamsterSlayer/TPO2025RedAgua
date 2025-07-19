@@ -22,4 +22,14 @@ public class EscrituraArchivos {
             System.err.println("Error al escribir el archivo");
         }
     }
+    
+    public void log(String linea, boolean caso){
+        String txt;
+        if(caso){
+            txt="EXITO : "+linea;
+        }else{
+            txt="FALLO : "+linea;
+        }
+        agregarLinea(txt);
+    }
 }
