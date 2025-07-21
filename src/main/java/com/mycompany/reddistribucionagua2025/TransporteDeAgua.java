@@ -125,7 +125,7 @@ public class TransporteDeAgua {
         Ciudad nuevaCiudad = new Ciudad(datos[0],añoInicial,Float.parseFloat(datos[1]));
         //Verifico que no exista ya
         boolean noExiste = true;
-            noExiste = tablaBusqueda.insertar(nuevaCiudad, sacarAcentos(nuevaCiudad.getNombre().trim().toLowerCase()));
+            noExiste = tablaBusqueda.insertar(nuevaCiudad, sacarAcentos(nuevaCiudad.getNombre().replace(" ","").toLowerCase()));
         if (noExiste) {
             mapaCiudad.insertarVertice(nuevaCiudad);
             actualizarUltimaAccion(String.format("Se creo la ciudad %s",datos[0]));
@@ -143,10 +143,10 @@ public class TransporteDeAgua {
         limpiarPantalla();
         System.out.println(menuEliminarCiudad);
         System.out.print("Por favor introduzca los datos: ");
-        String nombreCiudad = sacarAcentos(in.nextLine().trim().toLowerCase());
+        String nombreCiudad = sacarAcentos(in.nextLine().replace(" ","").toLowerCase());
         
         //Lo elimino de la tabla de busqueda
-        if (tablaBusqueda.eliminar(nombreCiudad)) {
+        if (tablaBusqueda.eliminar(nombreCiudad)){
             Ciudad ciudadBuscada = mapaCiudad.obtenerCiudad(nombreCiudad);
             //Lo elimino del digrafo
             log.log("Se mando a eliminar la ciudad: "+nombreCiudad,mapaCiudad.eliminarVertice(ciudadBuscada)||tablaBusqueda.eliminar(nombreCiudad)); //Logeo
@@ -508,7 +508,7 @@ public class TransporteDeAgua {
         int opcion;
         boolean exitTemp = false;
         while (!exitTemp) {
-            opcion = crearMenu(menuDebug,3);
+            opcion = crearMenu(menuDebug,4);
             switch(opcion) {
                 case 0: {
                     exitTemp = true;
@@ -525,6 +525,9 @@ public class TransporteDeAgua {
                 case 3: {
                     confirmarParaContinuar(formato(mapeoTuberias.toString() + "\n"));
                 }
+                    break;
+                case 4:
+                    confirmarParaContinuar(formato(tablaBusqueda.toString())+"\n");
                 default:
             }
         }
@@ -684,6 +687,7 @@ public class TransporteDeAgua {
                                             [1] Listar todas las ciudades [Digrafo]
                                             [2] Listar todas las tuberias [Digrafo]
                                             [3] Listar tuberias en HASH.
+                                            [4] Listar todas las ciudades [Arbol]
                                             [0] Salir
                                             ================================================================================
                                       """;

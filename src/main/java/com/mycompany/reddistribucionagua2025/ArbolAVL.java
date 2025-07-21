@@ -319,7 +319,7 @@ public class ArbolAVL {
                     }
                 }else{exito=false;}
             }else{
-                if(this.raiz.getDerecho()!=null){
+                if(this.raiz.getIzquierdo()!=null){
                     exito=eliminarAux(this.raiz,this.raiz.getIzquierdo(),'I',claveBuscado);
                     if(exito){
                         this.raiz.recalcularAltura();
