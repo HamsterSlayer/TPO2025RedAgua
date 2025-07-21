@@ -294,6 +294,23 @@ public class TransporteDeAgua {
     
     //subOpcion1: modificar año completo----------------------------------------
     private static void modificarAño(){
+        int añoDado;
+        limpiarPantalla();
+        System.out.println(menuAnio);
+        System.out.println("Por favor Introduzca el Anio");
+        añoDado = in.nextInt();
+        in.nextLine(); //limpia buffer
+        limpiarPantalla();
+        System.out.println(menuModificarAnio);
+        System.out.print("Por favor introduzca 12 datos: ");
+        String entrada = in.nextLine();
+        String[] datos = entrada.trim().replace(" ", "").split(",");
+        if (datos.length == 12 && añoDado >= añoInicial && añoDado <= (añoInicial+10) ) {
+            
+        }
+        for (String dato: datos) {
+            
+        }
         
     }
     
@@ -302,7 +319,22 @@ public class TransporteDeAgua {
         
     }
     
+        private static String menuAnio = """
+                                                    ================================================================================
+                                                                                    ALTA HABITANTES                             
+                                                    ================================================================================
+                                                    Por favor introduzca el anio que desea modificar:
+                                                    ================================================================================
+                                              """;
+    
     private static String menuModificarAnio = """
+                                                    ================================================================================
+                                                                                    ALTA HABITANTES                             
+                                                    ================================================================================
+                                                    POR ANIO:
+                                                    Por favor introduzca 12 datos separados por coma
+                                                    Ejemplo: 123,25,7,5,3,8,9,3,8,7,6,5
+                                                    ================================================================================
                                               """;
     
     //--------------
@@ -762,17 +794,19 @@ public class TransporteDeAgua {
         modificarCiudad() #f
     OPCION 2 #p
         darAltaTuberia() #H //Hay un problema con las nomenclaturas Ciudad De Mexico es Cd en vez de CM
-        //Posible mejora: En vez de dividir las dos ciudades por "-" hacerlo por ",".
         darBajaTuberia()#H
         modificarTuberia() #f
     OPCION 3
         modificarAño
         modificarMes
     OPCION 4
+        infoCiudad (cantHabitantes y volumenAgua distribuido) a partir de un mes y año
+        algoQueIvoHizo
     OPCION 5
         Caudal Pleno
         Camino Mas Corto #H
     OPCION 6
+        
     OPCION 7
 
 COMPLETO:
