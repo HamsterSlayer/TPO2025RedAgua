@@ -1,0 +1,36 @@
+EXITO : Se mando a eliminar la ciudad: buenosaires
+EXITO : Se mando a eliminar la ciudad: santiago
+ESTRUCTURAS:
+
+Raiz: montevideo
+montevideo: (I) ciudaddemexico-(D) sanjuan
+ciudaddemexico: (I) cali-(D) lima
+cali: (I) barranquilla-(D) caracas
+barranquilla: (I) asuncion-(D) bogota
+asuncion: (I) -(D) 
+bogota: (I) -(D) brasilia
+brasilia: (I) -(D) 
+caracas: (I) -(D) 
+lima: (I) habana-(D) medellin
+habana: (I) guadalajara-(D) lapaz
+guadalajara: (I) fortaleza-(D) 
+fortaleza: (I) -(D) 
+lapaz: (I) -(D) 
+medellin: (I) managua-(D) monterrey
+managua: (I) -(D) 
+monterrey: (I) -(D) 
+sanjuan: (I) riodejaneiro-(D) santodomingo
+riodejaneiro: (I) puebla-(D) sanjose
+puebla: (I) panama-(D) quito
+panama: (I) -(D) 
+quito: (I) -(D) recife
+recife: (I) -(D) 
+sanjose: (I) salvador-(D) 
+salvador: (I) -(D) 
+santodomingo: (I) sansalvador-(D) tegucigalpa
+sansalvador: (I) -(D) 
+tegucigalpa: (I) -(D) tijuana
+tijuana: (I) -(D) 
+
+com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo@6f94fa3e
+{}

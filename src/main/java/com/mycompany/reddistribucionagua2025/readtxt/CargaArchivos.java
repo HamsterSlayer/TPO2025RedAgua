@@ -28,7 +28,7 @@ public class CargaArchivos {
                         arr = linea.split(",");
                         Ciudad temp = new Ciudad(arr[0],añoInicial,Float.parseFloat(arr[1].trim()));
                         //a.insertar(new Ciudad(arr.[0],Integer.parseInt(arr[1].trim()),/* int[][] cantHabitantes */, Float.parseFloat(arr[3].trim()),/* float[][] consumoPromedio*/));
-                        arbol.insertar(temp,temp.getNombre());
+                        arbol.insertar(temp,sacarAcentos(temp.getNombre().replace(" ","").toLowerCase()));
                         mapa.insertarVertice(temp);
                     }
                 } while (linea != null);            
@@ -49,7 +49,7 @@ public class CargaArchivos {
                     if (linea != null) {
                         arr = linea.split(",");
                         //a.insertar(new Ciudad(arr.[0],Integer.parseInt(arr[1].trim()),/* int[][] cantHabitantes */, Float.parseFloat(arr[3].trim()),/* float[][] consumoPromedio*/));
-                        a.insertar(new Ciudad(arr[0],añoInicial,Float.parseFloat(arr[1].trim())),arr[0]); //Para pruebas
+                        a.insertar(new Ciudad(arr[0],añoInicial,Float.parseFloat(arr[1].trim())),sacarAcentos(arr[0].replace(" ","").toLowerCase())); //Para pruebas
                     }
                 } while (linea != null);
             bufferLectura.close();
@@ -58,6 +58,17 @@ public class CargaArchivos {
         } catch (IOException ex) {              //Un mensaje de error si hubo un problema al leer el archivo
             System.err.println("Error al leer el archivo");
         }
+    }
+    
+    private String sacarAcentos(String texto) {
+        return texto.replace("á", "a")
+                .replace("é", "e")
+                .replace("í", "i")
+                .replace("ó", "o")
+                .replace("ú", "u")
+                .replace("ñ", "n")
+                .replace("ü", "u")
+                .replace("ç", "c");
     }
     
     public int conseguirAñoInicial() {
