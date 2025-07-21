@@ -476,7 +476,7 @@ public class TransporteDeAgua {
         int opcion;
         boolean exitTemp = false;
         while (!exitTemp) {
-            opcion = crearMenu(menuDebug,3);
+            opcion = crearMenu(menuDebug,4);
             switch(opcion) {
                 case 0: {
                     exitTemp = true;
@@ -493,6 +493,9 @@ public class TransporteDeAgua {
                 case 3: {
                     confirmarParaContinuar(formato(mapeoTuberias.toString() + "\n"));
                 }
+                    break;
+                case 4:
+                    confirmarParaContinuar(formato(tablaBusqueda.toString())+"\n");
                 default:
             }
         }
@@ -652,6 +655,7 @@ public class TransporteDeAgua {
                                             [1] Listar todas las ciudades [Digrafo]
                                             [2] Listar todas las tuberias [Digrafo]
                                             [3] Listar tuberias en HASH.
+                                            [4] Listar todas las ciudades [Arbol]
                                             [0] Salir
                                             ================================================================================
                                       """;
