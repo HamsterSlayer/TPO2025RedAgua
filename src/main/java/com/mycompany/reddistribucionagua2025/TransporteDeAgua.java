@@ -290,7 +290,7 @@ public class TransporteDeAgua {
                         modificarDiametro(tuberia);
                         break;
                     case 3:
-
+                        modificarEstado(tuberia);
                         break;
 
                     default:
@@ -363,6 +363,26 @@ public class TransporteDeAgua {
         log.log("Se modificó el diametro de la tuberia " + tuberia.getNomenclatura() + ". " + maxAntiguo + ">>>" + max,
                 true);
 
+    }
+
+    private static void modificarEstado(Tuberias tuberia) {
+        int opcion = crearMenu(menuEstados, 4);
+        switch (opcion) {
+            case 1:
+                tuberia.setEstado("Activo");
+                break;
+            case 2:
+                tuberia.setEstado("En reparacion");
+                break;
+            case 3:
+                tuberia.setEstado("En diseno");
+                break;
+            case 4:
+                tuberia.setEstado("Inactivo");
+                break;
+            default:
+                opcionInvalida();
+        }
     }
 
     private static void modificarDiametro(Tuberias tuberia) {
@@ -769,6 +789,17 @@ public class TransporteDeAgua {
             ================================================================================
             [1] Modificar caudal mínimo
             [2] Modificar caudal máximo
+            ================================================================================
+            """;
+
+    private static String menuEstados = """
+            ================================================================================
+                                           MODIFICAR TUBERIA
+            ================================================================================
+            [1] Activo
+            [2] En reparacion
+            [3] En diseño
+            [4] Inactivo
             ================================================================================
             """;
 

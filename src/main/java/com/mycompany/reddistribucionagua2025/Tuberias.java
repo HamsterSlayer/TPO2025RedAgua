@@ -9,57 +9,57 @@ package com.mycompany.reddistribucionagua2025;
  * @author ivoel
  */
 
-//Temas aprendidos: Como usar ENUM.
+// Temas aprendidos: Como usar ENUM.
 
 public class Tuberias {
-    
-    //ENUM ----------------------------------------
+
+    // ENUM ----------------------------------------
     private enum EstadoTuberia {
         ACTIVO,
         EN_REPARACION,
         EN_DISENO,
         INACTIVO
     }
-    //-----------------------------------------------
-    
-    //Variables ---------------------------------------------------------------
+    // -----------------------------------------------
+
+    // Variables ---------------------------------------------------------------
     private String nomenclatura;
     private float caudalMaximo;
     private float caudalMinimo;
     private float diametro;
     private EstadoTuberia estado;
-    //--------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
     public Tuberias(String nomenc, float cMaximo, float cMinimo, float dim, String elEstado) {
-            nomenclatura = nomenc;
-            caudalMaximo = cMaximo;
-            caudalMinimo = cMinimo;
-            diametro = dim;
-            aEnum(elEstado);
+        nomenclatura = nomenc;
+        caudalMaximo = cMaximo;
+        caudalMinimo = cMinimo;
+        diametro = dim;
+        aEnum(elEstado);
     }
 
     public boolean validarEstado(String estadoIntroducido) {
         boolean resultado;
         estadoIntroducido = formato(estadoIntroducido);
-        switch(EstadoTuberia.valueOf(estadoIntroducido)) {
+        switch (EstadoTuberia.valueOf(estadoIntroducido)) {
             case ACTIVO,
-                 EN_REPARACION,
-                 EN_DISENO,
-                 INACTIVO: {
-                    resultado = true;
-                    break;
-                 }
+                    EN_REPARACION,
+                    EN_DISENO,
+                    INACTIVO: {
+                resultado = true;
+                break;
+            }
             default:
                 resultado = false;
         }
         return resultado;
     }
-    
+
     private void aEnum(String estadoIntroducido) {
         estadoIntroducido = formato(estadoIntroducido);
         this.estado = EstadoTuberia.valueOf(estadoIntroducido);
     }
-    
+
     private String formato(String estadoIntroducido) {
         estadoIntroducido = estadoIntroducido.trim();
         estadoIntroducido = estadoIntroducido.replace(" ", "_");
@@ -67,9 +67,9 @@ public class Tuberias {
         estadoIntroducido = estadoIntroducido.toUpperCase();
         return estadoIntroducido;
     }
-    
-        private String sacarAcentos(String texto) {
-    return texto.replace("á", "a")
+
+    private String sacarAcentos(String texto) {
+        return texto.replace("á", "a")
                 .replace("é", "e")
                 .replace("í", "i")
                 .replace("ó", "o")
@@ -78,7 +78,7 @@ public class Tuberias {
                 .replace("ü", "u")
                 .replace("ç", "c");
     }
-    
+
     public String getNomenclatura() {
         return nomenclatura;
     }
@@ -111,14 +111,18 @@ public class Tuberias {
         diametro = elDiametro;
     }
 
-    public void setEstado(String elEstado) {
-        if (validarEstado(elEstado)) {
+    public boolean setEstado(String elEstado) {
+        boolean exito = validarEstado(elEstado);
+        if (exito) {
             aEnum(elEstado);
         }
+        return exito;
+
     }
-    
+
     public String toString() {
-        String resultado = String.format("Tuberia: %s, caudalMax: %f - caudalMin %f; diametro: %f. ESTADO: %s", nomenclatura,caudalMaximo,caudalMinimo,diametro,estado.toString());
+        String resultado = String.format("Tuberia: %s, caudalMax: %f - caudalMin %f; diametro: %f. ESTADO: %s",
+                nomenclatura, caudalMaximo, caudalMinimo, diametro, estado.toString());
         return resultado;
     }
 }
