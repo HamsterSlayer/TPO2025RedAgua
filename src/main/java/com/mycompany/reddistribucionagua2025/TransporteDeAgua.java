@@ -35,11 +35,6 @@ public class TransporteDeAgua {
         actualizarUltimaAccion("Se cargo la tabla de ciudades");
         Info.cargarRedDistribucion(tablaBusqueda, mapaCiudad);
         añoInicial = Info.conseguirAñoInicial();
-        
-        //Carga debug
-        Ciudad buenosAires = mapaCiudad.obtenerCiudad("Buenos Aires");
-        Ciudad santiago = mapaCiudad.obtenerCiudad("Santiago");
-        //mapaCiudad.inserta
         //Menu
         int opcion;
         boolean exit = false;
@@ -242,6 +237,7 @@ public class TransporteDeAgua {
             boolean existeEnHash = mapeoTuberias.containsKey(llave);
             if (existeEnHash) {
                 mapaCiudad.eliminarArco(origen, destino);
+                mapeoTuberias.remove(llave); //Si lo sacas de nuevo te mato (❁´◡`❁)
                 actualizarUltimaAccion("Exito en baja de tuberia");
             }
             else {
@@ -294,48 +290,101 @@ public class TransporteDeAgua {
     
     //subOpcion1: modificar año completo----------------------------------------
     private static void modificarAño(){
+        //Tomo datos ciudad ----
         int añoDado;
         limpiarPantalla();
-        System.out.println(menuAnio);
-        System.out.println("Por favor Introduzca el Anio");
-        añoDado = in.nextInt();
-        in.nextLine(); //limpia buffer
-        limpiarPantalla();
-        System.out.println(menuModificarAnio);
-        System.out.print("Por favor introduzca 12 datos: ");
-        String entrada = in.nextLine();
-        String[] datos = entrada.trim().replace(" ", "").split(",");
-        if (datos.length == 12 && añoDado >= añoInicial && añoDado <= (añoInicial+10) ) {
-            
+        System.out.println(menuPais);
+        System.out.print("Por favor introduzca el nombre de un pais: ");
+        String ciudadSinEncontrar = in.nextLine();
+        Ciudad ciudad = mapaCiudad.obtenerCiudad(ciudadSinEncontrar);
+        if (ciudad != null) {
+            limpiarPantalla();
+            //Tomo datos año ------
+            System.out.println(menuAnio);
+            System.out.print("Por favor Introduzca el Anio: ");
+            añoDado = in.nextInt();
+            in.nextLine(); //limpia buffer
+            if (añoDado >= añoInicial && añoDado <= (añoInicial + 10)) {
+                //El año debe estar entre el rango inicial y los diez años
+                limpiarPantalla();
+                //Tomo datos meses
+                System.out.println(menuModificarMeses);
+                System.out.print("Por favor introduzca 12 datos: ");
+                String entrada = in.nextLine();
+                String[] datos = entrada.trim().replace(" ", "").split(",");
+                if (datos.length == 12) {
+                    limpiarPantalla();
+                    //Los datos deben de ser 12 exactos
+                    int[] nuevosHabitantes = new int[12];
+                    for (int mes = 0; mes < 12; mes++) {
+                        //Paso los datos a int
+                        nuevosHabitantes[mes] = Integer.parseInt(datos[mes]);
+                    }
+                    //Aplico a ciudad
+                    ciudad.setHabitantesAnio(nuevosHabitantes, añoDado);
+                    actualizarUltimaAccion("Se efectuo el cambio de anio en " + ciudad );
+                } else {
+                    confirmarParaContinuar(formato("Error en los datos"));
+                }
+            } else {
+                confirmarParaContinuar(formato("Error en el anio"));
+            }
+        } else {
+            confirmarParaContinuar(formato("Error en el pais"));
         }
-        for (String dato: datos) {
-            
-        }
-        
+
+
     }
-    
+
     //subOpcion2: modificar solo un mes ---------------------------------------
-    private static void modificarMes(){
-        
+    private static void modificarMes() {
+        //Tomo datos ciudad ----
+        int añoDado;
+        limpiarPantalla();
+        System.out.println(menuPais);
+        System.out.print("Por favor introduzca el nombre de un pais: ");
+        String ciudadSinEncontrar = in.nextLine();
+        Ciudad ciudad = mapaCiudad.obtenerCiudad(ciudadSinEncontrar);
+        if (ciudad != null) {
+            limpiarPantalla();
+            //Tomo datos año ------
+            System.out.println(menuAnio);
+            System.out.print("Por favor Introduzca el Anio: ");
+            añoDado = in.nextInt();
+            in.nextLine(); //limpia buffer
+            if (añoDado >= añoInicial && añoDado <= (añoInicial + 10)) {
+                //El año debe estar entre el rango inicial y los diez años
+                limpiarPantalla();
+                //Tomo datos mes
+                System.out.println(menuModificarMes);
+                System.out.print("Por favor introduzca el numero del mes: ");
+                int entrada = in.nextInt();
+                in.nextLine(); //limpia buffer
+                entrada -= 1;
+                if (entrada >= 0 && entrada <= 11) {
+                    //Tomo datos habitantes
+                    System.out.println(formato("Introduzca la cantidad de habitantes"));
+                    System.out.print("Habitantes: ");
+                    int habitantes = in.nextInt();
+                    in.nextLine();
+                    //Aplico a ciudad
+                    ciudad.setHabitantes(habitantes, añoDado, entrada);
+                    actualizarUltimaAccion("Se efectuo el cambio de mes en " + ciudad );
+                }
+                else {
+                    confirmarParaContinuar(formato("Error en el mes"));
+                }
+            }
+            else {
+                confirmarParaContinuar(formato("Error en el anio"));
+            }
+        }
+        else {
+            confirmarParaContinuar(formato("Error en el pais"));
+        }
+
     }
-    
-        private static String menuAnio = """
-                                                    ================================================================================
-                                                                                    ALTA HABITANTES                             
-                                                    ================================================================================
-                                                    Por favor introduzca el anio que desea modificar:
-                                                    ================================================================================
-                                              """;
-    
-    private static String menuModificarAnio = """
-                                                    ================================================================================
-                                                                                    ALTA HABITANTES                             
-                                                    ================================================================================
-                                                    POR ANIO:
-                                                    Por favor introduzca 12 datos separados por coma
-                                                    Ejemplo: 123,25,7,5,3,8,9,3,8,7,6,5
-                                                    ================================================================================
-                                              """;
+
     
     //--------------
 
@@ -602,7 +651,7 @@ public class TransporteDeAgua {
     }
     
     private static String formato(String texto) {
-        return (separador() + texto + separador());
+        return (separador() + texto + "\n" + separador());
     }
     
     private static void actualizarUltimaAccion(String accion) {
@@ -767,6 +816,42 @@ public class TransporteDeAgua {
         return "================================================================================\n";
     }
     
+    private static String menuAnio = """
+                                                    ================================================================================
+                                                                                    ALTA HABITANTES                             
+                                                    ================================================================================
+                                                    Por favor introduzca el anio que desea modificar:
+                                                    ================================================================================
+                                              """;
+    
+    private static String menuModificarMeses = """
+                                                    ================================================================================
+                                                                                    ALTA HABITANTES                             
+                                                    ================================================================================
+                                                    POR ANIO:
+                                                    Por favor introduzca 12 datos separados por coma
+                                                    Ejemplo: 123,25,7,5,3,8,9,3,8,7,6,5
+                                                    ================================================================================
+                                              """;
+    private static String menuPais = """
+                                                    ================================================================================
+                                                                                    ALTA HABITANTES                             
+                                                    ================================================================================
+                                                    Debe introducir un ciudad.
+                                                    Ejemplo: Buenos Aires
+                                                    ================================================================================
+                                              """;
+    private static String menuModificarMes = """
+                                                    ================================================================================
+                                                                                    ALTA HABITANTES                             
+                                                    ================================================================================
+                                                    Por favor introduzca un mes segun su numero 1-12
+                                                    Ejemplo: 11 (noviembre)
+                                                    ================================================================================
+                                             """;
+    
+    
+    
     private static void opcionInvalida() {
         String invalido = """
                            ================================================================================
@@ -801,9 +886,9 @@ public class TransporteDeAgua {
         darBajaTuberia()#H
         modificarTuberia() #f
     OPCION 3
-        modificarAño
-        modificarMes
-    OPCION 4
+        modificarAño //CANT HABITANTES ES NULL 
+        modificarMes //CANT HABITANTES ES NULL 
+    OPCION 4 
         infoCiudad (cantHabitantes y volumenAgua distribuido) a partir de un mes y año
         algoQueIvoHizo
     OPCION 5

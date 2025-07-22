@@ -75,7 +75,16 @@ public class Ciudad {
     public int[][] getCantHabitantes() {
         return cantHabitantes;
     }
-
+    
+    public void setHabitantesAnio(int[] habitantes, int anio) {
+        int pos = añoAPosicion(anio);
+        this.cantHabitantes[pos] = habitantes;
+    }
+    
+    public void setHabitantes(int habitantes, int anio, int mes) {
+        int pos = añoAPosicion(anio);
+        this.cantHabitantes[pos][mes] = habitantes;
+    }
     //---------------
 
     //Superficie -------------------
