@@ -274,7 +274,6 @@ public class TransporteDeAgua {
         // Obtengo las dos ciudades
         Ciudad origen = mapaCiudad.obtenerCiudad(ciudades[0]);
         Ciudad destino = mapaCiudad.obtenerCiudad(ciudades[1]);
-        System.out.println(origen + " <Origen Destino> " + destino);
         if (origen != null && destino != null) {
             // Si ambas existen procedo a eliminar las tuberias
             DominioHash llave = new DominioHash(origen.getNomenclatura(), destino.getNomenclatura());
@@ -292,18 +291,13 @@ public class TransporteDeAgua {
                     case 3:
                         modificarEstado(tuberia);
                         break;
-
                     default:
-                        opcionInvalida();
-
                 }
-                actualizarUltimaAccion("Exito en baja de tuberia");
             } else {
                 actualizarUltimaAccion("No existe la tuberia entre" + origen + " y " + destino);
             }
-            log.log("Se mando a eliminar una tuberia", existeEnHash);
         } else {
-            actualizarUltimaAccion("Error en baja de tuberia");
+            actualizarUltimaAccion("Error en modificacion de tuberia");
             log.log("Se modificó una tuberia", false);
         }
     }
@@ -318,7 +312,7 @@ public class TransporteDeAgua {
                 modificarCaudalMaximo(tuberia);
                 break;
             default:
-                opcionInvalida();
+                break;
         }
     }
 
@@ -338,6 +332,7 @@ public class TransporteDeAgua {
             }
         } while (min <= 0 || min > tuberia.getCaudalMaximo());
         tuberia.setCaudalMinimo(min);
+        actualizarUltimaAccion("Se modifico el caudalMinimo de "+ tuberia.getNomenclatura());
         log.log("Se modificó el diametro de la tuberia " + tuberia.getNomenclatura() + ". " + minAntiguo + ">>>" + min,
                 true);
 
@@ -360,6 +355,7 @@ public class TransporteDeAgua {
             }
         } while (max <= 0 || max < tuberia.getCaudalMinimo());
         tuberia.setCaudalMaximo(max);
+        actualizarUltimaAccion("Se modifico el caudalMaximo de "+ tuberia.getNomenclatura());
         log.log("Se modificó el diametro de la tuberia " + tuberia.getNomenclatura() + ". " + maxAntiguo + ">>>" + max,
                 true);
 
@@ -367,6 +363,7 @@ public class TransporteDeAgua {
 
     private static void modificarEstado(Tuberias tuberia) {
         int opcion = crearMenu(menuEstados, 4);
+        boolean cambio = true;
         switch (opcion) {
             case 1:
                 tuberia.setEstado("Activo");
@@ -381,8 +378,13 @@ public class TransporteDeAgua {
                 tuberia.setEstado("Inactivo");
                 break;
             default:
-                opcionInvalida();
+                cambio = false;
+                break;
         }
+        if (cambio) {
+            actualizarUltimaAccion("Se cambio el estado de "+ tuberia.getNomenclatura() + " a " + tuberia.getEstado());
+        }
+        
     }
 
     private static void modificarDiametro(Tuberias tuberia) {
@@ -397,6 +399,7 @@ public class TransporteDeAgua {
             }
         } while (diam <= 0);
         tuberia.setDiametro(diam);
+        actualizarUltimaAccion("Se cambio el diametro de "+ tuberia.getNomenclatura() + " a " + diam);
         log.log("Se modificó el diametro de la tuberia " + tuberia.getNomenclatura() + ". " + diamAntiguo + ">>>"
                 + diam, true);
 
@@ -780,6 +783,7 @@ public class TransporteDeAgua {
             [1] Modificar datos de caudal
             [2] Modificar diametro
             [3] Modificar estado
+            [0] Salir
             ================================================================================
             """;
 
@@ -789,6 +793,7 @@ public class TransporteDeAgua {
             ================================================================================
             [1] Modificar caudal mínimo
             [2] Modificar caudal máximo
+            [0] Salir
             ================================================================================
             """;
 
@@ -800,6 +805,7 @@ public class TransporteDeAgua {
             [2] En reparacion
             [3] En diseño
             [4] Inactivo
+            [0] Salir
             ================================================================================
             """;
 
@@ -858,7 +864,7 @@ public class TransporteDeAgua {
 
     private static String menuBajaTuberia = """
                 ================================================================================
-                                                ELIMINAR TUBERIA
+                                                BUSCAR CIUDAD
                 ================================================================================
                 Se requiere:
                 >Ciudad de origen y Ciudad de destino. El orden importa.
