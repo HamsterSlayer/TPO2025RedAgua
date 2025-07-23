@@ -15,7 +15,7 @@ public class Lista {
             caso=false;
         }else{
             if(pos==1){
-                this.cabecera = new Nodo(elem,null,this.cabecera);
+                this.cabecera = new Nodo(elem,this.cabecera);
             }else{
                 Nodo aux = this.cabecera;
                 int i = 1;
@@ -23,44 +23,13 @@ public class Lista {
                     aux=aux.getEnlace();
                     i++;
                 }
-                Nodo nuevo = new Nodo(elem,null,aux.getEnlace());
+                Nodo nuevo = new Nodo(elem,aux.getEnlace());
                 aux.setEnlace(nuevo);
             }
             caso=true;
             longitud++;
         }
         return caso;
-    }
-    
-    public boolean insertarEnOrden(Object elem, Comparable clave){
-        boolean cancelar = false;
-        if(this.cabecera !=null){
-            if(this.cabecera.getClave()!=null){// Si se uso el otro insertar, este insertar no se puede usar
-                if(clave.compareTo(this.cabecera.getClave())>0){
-                    Nodo aux = this.cabecera;
-                    this.cabecera = new Nodo(elem,clave,aux);
-                }else{
-                    Nodo anterior=this.cabecera, actual=this.cabecera.getEnlace();
-                    boolean cierre=false;
-                    while(actual!=null && !cierre && !cancelar){
-                        if(actual.getClave()!=null){ // Si se uso el otro insertar, este insertar no se puede usar
-                            if(clave.compareTo(actual.getClave())>0){
-                                cierre=true;
-                            }else{
-                                anterior=actual;
-                                actual=actual.getEnlace();
-                            }
-                        }else{cancelar=true;}
-                    }
-                    anterior.setEnlace(new Nodo(elem,clave,actual));
-                }
-            }else{cancelar=true;}
-            
-        }else{
-            this.cabecera=new Nodo(elem,clave,null);
-        }
-        longitud++;
-        return !cancelar;
     }
     
     public boolean eliminar(int pos){
@@ -139,20 +108,6 @@ public class Lista {
             auxN=auxN.getEnlace();
         }
         return otraLista;
-    }
-    
-    public String toStringClaves(){
-        String texto="[";
-        if(!this.esVacia()){
-            Nodo aux=cabecera.getEnlace();
-            texto+=cabecera.getClave();
-            while ( aux != null){
-                texto += (","+aux.getClave());
-                aux=aux.getEnlace();
-            }
-        }
-        texto+="]";
-        return texto;
     }
     
     public String toString(){

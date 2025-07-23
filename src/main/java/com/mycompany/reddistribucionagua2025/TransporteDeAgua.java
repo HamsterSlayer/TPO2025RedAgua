@@ -26,6 +26,8 @@ public class TransporteDeAgua {
     private static HashMap<DominioHash, Tuberias> mapeoTuberias = new HashMap<>();
     private static CargaArchivos Info = new CargaArchivos(
             "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\Informacion.txt");
+    private static CargaArchivos InfoTub = new CargaArchivos(
+            "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\tuberiasInfo.txt");
     private static EscrituraArchivos log = new EscrituraArchivos(
             "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\sesion.LOG");
     // Variables del Menu --------------------------------------
@@ -39,6 +41,7 @@ public class TransporteDeAgua {
         // precarga
         actualizarUltimaAccion("Se cargo la tabla de ciudades");
         Info.cargarRedDistribucion(tablaBusqueda, mapaCiudad);
+        InfoTub.cargarTuberias(mapaCiudad,mapeoTuberias);
         añoInicial = Info.conseguirAñoInicial();
         //Menu
         int opcion;
@@ -620,8 +623,8 @@ public class TransporteDeAgua {
             //Verifico fecha
             if(verificarFecha(mes,anio)) {
                 //Listo por rango
-                Lista listaBusqueda = tablaBusqueda.listarPorRango(ciudadMin.toString(), ciudadMax.toString(), volMin, volMax, mes, anio);
-                confirmarParaContinuar(formato(listaBusqueda.toString()));
+                Lista listaConsumo = tablaBusqueda.listarRangoConsumo(ciudadMin.toString(), ciudadMax.toString(), volMin, volMax, mes, anio);
+                confirmarParaContinuar(formato(listaConsumo.toString()));
                 actualizarUltimaAccion("Se listo las ciudades en rango");
                 log.agregarLinea("Se mostro las ciudades en rango entre nombres:" + aux[0] + " y " + aux[1]
                 + ", con rango de vol entre: " + aux[2] + " y " + aux[3] + " en mes:" + aux[4] + " y año " + aux[5]);
@@ -729,7 +732,7 @@ public class TransporteDeAgua {
     private static void listadoPorConsumoEnAnio() {
         System.out.println("Indique un año");
         int aux = in.nextInt();
-        Lista ciudades = tablaBusqueda.listarPorConsumo(aux);
+        ArbolAVL ciudades = tablaBusqueda.crearArbolConsumo(aux);
         System.out.println(ciudades.toString());
         log.agregarLinea("Se mostro ciudades ordenadas por consumo en el año " + aux);
     }

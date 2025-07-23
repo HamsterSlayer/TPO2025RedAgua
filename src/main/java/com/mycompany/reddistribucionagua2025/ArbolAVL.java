@@ -385,28 +385,30 @@ public class ArbolAVL {
     }
     
     
-    private void listarRangoAux(NodoAVL n ,Comparable minNomb ,Comparable maxNomb ,int minVol ,int maxVol ,int m ,int a ,Lista l ){
-        
+    private void auxRangoConsumo(NodoAVL n ,Comparable minNomb ,Comparable maxNomb ,int minVol ,int maxVol ,int m ,int a ,Lista l){
+            
         if(n.getDerecho()!=null && maxNomb.compareTo(n.getClave())<0){
-            listarRangoAux(n.getDerecho(),minNomb,maxNomb,minVol,maxVol,m,a,l);
+            auxRangoConsumo(n.getDerecho(),minNomb,maxNomb,minVol,maxVol,m,a,l);
         }
+        
         if(minNomb.compareTo(n.getClave())<0 && maxNomb.compareTo(n.getClave())>0){
             float consumo= ((Ciudad) n.getElem()).consumoMensual(m,a);
-            if(consumo>minVol && consumo<maxVol){
-                l.insertarEnOrden(n.getElem(),consumo);//Esta en inOrder invertido para que la lista liste en orden sin necesidad de usar longitud().
+            if(consumo>=minVol && consumo<=maxVol){
+                l.insertar(n.getElem(),1);
             }
         }
+        
         if(n.getIzquierdo()!=null && minNomb.compareTo(n.getClave())>0){
-            listarRangoAux(n.getIzquierdo(),minNomb,maxNomb,minVol,maxVol,m,a,l);
+            auxRangoConsumo(n.getIzquierdo(),minNomb,maxNomb,minVol,maxVol,m,a,l);
         }
         
     }
     
-    public Lista listarPorRango(Comparable minNomb, Comparable maxNomb, int minVol,int maxVol,int mes,int anio){
+    public Lista listarRangoConsumo(Comparable minNomb, Comparable maxNomb, int minVol,int maxVol,int mes,int anio){
         Lista listado;
         if(!this.esVacio()){
             listado=new Lista();
-            listarRangoAux(this.raiz,minNomb,maxNomb,minVol,maxVol,mes,anio,listado);
+            auxRangoConsumo(this.raiz,minNomb,maxNomb,minVol,maxVol,mes,anio,listado);
         }else{
             listado=null;
         }
@@ -440,26 +442,28 @@ public class ArbolAVL {
         return listado;
     }
     
-    private void listarConsumoAux(NodoAVL n, Lista l,int anio){
-        if(n.getIzquierdo()!=null){
-            listarAux(n.getIzquierdo(),l);
-        }
-        Ciudad aux = (Ciudad) n.getElem();
-        l.insertarEnOrden(aux,aux.consumoAnual(anio));//La lista los ordena sola   
+    private void arbolConsumoAux(NodoAVL n, ArbolAVL a,int anio){
         if(n.getDerecho()!=null){
-            listarAux(n.getDerecho(),l);
+            arbolConsumoAux(n.getDerecho(),a,anio);
+        }
+        
+        Ciudad aux = (Ciudad) n.getElem();
+        a.insertar(aux,aux.consumoAnual(anio)+""+n.getClave());//Se hace en Inorder de mayor a menor para que devuelva una lista de menor a mayor
+        
+        if(n.getIzquierdo()!=null){
+            arbolConsumoAux(n.getIzquierdo(),a,anio);
         }
     }
     
-    public Lista listarPorConsumo(int anio){
-        Lista listado;
+    public ArbolAVL crearArbolConsumo(int anio){
+        ArbolAVL arbolito;
         if(!this.esVacio()){
-            listado=new Lista();
-            listarConsumoAux(this.raiz,listado,anio);
+            arbolito=new ArbolAVL();
+            arbolConsumoAux(this.raiz,arbolito,anio);
         }else{
-            listado=null;
+            arbolito=null;
         }
-        return listado;
+        return arbolito;
     }
     
     private String toStringInOrderAux(NodoAVL n){
