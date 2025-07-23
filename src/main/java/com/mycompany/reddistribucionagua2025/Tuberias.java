@@ -36,7 +36,7 @@ public class Tuberias {
         caudalMinimo = cMinimo;
         diametro = dim;
         aEnum(elEstado);
-    }
+    }    
 
     public boolean validarEstado(String estadoIntroducido) {
         boolean resultado;

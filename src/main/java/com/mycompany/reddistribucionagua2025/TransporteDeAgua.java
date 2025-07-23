@@ -26,6 +26,8 @@ public class TransporteDeAgua {
     private static HashMap<DominioHash, Tuberias> mapeoTuberias = new HashMap<>();
     private static CargaArchivos Info = new CargaArchivos(
             "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\Informacion.txt");
+    private static CargaArchivos InfoTub = new CargaArchivos(
+            "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\tuberiasInfo.txt");
     private static EscrituraArchivos log = new EscrituraArchivos(
             "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\sesion.LOG");
     // Variables del Menu --------------------------------------
@@ -39,6 +41,7 @@ public class TransporteDeAgua {
         // precarga
         actualizarUltimaAccion("Se cargo la tabla de ciudades");
         Info.cargarRedDistribucion(tablaBusqueda, mapaCiudad);
+        InfoTub.cargarTuberias(mapaCiudad,mapeoTuberias);
         añoInicial = Info.conseguirAñoInicial();
         //Menu
         int opcion;
