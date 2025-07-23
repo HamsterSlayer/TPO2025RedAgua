@@ -554,29 +554,53 @@ public class TransporteDeAgua {
     
     //subOpcion1: consultarHabitantesConsumo 
         private static void consultarHabitantesConsumo(){
-            
+            //Pido ciudad
+            Ciudad ciudad = pedirCiudad();
+            if (ciudad != null) {
+                //la pos 0 es de mes y la 1 de año
+                int[] fecha = pedirFecha();
+                if (verificarFecha(fecha[0],fecha[1])) {
+                    //Consigo los datos necesarios de ciudad
+                    int habitantes = ciudad.habitantesMes(fecha[0], fecha[1]);
+                    float consumoPromedio = ciudad.consumoMensual(fecha[0], fecha[1]);
+                    Lista listaTuberias = mapaCiudad.listarTuberiasHaciaCiudad(ciudad);
+                    //ME FALTA TERMINAR ESTO, YA TENGO LA LISTA DE TUBERIAS PERO NO LAS BUSCO EN HASH
+                    float aguaDistribuida; 
+                }
+                else {
+                    actualizarUltimaAccion("Error en introducir fecha");
+                }
+            }
+            else {
+                //Error ciudad no existe
+                actualizarUltimaAccion("Error en introducir ciudad");
+            }
         }
     
+        
+        private static Ciudad pedirCiudad() {
+            Ciudad ciudadDevuelta;
+            System.out.println(formato("Por favor introduzca una ciudad"));
+            String paisIntroducido = in.nextLine();
+            ciudadDevuelta = mapaCiudad.obtenerCiudad(paisIntroducido);
+            return ciudadDevuelta;
+        }
+        
+        private static int[] pedirFecha() {
+            //El mes se encuentra en la pos 0 y el año en la pos 1
+            System.out.println(formato("Por favor introduzca una fecha (mm-yyyy"));
+            String[] fechaString = in.nextLine().split("-");
+            int[] fecha = {Integer.parseInt(fechaString[0]),Integer.parseInt(fechaString[1])};
+            return fecha;
+        }
     //----------
-        private static String menuConsultarCiudades = """
-                    ================================================================================
-                                                    CONSULTA CIUDAD
-                    ================================================================================
-                    GESTION:
-                    [1] Habitantes y Volumen de Agua ... En un anio y mes determinado
-                    [2] Nombres en Rango ... dado minNomb y maxNomb
-                    [0] Salir ... Vuelve al menu principal
-                    ================================================================================
-            """;
-        private static String menuCiudadesEnRango = """
-                    ================================================================================
-                                                    CONSULTA CIUDAD
-                    ================================================================================
-                    GESTION:
-                    Por favor introduzca dos ciudades (min y max), dos volumenes y mes y año.
-                    Ejemplo: Buenos Aires,Santiago,15,30,5,2016
-                    ================================================================================
-            """;
+        private static String menuHabitantesConsumo = """
+                                               ================================================================================
+                                                                               CONSULTA CIUDAD
+                                               ================================================================================
+                                               Por favor Introduzca una ciudad
+                                               ================================================================================
+                                               """;
         
     //subOpcion2: ciudadesEnRango
     private static void ciudadesEnRango() {
@@ -594,7 +618,7 @@ public class TransporteDeAgua {
             int mes = Integer.parseInt(aux[4])-1;
             int anio = Integer.parseInt(aux[5]);
             //Verifico fecha
-            if(mes >= 0 && mes <=11 && añoInicial - anio >= 0 && añoInicial - anio <= 10) {
+            if(verificarFecha(mes,anio)) {
                 //Listo por rango
                 Lista listaBusqueda = tablaBusqueda.listarPorRango(ciudadMin.toString(), ciudadMax.toString(), volMin, volMax, mes, anio);
                 confirmarParaContinuar(formato(listaBusqueda.toString()));
@@ -614,8 +638,6 @@ public class TransporteDeAgua {
 
     }
     //------
-    
-    
     
     private static String getEstadoCamino(Lista camino, HashMap mapeoTuberias) {
         String estado = "activo";
@@ -820,6 +842,42 @@ public class TransporteDeAgua {
      * return resultado;
      * }
      */
+    
+    
+    
+    
+    private static boolean verificarFecha(int mes,int año) {
+        boolean resultado;
+        if (mes >= 0 && mes <=11 && añoInicial - año >= 0 && añoInicial - año <= 10) {
+            resultado = true;
+        }
+        else {
+            resultado = false;
+        }
+        return resultado;
+    }
+    
+    private static void opcionInvalida() {
+        String invalido = """
+                ================================================================================
+                                             OPCION INVALIDA
+                                                 [ENTER]
+                ================================================================================
+                """;
+        confirmarParaContinuar(invalido);
+    }
+
+    public static String sacarAcentos(String texto) {
+        return texto.replace("á", "a")
+                .replace("é", "e")
+                .replace("í", "i")
+                .replace("ó", "o")
+                .replace("ú", "u")
+                .replace("ñ", "n")
+                .replace("ü", "u")
+                .replace("ç", "c");
+    }
+
 
     // MENUS. Son almacenados en un string.
     // --------------------------------------------------
@@ -1032,29 +1090,27 @@ public class TransporteDeAgua {
                                                     ================================================================================
                                              """;
     
+            private static String menuConsultarCiudades = """
+                    ================================================================================
+                                                    CONSULTA CIUDAD
+                    ================================================================================
+                    GESTION:
+                    [1] Habitantes y Volumen de Agua ... En un anio y mes determinado
+                    [2] Nombres en Rango ... dado minNomb y maxNomb
+                    [0] Salir ... Vuelve al menu principal
+                    ================================================================================
+            """;
+        private static String menuCiudadesEnRango = """
+                    ================================================================================
+                                                    CONSULTA CIUDAD
+                    ================================================================================
+                    GESTION:
+                    Por favor introduzca dos ciudades (min y max), dos volumenes y mes y año.
+                    Ejemplo: Buenos Aires,Santiago,15,30,5,2016
+                    ================================================================================
+            """;
+        
     
-    
-    private static void opcionInvalida() {
-        String invalido = """
-                ================================================================================
-                                             OPCION INVALIDA
-                                                 [ENTER]
-                ================================================================================
-                """;
-        confirmarParaContinuar(invalido);
-    }
-
-    public static String sacarAcentos(String texto) {
-        return texto.replace("á", "a")
-                .replace("é", "e")
-                .replace("í", "i")
-                .replace("ó", "o")
-                .replace("ú", "u")
-                .replace("ñ", "n")
-                .replace("ü", "u")
-                .replace("ç", "c");
-    }
-
 }
 
 /*CHECKLIST PARA MI:
@@ -1078,9 +1134,11 @@ public class TransporteDeAgua {
         Caudal Pleno
         Camino Mas Corto #H
     OPCION 6
-        
+        LA OPCION 6 ES UNA MENTIRA DEL GOBIERNO
     OPCION 7
+        Ranking Ciudades.
 
+        NOS FALTA LA CARGA DE DATOS
 COMPLETO:
         OPCION 8 #H
         adios() #H

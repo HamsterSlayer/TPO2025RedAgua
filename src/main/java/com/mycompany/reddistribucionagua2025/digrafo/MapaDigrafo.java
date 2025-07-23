@@ -246,6 +246,12 @@ public class MapaDigrafo {
         return existe;
     }
 
+    /***
+     * Verifica si hay un arco entre un nodo y una ciudad dada
+     * @param cursor Nodo sobre el que se verificara la conexion
+     * @param ciudadBuscada ciudad destino
+     * @return devuelve true o false
+     */
     private boolean existeEnNodo(NodoVert cursor, Ciudad ciudadBuscada) {
         boolean resultado = false;
         NodoAdy cursorAdy = cursor.getPrimerAdy();
@@ -443,9 +449,34 @@ public class MapaDigrafo {
         }
         return losNombres;
     }
-
+    
+    /**
+     * Devuelve la distribución total de agua que recibe de todas las tuberias conectadas a una ciudad
+     * @param unaCiudad La ciudad en sí
+     * @return float. cantidad total de agua que recibirá
+     */
+    public Lista listarTuberiasHaciaCiudad(Ciudad unaCiudad) {
+        NodoVert raiz = this.inicio;
+        int cursor = 1;
+        String nomenclaturaCiudad = unaCiudad.getNomenclatura();
+        Lista keys = new Lista();
+        //Debo de iterar por todos los nodos y verificar cuales se conectan a la ciudad que busco
+        while (raiz != null) {
+            //Agrego a la distribucion el consumo si existe
+            if (existeEnNodo(raiz,unaCiudad)) {
+                String key = "";
+                //Creo la key del hash
+                key += raiz.getElem().getNomenclatura() + "-" + nomenclaturaCiudad;
+                //Inserto en lista
+                keys.insertar(key, cursor);
+                cursor++;
+            }
+        }
+        return keys;
+    }
     // -------------------------------------------------------------------------
 
+    
     // Manejo Entrada del Usuario ------------------------------------------------
 
     // Como regla todos los nombres al ser comparados se les saca espacios y

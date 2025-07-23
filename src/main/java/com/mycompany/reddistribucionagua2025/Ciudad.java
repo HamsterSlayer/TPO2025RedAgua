@@ -73,7 +73,13 @@ public class Ciudad {
     }
     
     public int[][] getCantHabitantes() {
-        return cantHabitantes;
+        return this.cantHabitantes;
+    }
+    
+    public int habitantesMes(int mes, int año) {
+        mes = mes - 1;
+        año = añoAPosicion(año);
+        return this.cantHabitantes[año][mes];
     }
     
     public void setHabitantesAnio(int[] habitantes, int anio) {
