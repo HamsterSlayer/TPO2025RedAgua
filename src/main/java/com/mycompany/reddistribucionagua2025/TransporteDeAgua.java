@@ -599,8 +599,8 @@ public class TransporteDeAgua {
             //Verifico fecha
             if(mes >= 0 && mes <=11 && añoInicial - anio >= 0 && añoInicial - anio <= 10) {
                 //Listo por rango
-                Lista listaBusqueda = tablaBusqueda.listarPorRango(ciudadMin.toString(), ciudadMax.toString(), volMin, volMax, mes, anio);
-                confirmarParaContinuar(formato(listaBusqueda.toString()));
+                ArbolAVL arbolConsumo = tablaBusqueda.crearArbolConsumo(ciudadMin.toString(), ciudadMax.toString(), volMin, volMax, mes, anio);
+                confirmarParaContinuar(formato(arbolConsumo.toString()));
                 actualizarUltimaAccion("Se listo las ciudades en rango");
                 log.agregarLinea("Se mostro las ciudades en rango entre nombres:" + aux[0] + " y " + aux[1]
                 + ", con rango de vol entre: " + aux[2] + " y " + aux[3] + " en mes:" + aux[4] + " y año " + aux[5]);
