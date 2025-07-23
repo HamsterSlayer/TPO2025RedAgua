@@ -599,8 +599,8 @@ public class TransporteDeAgua {
             //Verifico fecha
             if(mes >= 0 && mes <=11 && añoInicial - anio >= 0 && añoInicial - anio <= 10) {
                 //Listo por rango
-                ArbolAVL arbolConsumo = tablaBusqueda.crearArbolConsumo(ciudadMin.toString(), ciudadMax.toString(), volMin, volMax, mes, anio);
-                confirmarParaContinuar(formato(arbolConsumo.toString()));
+                Lista listaConsumo = tablaBusqueda.listarRangoConsumo(ciudadMin.toString(), ciudadMax.toString(), volMin, volMax, mes, anio);
+                confirmarParaContinuar(formato(listaConsumo.toString()));
                 actualizarUltimaAccion("Se listo las ciudades en rango");
                 log.agregarLinea("Se mostro las ciudades en rango entre nombres:" + aux[0] + " y " + aux[1]
                 + ", con rango de vol entre: " + aux[2] + " y " + aux[3] + " en mes:" + aux[4] + " y año " + aux[5]);
@@ -710,7 +710,7 @@ public class TransporteDeAgua {
     private static void listadoPorConsumoEnAnio() {
         System.out.println("Indique un año");
         int aux = in.nextInt();
-        Lista ciudades = tablaBusqueda.listarPorConsumo(aux);
+        ArbolAVL ciudades = tablaBusqueda.crearArbolConsumo(aux);
         System.out.println(ciudades.toString());
         log.agregarLinea("Se mostro ciudades ordenadas por consumo en el año " + aux);
     }
