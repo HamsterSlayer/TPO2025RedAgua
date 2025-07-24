@@ -1,5 +1,7 @@
 package com.mycompany.reddistribucionagua2025.digrafo;
 
+import java.util.HashMap;
+
 import com.mycompany.reddistribucionagua2025.Ciudad;
 import com.mycompany.reddistribucionagua2025.Cola;
 import com.mycompany.reddistribucionagua2025.DominioHash;
@@ -476,6 +478,117 @@ public class MapaDigrafo {
         }
         return keys;
     }
+
+    // El Anticristo
+    private Lista caudalPleno(String ciudadOrigen, String ciudadDestino) {
+        Lista camino = new Lista();
+        NodoVert origen;
+        NodoVert destino;
+        // Se debe de verificar que el primer pais exista sí o sí.
+        origen = localizarVertice(ciudadOrigen);
+        destino = localizarVertice(ciudadDestino);
+        if (origen != null && !ciudadOrigen.equals(ciudadDestino)) {
+            camino = caudalPleno(origen, destino);
+        }
+        return camino;
+    }
+
+    public Lista caudalPleno(NodoVert origen, NodoVert ciudadDestino) {
+        NodoVert actual = origen;
+        NodoVert siguiente;
+        NodoVert auxVert;
+        NodoAdy auxAdy;
+        NodoAdy menor;
+        float menorCaudal = Float.MAX_VALUE;
+        float caudalActual;
+        float caudalNuevo;
+        HashMap<NodoVert, Float> distancias = new HashMap<>();
+        HashMap<NodoVert, NodoVert> anteriores = new HashMap<>();
+        llenarDistancias(distancias);
+        llenarAnteriores(anteriores);
+        Lista caudalPleno = new Lista();
+        Lista visitados = new Lista();
+        while (visitados.localizar(ciudadDestino) == -1 && actual != null) {
+            // Busco el vertice con la menor distancia posible desde el punto de partida
+            actual = menorEstimativa(origen, distancias, visitados);
+            if (actual != null) {
+                visitados.insertar(actual, visitados.longitud() + 1);
+                auxAdy = actual.getPrimerAdy();
+                while (auxAdy != null) {
+                    auxVert = auxAdy.getVertice();
+                    caudalActual = distancias.get(actual);
+                    caudalNuevo = auxAdy.getCaudalMaximo();
+
+                    // Si el nuevo camino hasta el adyacente es menor al registrado anteriormente,
+                    // actualiza la distancia recorrida y el anterior del adyacente
+
+                    if (caudalActual + caudalNuevo < distancias.get(auxVert)) {
+                        distancias.put(auxVert, caudalActual + caudalNuevo);
+                        anteriores.put(auxVert, actual);
+                    }
+                }
+            }
+        }
+        if (visitados.localizar(ciudadDestino) != -1){
+            caudalPleno = reconstruirCamino()
+        }
+
+        return caudalPleno;
+    }
+
+    // Crea una lista con los punteros del mapa anteriores
+
+    private Lista reconstruirCamino(HashMap<NodoVert, NodoVert> anteriores, NodoVert destino) {
+        Lista caudalPleno = new Lista();
+        NodoVert aux = destino;
+        while (aux != null) {
+            caudalPleno.insertar(aux.getElem(), 1);
+            aux = anteriores.get(aux);
+        }
+        return caudalPleno;
+    }
+
+    // Se puede hacer esto en O(1)? con cola de prioridad si alguien quiere hacerlo
+    private NodoVert menorEstimativa(NodoVert inicio, HashMap<NodoVert, Float> distancias, Lista visitados) {
+        float estimativaActual;
+        float menorEstimativa = Float.MAX_VALUE;
+        NodoVert menor = null;
+        NodoVert aux = inicio;
+        while (aux != null) {
+            estimativaActual = distancias.get(aux);
+            if (visitados.localizar(aux) == -1 && estimativaActual < menorEstimativa) {
+                menorEstimativa = estimativaActual;
+                menor = aux;
+            }
+            aux = aux.getSigVertice();
+        }
+        return menor;
+    }
+
+    private void llenarDistancias(HashMap<NodoVert, Float> distancias) {
+        NodoVert u = this.inicio;
+        if (u != null) {
+            distancias.put(u, (float) 0);
+            u.getSigVertice();
+            while (u != null) {
+                distancias.put(u, Float.MAX_VALUE);
+                u = u.getSigVertice();
+            }
+        }
+    }
+
+    private void llenarAnteriores(HashMap<NodoVert, NodoVert> anteriores) {
+        NodoVert u = this.inicio;
+        if (u != null) {
+            anteriores.put(u, null);
+            u.getSigVertice();
+            while (u != null) {
+                anteriores.put(u, null);
+                u = u.getSigVertice();
+            }
+        }
+    }
+
     // -------------------------------------------------------------------------
 
     // Manejo Entrada del Usuario ------------------------------------------------
