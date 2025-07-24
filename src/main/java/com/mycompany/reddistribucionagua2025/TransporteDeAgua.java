@@ -687,11 +687,14 @@ public class TransporteDeAgua {
             int[] fecha = pedirFecha();
             if (verificarFecha(fecha[0], fecha[1])) {
                 // Consigo los datos necesarios de ciudad
-                int habitantes = ciudad.habitantesMes(fecha[0], fecha[1]);
-                float consumoPromedio = ciudad.consumoMensual(fecha[0], fecha[1]);
+                //int habitantes = ciudad.habitantesMes(fecha[0], fecha[1]);
+                //float consumoPromedio = ciudad.consumoMensual(fecha[0], fecha[1]);
+                //Temporalmente estan comentadas
+                //ACÁ PEDRO ESTA LO QUE TE DIGO :D
                 Lista listaTuberias = mapaCiudad.listarTuberiasHaciaCiudad(ciudad);
-                // ME FALTA TERMINAR ESTO, YA TENGO LA LISTA DE TUBERIAS PERO NO LAS BUSCO EN
+                System.out.println(listaTuberias.toString());
                 // HASH
+                
                 float aguaDistribuida;
             } else {
                 actualizarUltimaAccion("Error en introducir fecha");
@@ -960,17 +963,15 @@ public class TransporteDeAgua {
         ultimaAccion = String.format("\t#Ultimo Movimiento: %s", accion);
     }
 
-    /*
-     * private String formatoMenu(String titulo, String contenido) {
-     * String resultado = separador() + titulo + separador();
-     * resultado += contenido + "\n" + separador();
-     * return resultado;
-     * }
+    /**
+     * Este metodo solamente verifica que la fecha sea real.
+     * @param mes 
+     * @param año
+     * @return true o false si la fecha esta en el sistema
      */
-
     private static boolean verificarFecha(int mes, int año) {
         boolean resultado;
-        if (mes >= 0 && mes <= 11 && añoInicial - año >= 0 && añoInicial - año <= 10) {
+        if (mes >= 0 && mes <= 11 &&  año - añoInicial >= 0 && año - añoInicial  <= 10) {
             resultado = true;
         } else {
             resultado = false;
@@ -1260,18 +1261,17 @@ public class TransporteDeAgua {
  * cambiosCiudades() #p
  * darAltaCiudad() #H
  * darBajaCiudad()#H
- * modificarCiudad() #f
+ * modificarCiudad() #p
  * OPCION 2 #p
  * darAltaTuberia() #H //Hay un problema con las nomenclaturas Ciudad De Mexico
  * es Cd en vez de CM
  * darBajaTuberia()#H
  * modificarTuberia() #H
  * OPCION 3
- * modificarAño #H //CANT HABITANTES ES NULL
- * modificarMes #H //CANT HABITANTES ES NULL
+ * modificarAño #H
+ * modificarMes #H
  * OPCION 4
- * infoCiudad (cantHabitantes y volumenAgua distribuido) a partir de un mes y
- * año
+ * infoCiudad (cantHabitantes y volumenAgua distribuido) a partir de un mesyaño
  * algoQueIvoHizo #H //falta testear
  * OPCION 5
  * Caudal Pleno
