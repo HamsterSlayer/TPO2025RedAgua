@@ -1064,10 +1064,23 @@ public class TransporteDeAgua {
 
     private static String menuModificarHabitantes = """
             ================================================================================
-                                           MODIFICAR CIUDAD
+                                    MODIFICAR DATOS DE HABITANTES
             ================================================================================
-            [1] Modificar datos de habitantes
-            [2] Modificar datos de consumo
+            [1] Ingresar información de diez años
+            [2] Ingresar información de un año
+            [3] Ingresar información de un año y mes específico
+            [4] Salir
+            ================================================================================
+            """;
+
+    private static String menuModificarConsumo = """
+            ================================================================================
+                                    MODIFICAR DATOS DE CONSUMO
+            ================================================================================
+            [1] Ingresar consumo promedio
+            [2] Erm
+            [3] um
+            [4] Salir
             ================================================================================
             """;
 
