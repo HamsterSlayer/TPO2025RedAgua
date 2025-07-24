@@ -210,6 +210,7 @@ public class TransporteDeAgua {
                     ingresarUnAnio(laCiudad);
                     break;
                 case 3:
+                    ingresarUnMes(laCiudad);
                     break;
                 case 4:
                     exit = true;
@@ -221,7 +222,14 @@ public class TransporteDeAgua {
     }
 
     private static void ingresarDiezAnios(Ciudad laCiudad) {
-        // pfft
+        int[][] habitantes = new int[10][12];
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; i < 12; i++) {
+                System.out.println("Ingrese la cantidad de habitantes en el mes " + j + 1 + ", año " + i + 1 + ".");
+                habitantes[i][j] = in.nextInt();
+                in.nextLine();
+            }
+        }
     }
 
     private static void ingresarUnAnio(Ciudad laCiudad) {
@@ -295,6 +303,10 @@ public class TransporteDeAgua {
                     opcionInvalida();
             }
         }
+    }
+
+    private static void ingresarConsumoPromedio() {
+
     }
 
     // OPCION 2: CAMBIOS TUBERIAS ------------------------------
