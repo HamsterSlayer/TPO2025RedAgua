@@ -1,0 +1,513 @@
+[33mcommit 1e0cf7b53f9f9010e97e99d181352af084d92d31[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmodificar_ciudad[m[33m)[m
+Merge: b9701e2 9d75828
+Author: Lammel <pedro.lammel2001@gmail.com>
+Date:   Wed Jul 23 19:26:40 2025 -0300
+
+    Merge https://github.com/HamsterSlayer/TPO2025RedAgua into modificar_ciudad
+
+[33mcommit b9701e2967452fd849023c628886b5460ced9c36[m
+Author: Lammel <pedro.lammel2001@gmail.com>
+Date:   Wed Jul 23 19:25:03 2025 -0300
+
+    Casi nada hecho
+
+[33mcommit 9d75828d92e736f47bd86c188d0ecb23bc446376[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Wed Jul 23 19:24:34 2025 -0300
+
+    Actualizo resolucion del 7
+
+[33mcommit c33769bbf5967ce13503643471952017779d26fb[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Wed Jul 23 19:04:03 2025 -0300
+
+    Actualizo resoulucion del 7
+
+[33mcommit 2f9b91c84ba9d261ca7ab1b421e19e4c34ea98ca[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Wed Jul 23 18:42:43 2025 -0300
+
+    Arreglo carga de tuberias
+
+[33mcommit 48b65949e24ec56e963394fdb62012b049b92c0b[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Wed Jul 23 18:13:38 2025 -0300
+
+    Arreglo carga de tuberias
+
+[33mcommit 5cfa4e758bd8d746abcb55fa15bea25f70aa6b53[m[33m ([m[1;32mmaster[m[33m)[m
+Merge: bacd026 421102c
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Tue Jul 22 16:02:31 2025 -0300
+
+    pull a lo que hizo Pedro con modificar Tuberia + opcion4
+
+[33mcommit 421102cad496c58bc69a14ea4eaa4b43b1b36d6e[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Tue Jul 22 15:02:38 2025 -0300
+
+    agregue mas cosas a lo que hizo pedro en ModifiacarTuberia
+
+[33mcommit 1d75820d8427b983c6a34e01def0ccd4fb78374f[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Tue Jul 22 15:01:46 2025 -0300
+
+    agregue mas cosas a lo que hizo pedro en ModifiacarTuberia
+
+[33mcommit bacd026f387bf0042a5dd5eaf9f369e129982975[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Tue Jul 22 14:31:58 2025 -0300
+
+    prueba
+
+[33mcommit 9a4124a71b32f4c78cc8f9dec9dc226ab09a10ca[m[33m ([m[1;31morigin/modificacion_tuberia[m[33m, [m[1;32mmodificacion_tuberia[m[33m)[m
+Author: Lammel <pedro.lammel2001@gmail.com>
+Date:   Tue Jul 22 13:09:50 2025 -0300
+
+    modificacion de tuberias concluida (falta testear)
+
+[33mcommit 0e062925b3930832d973ea376c098f2feb11f3ee[m
+Merge: 95e06d0 7dd880b
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Mon Jul 21 16:58:18 2025 -0300
+
+    Merge origin/master
+
+[33mcommit 95e06d0d820327ce3d0b1b829fe77c9d0898b8b4[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Mon Jul 21 16:57:39 2025 -0300
+
+    prueba
+
+[33mcommit 11c11311f8df98ee46b54673837e2bd4d2548fec[m
+Author: Lammel <pedro.lammel2001@gmail.com>
+Date:   Mon Jul 21 15:38:35 2025 -0300
+
+    modificaciones tuberias (falta el estado)
+
+[33mcommit 7dd880bd9b5a34711bf6d24c14540a47b0caf753[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Mon Jul 21 15:36:28 2025 -0300
+
+    Debug arbol en el menu de debug
+
+[33mcommit e1fa2cd61aa8db24f66dcd54fc2ac8b9517b07f7[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Mon Jul 21 15:21:41 2025 -0300
+
+    Arreglo en la carga de archivos (ahora funciona eliminar ciudad)
+
+[33mcommit 95c7c6356bf36b7f3369e633b7b69609b2ac607d[m
+Merge: 95755dd eb8720e
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Sat Jul 19 17:12:21 2025 -0300
+
+    Merge origin/master
+    
+    # Conflicts:
+    #       src/main/java/com/mycompany/reddistribucionagua2025/TransporteDeAgua.java
+
+[33mcommit 95755dde98a0eb4c0a40875bf7a34e6c3adb45e3[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Sat Jul 19 17:11:06 2025 -0300
+
+    Empiezo con consultas en ciudades
+
+[33mcommit e92dbdcffed6d759511820214b3f8e682bfc137c[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Sat Jul 19 17:08:46 2025 -0300
+
+    Empiezo con consultas en ciudades
+
+[33mcommit eb8720e30b0db90d40a475908df52867294b14d3[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Sat Jul 19 16:21:05 2025 -0300
+
+    Continuacion de logs atte; Ivo
+
+[33mcommit c82b5286fcb5ba01b590cb8d6f74c5d7c7a12527[m
+Merge: ea0414e 4aeaa79
+Author: ivoel <ivoel@PCIVO>
+Date:   Sat Jul 19 16:19:46 2025 -0300
+
+    Merge origin/master
+
+[33mcommit ea0414ecf76291c5eef22b6a13d5df679d0dd160[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Sat Jul 19 16:19:39 2025 -0300
+
+    Continuacion de logs atte; Ivo
+
+[33mcommit f3fc3cce519d0593dcbce45dbb9506d7abb42f5c[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Sat Jul 19 16:05:43 2025 -0300
+
+    Continuacion de logs atte; Ivo
+
+[33mcommit 4aeaa79e980dba45e8aab6ccc616f1993b68cd42[m
+Merge: 7d0bc3b d80489e
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Sat Jul 19 15:53:26 2025 -0300
+
+    Merge origin/master
+
+[33mcommit 7d0bc3baabcfdc8533e13c6756a96e10f1d480b9[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Sat Jul 19 15:53:14 2025 -0300
+
+    Arreglo Tuberias, solo falta el modificar.
+
+[33mcommit d80489ebe68d4443ac40e4aff5ea1815e5f4814b[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Sat Jul 19 15:15:07 2025 -0300
+
+    Ahora el log funciona
+
+[33mcommit cdc7791b5f0e260e16537a144c35b58e172636ef[m
+Merge: 6987715 a5e1990
+Author: ivoel <ivoel@PCIVO>
+Date:   Sat Jul 19 14:28:50 2025 -0300
+
+    Merge origin/master
+
+[33mcommit 69877154208563ec77bb9013205ef182c034ed70[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Sat Jul 19 14:28:11 2025 -0300
+
+    Cambios con el Log
+
+[33mcommit a5e199082efd2f8249439c33bb4c8a8b6176bd19[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 30cbfb0 f441a9f
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Fri Jul 18 17:22:38 2025 -0300
+
+    Merge origin/master
+    
+    # Conflicts:
+    #       src/main/java/com/mycompany/reddistribucionagua2025/digrafo/MapaDigrafo.java
+
+[33mcommit 30cbfb039c0b241729dea8ab5ea29b7263f85e38[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Fri Jul 18 17:21:24 2025 -0300
+
+    wasawa
+
+[33mcommit 3870d89d3900c27246c40dd957932201d7ba77c0[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Fri Jul 18 17:10:56 2025 -0300
+
+    sigo con tuberias 2
+
+[33mcommit bce36ae1f893e5bcc22a33a6505a35f970142ed8[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Fri Jul 18 17:10:01 2025 -0300
+
+    sigo con tuberias 2
+
+[33mcommit 5d763163340029c5131e89b7b12579660ae16c95[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Fri Jul 18 17:09:03 2025 -0300
+
+    sigo con tuberias 2
+
+[33mcommit ffd7eca768cf4fbc25bc8b78f65727cea7f76b2d[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Fri Jul 18 17:03:39 2025 -0300
+
+    sigo con tuberias 2
+
+[33mcommit 32d36f73220fe871295f4ed2a7b0693adc087c38[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Fri Jul 18 17:03:11 2025 -0300
+
+    sigo con tuberias 2
+
+[33mcommit 2f2c62f78441abd21f8b31cf9e62dc58758d3131[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Fri Jul 18 17:01:17 2025 -0300
+
+    sigo con tuberias 2
+
+[33mcommit a347e2a73a13ca370a49c725a558d5ac39fbfd55[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Fri Jul 18 16:36:08 2025 -0300
+
+    sigo con tuberias
+
+[33mcommit f441a9f0dc55c75a7d9081a070a1642e9501c14a[m[33m ([m[1;32mcaminoCaudalPleno[m[33m)[m
+Author: Lammel <pedro.lammel2001@gmail.com>
+Date:   Fri Jul 18 15:24:39 2025 -0300
+
+    test masCorto corregido
+
+[33mcommit bdb71d50fd6bac5df9641a4d621fae8fdc64cbec[m
+Merge: 3972655 9fec33f
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Thu Jul 17 17:07:02 2025 -0300
+
+    Merge origin/master
+    
+    # Conflicts:
+    #       src/main/java/com/mycompany/reddistribucionagua2025/TransporteDeAgua.java
+
+[33mcommit 3972655ed9313c725b44be1bef4c4c574940596b[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Thu Jul 17 17:05:42 2025 -0300
+
+    Sigo con Menu y arreglo camino mas corto2
+
+[33mcommit 55615dc484f3b6cfcaa70083e539e7f64260ea03[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Thu Jul 17 17:01:47 2025 -0300
+
+    Sigo con Menu y arreglo camino mas corto
+
+[33mcommit 729a5bbd711c4288922d109a3c92600531dfad52[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Thu Jul 17 16:59:17 2025 -0300
+
+    Sigo con Menu y arreglo camino mas corto
+
+[33mcommit 9fec33feb0c99e8bb4e140de2beef17975d691d3[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Thu Jul 17 16:40:34 2025 -0300
+
+    Punto 4.b Desarollo
+
+[33mcommit 83b49f2f3a34dd51deb2bbd1bf1960ac0c10e10a[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Thu Jul 17 15:55:28 2025 -0300
+
+    Punto 7 desarrollo
+
+[33mcommit bbd2ef021165c4fa6d69ab03832eb2005440e2e3[m
+Merge: 1b7e6a4 6afffca
+Author: ivoel <ivoel@PCIVO>
+Date:   Thu Jul 17 15:25:13 2025 -0300
+
+    Merge origin/master
+
+[33mcommit 1b7e6a4953b067e6e1b004ea9645648354112954[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Thu Jul 17 15:24:29 2025 -0300
+
+    colocando los logs en los metodos correspondientes
+
+[33mcommit 449c167128a934e095228d112cf156b396ef5a51[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Thu Jul 17 15:13:29 2025 -0300
+
+    colocando los logs en los metodos correspondientes
+
+[33mcommit 6afffca6f5822e062edc7ec320b4110fd8caa833[m
+Merge: 800cb78 34d31f3
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Thu Jul 17 15:07:52 2025 -0300
+
+    Merge origin/master
+
+[33mcommit 800cb78c09f99169f8de555f171449b0258a2a75[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Thu Jul 17 15:07:40 2025 -0300
+
+    ou yeah
+
+[33mcommit 34d31f38758f771030654d21b8dc05dfb6f5cb48[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Thu Jul 17 14:09:35 2025 -0300
+
+    colocando los logs en los metodos correspondientes
+
+[33mcommit d371b402efaae55c0bc02b289c39c9dcb872b704[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Wed Jul 16 17:24:43 2025 -0300
+
+    wachi wachi wa wachi wa
+
+[33mcommit 52ffb4094e71c20ff0c34e54d9322a9d552b731f[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Wed Jul 16 16:57:14 2025 -0300
+
+    Hay un Error con Localizar Vertice
+
+[33mcommit 964b7d98c99ab6c83e90f61b7cd9ee085895f2f7[m
+Merge: 1252e3a f46b8da
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Wed Jul 16 16:47:54 2025 -0300
+
+    Merge origin/master
+
+[33mcommit 1252e3a2a3673945dc57777c816a409c053f9b00[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Wed Jul 16 16:47:42 2025 -0300
+
+    Nada util
+
+[33mcommit f46b8da6ec81ae5b4d0c49baa18fe2019c8d31d8[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Wed Jul 16 16:34:41 2025 -0300
+
+    Se implemento metodos de escritura para el LOG
+
+[33mcommit 01483305f8fb16923ab032ba22a2fe0eab7dca92[m
+Merge: f92b85b 67f8ad9
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Wed Jul 16 15:50:32 2025 -0300
+
+    Merge origin/master
+
+[33mcommit f92b85b3a70b23a510a0dac8aa9f54f0706a85ae[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Wed Jul 16 15:50:10 2025 -0300
+
+    La precarga ahora funciona para mapa y tabla de busqueda
+
+[33mcommit 67f8ad99f51135a2523549673bb43baef0a9fbd7[m
+Merge: 32a6586 d7496b9
+Author: PedroLammel <145056086+PedroLammel@users.noreply.github.com>
+Date:   Wed Jul 16 15:29:37 2025 -0300
+
+    Merge pull request #1 from HamsterSlayer/caminoMasCorto
+    
+    metodo para encontrar el camino con menos ciudades
+
+[33mcommit 32a6586fc0c6b590ed636989ed50eb3bb1e93a04[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Wed Jul 16 15:24:09 2025 -0300
+
+    Lectura y escritura de ciudades para el arbol
+
+[33mcommit d7496b95257d3fd13e49c486eb5b68449b7e47a5[m[33m ([m[1;31morigin/caminoMasCorto[m[33m, [m[1;32mcaminoMasCorto[m[33m)[m
+Author: Lammel <pedro.lammel2001@gmail.com>
+Date:   Wed Jul 16 15:22:22 2025 -0300
+
+    metodo para encontrar el camino con menos ciudades
+
+[33mcommit 8eb5c42cad31af003adbc1e02a01d2faf490300a[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Wed Jul 16 15:07:38 2025 -0300
+
+    Trabajando con Ivo para meter la precarga
+
+[33mcommit 053e47850995e65aac1e8f58eb88264c6baeb54c[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Tue Jul 15 20:34:06 2025 -0300
+
+    Sigo trabajando en MENU de nuevo
+
+[33mcommit 1ccab6af95e86cdbc5751088e3fea0b693696d92[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Tue Jul 15 19:31:04 2025 -0300
+
+    Sigo trabajando en MENU de nuevo
+
+[33mcommit 0b58e7aac1198acc0ab510a22a58b7d5259af34b[m
+Author: Lammel <pedro.lammel2001@gmail.com>
+Date:   Tue Jul 15 15:46:53 2025 -0300
+
+    constructor de grafo (1 linea adicionada)
+
+[33mcommit 1297fff3d29b27c8064c480519fd2131ffcb49b8[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Tue Jul 15 15:35:18 2025 -0300
+
+    Cambios para un punto 7 mas eficiente
+
+[33mcommit 1f68fa34e381c492c721c0bc973f1cf0da172043[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Tue Jul 15 15:25:08 2025 -0300
+
+    Sigo trabajando en MENU
+
+[33mcommit b9f20a56bb71fdeebf909174e1cc6da72b1f5407[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Mon Jul 14 16:27:20 2025 -0300
+
+    Rework Menu más fachero
+
+[33mcommit 92dbd1113c4dba629b7f3f9ed06670ad0405b64e[m
+Merge: 89ba23f 7891208
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Mon Jul 14 15:54:00 2025 -0300
+
+    Merge origin/Dominio-AVL
+    
+    # Conflicts:
+    #       src/main/java/com/mycompany/reddistribucionagua2025/ArbolAVL.java
+    #       src/main/java/com/mycompany/reddistribucionagua2025/Ciudad.java
+    #       src/main/java/com/mycompany/reddistribucionagua2025/Lista.java
+
+[33mcommit 7891208b8aa57121c34217b150a5e8a8273f53e8[m[33m ([m[1;31morigin/Dominio-AVL[m[33m)[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Mon Jul 14 15:40:37 2025 -0300
+
+    Arreglos menores
+
+[33mcommit 89ba23fa1f1da575a686743f08e66023cabb2efc[m
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Mon Jul 14 14:43:55 2025 -0300
+
+    Sigo progresando con menu y arreglo tests
+
+[33mcommit 5cc5585e086fe0859d868ad1661a3527a9c59d07[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Mon Jul 14 14:38:22 2025 -0300
+
+    Actualizado nodo para que tenga variable CLAVE, cambiado arbolAVL acorde
+
+[33mcommit 9124b85059fe62bdde1f2dfe1cdb5b48ded2575b[m
+Merge: 41315c1 832444d
+Author: HamsterSlayer <109620160+HamsterSlayer@users.noreply.github.com>
+Date:   Mon Jul 14 14:21:30 2025 -0300
+
+    Merge origin/digrafoEtiquetado
+
+[33mcommit 41315c16fb3e9cf476832e92bb4ee3fa3aeac066[m[33m ([m[1;31morigin/camino_min_vertices[m[33m, [m[1;32mcamino_min_vertices[m[33m)[m
+Author: Lammel <pedro.lammel2001@gmail.com>
+Date:   Fri Jul 11 17:44:00 2025 -0300
+
+    metodo que calcula el menor camino y pregunta el estado de la ttuberia (falta el metodo de buscar menor camino de grafo)
+
+[33mcommit 0ad7ced371684f147fc636c83aba8578b3e6ca93[m
+Author: ivoel <ivoel@PCIVO>
+Date:   Fri Jul 11 16:00:10 2025 -0300
+
+    Dandole forma al testAVL
+
+[33mcommit 51acf024d0a32b31dd6177b5d4a4a1cb6b56d19c[m
+Author: Lammel <pedro.lammel2001@gmail.com>
+Date:   Fri Jul 11 15:49:35 2025 -0300
+
+    vscode lpm
+
+[33mcommit 599eff054893b693c7790886a851b7275b13216a[m
+Author: Lammel <pedro.lammel2001@gmail.com>
+Date:   Fri Jul 11 15:49:03 2025 -0300
+
+    te odio vscode
+
+[33mcommit 79abb3febcd10429c4d4f97b95a4fecfe64df338[m
+Merge: db5a0a4 25f9ce0
+Author: Lammel <pedro.lammel2001@gmail.com>
+Date:   Fri Jul 11 15:48:56 2025 -0300
+
+    Merge branch 'dominio-hash'
+
+[33mcommit db5a0a4a570919509b8453b825829a904fe51413[m
+Author: Lammel <pedro.lammel2001@gmail.com>
+Date:   Fri Jul 11 15:33:14 2025 -0300
+
+    lpm merge de mierda
+
+[33mcommit 82537bf533464e39ea892911144720f5ea76fc9c[m
+Author: Lammel <pedro.lammel2001@gmail.com>
+Date:   Fri Jul 11 15:29:37 2025 -0300
+
+    merge con menu
+
+[33mcommit c652c0810400cbc2fc056cc27a3f7b6ee20ecf92[m
+Merge: 9ecffbd d24524a
+Author: Lammel <pedro.lammel2001@gmail.com>
+Date:   Fri Jul 11 15:29:33 2025 -0300
+
+    Merge branch 'menu'

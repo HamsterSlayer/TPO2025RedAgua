@@ -41,9 +41,9 @@ public class TransporteDeAgua {
         // precarga
         actualizarUltimaAccion("Se cargo la tabla de ciudades");
         Info.cargarRedDistribucion(tablaBusqueda, mapaCiudad);
-        InfoTub.cargarTuberias(mapaCiudad,mapeoTuberias);
+        InfoTub.cargarTuberias(mapaCiudad, mapeoTuberias);
         añoInicial = Info.conseguirAñoInicial();
-        //Menu
+        // Menu
         int opcion;
         boolean exit = false;
         while (!exit) {
@@ -127,7 +127,8 @@ public class TransporteDeAgua {
         Ciudad nuevaCiudad = new Ciudad(datos[0], añoInicial, Float.parseFloat(datos[1]));
         // Verifico que no exista ya
         boolean noExiste = true;
-            noExiste = tablaBusqueda.insertar(nuevaCiudad, sacarAcentos(nuevaCiudad.getNombre().replace(" ","").toLowerCase()));
+        noExiste = tablaBusqueda.insertar(nuevaCiudad,
+                sacarAcentos(nuevaCiudad.getNombre().replace(" ", "").toLowerCase()));
         if (noExiste) {
             mapaCiudad.insertarVertice(nuevaCiudad);
             actualizarUltimaAccion(String.format("Se creo la ciudad %s", datos[0]));
@@ -144,10 +145,10 @@ public class TransporteDeAgua {
         limpiarPantalla();
         System.out.println(menuEliminarCiudad);
         System.out.print("Por favor introduzca los datos: ");
-        String nombreCiudad = sacarAcentos(in.nextLine().replace(" ","").toLowerCase());
-        
-        //Lo elimino de la tabla de busqueda
-        if (tablaBusqueda.eliminar(nombreCiudad)){
+        String nombreCiudad = sacarAcentos(in.nextLine().replace(" ", "").toLowerCase());
+
+        // Lo elimino de la tabla de busqueda
+        if (tablaBusqueda.eliminar(nombreCiudad)) {
             Ciudad ciudadBuscada = mapaCiudad.obtenerCiudad(nombreCiudad);
             // Lo elimino del digrafo
             log.log("Se mando a eliminar la ciudad: " + nombreCiudad,
@@ -162,10 +163,138 @@ public class TransporteDeAgua {
 
     // subOpcion3: modificarCiudad ---------------------------------------------
     private static void modificarCiudad() {
-        // System.out.println(MenuModificarCiudad);
+        limpiarPantalla();
+        Ciudad laCiudad;
+        boolean exit = false;
+        System.out.print("Por favor introduzca la ciudad que se modificará: ");
+        in.nextLine(); // Evita errores del buffer
+        String nombreCiudad = sacarAcentos(in.nextLine().replace(" ", "").toLowerCase());
+        laCiudad = mapaCiudad.obtenerCiudad(nombreCiudad);
+        if (laCiudad != null) {
+            int opcion = crearMenu(menuModificarCiudad, 2);
+            while (!exit) {
+                switch (opcion) {
+                    case 1:
+                        modificarDatosHabitantes(laCiudad);
+                        break;
+                    case 2:
+                        modificarDatosConsumo(laCiudad);
+                        break;
+                    case 3:
+                        exit = true;
+                        break;
+
+                    default:
+                        opcionInvalida();
+                }
+            }
+            log.log("Se modificó la informacion en la ciudad " + nombreCiudad, true);
+        } else {
+            log.log("Se intentó modificar la ciudad " + nombreCiudad + ", pero no existía", false);
+        }
         // TERMINAR DE HACER ESTA PARTE
         // ######################################################################
         // log.agregarLinea("Se cargo informacion en la ciudad" +ciudadNombre);
+    }
+
+    private static void modificarDatosHabitantes(Ciudad laCiudad) {
+        boolean exit = false;
+
+        while (!exit) {
+            int opcion = crearMenu(menuModificarHabitantes, 4);
+            switch (opcion) {
+                case 1:
+                    ingresarDiezAnios(laCiudad);
+                    break;
+                case 2:
+                    ingresarUnAnio(laCiudad);
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    exit = true;
+                    break;
+                default:
+                    opcionInvalida();
+            }
+        }
+    }
+
+    private static void ingresarDiezAnios(Ciudad laCiudad) {
+        // pfft
+    }
+
+    private static void ingresarUnAnio(Ciudad laCiudad) {
+        int[] habitantesEnAnio = new int[12];
+        int anio;
+        boolean valido = false;
+        System.out.println("Ingrese el año que desea modificar:");
+        do {
+            anio = in.nextInt();
+            in.nextLine();
+            if (laCiudad.añoValido(anio)) {
+                valido = false;
+            } else {
+                System.out.println("Año invalido. Por favor, ingrese un año presente en la matriz.");
+            }
+        } while (!valido);
+        for (int i = 0; i < 12; i++) {
+            System.out.println("Ingrese la cantidad de habitantes en el mes " + i + 1);
+            habitantesEnAnio[i] = in.nextInt();
+        }
+        laCiudad.setHabitantesAnio(habitantesEnAnio, anio);
+    }
+
+    private static void ingresarUnMes(Ciudad laCiudad) {
+        int anio;
+        int mes;
+        int habitantes;
+        boolean valido = false;
+        System.out.println("Ingrese el año que desea modificar:");
+        do {
+            anio = in.nextInt();
+            in.nextLine();
+            if (laCiudad.añoValido(anio)) {
+                valido = true;
+            } else {
+                System.out.println("Año invalido. Por favor, ingrese un año presente en el sistema.");
+            }
+        } while (!valido);
+        valido = false;
+        do {
+            mes = in.nextInt();
+            in.nextLine();
+            if (mes > 0 && mes <= 12) {
+                valido = true;
+            } else {
+                System.out.println("Mes invalido");
+            }
+
+        } while (!valido);
+        System.out.println("ingrese la cantidad de habitantes en la fecha: " + mes + "/" + anio);
+        habitantes = in.nextInt();
+        laCiudad.setHabitantes(habitantes, anio, mes);
+    }
+
+    private static void modificarDatosConsumo(Ciudad laCiudad) {
+        boolean exit = false;
+
+        while (!exit) {
+            int opcion = crearMenu(menuModificarConsumo, 4);
+            switch (opcion) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    exit = true;
+                    break;
+                default:
+                    opcionInvalida();
+            }
+        }
     }
 
     // OPCION 2: CAMBIOS TUBERIAS ------------------------------
@@ -246,7 +375,7 @@ public class TransporteDeAgua {
             boolean existeEnHash = mapeoTuberias.containsKey(llave);
             if (existeEnHash) {
                 mapaCiudad.eliminarArco(origen, destino);
-                mapeoTuberias.remove(llave); //Si lo sacas de nuevo te mato (❁´◡`❁)
+                mapeoTuberias.remove(llave); // Si lo sacas de nuevo te mato (❁´◡`❁)
                 actualizarUltimaAccion("Exito en baja de tuberia");
             } else {
                 actualizarUltimaAccion("No existe la tuberia entre" + origen + " y " + destino);
@@ -330,7 +459,7 @@ public class TransporteDeAgua {
             }
         } while (min <= 0 || min > tuberia.getCaudalMaximo());
         tuberia.setCaudalMinimo(min);
-        actualizarUltimaAccion("Se modifico el caudalMinimo de "+ tuberia.getNomenclatura());
+        actualizarUltimaAccion("Se modifico el caudalMinimo de " + tuberia.getNomenclatura());
         log.log("Se modificó el diametro de la tuberia " + tuberia.getNomenclatura() + ". " + minAntiguo + ">>>" + min,
                 true);
 
@@ -353,7 +482,7 @@ public class TransporteDeAgua {
             }
         } while (max <= 0 || max < tuberia.getCaudalMinimo());
         tuberia.setCaudalMaximo(max);
-        actualizarUltimaAccion("Se modifico el caudalMaximo de "+ tuberia.getNomenclatura());
+        actualizarUltimaAccion("Se modifico el caudalMaximo de " + tuberia.getNomenclatura());
         log.log("Se modificó el diametro de la tuberia " + tuberia.getNomenclatura() + ". " + maxAntiguo + ">>>" + max,
                 true);
 
@@ -380,9 +509,9 @@ public class TransporteDeAgua {
                 break;
         }
         if (cambio) {
-            actualizarUltimaAccion("Se cambio el estado de "+ tuberia.getNomenclatura() + " a " + tuberia.getEstado());
+            actualizarUltimaAccion("Se cambio el estado de " + tuberia.getNomenclatura() + " a " + tuberia.getEstado());
         }
-        
+
     }
 
     private static void modificarDiametro(Tuberias tuberia) {
@@ -397,7 +526,7 @@ public class TransporteDeAgua {
             }
         } while (diam <= 0);
         tuberia.setDiametro(diam);
-        actualizarUltimaAccion("Se cambio el diametro de "+ tuberia.getNomenclatura() + " a " + diam);
+        actualizarUltimaAccion("Se cambio el diametro de " + tuberia.getNomenclatura() + " a " + diam);
         log.log("Se modificó el diametro de la tuberia " + tuberia.getNomenclatura() + ". " + diamAntiguo + ">>>"
                 + diam, true);
 
@@ -429,14 +558,13 @@ public class TransporteDeAgua {
                 default:
                     opcionInvalida();
             }
-        }
-        while (!exit);
-        
+        } while (!exit);
+
     }
-    
-    //subOpcion1: modificar año completo----------------------------------------
-    private static void modificarAño(){
-        //Tomo datos ciudad ----
+
+    // subOpcion1: modificar año completo----------------------------------------
+    private static void modificarAño() {
+        // Tomo datos ciudad ----
         int añoDado;
         limpiarPantalla();
         System.out.println(menuPais);
@@ -445,30 +573,30 @@ public class TransporteDeAgua {
         Ciudad ciudad = mapaCiudad.obtenerCiudad(ciudadSinEncontrar);
         if (ciudad != null) {
             limpiarPantalla();
-            //Tomo datos año ------
+            // Tomo datos año ------
             System.out.println(menuAnio);
             System.out.print("Por favor Introduzca el Anio: ");
             añoDado = in.nextInt();
-            in.nextLine(); //limpia buffer
+            in.nextLine(); // limpia buffer
             if (añoDado >= añoInicial && añoDado <= (añoInicial + 10)) {
-                //El año debe estar entre el rango inicial y los diez años
+                // El año debe estar entre el rango inicial y los diez años
                 limpiarPantalla();
-                //Tomo datos meses
+                // Tomo datos meses
                 System.out.println(menuModificarMeses);
                 System.out.print("Por favor introduzca 12 datos: ");
                 String entrada = in.nextLine();
                 String[] datos = entrada.trim().replace(" ", "").split(",");
                 if (datos.length == 12) {
                     limpiarPantalla();
-                    //Los datos deben de ser 12 exactos
+                    // Los datos deben de ser 12 exactos
                     int[] nuevosHabitantes = new int[12];
                     for (int mes = 0; mes < 12; mes++) {
-                        //Paso los datos a int
+                        // Paso los datos a int
                         nuevosHabitantes[mes] = Integer.parseInt(datos[mes]);
                     }
-                    //Aplico a ciudad
+                    // Aplico a ciudad
                     ciudad.setHabitantesAnio(nuevosHabitantes, añoDado);
-                    actualizarUltimaAccion("Se efectuo el cambio de anio en " + ciudad );
+                    actualizarUltimaAccion("Se efectuo el cambio de anio en " + ciudad);
                 } else {
                     confirmarParaContinuar(formato("Error en los datos"));
                 }
@@ -479,12 +607,11 @@ public class TransporteDeAgua {
             confirmarParaContinuar(formato("Error en el pais"));
         }
 
-
     }
 
-    //subOpcion2: modificar solo un mes ---------------------------------------
+    // subOpcion2: modificar solo un mes ---------------------------------------
     private static void modificarMes() {
-        //Tomo datos ciudad ----
+        // Tomo datos ciudad ----
         int añoDado;
         limpiarPantalla();
         System.out.println(menuPais);
@@ -493,39 +620,36 @@ public class TransporteDeAgua {
         Ciudad ciudad = mapaCiudad.obtenerCiudad(ciudadSinEncontrar);
         if (ciudad != null) {
             limpiarPantalla();
-            //Tomo datos año ------
+            // Tomo datos año ------
             System.out.println(menuAnio);
             System.out.print("Por favor Introduzca el Anio: ");
             añoDado = in.nextInt();
-            in.nextLine(); //limpia buffer
+            in.nextLine(); // limpia buffer
             if (añoDado >= añoInicial && añoDado <= (añoInicial + 10)) {
-                //El año debe estar entre el rango inicial y los diez años
+                // El año debe estar entre el rango inicial y los diez años
                 limpiarPantalla();
-                //Tomo datos mes
+                // Tomo datos mes
                 System.out.println(menuModificarMes);
                 System.out.print("Por favor introduzca el numero del mes: ");
                 int entrada = in.nextInt();
-                in.nextLine(); //limpia buffer
+                in.nextLine(); // limpia buffer
                 entrada -= 1;
                 if (entrada >= 0 && entrada <= 11) {
-                    //Tomo datos habitantes
+                    // Tomo datos habitantes
                     System.out.println(formato("Introduzca la cantidad de habitantes"));
                     System.out.print("Habitantes: ");
                     int habitantes = in.nextInt();
                     in.nextLine();
-                    //Aplico a ciudad
+                    // Aplico a ciudad
                     ciudad.setHabitantes(habitantes, añoDado, entrada);
-                    actualizarUltimaAccion("Se efectuo el cambio de mes en " + ciudad );
-                }
-                else {
+                    actualizarUltimaAccion("Se efectuo el cambio de mes en " + ciudad);
+                } else {
                     confirmarParaContinuar(formato("Error en el mes"));
                 }
-            }
-            else {
+            } else {
                 confirmarParaContinuar(formato("Error en el anio"));
             }
-        }
-        else {
+        } else {
             confirmarParaContinuar(formato("Error en el pais"));
         }
 
@@ -537,7 +661,7 @@ public class TransporteDeAgua {
     private static void consultarCiudades() {
         int opcion;
         boolean exit = false;
-        while(!exit) {
+        while (!exit) {
             opcion = crearMenu(menuConsultarCiudades, 2);
             switch (opcion) {
                 case 1:
@@ -554,94 +678,92 @@ public class TransporteDeAgua {
         log.agregarLinea("Se fue al menu de consulta de ciudades");
     }
 
-    
-    //subOpcion1: consultarHabitantesConsumo 
-        private static void consultarHabitantesConsumo(){
-            //Pido ciudad
-            Ciudad ciudad = pedirCiudad();
-            if (ciudad != null) {
-                //la pos 0 es de mes y la 1 de año
-                int[] fecha = pedirFecha();
-                if (verificarFecha(fecha[0],fecha[1])) {
-                    //Consigo los datos necesarios de ciudad
-                    int habitantes = ciudad.habitantesMes(fecha[0], fecha[1]);
-                    float consumoPromedio = ciudad.consumoMensual(fecha[0], fecha[1]);
-                    Lista listaTuberias = mapaCiudad.listarTuberiasHaciaCiudad(ciudad);
-                    //ME FALTA TERMINAR ESTO, YA TENGO LA LISTA DE TUBERIAS PERO NO LAS BUSCO EN HASH
-                    float aguaDistribuida; 
-                }
-                else {
-                    actualizarUltimaAccion("Error en introducir fecha");
-                }
+    // subOpcion1: consultarHabitantesConsumo
+    private static void consultarHabitantesConsumo() {
+        // Pido ciudad
+        Ciudad ciudad = pedirCiudad();
+        if (ciudad != null) {
+            // la pos 0 es de mes y la 1 de año
+            int[] fecha = pedirFecha();
+            if (verificarFecha(fecha[0], fecha[1])) {
+                // Consigo los datos necesarios de ciudad
+                int habitantes = ciudad.habitantesMes(fecha[0], fecha[1]);
+                float consumoPromedio = ciudad.consumoMensual(fecha[0], fecha[1]);
+                Lista listaTuberias = mapaCiudad.listarTuberiasHaciaCiudad(ciudad);
+                // ME FALTA TERMINAR ESTO, YA TENGO LA LISTA DE TUBERIAS PERO NO LAS BUSCO EN
+                // HASH
+                float aguaDistribuida;
+            } else {
+                actualizarUltimaAccion("Error en introducir fecha");
             }
-            else {
-                //Error ciudad no existe
-                actualizarUltimaAccion("Error en introducir ciudad");
-            }
+        } else {
+            // Error ciudad no existe
+            actualizarUltimaAccion("Error en introducir ciudad");
         }
-    
-        
-        private static Ciudad pedirCiudad() {
-            Ciudad ciudadDevuelta;
-            System.out.println(formato("Por favor introduzca una ciudad"));
-            String paisIntroducido = in.nextLine();
-            ciudadDevuelta = mapaCiudad.obtenerCiudad(paisIntroducido);
-            return ciudadDevuelta;
-        }
-        
-        private static int[] pedirFecha() {
-            //El mes se encuentra en la pos 0 y el año en la pos 1
-            System.out.println(formato("Por favor introduzca una fecha (mm-yyyy"));
-            String[] fechaString = in.nextLine().split("-");
-            int[] fecha = {Integer.parseInt(fechaString[0]),Integer.parseInt(fechaString[1])};
-            return fecha;
-        }
-    //----------
-        private static String menuHabitantesConsumo = """
-                                               ================================================================================
-                                                                               CONSULTA CIUDAD
-                                               ================================================================================
-                                               Por favor Introduzca una ciudad
-                                               ================================================================================
-                                               """;
-        
-    //subOpcion2: ciudadesEnRango
+    }
+
+    private static Ciudad pedirCiudad() {
+        Ciudad ciudadDevuelta;
+        System.out.println(formato("Por favor introduzca una ciudad"));
+        String paisIntroducido = in.nextLine();
+        ciudadDevuelta = mapaCiudad.obtenerCiudad(paisIntroducido);
+        return ciudadDevuelta;
+    }
+
+    private static int[] pedirFecha() {
+        // El mes se encuentra en la pos 0 y el año en la pos 1
+        System.out.println(formato("Por favor introduzca una fecha (mm-yyyy"));
+        String[] fechaString = in.nextLine().split("-");
+        int[] fecha = { Integer.parseInt(fechaString[0]), Integer.parseInt(fechaString[1]) };
+        return fecha;
+    }
+
+    // ----------
+    private static String menuHabitantesConsumo = """
+            ================================================================================
+                                            CONSULTA CIUDAD
+            ================================================================================
+            Por favor Introduzca una ciudad
+            ================================================================================
+            """;
+
+    // subOpcion2: ciudadesEnRango
     private static void ciudadesEnRango() {
         System.out.println(menuCiudadesEnRango);
         System.out.print("Introduzca los datos: ");
         String[] aux = (in.nextLine()).split(",");
-        //Posiciones: ciudad1,ciudad2,vol,vol2,mes,año
-        //Asigno cada posicion a una variable mas legible
-        int volMax = Math.max(Integer.parseInt(aux[2]),Integer.parseInt(aux[3]));
-        int volMin = Math.min(Integer.parseInt(aux[2]),Integer.parseInt(aux[3]));
+        // Posiciones: ciudad1,ciudad2,vol,vol2,mes,año
+        // Asigno cada posicion a una variable mas legible
+        int volMax = Math.max(Integer.parseInt(aux[2]), Integer.parseInt(aux[3]));
+        int volMin = Math.min(Integer.parseInt(aux[2]), Integer.parseInt(aux[3]));
         Ciudad ciudadMin = mapaCiudad.obtenerCiudad(aux[0]);
         Ciudad ciudadMax = mapaCiudad.obtenerCiudad(aux[1]);
-        //Verifico ciudades
+        // Verifico ciudades
         if (ciudadMin != null && ciudadMax != null) {
-            int mes = Integer.parseInt(aux[4])-1;
+            int mes = Integer.parseInt(aux[4]) - 1;
             int anio = Integer.parseInt(aux[5]);
-            //Verifico fecha
-            if(verificarFecha(mes,anio)) {
-                //Listo por rango
-                Lista listaConsumo = tablaBusqueda.listarRangoConsumo(ciudadMin.toString(), ciudadMax.toString(), volMin, volMax, mes, anio);
+            // Verifico fecha
+            if (verificarFecha(mes, anio)) {
+                // Listo por rango
+                Lista listaConsumo = tablaBusqueda.listarRangoConsumo(ciudadMin.toString(), ciudadMax.toString(),
+                        volMin, volMax, mes, anio);
                 confirmarParaContinuar(formato(listaConsumo.toString()));
                 actualizarUltimaAccion("Se listo las ciudades en rango");
                 log.agregarLinea("Se mostro las ciudades en rango entre nombres:" + aux[0] + " y " + aux[1]
-                + ", con rango de vol entre: " + aux[2] + " y " + aux[3] + " en mes:" + aux[4] + " y año " + aux[5]);
-            }
-            else {
+                        + ", con rango de vol entre: " + aux[2] + " y " + aux[3] + " en mes:" + aux[4] + " y año "
+                        + aux[5]);
+            } else {
                 confirmarParaContinuar(formato("Error en la fecha"));
                 actualizarUltimaAccion("Fallo en listar ciudades en rango");
             }
-        }
-        else {
+        } else {
             confirmarParaContinuar(formato("Error en encontrar paises"));
             actualizarUltimaAccion("Fallo en listar ciudades en rango");
         }
 
     }
-    //------
-    
+    // ------
+
     private static String getEstadoCamino(Lista camino, HashMap mapeoTuberias) {
         String estado = "activo";
         String nom1;
@@ -745,8 +867,8 @@ public class TransporteDeAgua {
         int opcion;
         boolean exitTemp = false;
         while (!exitTemp) {
-            opcion = crearMenu(menuDebug,4);
-            switch(opcion) {
+            opcion = crearMenu(menuDebug, 4);
+            switch (opcion) {
                 case 0: {
                     exitTemp = true;
                     break;
@@ -764,7 +886,7 @@ public class TransporteDeAgua {
                 }
                     break;
                 case 4:
-                    confirmarParaContinuar(formato(tablaBusqueda.toString())+"\n");
+                    confirmarParaContinuar(formato(tablaBusqueda.toString()) + "\n");
                 default:
             }
         }
@@ -845,21 +967,17 @@ public class TransporteDeAgua {
      * return resultado;
      * }
      */
-    
-    
-    
-    
-    private static boolean verificarFecha(int mes,int año) {
+
+    private static boolean verificarFecha(int mes, int año) {
         boolean resultado;
-        if (mes >= 0 && mes <=11 && añoInicial - año >= 0 && añoInicial - año <= 10) {
+        if (mes >= 0 && mes <= 11 && añoInicial - año >= 0 && añoInicial - año <= 10) {
             resultado = true;
-        }
-        else {
+        } else {
             resultado = false;
         }
         return resultado;
     }
-    
+
     private static void opcionInvalida() {
         String invalido = """
                 ================================================================================
@@ -880,7 +998,6 @@ public class TransporteDeAgua {
                 .replace("ü", "u")
                 .replace("ç", "c");
     }
-
 
     // MENUS. Son almacenados en un string.
     // --------------------------------------------------
@@ -928,35 +1045,43 @@ public class TransporteDeAgua {
             """;
 
     private static String menuEliminarCiudad = """
-                                               ================================================================================
-                                                                               ELIMINAR CIUDAD                             
-                                               ================================================================================
-                                               Eliminar una ciudad eliminara todos sus datos y conexiones.
-                                               Debe de introducir el nombre de la ciudad.
-                                               ================================================================================
-                                               """;
-    
+            ================================================================================
+                                            ELIMINAR CIUDAD
+            ================================================================================
+            Eliminar una ciudad eliminara todos sus datos y conexiones.
+            Debe de introducir el nombre de la ciudad.
+            ================================================================================
+            """;
+
     private static String menuModificarCiudad = """
-                                                ================================================================================
-                                                                               MODIFICAR CIUDAD                             
-                                                ================================================================================
-                                                [1] Modificar datos de habitantes
-                                                [2] Modificar datos de consumo
-                                                ================================================================================
-                                                """;
-    
+            ================================================================================
+                                           MODIFICAR CIUDAD
+            ================================================================================
+            [1] Modificar datos de habitantes
+            [2] Modificar datos de consumo
+            ================================================================================
+            """;
+
+    private static String menuModificarHabitantes = """
+            ================================================================================
+                                           MODIFICAR CIUDAD
+            ================================================================================
+            [1] Modificar datos de habitantes
+            [2] Modificar datos de consumo
+            ================================================================================
+            """;
+
     private static String menuDebug = """
-                                            ================================================================================
-                                                                              DEBUGGING                             
-                                            ================================================================================
-                                            [1] Listar todas las ciudades [Digrafo]
-                                            [2] Listar todas las tuberias [Digrafo]
-                                            [3] Listar tuberias en HASH.
-                                            [4] Listar todas las ciudades [Arbol]
-                                            [0] Salir
-                                            ================================================================================
-                                      """;
-    
+                  ================================================================================
+                                                    DEBUGGING
+                  ================================================================================
+                  [1] Listar todas las ciudades [Digrafo]
+                  [2] Listar todas las tuberias [Digrafo]
+                  [3] Listar tuberias en HASH.
+                  [4] Listar todas las ciudades [Arbol]
+                  [0] Salir
+                  ================================================================================
+            """;
 
     private static String menuModificarTuberia = """
             ================================================================================
@@ -1058,42 +1183,42 @@ public class TransporteDeAgua {
     private static String separador() {
         return "================================================================================\n";
     }
-    
+
     private static String menuAnio = """
-                                                    ================================================================================
-                                                                                    ALTA HABITANTES                             
-                                                    ================================================================================
-                                                    Por favor introduzca el anio que desea modificar:
-                                                    ================================================================================
-                                              """;
-    
+                  ================================================================================
+                                                  ALTA HABITANTES
+                  ================================================================================
+                  Por favor introduzca el anio que desea modificar:
+                  ================================================================================
+            """;
+
     private static String menuModificarMeses = """
-                                                    ================================================================================
-                                                                                    ALTA HABITANTES                             
-                                                    ================================================================================
-                                                    POR ANIO:
-                                                    Por favor introduzca 12 datos separados por coma
-                                                    Ejemplo: 123,25,7,5,3,8,9,3,8,7,6,5
-                                                    ================================================================================
-                                              """;
+                  ================================================================================
+                                                  ALTA HABITANTES
+                  ================================================================================
+                  POR ANIO:
+                  Por favor introduzca 12 datos separados por coma
+                  Ejemplo: 123,25,7,5,3,8,9,3,8,7,6,5
+                  ================================================================================
+            """;
     private static String menuPais = """
-                                                    ================================================================================
-                                                                                    ALTA HABITANTES                             
-                                                    ================================================================================
-                                                    Debe introducir un ciudad.
-                                                    Ejemplo: Buenos Aires
-                                                    ================================================================================
-                                              """;
+                  ================================================================================
+                                                  ALTA HABITANTES
+                  ================================================================================
+                  Debe introducir un ciudad.
+                  Ejemplo: Buenos Aires
+                  ================================================================================
+            """;
     private static String menuModificarMes = """
-                                                    ================================================================================
-                                                                                    ALTA HABITANTES                             
-                                                    ================================================================================
-                                                    Por favor introduzca un mes segun su numero 1-12
-                                                    Ejemplo: 11 (noviembre)
-                                                    ================================================================================
-                                             """;
-    
-            private static String menuConsultarCiudades = """
+                   ================================================================================
+                                                   ALTA HABITANTES
+                   ================================================================================
+                   Por favor introduzca un mes segun su numero 1-12
+                   Ejemplo: 11 (noviembre)
+                   ================================================================================
+            """;
+
+    private static String menuConsultarCiudades = """
                     ================================================================================
                                                     CONSULTA CIUDAD
                     ================================================================================
@@ -1103,7 +1228,7 @@ public class TransporteDeAgua {
                     [0] Salir ... Vuelve al menu principal
                     ================================================================================
             """;
-        private static String menuCiudadesEnRango = """
+    private static String menuCiudadesEnRango = """
                     ================================================================================
                                                     CONSULTA CIUDAD
                     ================================================================================
@@ -1112,37 +1237,39 @@ public class TransporteDeAgua {
                     Ejemplo: Buenos Aires,Santiago,15,30,5,2016
                     ================================================================================
             """;
-        
-    
+
 }
 
-/*CHECKLIST PARA MI:
-    -Parcialmente hecho, Hecho, Falta
-    OPCION 1
-    cambiosCiudades() #p
-        darAltaCiudad() #H
-        darBajaCiudad()#H
-        modificarCiudad() #f
-    OPCION 2 #p
-        darAltaTuberia() #H //Hay un problema con las nomenclaturas Ciudad De Mexico es Cd en vez de CM
-        darBajaTuberia()#H
-        modificarTuberia() #H
-    OPCION 3
-        modificarAño #H //CANT HABITANTES ES NULL 
-        modificarMes #H //CANT HABITANTES ES NULL 
-    OPCION 4 
-        infoCiudad (cantHabitantes y volumenAgua distribuido) a partir de un mes y año
-        algoQueIvoHizo #H //falta testear
-    OPCION 5
-        Caudal Pleno
-        Camino Mas Corto #H
-    OPCION 6
-        LA OPCION 6 ES UNA MENTIRA DEL GOBIERNO
-    OPCION 7
-        Ranking Ciudades.
-
-        NOS FALTA LA CARGA DE DATOS
-COMPLETO:
-        OPCION 8 #H
-        adios() #H
-*/
+/*
+ * CHECKLIST PARA MI:
+ * -Parcialmente hecho, Hecho, Falta
+ * OPCION 1
+ * cambiosCiudades() #p
+ * darAltaCiudad() #H
+ * darBajaCiudad()#H
+ * modificarCiudad() #f
+ * OPCION 2 #p
+ * darAltaTuberia() #H //Hay un problema con las nomenclaturas Ciudad De Mexico
+ * es Cd en vez de CM
+ * darBajaTuberia()#H
+ * modificarTuberia() #H
+ * OPCION 3
+ * modificarAño #H //CANT HABITANTES ES NULL
+ * modificarMes #H //CANT HABITANTES ES NULL
+ * OPCION 4
+ * infoCiudad (cantHabitantes y volumenAgua distribuido) a partir de un mes y
+ * año
+ * algoQueIvoHizo #H //falta testear
+ * OPCION 5
+ * Caudal Pleno
+ * Camino Mas Corto #H
+ * OPCION 6
+ * LA OPCION 6 ES UNA MENTIRA DEL GOBIERNO
+ * OPCION 7
+ * Ranking Ciudades.
+ * 
+ * NOS FALTA LA CARGA DE DATOS
+ * COMPLETO:
+ * OPCION 8 #H
+ * adios() #H
+ */
