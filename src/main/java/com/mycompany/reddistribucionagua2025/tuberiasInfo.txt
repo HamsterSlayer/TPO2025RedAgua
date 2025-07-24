@@ -12,6 +12,7 @@ Santo Domingo, Tegucigalpa, 950, 190, 1.8, En Diseño
 Tijuana, Asunción, 460, 55, 0.85, En reparación
 Barranquilla, Brasilia, 600, 75, 1.15, Activo
 Cali, Caracas, 1150, 280 , 2.1, En Diseño
+Buenos Aires, Fortaleza, 1150, 280 , 2.1, Activo
 Fortaleza, Habana, 430, 40, 0.82, Inactivo
 La Paz, Managua, 700, 105, 1.35, Activo
 Medellín, Monterrey, 980, 200, 1.75 , En Diseño

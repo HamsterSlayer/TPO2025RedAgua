@@ -1,10 +1,9 @@
 package com.mycompany.reddistribucionagua2025;
-
 import com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo;
 import java.util.HashMap;
 import java.util.Scanner;
-import com.mycompany.reddistribucionagua2025.readtxt.CargaArchivos;
-import com.mycompany.reddistribucionagua2025.readtxt.EscrituraArchivos;
+import com.mycompany.reddistribucionagua2025.readtxt.*;
+
 
 /**
  *
@@ -18,18 +17,20 @@ import com.mycompany.reddistribucionagua2025.readtxt.EscrituraArchivos;
  * @author hamst
  */
 public class TransporteDeAgua {
+    private static final String informacionCiudades = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\Informacion.txt";
+    private static final String informacionTuberias = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\tuberiasInfo.txt";
+    private static final String datosCiudades = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\datosCiudadesHabitantes";
     // Variables del Programa ----------------------------------
     // Estas variables se usarán para modificar y operar el programa
     private static int añoInicial; // El año inicial debe ser conseguido mediante la precarga
     private static ArbolAVL tablaBusqueda = new ArbolAVL();
     private static MapaDigrafo mapaCiudad = new MapaDigrafo();
     private static HashMap<DominioHash, Tuberias> mapeoTuberias = new HashMap<>();
-    private static CargaArchivos Info = new CargaArchivos(
-            "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\Informacion.txt");
-    private static CargaArchivos InfoTub = new CargaArchivos(
-            "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\tuberiasInfo.txt");
+    private static CargaArchivos Info = new CargaArchivos(informacionCiudades);
+    private static CargaArchivos InfoTub = new CargaArchivos(informacionTuberias);
     private static EscrituraArchivos log = new EscrituraArchivos(
             "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\sesion.LOG");
+    private static generadorDatosCiudades generadorHabitantes = new generadorDatosCiudades(informacionCiudades,datosCiudades);
     // Variables del Menu --------------------------------------
     // Estas variables pueden ser ignoradas. Se usan para operar con el menu
     private static Scanner in = new Scanner(System.in);
@@ -39,10 +40,11 @@ public class TransporteDeAgua {
     // PROGRAMA PRINCIPAL ---------------------------------------
     public static void main(String[] args) {
         // precarga
-        actualizarUltimaAccion("Se cargo la tabla de ciudades");
         Info.cargarRedDistribucion(tablaBusqueda, mapaCiudad);
         InfoTub.cargarTuberias(mapaCiudad, mapeoTuberias);
         añoInicial = Info.conseguirAñoInicial();
+        generadorHabitantes.crearDatos(false, añoInicial);
+        actualizarUltimaAccion("Se cargaron los datos");        
         // Menu
         int opcion;
         boolean exit = false;

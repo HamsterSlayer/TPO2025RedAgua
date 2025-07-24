@@ -334,46 +334,6 @@ public class MapaDigrafo {
         }
         return ciudadEncontrada;
     }
-    /*
-     * No sé qué hice acá Pedro xD
-     * //Busqueda Por Anchura ----------------------------------------------------
-     * private NodoVert busquedaAnchura(NodoVert n, String nombre) {
-     * //Variables
-     * nombre = formatoNombre(nombre);
-     * Lista visitados = new Lista();
-     * Cola q = new Cola();
-     * boolean encontrado = false;
-     * NodoVert u;
-     * NodoVert objetivo = null;
-     * NodoAdy aux;
-     * q.poner(n); //Pongo el primer nodo (usualmente la raiz)
-     * 
-     * while (!q.esVacia() && !encontrado) {
-     * //Pongo el primer nodo en la cola y luego lo saco
-     * u = (NodoVert) q.obtenerFrente();
-     * q.sacar();
-     * String nodoNombreFormato = formatoNombre(u.getElem().getNombre());
-     * 
-     * if (nodoNombreFormato.equals(nombre)) {
-     * //Si encuentro el nodo que busco levanto la bandera encontrado.
-     * encontrado = true;
-     * objetivo = u;
-     * }
-     * aux = u.getPrimerAdy(); //Consigo el adyacente
-     * if (!encontrado) {
-     * while (aux != null) {
-     * if (visitados.localizar(aux) == -1) {
-     * visitados.insertar(aux, visitados.longitud() + 1);
-     * q.poner(aux.getVertice());
-     * }
-     * aux = aux.getSigAdyacente();
-     * }
-     * }
-     * }
-     * return objetivo;
-     * }
-     */
-
     /**
      * Recibe el nodo desde donde se buscará.
      * 
@@ -471,6 +431,8 @@ public class MapaDigrafo {
                 keys.insertar(key, cursor);
                 cursor++;
             }
+            //prosigo
+            raiz = raiz.getSigVertice();
         }
         return keys;
     }
