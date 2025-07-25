@@ -480,7 +480,7 @@ public class MapaDigrafo {
     }
 
     // El Anticristo
-    private Lista caudalPleno(String ciudadOrigen, String ciudadDestino) {
+    public Lista caudalPleno(String ciudadOrigen, String ciudadDestino) {
         Lista camino = new Lista();
         NodoVert origen;
         NodoVert destino;
@@ -495,11 +495,8 @@ public class MapaDigrafo {
 
     public Lista caudalPleno(NodoVert origen, NodoVert ciudadDestino) {
         NodoVert actual = origen;
-        NodoVert siguiente;
         NodoVert auxVert;
         NodoAdy auxAdy;
-        NodoAdy menor;
-        float menorCaudal = Float.MAX_VALUE;
         float caudalActual;
         float caudalNuevo;
         HashMap<NodoVert, Float> distancias = new HashMap<>();
@@ -509,7 +506,7 @@ public class MapaDigrafo {
         Lista caudalPleno = new Lista();
         Lista visitados = new Lista();
         while (visitados.localizar(ciudadDestino) == -1 && actual != null) {
-            // Busco el vertice con la menor distancia posible desde el punto de partida
+            // Busco el vertice con el camino mas corto posible estimado.
             actual = menorEstimativa(origen, distancias, visitados);
             if (actual != null) {
                 visitados.insertar(actual, visitados.longitud() + 1);
@@ -526,11 +523,12 @@ public class MapaDigrafo {
                         distancias.put(auxVert, caudalActual + caudalNuevo);
                         anteriores.put(auxVert, actual);
                     }
+                    auxAdy = auxAdy.getSigAdyacente();
                 }
             }
         }
-        if (visitados.localizar(ciudadDestino) != -1){
-            caudalPleno = reconstruirCamino()
+        if (visitados.localizar(ciudadDestino) != -1) {
+            caudalPleno = reconstruirCamino(anteriores, ciudadDestino);
         }
 
         return caudalPleno;
