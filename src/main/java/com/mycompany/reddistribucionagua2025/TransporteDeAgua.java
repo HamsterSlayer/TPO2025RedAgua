@@ -26,7 +26,7 @@ public class TransporteDeAgua {
     private static ArbolAVL tablaBusqueda = new ArbolAVL();
     private static MapaDigrafo mapaCiudad = new MapaDigrafo();
     private static HashMap<DominioHash, Tuberias> mapeoTuberias = new HashMap<>();
-    private static CargaArchivos Info = new CargaArchivos(informacionCiudades);
+    private static CargaArchivos Info = new CargaArchivos(informacionCiudades,datosCiudades,null);
     private static CargaArchivos InfoTub = new CargaArchivos(informacionTuberias);
     private static EscrituraArchivos log = new EscrituraArchivos(
             "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\sesion.LOG");
@@ -235,7 +235,7 @@ public class TransporteDeAgua {
     }
 
     private static void ingresarUnAnio(Ciudad laCiudad) {
-        int[] habitantesEnAnio = new int[12];
+        long[] habitantesEnAnio = new long[12];
         int anio;
         boolean valido = false;
         System.out.println("Ingrese el año que desea modificar:");
@@ -603,7 +603,7 @@ public class TransporteDeAgua {
                 if (datos.length == 12) {
                     limpiarPantalla();
                     // Los datos deben de ser 12 exactos
-                    int[] nuevosHabitantes = new int[12];
+                    long[] nuevosHabitantes = new long[12];
                     for (int mes = 0; mes < 12; mes++) {
                         // Paso los datos a int
                         nuevosHabitantes[mes] = Integer.parseInt(datos[mes]);

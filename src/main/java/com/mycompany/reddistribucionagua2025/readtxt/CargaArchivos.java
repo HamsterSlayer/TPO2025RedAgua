@@ -33,18 +33,17 @@ public class CargaArchivos {
         try {
             FileReader lectorArchivo = new FileReader(ruta);
             BufferedReader bufferLectura = new BufferedReader(lectorArchivo);
-            String linea,linea2,linea3;
-            String[] arr,arr2,arr3;
-            int aux;
-            int[][] hab = new int[10][12];
-            float[][] consumo = new float[10][12];
+            String linea;
+            String[] arr;
+            long[][] hab;
+            float[][] consumo;
             do {        //Se carga toda la informacion disponible
                     linea = bufferLectura.readLine();
                     if (linea != null) {
                         arr = linea.split(",");
-                        hab = obtenerArrayInt(rutaCarpeta+"\\"+arr[0].replace(" ","").toLowerCase()+".txt");
-                        consumo = obtenerArrayFloat(rutaCarpeta+"\\"+arr[0].replace(" ","").toLowerCase()+".txt");
-                        Ciudad temp = new Ciudad(arr[0], Integer.parseInt(arr[1]), hab, Float.parseFloat(arr[2]), consumo);
+                        hab = obtenerArrayInt(rutaCarpeta+"\\"+sacarAcentos(arr[0].replace(" ","").toLowerCase())+".txt");
+                        consumo = obtenerArrayFloat(rutaCarpeta2+"\\"+sacarAcentos(arr[0].replace(" ","").toLowerCase())+".txt");
+                        Ciudad temp = new Ciudad(arr[0], Integer.parseInt(arr[1].trim()), hab, Float.parseFloat(arr[2].trim()), consumo);
                         //Ciudad temp = new Ciudad(arr[0],añoInicial,Float.parseFloat(arr[1].trim()));
                         arbol.insertar(temp,sacarAcentos(temp.getNombre().replace(" ","").toLowerCase()));
                         mapa.insertarVertice(temp);
@@ -56,8 +55,8 @@ public class CargaArchivos {
         }
     }
     
-    private int[][] obtenerArrayInt(String rutaArray){
-        int[][] hab = new int[10][12];
+    private long[][] obtenerArrayInt(String rutaArray){
+        long[][] hab = new long[10][12];
         try {
             FileReader lectorArchivo = new FileReader(rutaArray);
             BufferedReader bufferLectura = new BufferedReader(lectorArchivo);
@@ -66,17 +65,24 @@ public class CargaArchivos {
             int aux;
             do {        //Se carga toda la informacion disponible
                     linea = bufferLectura.readLine();
-                    arr = linea.split(",");
-                    aux=Integer.parseInt(arr[0]);
-                    for (int i=0;i<arr.length;i++){
-                        if((aux-añoInicial)>=0 && (aux-añoInicial)<10){
-                            hab[aux-añoInicial][i]=Integer.parseInt(arr[i+1]);
+                    if (linea != null) {
+                        arr = linea.split(",");
+                        aux=Integer.parseInt(arr[0].trim());
+                        for (int i=0;i<hab[0].length;i++){
+                            if((aux-añoInicial)>=0 && (aux-añoInicial)<12){
+                                hab[aux-añoInicial][i]=Integer.parseInt(arr[i+1].trim());
+                            }
                         }
                     }
                 } while (linea != null);            
         }
         catch (Exception e) {
             System.out.println("Error al leer array de "+rutaArray);
+            for(int i=0;i<hab.length;i++){
+               for (int j=0;j<hab[i].length;j++){
+                   hab[i][j]=0;
+               } 
+            }
         }
         return hab;
     }
@@ -93,8 +99,8 @@ public class CargaArchivos {
                     linea = bufferLectura.readLine();
                     arr = linea.split(",");
                     aux=Integer.parseInt(arr[0]);
-                    for (int i=0;i<arr.length;i++){
-                        if((aux-añoInicial)>=0 && (aux-añoInicial)<10){
+                    for (int i=0;i<con[0].length;i++){
+                        if((aux-añoInicial)>=0 && (aux-añoInicial)<12){
                             con[aux-añoInicial][i]=Float.parseFloat(arr[i+1]);
                         }
                     }
@@ -102,6 +108,11 @@ public class CargaArchivos {
         }
         catch (Exception e) {
             System.out.println("Error al leer array de "+rutaArray);
+            for(int i=0;i<con.length;i++){
+               for (int j=0;j<con[i].length;j++){
+                   con[i][j]=0;
+               } 
+            }
         }
         return con;
     }

@@ -15,14 +15,14 @@ public class Ciudad {
     private final String nombre;
     private final int añoInicial; // Se registra el año inicial, de esta forma se puede conseguir el año de
                                   // cualquier posicion sumandole el añoInicial.
-    private int[][] cantHabitantes; // Matriz de 10 filas (años) con 12 columnas (meses) ;
+    private long[][] cantHabitantes; // Matriz de 10 filas (años) con 12 columnas (meses) ;
     private String nomenclatura;
     private float superficie;
     private float[][] consumoPromedio; // Matriz de 10 filas (años) con 12 columnas (meses) ;
     private static int nomenclaturaContador = 3000;
 
     // Constructor --------------------------------------------------------------
-    public Ciudad(String nombre, int añoInicial, int[][] cantHabitantes, float superficie, float[][] consumoPromedio) {
+    public Ciudad(String nombre, int añoInicial, long[][] cantHabitantes, float superficie, float[][] consumoPromedio) {
         this.nombre = nombre;
         this.añoInicial = añoInicial;
         this.cantHabitantes = cantHabitantes;
@@ -71,21 +71,21 @@ public class Ciudad {
     // ---------------
 
     // Habitantes ------------------
-    public void setCantHabitantes(int[][] habitantes) {
+    public void setCantHabitantes(long[][] habitantes) {
         this.cantHabitantes = habitantes;
     }
 
-    public int[][] getCantHabitantes() {
+    public long[][] getCantHabitantes() {
         return this.cantHabitantes;
     }
 
-    public int habitantesMes(int mes, int año) {
+    public long habitantesMes(int mes, int año) {
         mes = mes - 1;
         año = añoAPosicion(año);
         return this.cantHabitantes[año][mes];
     }
 
-    public void setHabitantesAnio(int[] habitantes, int anio) {
+    public void setHabitantesAnio(long[] habitantes, int anio) {
         int pos = añoAPosicion(anio);
         this.cantHabitantes[pos] = habitantes;
     }

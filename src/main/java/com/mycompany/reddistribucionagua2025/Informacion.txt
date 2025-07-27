@@ -1,30 +1,30 @@
-Buenos Aires, 856723
-Ciudad de México, 451298
-Río de Janeiro, 723456
-Santiago, 398765
-Lima, 912345
-Bogotá, 678901
-Quito, 234567
-Caracas, 567890
-Montevideo, 890123
-La Paz, 123456
-Asunción, 456789
-San José, 789012
-Panamá, 345678
-Tegucigalpa, 678901
-Managua, 901234
-San Salvador, 234567
-Habana, 567890
-Santo Domingo, 890123
-San Juan, 123456
-Tijuana, 456789
-Guadalajara, 789012
-Monterrey, 345678
-Puebla, 678901
-Medellín, 901234
-Cali, 234567
-Barranquilla, 567890
-Brasília, 890123
-Salvador, 123456
-Recife, 456789
-Fortaleza, 789012
+Buenos Aires, 856723, 203
+Ciudad de México, 451298, 1485
+Río de Janeiro, 723456, 1221
+Santiago, 398765, 641
+Lima, 912345, 2672
+Bogotá, 678901, 1587
+Quito, 234567, 372
+Caracas, 567890, 2050
+Montevideo, 890123, 201
+La Paz, 123456, 472
+Asunción, 456789, 117
+San José, 789012, 44
+Panamá, 345678, 275
+Tegucigalpa, 678901, 201
+Managua, 901234, 267
+San Salvador, 234567, 72
+Habana, 567890, 728
+Santo Domingo, 890123, 104
+San Juan, 123456, 199
+Tijuana, 456789, 637
+Guadalajara, 789012, 151
+Monterrey, 345678, 336
+Puebla, 678901, 534
+Medellín, 901234, 382
+Cali, 234567, 564
+Barranquilla, 567890, 154
+Brasília, 890123, 5802
+Salvador, 123456, 693
+Recife, 456789, 218
+Fortaleza, 789012, 313
