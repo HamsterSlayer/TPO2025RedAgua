@@ -12,58 +12,38 @@ import java.util.HashMap;
 
 public class CargaArchivos {
     private final String ruta;
-    private final String ruta2;
-    private final String ruta3;
+    private final String rutaCarpeta;
+    private final String rutaCarpeta2;
     private int añoInicial = 2015; //Se va a conseguir mediante la lectura una vez se tenga el formato precarga
     
     public CargaArchivos(String ruta){
         this.ruta=ruta;
-        this.ruta2=null;
-        this.ruta3=null;
+        this.rutaCarpeta=null;
+        this.rutaCarpeta2=null;
     }
     
     public CargaArchivos(String r,String r2,String r3){
         this.ruta=r;
-        this.ruta2=r2;
-        this.ruta3=r3;
+        this.rutaCarpeta=r2;
+        this.rutaCarpeta2=r3;
     }
     
    
     public void cargarRedDistribucion(ArbolAVL arbol, MapaDigrafo mapa) {
         try {
-            FileReader lectorArchivo = new FileReader(ruta),lectorArchivo2 = new FileReader(ruta2),lectorArchivo3 = new FileReader(ruta3);
-            BufferedReader bufferLectura = new BufferedReader(lectorArchivo),bufferLectura2 = new BufferedReader(lectorArchivo2),bufferLectura3 = new BufferedReader(lectorArchivo3);
+            FileReader lectorArchivo = new FileReader(ruta);
+            BufferedReader bufferLectura = new BufferedReader(lectorArchivo);
             String linea,linea2,linea3;
             String[] arr,arr2,arr3;
             int aux;
             int[][] hab = new int[10][12];
             float[][] consumo = new float[10][12];
             do {        //Se carga toda la informacion disponible
-                
                     linea = bufferLectura.readLine();
                     if (linea != null) {
                         arr = linea.split(",");
-                        do {        //Se carga toda la informacion disponible
-                            linea2 = bufferLectura2.readLine();
-                            if (linea2 != null) {
-                                arr2 = linea.split(",");
-                                aux = Integer.parseInt(arr2[0].trim());
-                                for (int i=0;i<arr2.length;i++){
-                                    hab[2015-aux][i]=Integer.parseInt(arr2[i+1]);
-                                }                            
-                            }
-                        } while (linea2 != null);
-                        
-                        do {        //Se carga toda la informacion disponible
-                            linea3 = bufferLectura3.readLine();
-                            if (linea3 != null) {
-                                arr3 = linea3.split(",");
-                                aux = Integer.parseInt(arr3[0].trim());
-                                for (int i=0;i<arr3.length;i++){
-                                    consumo[2015-aux][i]=Float.parseFloat(arr3[i+1]);
-                                }                            
-                            }
-                        } while (linea3 != null); 
+                        hab = obtenerArrayInt(rutaCarpeta+"\\"+arr[0].replace(" ","").toLowerCase()+".txt");
+                        consumo = obtenerArrayFloat(rutaCarpeta+"\\"+arr[0].replace(" ","").toLowerCase()+".txt");
                         Ciudad temp = new Ciudad(arr[0], Integer.parseInt(arr[1]), hab, Float.parseFloat(arr[2]), consumo);
                         //Ciudad temp = new Ciudad(arr[0],añoInicial,Float.parseFloat(arr[1].trim()));
                         arbol.insertar(temp,sacarAcentos(temp.getNombre().replace(" ","").toLowerCase()));
@@ -74,6 +54,56 @@ public class CargaArchivos {
         catch (Exception e) {
             System.out.println("Error al leer ciudades");
         }
+    }
+    
+    private int[][] obtenerArrayInt(String rutaArray){
+        int[][] hab = new int[10][12];
+        try {
+            FileReader lectorArchivo = new FileReader(rutaArray);
+            BufferedReader bufferLectura = new BufferedReader(lectorArchivo);
+            String linea;
+            String[] arr;
+            int aux;
+            do {        //Se carga toda la informacion disponible
+                    linea = bufferLectura.readLine();
+                    arr = linea.split(",");
+                    aux=Integer.parseInt(arr[0]);
+                    for (int i=0;i<arr.length;i++){
+                        if((aux-añoInicial)>=0 && (aux-añoInicial)<10){
+                            hab[aux-añoInicial][i]=Integer.parseInt(arr[i+1]);
+                        }
+                    }
+                } while (linea != null);            
+        }
+        catch (Exception e) {
+            System.out.println("Error al leer array de "+rutaArray);
+        }
+        return hab;
+    }
+    
+    private float[][] obtenerArrayFloat(String rutaArray){
+        float[][] con = new float[10][12];
+        try {
+            FileReader lectorArchivo = new FileReader(rutaArray);
+            BufferedReader bufferLectura = new BufferedReader(lectorArchivo);
+            String linea;
+            String[] arr;
+            int aux;
+            do {        //Se carga toda la informacion disponible
+                    linea = bufferLectura.readLine();
+                    arr = linea.split(",");
+                    aux=Integer.parseInt(arr[0]);
+                    for (int i=0;i<arr.length;i++){
+                        if((aux-añoInicial)>=0 && (aux-añoInicial)<10){
+                            con[aux-añoInicial][i]=Float.parseFloat(arr[i+1]);
+                        }
+                    }
+                } while (linea != null);            
+        }
+        catch (Exception e) {
+            System.out.println("Error al leer array de "+rutaArray);
+        }
+        return con;
     }
     
     public void cargarTuberias(MapaDigrafo m, HashMap h) {
