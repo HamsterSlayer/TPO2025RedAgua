@@ -492,13 +492,17 @@ public class ArbolAVL {
     }
     
     private String auxString(String texto, NodoAVL n){
-        texto+=n.getClave()+": (I) ";
+        texto+=n.getClave()+"(alt: "+n.getAltura()+")HI: ";
         if(n.getIzquierdo()!=null){
             texto+=n.getIzquierdo().getClave();
+        }else{
+            texto+="- ";
         }
-            texto+="-(D) ";
+            texto+="HD: ";
         if(n.getDerecho()!=null){
             texto+=n.getDerecho().getClave();
+        }else{
+            texto+="-";
         }
             texto+="\n";
         if(n.getIzquierdo()!=null){
