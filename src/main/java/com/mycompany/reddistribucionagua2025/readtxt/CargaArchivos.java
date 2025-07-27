@@ -43,7 +43,7 @@ public class CargaArchivos {
                         arr = linea.split(",");
                         hab = obtenerArrayInt(rutaCarpeta+"\\"+sacarAcentos(arr[0].replace(" ","").toLowerCase())+".txt");
                         consumo = obtenerArrayFloat(rutaCarpeta2+"\\"+sacarAcentos(arr[0].replace(" ","").toLowerCase())+".txt");
-                        Ciudad temp = new Ciudad(arr[0], Integer.parseInt(arr[1].trim()), hab, Float.parseFloat(arr[2].trim()), consumo);
+                        Ciudad temp = new Ciudad(arr[0], añoInicial, hab, Float.parseFloat(arr[1].trim()), consumo);
                         //Ciudad temp = new Ciudad(arr[0],añoInicial,Float.parseFloat(arr[1].trim()));
                         arbol.insertar(temp,sacarAcentos(temp.getNombre().replace(" ","").toLowerCase()));
                         mapa.insertarVertice(temp);

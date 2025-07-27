@@ -496,9 +496,9 @@ public class ArbolAVL {
         if(n.getIzquierdo()!=null){
             texto+=n.getIzquierdo().getClave();
         }else{
-            texto+="- ";
+            texto+="-";
         }
-            texto+="HD: ";
+            texto+=" HD: ";
         if(n.getDerecho()!=null){
             texto+=n.getDerecho().getClave();
         }else{
