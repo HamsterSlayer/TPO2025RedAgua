@@ -368,7 +368,7 @@ public class MapaDigrafo {
             System.out.println(u.getElem().getNombre());
             if (!u.getElem().getNombre().equals(destino)) {
                 {
-                    masCorto.insertar(u, masCorto.longitud() + 1);
+                    masCorto.insertar(u.getElem(), masCorto.longitud() + 1);
                 }
 
                 aux = u.getPrimerAdy();
@@ -376,7 +376,7 @@ public class MapaDigrafo {
                 if (!encontrado) {
 
                     if (aux == null || visitados.localizar(aux) != -1) {
-                        masCorto.eliminar(masCorto.localizar(u));
+                        masCorto.eliminar(masCorto.localizar(u.getElem()));
 
                     } else {
                         while (aux != null && !encontrado) {
@@ -384,6 +384,7 @@ public class MapaDigrafo {
                                 visitados.insertar(aux, visitados.longitud() + 1);
                                 if (aux.getVertice().getElem().getNombre().equals(destino)) {
                                     encontrado = true;
+                                    masCorto.insertar(aux.getVertice().getElem(), masCorto.longitud() + 1);
                                 }
                                 q.poner(aux.getVertice());
                             }
@@ -399,20 +400,6 @@ public class MapaDigrafo {
             masCorto.vaciar();
         }
         return masCorto;
-    }
-
-    public String toNombres(Lista listaCiudades) {
-        String losNombres = "";
-        int i;
-        Ciudad aux;
-        for (i = 1; i <= listaCiudades.longitud(); i++) {
-            aux = ((NodoVert) listaCiudades.recuperar(i)).getElem();
-            losNombres += aux.getNombre();
-            if (i != listaCiudades.longitud()) {
-                losNombres += "-";
-            }
-        }
-        return losNombres;
     }
 
     /**
@@ -464,7 +451,7 @@ public class MapaDigrafo {
         float caudalNuevo;
         HashMap<NodoVert, Float> distancias = new HashMap<>();
         HashMap<NodoVert, NodoVert> anteriores = new HashMap<>();
-        llenarDistancias(distancias);
+        llenarDistancias(distancias, origen);
         llenarAnteriores(anteriores);
         Lista caudalPleno = new Lista();
         Lista visitados = new Lista();
@@ -517,6 +504,7 @@ public class MapaDigrafo {
         NodoVert aux = inicio;
         while (aux != null) {
             estimativaActual = distancias.get(aux);
+            System.out.println(aux.getElem().getNombre());
             if (visitados.localizar(aux) == -1 && estimativaActual < menorEstimativa) {
                 menorEstimativa = estimativaActual;
                 menor = aux;
@@ -526,15 +514,16 @@ public class MapaDigrafo {
         return menor;
     }
 
-    private void llenarDistancias(HashMap<NodoVert, Float> distancias) {
+    private void llenarDistancias(HashMap<NodoVert, Float> distancias, NodoVert origen) {
         NodoVert u = this.inicio;
-        if (u != null) {
-            distancias.put(u, (float) 0);
-            u.getSigVertice();
-            while (u != null) {
+        while (u != null) {
+            if (u.equals(origen)) {
+                distancias.put(u, (float) 0);
+
+            } else {
                 distancias.put(u, Float.MAX_VALUE);
-                u = u.getSigVertice();
             }
+            u = u.getSigVertice();
         }
     }
 
