@@ -850,7 +850,7 @@ public class TransporteDeAgua {
         System.out.println(menuPedirDosCiudades);
         String[] devuelto;
         System.out.print("Ciudades:");
-        devuelto = (in.nextLine()).split(",");
+        devuelto = sacarAcentos((in.nextLine()).toLowerCase()).split(",");
         return devuelto;
     }
 
