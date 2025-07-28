@@ -124,7 +124,6 @@ public class TransporteDeAgua {
         limpiarPantalla();
         System.out.println(menuCrearCiudad);
         System.out.print("Por favor introduzca los datos: ");
-        in.nextLine(); // Evita errores del buffer
         datosSinFormato = in.nextLine();
         datos = datosSinFormato.split(",");
 
@@ -704,15 +703,23 @@ public class TransporteDeAgua {
             int[] fecha = pedirFecha();
             if (verificarFecha(fecha[0], fecha[1])) {
                 // Consigo los datos necesarios de ciudad
-                // int habitantes = ciudad.habitantesMes(fecha[0], fecha[1]);
-                // float consumoPromedio = ciudad.consumoMensual(fecha[0], fecha[1]);
-                // Temporalmente estan comentadas
+                long habitantes = ciudad.habitantesMes(fecha[0], fecha[1]);
+                float consumoPromedio = ciudad.consumoMensual(fecha[0], fecha[1]);
                 // ACÁ PEDRO ESTA LO QUE TE DIGO :D
                 Lista listaTuberias = mapaCiudad.listarTuberiasHaciaCiudad(ciudad);
-                System.out.println(listaTuberias.toString());
+                int longitudLista = listaTuberias.longitud();
                 // HASH
-
-                float aguaDistribuida;
+                float aguaDistribuida = 0;
+                for (int cursor = 1; cursor < longitudLista; cursor++) {
+                    Tuberias aux = mapeoTuberias.get((DominioHash) listaTuberias.recuperar(cursor));
+                    System.out.println(aux.toString());
+                    aguaDistribuida += aux.getCaudalMaximo();
+                }
+                String salida = "Habitantes:" + habitantes
+                + "\n consumoPromedio: " + consumoPromedio +
+                "\n aguaDistribuida: " + aguaDistribuida;
+                confirmarParaContinuar(formato(salida));
+                
             } else {
                 actualizarUltimaAccion("Error en introducir fecha");
             }
@@ -1343,4 +1350,10 @@ public class TransporteDeAgua {
  */
 
 //PROBLEMITAS
-//-RESOLVER TEMA ACENTOS
+/*
+-RESOLVER TEMA ACENTOS
+-Consultar Ciudades el buscarTuberiasHacia parece no funcionar
+
+
+
+*/
