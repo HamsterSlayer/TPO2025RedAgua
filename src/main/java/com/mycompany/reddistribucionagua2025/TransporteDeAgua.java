@@ -26,7 +26,7 @@ public class TransporteDeAgua {
     private static ArbolAVL tablaBusqueda = new ArbolAVL();
     private static MapaDigrafo mapaCiudad = new MapaDigrafo();
     private static HashMap<DominioHash, Tuberias> mapeoTuberias = new HashMap<>();
-    private static CargaArchivos Info = new CargaArchivos(informacionCiudades,datosCiudades,null);
+    private static CargaArchivos Info = new CargaArchivos(informacionCiudades,datosCiudades);
     private static CargaArchivos InfoTub = new CargaArchivos(informacionTuberias);
     private static EscrituraArchivos log = new EscrituraArchivos(
             "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\sesion.LOG");

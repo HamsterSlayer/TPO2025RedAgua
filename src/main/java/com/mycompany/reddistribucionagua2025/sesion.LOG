@@ -1,34 +1,34 @@
 ESTRUCTURAS:
 
 Raiz: montevideo
-montevideo(alt: 5)HI: ciudaddemexicoHD: sanjuan
-ciudaddemexico(alt: 4)HI: buenosairesHD: lima
-buenosaires(alt: 3)HI: barranquillaHD: caracas
-barranquilla(alt: 2)HI: asuncionHD: bogota
+montevideo(alt: 5)HI: ciudaddemexico HD: sanjuan
+ciudaddemexico(alt: 4)HI: buenosaires HD: lima
+buenosaires(alt: 3)HI: barranquilla HD: caracas
+barranquilla(alt: 2)HI: asuncion HD: bogota
 asuncion(alt: 0)HI: - HD: -
 bogota(alt: 1)HI: - HD: brasilia
 brasilia(alt: 0)HI: - HD: -
-caracas(alt: 1)HI: caliHD: -
+caracas(alt: 1)HI: cali HD: -
 cali(alt: 0)HI: - HD: -
-lima(alt: 3)HI: habanaHD: medellin
-habana(alt: 2)HI: guadalajaraHD: lapaz
-guadalajara(alt: 1)HI: fortalezaHD: -
+lima(alt: 3)HI: habana HD: medellin
+habana(alt: 2)HI: guadalajara HD: lapaz
+guadalajara(alt: 1)HI: fortaleza HD: -
 fortaleza(alt: 0)HI: - HD: -
 lapaz(alt: 0)HI: - HD: -
-medellin(alt: 1)HI: managuaHD: monterrey
+medellin(alt: 1)HI: managua HD: monterrey
 managua(alt: 0)HI: - HD: -
 monterrey(alt: 0)HI: - HD: -
-sanjuan(alt: 4)HI: riodejaneiroHD: santiago
-riodejaneiro(alt: 3)HI: pueblaHD: sanjose
-puebla(alt: 2)HI: panamaHD: quito
+sanjuan(alt: 4)HI: riodejaneiro HD: santiago
+riodejaneiro(alt: 3)HI: puebla HD: sanjose
+puebla(alt: 2)HI: panama HD: quito
 panama(alt: 0)HI: - HD: -
 quito(alt: 1)HI: - HD: recife
 recife(alt: 0)HI: - HD: -
-sanjose(alt: 1)HI: salvadorHD: -
+sanjose(alt: 1)HI: salvador HD: -
 salvador(alt: 0)HI: - HD: -
-santiago(alt: 2)HI: sansalvadorHD: tegucigalpa
+santiago(alt: 2)HI: sansalvador HD: tegucigalpa
 sansalvador(alt: 0)HI: - HD: -
-tegucigalpa(alt: 1)HI: santodomingoHD: tijuana
+tegucigalpa(alt: 1)HI: santodomingo HD: tijuana
 santodomingo(alt: 0)HI: - HD: -
 tijuana(alt: 0)HI: - HD: -
 

@@ -13,19 +13,16 @@ import java.util.HashMap;
 public class CargaArchivos {
     private final String ruta;
     private final String rutaCarpeta;
-    private final String rutaCarpeta2;
     private int añoInicial = 2015; //Se va a conseguir mediante la lectura una vez se tenga el formato precarga
     
     public CargaArchivos(String ruta){
         this.ruta=ruta;
         this.rutaCarpeta=null;
-        this.rutaCarpeta2=null;
     }
     
-    public CargaArchivos(String r,String r2,String r3){
+    public CargaArchivos(String r,String r2){
         this.ruta=r;
         this.rutaCarpeta=r2;
-        this.rutaCarpeta2=r3;
     }
     
    
@@ -42,7 +39,7 @@ public class CargaArchivos {
                     if (linea != null) {
                         arr = linea.split(",");
                         hab = obtenerArrayInt(rutaCarpeta+"\\"+sacarAcentos(arr[0].replace(" ","").toLowerCase())+".txt");
-                        consumo = obtenerArrayFloat(rutaCarpeta2+"\\"+sacarAcentos(arr[0].replace(" ","").toLowerCase())+".txt");
+                        consumo = obtenerArrayFloat(rutaCarpeta+"\\"+sacarAcentos(arr[0].replace(" ","").toLowerCase())+".txt");
                         Ciudad temp = new Ciudad(arr[0], añoInicial, hab, Float.parseFloat(arr[1].trim()), consumo);
                         //Ciudad temp = new Ciudad(arr[0],añoInicial,Float.parseFloat(arr[1].trim()));
                         arbol.insertar(temp,sacarAcentos(temp.getNombre().replace(" ","").toLowerCase()));
@@ -101,7 +98,7 @@ public class CargaArchivos {
                     aux=Integer.parseInt(arr[0]);
                     for (int i=0;i<con[0].length;i++){
                         if((aux-añoInicial)>=0 && (aux-añoInicial)<12){
-                            con[aux-añoInicial][i]=Float.parseFloat(arr[i+1]);
+                            con[aux-añoInicial][i]=Float.parseFloat(arr[i+1])*4080; //4080 es consumo promedio cada 1 habitante
                         }
                     }
                 } while (linea != null);            
