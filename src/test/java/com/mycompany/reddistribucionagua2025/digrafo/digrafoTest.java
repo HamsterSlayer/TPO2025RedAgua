@@ -12,7 +12,7 @@ public class digrafoTest {
     private MapaDigrafo crearDigrafo() {
         //Creamos un digrafo de ejemplo.
         MapaDigrafo mapa = new MapaDigrafo();
-        int[][] hola = {{2,1}};
+        long[][] hola = {{2,1}};
         float[][] prueba = {{3,21}};
         Ciudad nueva = new Ciudad("Neuquen", 5, hola, 79,prueba);
         Ciudad nueva2 = new Ciudad("Pampa", 4,hola,71,prueba);
@@ -27,7 +27,7 @@ public class digrafoTest {
     public void pruebaInsercion() {
         //Se comprueba el existe vertice funcione bien
         MapaDigrafo mapa = crearDigrafo();
-        int[][] hola = {{2,1}};
+        long[][] hola = {{2,1}};
         float[][] prueba = {{3,21}};
         Ciudad nueva4 = new Ciudad("Lorenzo",5, hola,79,prueba);
         assertEquals(mapa.existeVertice(nueva4), false);
@@ -47,7 +47,7 @@ public class digrafoTest {
     @Test
     public void pruebaEliminarNodos() {
         MapaDigrafo mapa = crearDigrafo();
-        int[][] hola = {{2,1}};
+        long[][] hola = {{2,1}};
         float[][] prueba = {{3,21}};
         Ciudad nueva4 = new Ciudad("Lorenzo",5, hola,79,prueba);
         

@@ -1,5 +1,4 @@
 package com.mycompany.reddistribucionagua2025;
-
 /**
  *
  * @author ivoel
@@ -466,24 +465,27 @@ public class ArbolAVL {
         return arbolito;
     }
     
-    private String toStringInOrderAux(NodoAVL n){
+    private String toStringInOrderAux(NodoAVL n, int anio, int[] contador){
         String texto="";
         
         if(n.getIzquierdo()!=null){
-            texto=toStringInOrderAux(n.getIzquierdo());
+            texto=toStringInOrderAux(n.getIzquierdo(), anio, contador);
         }
-        texto+=n.getClave()+", ";
+        Ciudad ciudadAux = castearNodo(n);
+        texto+= contador[0] + "." + ciudadAux.getNombre() + "\n";
+        contador[0]++;
         if(n.getDerecho()!=null){
-            texto+=toStringInOrderAux(n.getDerecho());
+            texto+=toStringInOrderAux(n.getDerecho(), anio, contador);
         }
         
         return texto;
     }
     
-    public String toStringInOrder(){
+    public String toStringInOrder(int anio){
         String texto;
+        int[] contador = {1};
         if(!this.esVacio()){
-            texto=toStringInOrderAux(this.raiz);
+            texto=toStringInOrderAux(this.raiz, anio, contador);
         }else{
             texto="";
         }
@@ -492,15 +494,20 @@ public class ArbolAVL {
     }
     
     private String auxString(String texto, NodoAVL n){
-        texto+=n.getClave()+"(alt: "+n.getAltura()+")HI: ";
+        Ciudad ciudadRaiz= castearNodo(n);
+        texto+=ciudadRaiz.getNombre()+"(alt: "+n.getAltura()+") HI: ";
         if(n.getIzquierdo()!=null){
-            texto+=n.getIzquierdo().getClave();
+            //Fuerzo casteo ciudad para HI
+            Ciudad ciudadAux = castearNodo(n.getIzquierdo());
+            texto+=ciudadAux.getNombre();
         }else{
             texto+="-";
         }
             texto+=" HD: ";
         if(n.getDerecho()!=null){
-            texto+=n.getDerecho().getClave();
+            //Fuerzo casteo ciudad para HD
+            Ciudad ciudadAux = castearNodo(n.getDerecho());
+            texto+=ciudadAux.getNombre();
         }else{
             texto+="-";
         }
@@ -515,10 +522,15 @@ public class ArbolAVL {
     }
     
     public String toString(){
-        String texto="Raiz: "+this.raiz.getClave()+"\n";
+        Ciudad ciudadAux = castearNodo(this.raiz);
+        String texto="Raiz: "+ciudadAux.getNombre()+"\n";
               
         texto+=auxString("",this.raiz);
         
         return texto;
+    }
+    
+    private Ciudad castearNodo(NodoAVL nodo) {
+        return (Ciudad) nodo.getElem();
     }
 }
