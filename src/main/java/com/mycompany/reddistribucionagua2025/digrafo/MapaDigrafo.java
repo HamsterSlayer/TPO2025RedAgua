@@ -173,6 +173,9 @@ public class MapaDigrafo {
             // El nodo origen tiene nodos adyacentes, por lo que debo ir a la ultima
             // Aqui puede ocurrir que ya exista el arco, por lo que se verifica.
             NodoAdy cursor = origen.getPrimerAdy();
+            if (cursor.getVertice().equals(destino)) {
+                    exito = false;
+                }
             while (cursor.getSigAdyacente() != null && exito) {
                 if (cursor.getVertice().equals(destino)) {
                     exito = false;
