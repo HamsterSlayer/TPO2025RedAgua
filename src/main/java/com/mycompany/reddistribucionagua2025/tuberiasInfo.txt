@@ -32,7 +32,7 @@ Puebla, Quito, 550, 65, 950, Activo
 Recife, Río de Janeiro, 850, 130, 1500, Activo
 Salvador, San José, 450, 50, 800, En reparación
 San Juan, San Salvador, 720, 100, 1250, Activo
-Santiago, Santo Domingo, 950, 180, 1700, Diseño
+Santiago, Santo Domingo, 950, 180, 1700, En Diseño
 Tegucigalpa, Tijuana, 580, 70, 1050, Activo
 Asunción, Bogotá, 780, 95, 1350, Activo
 Barranquilla, Buenos Aires, 620, 80, 1150, Activo
@@ -47,7 +47,7 @@ Buenos Aires, Monterrey, 580, 65, 1050, Activo
 Cali, Montevideo, 850, 120, 1500, Activo
 Caracas, Panamá, 480, 55, 900, En reparación
 Ciudad de México, Puebla, 730, 95, 1350, Activo
-Fortaleza, Quito, 1000, 200, 1800, Diseño
+Fortaleza, Quito, 1000, 200, 1800, En Diseño
 Guadalajara, Recife, 520, 60, 980, Activo
 La Habana, Río de Janeiro, 770, 110, 1400, Activo
 La Paz, Salvador, 400, 45, 800, Inactivo
