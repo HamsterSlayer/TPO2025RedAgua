@@ -49,19 +49,42 @@ public class TesteosDigrafo {
         Ciudad ciudad4 = new Ciudad("Porto Alegre", 50, 10);
         Ciudad ciudad5 = new Ciudad("Pequín", 50, 10);
         Ciudad ciudad6 = new Ciudad("Londres", 70, 10);
+        Ciudad ciudad7 = new Ciudad("Paris", 70, 10);
+        Ciudad ciudad8 = new Ciudad("Canberra", 70, 10);
         mapa.insertarVertice(ciudad1);
         mapa.insertarVertice(ciudad2);
         mapa.insertarVertice(ciudad3);
         mapa.insertarVertice(ciudad4);
         mapa.insertarVertice(ciudad5);
         mapa.insertarVertice(ciudad6);
+        mapa.insertarVertice(ciudad7);
+        mapa.insertarVertice(ciudad8);
         mapa.insertarArco(ciudad1, ciudad2, 10);
         mapa.insertarArco(ciudad2, ciudad6, 10);
-        mapa.insertarArco(ciudad2, ciudad4, 0);
-        mapa.insertarArco(ciudad4, ciudad6, 0);
-        mapa.insertarArco(ciudad1, ciudad3, 0);
-        mapa.insertarArco(ciudad3, ciudad5, 5);
-        Lista aux = mapa.caminoMasCorto("Nueva York", "Londres");
-        System.out.println(mapa.toNombres(aux));
+        mapa.insertarArco(ciudad2, ciudad4, 20);
+        mapa.insertarArco(ciudad4, ciudad6, 46);
+        mapa.insertarArco(ciudad1, ciudad3, 40);
+        mapa.insertarArco(ciudad3, ciudad5, 30);
+        mapa.insertarArco(ciudad1, ciudad7, 1);
+        mapa.insertarArco(ciudad7, ciudad8, 1);
+        mapa.insertarArco(ciudad8, ciudad6, 1);
+        Lista caudalPleno = mapa.caudalPleno("Nueva York", "Londres");
+        Lista masCorto = mapa.caminoMasCorto("Nueva York", "Londres");
+        System.out.println("Caudal Pleno: " + toNombres(caudalPleno));
+        System.out.println("Camino más corto: " + toNombres(masCorto));
+    }
+
+    public static String toNombres(Lista listaCiudades) {
+        String losNombres = "";
+        int i;
+        Ciudad aux;
+        for (i = 1; i <= listaCiudades.longitud(); i++) {
+            aux = (Ciudad) (listaCiudades.recuperar(i));
+            losNombres += aux.getNombre();
+            if (i != listaCiudades.longitud()) {
+                losNombres += "-";
+            }
+        }
+        return losNombres;
     }
 }

@@ -864,7 +864,7 @@ public class TransporteDeAgua {
     // subOpcion1
     private static void caudalPleno(String ciudadA, String ciudadB) {
         Lista caudalPleno = mapaCiudad.caudalPleno(ciudadA, ciudadB);
-        if (caudalPleno.esVacia()) {
+        if (!caudalPleno.esVacia()) {
             System.out.println("El camino entre " + ciudadA + " y " + ciudadB + " con menor caudal pleno es ");
             System.out.println(toNombres(caudalPleno));
             System.out.println("Estado del camino: " + getEstadoCamino(caudalPleno));
@@ -879,7 +879,7 @@ public class TransporteDeAgua {
     // subOpcion2
     private static void caminoMasCorto(String ciudadA, String ciudadB) {
         Lista devuelto = mapaCiudad.caminoMasCorto(ciudadA, ciudadB);
-        if (devuelto.esVacia()) {
+        if (!devuelto.esVacia()) {
             System.out.println(
                     "El camino entre " + ciudadA + " y " + ciudadB + " que pasa por la menor cantidad de ciudades es ");
             System.out.println(toNombres(devuelto));
@@ -894,7 +894,7 @@ public class TransporteDeAgua {
         int i;
         Ciudad aux;
         for (i = 1; i <= listaCiudades.longitud(); i++) {
-            aux = ((NodoVert) listaCiudades.recuperar(i)).getElem();
+            aux = (Ciudad) (listaCiudades.recuperar(i));
             losNombres += aux.getNombre();
             if (i != listaCiudades.longitud()) {
                 losNombres += "-";
