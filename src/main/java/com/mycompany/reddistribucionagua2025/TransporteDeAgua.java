@@ -1,9 +1,11 @@
 package com.mycompany.reddistribucionagua2025;
+
 import com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo;
+import com.mycompany.reddistribucionagua2025.digrafo.NodoVert;
+
 import java.util.HashMap;
 import java.util.Scanner;
 import com.mycompany.reddistribucionagua2025.readtxt.*;
-
 
 /**
  *
@@ -26,11 +28,12 @@ public class TransporteDeAgua {
     private static ArbolAVL tablaBusqueda = new ArbolAVL();
     private static MapaDigrafo mapaCiudad = new MapaDigrafo();
     private static HashMap<DominioHash, Tuberias> mapeoTuberias = new HashMap<>();
-    private static CargaArchivos Info = new CargaArchivos(informacionCiudades,datosCiudades,null);
+    private static CargaArchivos Info = new CargaArchivos(informacionCiudades, datosCiudades);
     private static CargaArchivos InfoTub = new CargaArchivos(informacionTuberias);
     private static EscrituraArchivos log = new EscrituraArchivos(
             "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\sesion.LOG");
-    private static generadorDatosCiudades generadorHabitantes = new generadorDatosCiudades(informacionCiudades,datosCiudades);
+    private static generadorDatosCiudades generadorHabitantes = new generadorDatosCiudades(informacionCiudades,
+            datosCiudades);
     // Variables del Menu --------------------------------------
     // Estas variables pueden ser ignoradas. Se usan para operar con el menu
     private static Scanner in = new Scanner(System.in);
@@ -44,7 +47,7 @@ public class TransporteDeAgua {
         InfoTub.cargarTuberias(mapaCiudad, mapeoTuberias);
         añoInicial = Info.conseguirAñoInicial();
         generadorHabitantes.crearDatos(false, añoInicial);
-        actualizarUltimaAccion("Se cargaron los datos");        
+        actualizarUltimaAccion("Se cargaron los datos");
         // Menu
         int opcion;
         boolean exit = false;
@@ -701,14 +704,14 @@ public class TransporteDeAgua {
             int[] fecha = pedirFecha();
             if (verificarFecha(fecha[0], fecha[1])) {
                 // Consigo los datos necesarios de ciudad
-                //int habitantes = ciudad.habitantesMes(fecha[0], fecha[1]);
-                //float consumoPromedio = ciudad.consumoMensual(fecha[0], fecha[1]);
-                //Temporalmente estan comentadas
-                //ACÁ PEDRO ESTA LO QUE TE DIGO :D
+                // int habitantes = ciudad.habitantesMes(fecha[0], fecha[1]);
+                // float consumoPromedio = ciudad.consumoMensual(fecha[0], fecha[1]);
+                // Temporalmente estan comentadas
+                // ACÁ PEDRO ESTA LO QUE TE DIGO :D
                 Lista listaTuberias = mapaCiudad.listarTuberiasHaciaCiudad(ciudad);
                 System.out.println(listaTuberias.toString());
                 // HASH
-                
+
                 float aguaDistribuida;
             } else {
                 actualizarUltimaAccion("Error en introducir fecha");
@@ -781,7 +784,7 @@ public class TransporteDeAgua {
     }
     // ------
 
-    private static String getEstadoCamino(Lista camino, HashMap mapeoTuberias) {
+    private static String getEstadoCamino(Lista camino) {
         String estado = "activo";
         String nom1;
         String nom2;
@@ -790,22 +793,22 @@ public class TransporteDeAgua {
         DominioHash dominioAux;
         int i = 1;
         int tam = camino.longitud;
-        while (i + 1 <= tam && !estado.equals("disenio")) {
+        while (i + 1 <= tam && !estado.equals("EN_DISENO")) {
             nom1 = ((Ciudad) (camino.recuperar(i))).getNomenclatura();
             nom2 = ((Ciudad) (camino.recuperar(i + 1))).getNomenclatura();
             dominioAux = new DominioHash(nom1, nom2);
             aux = (Tuberias) mapeoTuberias.get(dominioAux);
             estadoAux = aux.getEstado();
-            if (estado.equals("activo")) {
-                if (!estadoAux.equals("activo")) {
+            if (estado.equals("ACTIVO")) {
+                if (!estadoAux.equals("ACTIVO")) {
                     estado = estadoAux;
                 }
-            } else if (estado.equals("en reparacion")) {
-                if (!estadoAux.equals("activo") && !estado.equals("en reparacion")) {
+            } else if (estado.equals("EN_REPARACION")) {
+                if (!estadoAux.equals("ACTIVO") && !estado.equals("EN_REPARACION")) {
                     estado = estadoAux;
                 }
             } else {
-                if (estadoAux.equals("disenio")) {
+                if (estadoAux.equals("EN_DISENO")) {
                     estado = estadoAux;
                 }
             }
@@ -827,7 +830,7 @@ public class TransporteDeAgua {
                 }
                 case 1: {
                     ciudades = pedirDosCiudades();
-                    // caudalPleno(); TODo
+                    caudalPleno(ciudades[0], ciudades[1]);
                     log.agregarLinea(
                             "Se consulto el transporte con menos caudal entre " + ciudades[0] + " y " + ciudades[1]);
                     break;
@@ -847,22 +850,50 @@ public class TransporteDeAgua {
         System.out.println(menuPedirDosCiudades);
         String[] devuelto;
         System.out.print("Ciudades:");
-        devuelto = (in.nextLine()).split(",");
+        devuelto = sacarAcentos((in.nextLine()).toLowerCase()).split(",");
         return devuelto;
     }
 
     // subOpcion1
-    // acá iria caudalPleno
+    private static void caudalPleno(String ciudadA, String ciudadB) {
+        Lista caudalPleno = mapaCiudad.caudalPleno(ciudadA, ciudadB);
+        if (caudalPleno.esVacia()) {
+            System.out.println("El camino entre " + ciudadA + " y " + ciudadB + " con menor caudal pleno es ");
+            System.out.println(toNombres(caudalPleno));
+            System.out.println("Estado del camino: " + getEstadoCamino(caudalPleno));
+
+        }
+
+        else {
+            System.out.println("No existe camino");
+        }
+    }
 
     // subOpcion2
     private static void caminoMasCorto(String ciudadA, String ciudadB) {
         Lista devuelto = mapaCiudad.caminoMasCorto(ciudadA, ciudadB);
-        // Como puede devolver nulo, creo una excepcion
-        if (devuelto != null || devuelto.esVacia()) {
-            System.out.println(devuelto.toString());
+        if (devuelto.esVacia()) {
+            System.out.println(
+                    "El camino entre " + ciudadA + " y " + ciudadB + " que pasa por la menor cantidad de ciudades es ");
+            System.out.println(toNombres(devuelto));
+            System.out.println("Estado del camino: " + getEstadoCamino(devuelto));
         } else {
             System.out.println("No existe camino");
         }
+    }
+
+    public static String toNombres(Lista listaCiudades) {
+        String losNombres = "";
+        int i;
+        Ciudad aux;
+        for (i = 1; i <= listaCiudades.longitud(); i++) {
+            aux = ((NodoVert) listaCiudades.recuperar(i)).getElem();
+            losNombres += aux.getNombre();
+            if (i != listaCiudades.longitud()) {
+                losNombres += "-";
+            }
+        }
+        return losNombres;
     }
     // -------------------------------------------------------------------------
 
@@ -987,13 +1018,14 @@ public class TransporteDeAgua {
 
     /**
      * Este metodo solamente verifica que la fecha sea real.
-     * @param mes 
+     * 
+     * @param mes
      * @param año
      * @return true o false si la fecha esta en el sistema
      */
     private static boolean verificarFecha(int mes, int año) {
         boolean resultado;
-        if (mes >= 0 && mes <= 11 &&  año - añoInicial >= 0 && año - añoInicial  <= 10) {
+        if (mes >= 0 && mes <= 11 && año - añoInicial >= 0 && año - añoInicial <= 10) {
             resultado = true;
         } else {
             resultado = false;

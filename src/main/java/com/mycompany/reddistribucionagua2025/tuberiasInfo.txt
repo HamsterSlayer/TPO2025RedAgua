@@ -19,3 +19,43 @@ Medellín, Monterrey, 980, 200, 1.75 , En Diseño
 Panamá, Puebla, 580, 65 , 1.05 , En reparación
 Quito, Recife, 820, 130, 1.55, Activo
 San José, San Juan, 370, 30, 0.7, Inactivo
+Asunción, Barranquilla, 750, 90, 1200, Activo
+Bogotá, Brasilia, 600, 70, 1000, Activo
+Buenos Aires, Cali, 1000, 200, 1800, Activo
+Caracas, Ciudad de México, 800, 110, 1400, Activo
+Fortaleza, Guadalajara, 500, 60, 900, Activo
+La Habana, La Paz, 700, 85, 1300, Activo
+Lima, Managua, 900, 150, 1600, Activo
+Medellín, Monterrey, 650, 75, 1100, Activo
+Montevideo, Panamá, 1100, 250, 2000, Activo
+Puebla, Quito, 550, 65, 950, Activo
+Recife, Río de Janeiro, 850, 130, 1500, Activo
+Salvador, San José, 450, 50, 800, En reparación
+San Juan, San Salvador, 720, 100, 1250, Activo
+Santiago, Santo Domingo, 950, 180, 1700, En Diseño
+Tegucigalpa, Tijuana, 580, 70, 1050, Activo
+Asunción, Bogotá, 780, 95, 1350, Activo
+Barranquilla, Buenos Aires, 620, 80, 1150, Activo
+Cali, Caracas, 1050, 210, 1900, Activo
+Ciudad de México, Fortaleza, 820, 120, 1450, Activo
+Guadalajara, La Habana, 530, 62, 920, Inactivo
+Asunción, La Paz, 700, 80, 1300, Activo
+Barranquilla, Lima, 650, 70, 1150, Activo
+Bogotá, Managua, 1100, 230, 1950, Activo
+Brasilia, Medellín, 900, 140, 1600, Activo
+Buenos Aires, Monterrey, 580, 65, 1050, Activo
+Cali, Montevideo, 850, 120, 1500, Activo
+Caracas, Panamá, 480, 55, 900, En reparación
+Ciudad de México, Puebla, 730, 95, 1350, Activo
+Fortaleza, Quito, 1000, 200, 1800, En Diseño
+Guadalajara, Recife, 520, 60, 980, Activo
+La Habana, Río de Janeiro, 770, 110, 1400, Activo
+La Paz, Salvador, 400, 45, 800, Inactivo
+Lima, San José, 680, 85, 1250, Activo
+Managua, San Juan, 930, 170, 1650, Activo
+Medellín, San Salvador, 600, 70, 1100, Activo
+Monterrey, Santiago, 1200, 280, 2100, Activo
+Montevideo, Santo Domingo, 550, 65, 1000, En reparación
+Panamá, Tegucigalpa, 880, 150, 1550, Activo
+Puebla, Tijuana, 430, 50, 850, Activo
+Quito, Asunción, 790, 100, 1450, Activo

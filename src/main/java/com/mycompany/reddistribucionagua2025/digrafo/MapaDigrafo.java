@@ -354,6 +354,7 @@ public class MapaDigrafo {
         }
         return ciudadEncontrada;
     }
+
     /**
      * Recibe el nodo desde donde se buscará.
      * 
@@ -451,7 +452,7 @@ public class MapaDigrafo {
                 keys.insertar(new DominioHash(raiz.getElem().getNomenclatura(), nomenclaturaCiudad), cursor);
                 cursor++;
             }
-            //prosigo
+            // prosigo
             raiz = raiz.getSigVertice();
         }
         return keys;
@@ -471,7 +472,7 @@ public class MapaDigrafo {
         return camino;
     }
 
-    public Lista caudalPleno(NodoVert origen, NodoVert ciudadDestino) {
+    private Lista caudalPleno(NodoVert origen, NodoVert ciudadDestino) {
         NodoVert actual = origen;
         NodoVert auxVert;
         NodoAdy auxAdy;
