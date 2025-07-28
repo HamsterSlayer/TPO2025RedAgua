@@ -300,6 +300,22 @@ public class MapaDigrafo {
         }
         return resultado;
     }
+    
+    @Override
+    public String toString() {
+        String resultado = "";
+        NodoVert inicio = this.inicio;
+        //Itero sobre cada nodo
+        while (inicio != null) {
+            resultado += String.format("%s -> ", inicio.getElem().getNombre());
+            //itero sobre cada arco
+            NodoAdy arcos = inicio.getPrimerAdy();
+            while (arcos != null) {
+                resultado += arcos.getVertice().getElem();
+            }
+        }
+        return resultado;
+    }
 
     // --------------------------------------------------------------------------
 
