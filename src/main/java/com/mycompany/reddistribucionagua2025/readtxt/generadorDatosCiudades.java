@@ -1,5 +1,6 @@
 package com.mycompany.reddistribucionagua2025.readtxt;
 
+import com.mycompany.reddistribucionagua2025.formatoUsuario;
 import java.util.Random;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -58,7 +59,7 @@ public class generadorDatosCiudades {
         //genero entre 2500 y 100000 habitantes
         int habitantes = generador.nextInt(100000) + 2500;
         //preparo el archivo de la ciudad
-        String archivoCiudad = destinoDatos + "\\" + formatoNombre(ciudad) + ".txt";
+        String archivoCiudad = destinoDatos + "\\" + formatoUsuario.formatoNombre(ciudad) + ".txt";
         //verifico si el archivo existe
         boolean tieneContenido = archivoTieneContenido(archivoCiudad);
         //Siempre escribira el archivo excepto si overwrite no esta activo
@@ -93,24 +94,6 @@ public class generadorDatosCiudades {
     private boolean archivoTieneContenido(String rutaArchivo) {
         File archivo = new File(rutaArchivo);
         return archivo.exists() && archivo.length() > 0;
-    }
-    
-        private String formatoNombre(String nombre) {
-        String devuelto = nombre.replace(" ", "").trim().toLowerCase();
-        // Caso acentos
-        devuelto = sacarAcentos(devuelto);
-        return devuelto;
-    }
-
-    private String sacarAcentos(String texto) {
-        return texto.replace("á", "a")
-                .replace("é", "e")
-                .replace("í", "i")
-                .replace("ó", "o")
-                .replace("ú", "u")
-                .replace("ñ", "n")
-                .replace("ü", "u")
-                .replace("ç", "c");
     }
 }
 
