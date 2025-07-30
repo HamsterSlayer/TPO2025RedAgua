@@ -9,6 +9,7 @@ import com.mycompany.reddistribucionagua2025.Ciudad;
 import com.mycompany.reddistribucionagua2025.DominioHash;
 import com.mycompany.reddistribucionagua2025.Tuberias;
 import com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo;
+import com.mycompany.reddistribucionagua2025.formatoUsuario;
 import java.util.HashMap;
 
 public class CargaArchivos {
@@ -39,12 +40,12 @@ public class CargaArchivos {
                 if (linea != null) {
                     arr = linea.split(",");
                     hab = obtenerArrayInt(
-                            rutaCarpeta + "\\" + sacarAcentos(arr[0].replace(" ", "").toLowerCase()) + ".txt");
+                            rutaCarpeta + "\\" + formatoUsuario.sacarAcentos(arr[0].replace(" ", "").toLowerCase()) + ".txt");
                     consumo = obtenerArrayFloat(
-                            rutaCarpeta + "\\" + sacarAcentos(arr[0].replace(" ", "").toLowerCase()) + ".txt");
+                            rutaCarpeta + "\\" + formatoUsuario.sacarAcentos(arr[0].replace(" ", "").toLowerCase()) + ".txt");
                     Ciudad temp = new Ciudad(arr[0], añoInicial, hab, Float.parseFloat(arr[1].trim()), consumo);
                     // Ciudad temp = new Ciudad(arr[0],añoInicial,Float.parseFloat(arr[1].trim()));
-                    arbol.insertar(temp, sacarAcentos(temp.getNombre().replace(" ", "").toLowerCase()));
+                    arbol.insertar(temp, formatoUsuario.sacarAcentos(temp.getNombre().replace(" ", "").toLowerCase()));
                     mapa.insertarVertice(temp);
                 }
             } while (linea != null);
@@ -140,17 +141,6 @@ public class CargaArchivos {
         } catch (Exception e) {
             System.out.println("Error al leer tuberias");
         }
-    }
-
-    private String sacarAcentos(String texto) {
-        return texto.replace("á", "a")
-                .replace("é", "e")
-                .replace("í", "i")
-                .replace("ó", "o")
-                .replace("ú", "u")
-                .replace("ñ", "n")
-                .replace("ü", "u")
-                .replace("ç", "c");
     }
 
     public int conseguirAñoInicial() {

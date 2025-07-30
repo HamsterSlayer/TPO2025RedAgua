@@ -132,7 +132,7 @@ public class TransporteDeAgua {
         // Verifico que no exista ya
         boolean noExiste = true;
         noExiste = tablaBusqueda.insertar(nuevaCiudad,
-                sacarAcentos(nuevaCiudad.getNombre().replace(" ", "").toLowerCase()));
+                formatoUsuario.sacarAcentos(nuevaCiudad.getNombre().replace(" ", "").toLowerCase()));
         if (noExiste) {
             mapaCiudad.insertarVertice(nuevaCiudad);
             actualizarUltimaAccion(String.format("Se creo la ciudad %s", datos[0]));
@@ -149,7 +149,7 @@ public class TransporteDeAgua {
         limpiarPantalla();
         System.out.println(menuEliminarCiudad);
         System.out.print("Por favor introduzca los datos: ");
-        String nombreCiudad = sacarAcentos(in.nextLine().replace(" ", "").toLowerCase());
+        String nombreCiudad = formatoUsuario.sacarAcentos(in.nextLine().replace(" ", "").toLowerCase());
 
         // Lo elimino de la tabla de busqueda
         if (tablaBusqueda.eliminar(nombreCiudad)) {
@@ -172,7 +172,7 @@ public class TransporteDeAgua {
         boolean exit = false;
         System.out.print("Por favor introduzca la ciudad que se modificará: ");
         in.nextLine(); // Evita errores del buffer
-        String nombreCiudad = sacarAcentos(in.nextLine().replace(" ", "").toLowerCase());
+        String nombreCiudad = formatoUsuario.sacarAcentos(in.nextLine().replace(" ", "").toLowerCase());
         laCiudad = mapaCiudad.obtenerCiudad(nombreCiudad);
         if (laCiudad != null) {
             int opcion = crearMenu(menuModificarCiudad, 2);
@@ -857,7 +857,7 @@ public class TransporteDeAgua {
         System.out.println(menuPedirDosCiudades);
         String[] devuelto;
         System.out.print("Ciudades:");
-        devuelto = sacarAcentos((in.nextLine()).toLowerCase()).split(",");
+        devuelto = formatoUsuario.sacarAcentos((in.nextLine()).toLowerCase()).split(",");
         return devuelto;
     }
 
@@ -1050,16 +1050,6 @@ public class TransporteDeAgua {
         confirmarParaContinuar(invalido);
     }
 
-    public static String sacarAcentos(String texto) {
-        return texto.replace("á", "a")
-                .replace("é", "e")
-                .replace("í", "i")
-                .replace("ó", "o")
-                .replace("ú", "u")
-                .replace("ñ", "n")
-                .replace("ü", "u")
-                .replace("ç", "c");
-    }
     
     
     

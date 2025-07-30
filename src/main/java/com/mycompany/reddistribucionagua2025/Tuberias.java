@@ -40,7 +40,7 @@ public class Tuberias {
 
     public boolean validarEstado(String estadoIntroducido) {
         boolean resultado;
-        estadoIntroducido = formato(estadoIntroducido);
+        estadoIntroducido = formatoUsuario.formatoNombre(estadoIntroducido);
         switch (EstadoTuberia.valueOf(estadoIntroducido)) {
             case ACTIVO,
                     EN_REPARACION,
@@ -56,28 +56,10 @@ public class Tuberias {
     }
 
     private void aEnum(String estadoIntroducido) {
-        estadoIntroducido = formato(estadoIntroducido);
+        estadoIntroducido = formatoUsuario.formatoNombre(estadoIntroducido);
         this.estado = EstadoTuberia.valueOf(estadoIntroducido);
     }
 
-    private String formato(String estadoIntroducido) {
-        estadoIntroducido = estadoIntroducido.trim();
-        estadoIntroducido = estadoIntroducido.replace(" ", "_");
-        estadoIntroducido = sacarAcentos(estadoIntroducido);
-        estadoIntroducido = estadoIntroducido.toUpperCase();
-        return estadoIntroducido;
-    }
-
-    private String sacarAcentos(String texto) {
-        return texto.replace("á", "a")
-                .replace("é", "e")
-                .replace("í", "i")
-                .replace("ó", "o")
-                .replace("ú", "u")
-                .replace("ñ", "n")
-                .replace("ü", "u")
-                .replace("ç", "c");
-    }
 
     public String getNomenclatura() {
         return nomenclatura;

@@ -6,6 +6,7 @@ import com.mycompany.reddistribucionagua2025.Ciudad;
 import com.mycompany.reddistribucionagua2025.Cola;
 import com.mycompany.reddistribucionagua2025.DominioHash;
 import com.mycompany.reddistribucionagua2025.Lista;
+import com.mycompany.reddistribucionagua2025.formatoUsuario;
 
 /**
  * Digrafo simple etiquetado de ciudades. Las etiquetas son el caudalMaximo de
@@ -118,12 +119,12 @@ public class MapaDigrafo {
     }
 
     private NodoVert localizarVertice(String ciudad) {
-        ciudad = formatoNombre(ciudad);
+        ciudad = formatoUsuario.formatoNombre(ciudad);
         NodoVert nodo = this.inicio;
         NodoVert devuelto = null;
         boolean encontrado = false;
         while (nodo != null && !encontrado) {
-            String nombreNodo = formatoNombre(nodo.getElem().getNombre());
+            String nombreNodo = formatoUsuario.formatoNombre(nodo.getElem().getNombre());
             if (nombreNodo.equals(ciudad)) {
                 encontrado = true;
                 devuelto = nodo;
@@ -560,29 +561,5 @@ public class MapaDigrafo {
 
     // -------------------------------------------------------------------------
 
-    // Manejo Entrada del Usuario ------------------------------------------------
-
-    // Como regla todos los nombres al ser comparados se les saca espacios y
-    // mayusculas, esto ayuda a evitar errores pequeños.
-    // Quizá debería estar en CIUDAD
-    private String formatoNombre(String nombre) {
-        String devuelto = nombre.replace(" ", "").trim().toLowerCase();
-        // Caso acentos
-        devuelto = sacarAcentos(devuelto);
-        return devuelto;
-    }
-
-    private String sacarAcentos(String texto) {
-        return texto.replace("á", "a")
-                .replace("é", "e")
-                .replace("í", "i")
-                .replace("ó", "o")
-                .replace("ú", "u")
-                .replace("ñ", "n")
-                .replace("ü", "u")
-                .replace("ç", "c");
-    }
-
-    // --------------------------------------------------------------------------
 
 }
