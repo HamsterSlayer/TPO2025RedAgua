@@ -554,7 +554,7 @@ public class TransporteDeAgua {
     // ----------------------------------------------------------------------------
 
     private static void altaHabitantes() {
-        limpiarPantalla();  
+        limpiarPantalla();
         boolean exit = false;
         do {
             int opcion = crearMenu(menuAltaPoblacion, 2);
@@ -716,10 +716,10 @@ public class TransporteDeAgua {
                     aguaDistribuida += aux.getCaudalMaximo();
                 }
                 String salida = "Habitantes:" + habitantes
-                + "\n consumoPromedio: " + consumoPromedio +
-                "\n aguaDistribuida: " + aguaDistribuida;
+                        + "\n consumoPromedio: " + consumoPromedio +
+                        "\n aguaDistribuida: " + aguaDistribuida;
                 confirmarParaContinuar(formato(salida));
-                
+
             } else {
                 actualizarUltimaAccion("Error en introducir fecha");
             }
@@ -792,7 +792,7 @@ public class TransporteDeAgua {
     // ------
 
     private static String getEstadoCamino(Lista camino) {
-        String estado = "activo";
+        String estado = "ACTIVO";
         String nom1;
         String nom2;
         String estadoAux;
@@ -909,16 +909,16 @@ public class TransporteDeAgua {
     private static void listadoPorConsumoEnAnio() {
         System.out.print("Indique un anio: ");
         int aux = in.nextInt();
-        in.nextLine(); //limpia buffer
+        in.nextLine(); // limpia buffer
         ArbolAVL ciudades = tablaBusqueda.crearArbolConsumo(aux);
         limpiarPantalla();
-        //Contenido
+        // Contenido
         System.out.println(separador());
-        System.out.println("RANKING CONSUMO ANUAL ("+aux+")");
+        System.out.println("RANKING CONSUMO ANUAL (" + aux + ")");
         System.out.println(ciudades.toStringInOrder(aux));
         System.out.println(separador());
-        in.nextLine(); //Confirmar antes de continuar
-        
+        in.nextLine(); // Confirmar antes de continuar
+
         log.agregarLinea("Se mostro ciudades ordenadas por consumo en el año " + aux);
     }
 
@@ -1060,50 +1060,47 @@ public class TransporteDeAgua {
                 .replace("ü", "u")
                 .replace("ç", "c");
     }
-    
-    
-    
-    
-/*
- * CHECKLIST PARA MI:
- * -Parcialmente hecho, Hecho, Falta
- * OPCION 1
- * cambiosCiudades() #p
- * darAltaCiudad() #p // DEJO DE FUNCIONAR IVO
- * darBajaCiudad()#H
- * modificarCiudad() #p
- * OPCION 2 #p
- * darAltaTuberia() #H //Hay un problema con las nomenclaturas Ciudad De Mexico
- * es Cd en vez de CM
- * darBajaTuberia()#H
- * modificarTuberia() #H
- * OPCION 3
- * modificarAño #H
- * modificarMes #H
- * OPCION 4
- * infoCiudad (cantHabitantes y volumenAgua distribuido) a partir de un mesyaño
- * algoQueIvoHizo #H //falta testear
- * OPCION 5
- * Caudal Pleno #H //falta testear
- * Camino Mas Corto #H
- *
- * COMPLETO:
- * OPCION 6
- * LA OPCION 6 ES UNA MENTIRA DEL GOBIERNO
- * OPCION 7
- * Ranking Ciudades. #H pero no carga los valores
- * OPCION 8 #H
- * adios() #H
- */
 
-//PROBLEMITAS
-/*
--RESOLVER TEMA ACENTOS
--Consultar Ciudades el buscarTuberiasHacia parece no funcionar
+    /*
+     * CHECKLIST PARA MI:
+     * -Parcialmente hecho, Hecho, Falta
+     * OPCION 1
+     * cambiosCiudades() #p
+     * darAltaCiudad() #p // DEJO DE FUNCIONAR IVO
+     * darBajaCiudad()#H
+     * modificarCiudad() #p
+     * OPCION 2 #p
+     * darAltaTuberia() #H //Hay un problema con las nomenclaturas Ciudad De Mexico
+     * es Cd en vez de CM
+     * darBajaTuberia()#H
+     * modificarTuberia() #H
+     * OPCION 3
+     * modificarAño #H
+     * modificarMes #H
+     * OPCION 4
+     * infoCiudad (cantHabitantes y volumenAgua distribuido) a partir de un mesyaño
+     * algoQueIvoHizo #H //falta testear
+     * OPCION 5
+     * Caudal Pleno #H //falta testear
+     * Camino Mas Corto #H
+     *
+     * COMPLETO:
+     * OPCION 6
+     * LA OPCION 6 ES UNA MENTIRA DEL GOBIERNO
+     * OPCION 7
+     * Ranking Ciudades. #H pero no carga los valores
+     * OPCION 8 #H
+     * adios() #H
+     */
 
-
-
-*/
+    // PROBLEMITAS
+    /*
+     * -RESOLVER TEMA ACENTOS
+     * -Consultar Ciudades el buscarTuberiasHacia parece no funcionar
+     * 
+     * 
+     * 
+     */
 
     // MENUS. Son almacenados en un string.
     // --------------------------------------------------
