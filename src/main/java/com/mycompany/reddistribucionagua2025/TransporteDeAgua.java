@@ -1109,7 +1109,7 @@ public class TransporteDeAgua {
      * modificarMes #H
      * OPCION 4
      * infoCiudad (cantHabitantes y volumenAgua distribuido) a partir de un mesyaño
-     * algoQueIvoHizo #H //falta testear
+     * algoQueIvoHizo. ConsumoRango. Funciona
      * OPCION 5
      * Caudal Pleno #H //falta testear
      * Camino Mas Corto #H
@@ -1118,7 +1118,7 @@ public class TransporteDeAgua {
      * OPCION 6
      * LA OPCION 6 ES UNA MENTIRA DEL GOBIERNO
      * OPCION 7
-     * Ranking Ciudades. #H pero no carga los valores
+     * Ranking Ciudades. Funciona Bien
      * OPCION 8 #H
      * adios() #H
      */
@@ -1380,7 +1380,7 @@ public class TransporteDeAgua {
                     ================================================================================
                     GESTION:
                     Por favor introduzca dos ciudades (min y max), dos volumenes y mes y año.
-                    Ejemplo: Buenos Aires,Santiago,15,30,5,2016
+                    Ejemplo: Buenos Aires,Santiago,4000000,5000000,5,2016
                     ================================================================================
             """;
 
