@@ -74,7 +74,7 @@ public class CargaArchivos {
                 }
             } while (linea != null);
         } catch (Exception e) {
-            System.out.println("Error al leer array de " + rutaArray);
+            System.out.println("Error al leer arrayInt de " + rutaArray);
             for (int i = 0; i < hab.length; i++) {
                 for (int j = 0; j < hab[i].length; j++) {
                     hab[i][j] = 0;
@@ -94,17 +94,19 @@ public class CargaArchivos {
             int aux;
             do { // Se carga toda la informacion disponible
                 linea = bufferLectura.readLine();
-                arr = linea.split(",");
-                aux = Integer.parseInt(arr[0]);
-                for (int i = 0; i < con[0].length; i++) {
-                    if ((aux - añoInicial) >= 0 && (aux - añoInicial) < 12) {
-                        con[aux - añoInicial][i] = Float.parseFloat(arr[i + 1]) * 4080; // 4080 es consumo promedio cada
+                if (linea != null) {
+                    arr = linea.split(",");
+                    aux = Integer.parseInt(arr[0]);
+                    for (int i = 0; i < con[0].length; i++) {
+                        if ((aux - añoInicial) >= 0 && (aux - añoInicial) < 12) {
+                            con[aux - añoInicial][i] = Float.parseFloat(arr[i + 1]) * 4080; // 4080 es consumo promedio cada
                                                                                         // 1 habitante
+                        }
                     }
                 }
             } while (linea != null);
         } catch (Exception e) {
-            System.out.println("Error al leer array de " + rutaArray);
+            System.out.println("Error al leer arrayFloat de " + rutaArray);
             for (int i = 0; i < con.length; i++) {
                 for (int j = 0; j < con[i].length; j++) {
                     con[i][j] = 0;

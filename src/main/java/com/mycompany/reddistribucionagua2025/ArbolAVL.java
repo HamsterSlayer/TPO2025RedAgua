@@ -468,15 +468,16 @@ public class ArbolAVL {
     private String toStringInOrderAux(NodoAVL n, int anio, int[] contador){
         String texto="";
         
-        if(n.getIzquierdo()!=null){
-            texto=toStringInOrderAux(n.getIzquierdo(), anio, contador);
+        if(n.getDerecho()!=null){
+            texto+=toStringInOrderAux(n.getDerecho(), anio, contador);
         }
         Ciudad ciudadAux = castearNodo(n);
         texto+= contador[0] + "." + ciudadAux.getNombre() + ": " + ciudadAux.consumoAnual(anio) + "\n";
         contador[0]++;
-        if(n.getDerecho()!=null){
-            texto+=toStringInOrderAux(n.getDerecho(), anio, contador);
+        if(n.getIzquierdo()!=null){
+            texto+=toStringInOrderAux(n.getIzquierdo(), anio, contador);
         }
+        
         
         return texto;
     }
