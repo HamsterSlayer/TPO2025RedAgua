@@ -4,6 +4,7 @@ import com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo;
 import com.mycompany.reddistribucionagua2025.digrafo.NodoVert;
 
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.mycompany.reddistribucionagua2025.readtxt.*;
 
@@ -229,9 +230,14 @@ public class TransporteDeAgua {
         int[][] habitantes = new int[10][12];
         for (int i = 0; i < 10; i++) {
             for (int j = 0; i < 12; i++) {
-                System.out.println("Ingrese la cantidad de habitantes en el mes " + j + 1 + ", año " + i + 1 + ".");
-                habitantes[i][j] = in.nextInt();
-                in.nextLine();
+                try {
+                    System.out.println("Ingrese la cantidad de habitantes en el mes " + j + 1 + ", año " + i + 1 + ".");
+                    habitantes[i][j] = in.nextInt();
+                    in.nextLine();
+                } catch (InputMismatchException e) {
+                    System.out.println("Valor inválido, ingresando el valor padrón. (0)");
+                    habitantes[i][j] = 0;
+                }
             }
         }
     }
@@ -242,12 +248,17 @@ public class TransporteDeAgua {
         boolean valido = false;
         System.out.println("Ingrese el año que desea modificar:");
         do {
-            anio = in.nextInt();
-            in.nextLine();
-            if (laCiudad.añoValido(anio)) {
-                valido = false;
-            } else {
-                System.out.println("Año invalido. Por favor, ingrese un año presente en la matriz.");
+            try {
+                anio = in.nextInt();
+                in.nextLine();
+                if (laCiudad.añoValido(anio)) {
+                    valido = true;
+                } else {
+                    System.out.println("Año invalido. Por favor, ingrese un año presente en la matriz.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Caracter inválido ingresado. Por favor, ingrese un número entero.");
+                anio = 0;
             }
         } while (!valido);
         for (int i = 0; i < 12; i++) {
@@ -264,24 +275,34 @@ public class TransporteDeAgua {
         boolean valido = false;
         System.out.println("Ingrese el año que desea modificar:");
         do {
-            anio = in.nextInt();
-            in.nextLine();
-            if (laCiudad.añoValido(anio)) {
-                valido = true;
-            } else {
-                System.out.println("Año invalido. Por favor, ingrese un año presente en el sistema.");
+            try {
+                anio = in.nextInt();
+                in.nextLine();
+                if (laCiudad.añoValido(anio)) {
+                    valido = true;
+                } else {
+                    System.out.println("Año invalido. Por favor, ingrese un año presente en el sistema.");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Caracter inválido ingresado. Por favor, ingrese un número entero.");
+                anio = 0;
             }
         } while (!valido);
         valido = false;
         do {
-            mes = in.nextInt();
-            in.nextLine();
-            if (mes > 0 && mes <= 12) {
-                valido = true;
-            } else {
-                System.out.println("Mes invalido");
+            try {
+                mes = in.nextInt();
+                in.nextLine();
+                if (mes > 0 && mes <= 12) {
+                    valido = true;
+                } else {
+                    System.out.println("Mes invalido");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Caracter inválido ingresado. Por favor, ingrese un número entero.");
+                mes = 0;
             }
-
         } while (!valido);
         System.out.println("ingrese la cantidad de habitantes en la fecha: " + mes + "/" + anio);
         habitantes = in.nextInt();
@@ -554,7 +575,7 @@ public class TransporteDeAgua {
     // ----------------------------------------------------------------------------
 
     private static void altaHabitantes() {
-        limpiarPantalla();  
+        limpiarPantalla();
         boolean exit = false;
         do {
             int opcion = crearMenu(menuAltaPoblacion, 2);
@@ -716,10 +737,10 @@ public class TransporteDeAgua {
                     aguaDistribuida += aux.getCaudalMaximo();
                 }
                 String salida = "Habitantes:" + habitantes
-                + "\n consumoPromedio: " + consumoPromedio +
-                "\n aguaDistribuida: " + aguaDistribuida;
+                        + "\n consumoPromedio: " + consumoPromedio +
+                        "\n aguaDistribuida: " + aguaDistribuida;
                 confirmarParaContinuar(formato(salida));
-                
+
             } else {
                 actualizarUltimaAccion("Error en introducir fecha");
             }
@@ -792,7 +813,7 @@ public class TransporteDeAgua {
     // ------
 
     private static String getEstadoCamino(Lista camino) {
-        String estado = "activo";
+        String estado = "ACTIVO";
         String nom1;
         String nom2;
         String estadoAux;
@@ -909,16 +930,16 @@ public class TransporteDeAgua {
     private static void listadoPorConsumoEnAnio() {
         System.out.print("Indique un anio: ");
         int aux = in.nextInt();
-        in.nextLine(); //limpia buffer
+        in.nextLine(); // limpia buffer
         ArbolAVL ciudades = tablaBusqueda.crearArbolConsumo(aux);
         limpiarPantalla();
-        //Contenido
+        // Contenido
         System.out.println(separador());
-        System.out.println("RANKING CONSUMO ANUAL ("+aux+")");
+        System.out.println("RANKING CONSUMO ANUAL (" + aux + ")");
         System.out.println(ciudades.toStringInOrder(aux));
         System.out.println(separador());
-        in.nextLine(); //Confirmar antes de continuar
-        
+        in.nextLine(); // Confirmar antes de continuar
+
         log.agregarLinea("Se mostro ciudades ordenadas por consumo en el año " + aux);
     }
 
@@ -986,11 +1007,19 @@ public class TransporteDeAgua {
         int opcion = -1;
         boolean exito = false;
         while (!exito) {
-            System.out.println(opciones);
-            System.out.println(ultimaAccion);
-            System.out.printf("Introduzca una opcion [0-%d]:", numOpciones);
-            opcion = in.nextInt();
-            in.nextLine();
+
+            // Si el usuário ingresa algo que no es un entero, el programa asigna opcion a
+            // algo claramente inválido.
+
+            try {
+                System.out.println(opciones);
+                System.out.println(ultimaAccion);
+                System.out.printf("Introduzca una opcion [0-%d]:", numOpciones);
+                opcion = in.nextInt();
+                in.nextLine();
+            } catch (InputMismatchException e) {
+                opcion = Integer.MAX_VALUE;
+            }
             if (!esValida(opcion, numOpciones)) {
                 opcionInvalida();
             } else {
@@ -1086,14 +1115,46 @@ public class TransporteDeAgua {
  * adios() #H
  */
 
-//PROBLEMITAS
-/*
--RESOLVER TEMA ACENTOS
--Consultar Ciudades el buscarTuberiasHacia parece no funcionar
+    /*
+     * CHECKLIST PARA MI:
+     * -Parcialmente hecho, Hecho, Falta
+     * OPCION 1
+     * cambiosCiudades() #p
+     * darAltaCiudad() #p // DEJO DE FUNCIONAR IVO
+     * darBajaCiudad()#H
+     * modificarCiudad() #p
+     * OPCION 2 #p
+     * darAltaTuberia() #H //Hay un problema con las nomenclaturas Ciudad De Mexico
+     * es Cd en vez de CM
+     * darBajaTuberia()#H
+     * modificarTuberia() #H
+     * OPCION 3
+     * modificarAño #H
+     * modificarMes #H
+     * OPCION 4
+     * infoCiudad (cantHabitantes y volumenAgua distribuido) a partir de un mesyaño
+     * algoQueIvoHizo #H //falta testear
+     * OPCION 5
+     * Caudal Pleno #H //falta testear
+     * Camino Mas Corto #H
+     *
+     * COMPLETO:
+     * OPCION 6
+     * LA OPCION 6 ES UNA MENTIRA DEL GOBIERNO
+     * OPCION 7
+     * Ranking Ciudades. #H pero no carga los valores
+     * OPCION 8 #H
+     * adios() #H
+     */
 
-
-
-*/
+    // PROBLEMITAS
+    /*
+     * -RESOLVER TEMA ACENTOS
+     * -Consultar Ciudades el buscarTuberiasHacia parece no funcionar
+     * 
+     * 
+     * 
+     */
 
     // MENUS. Son almacenados en un string.
     // --------------------------------------------------

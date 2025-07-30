@@ -134,6 +134,17 @@ public class Ciudad {
         }
         return consumoAnual;
     }
+    
+    private void debugImprimirConsumo(){
+        String text="";
+        for(int i=0;i<consumoPromedio.length;i++){
+            for(int j=0;j<consumoPromedio.length;j++){
+                text+="["+consumoPromedio[i][j]+"] ";
+            }
+            text+="\n";
+        }
+        System.out.println(text);
+    }
 
     /**
      * Consumo Mensual de una ciudad en un mes y año específico
