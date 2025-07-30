@@ -386,21 +386,22 @@ public class ArbolAVL {
     
     private void auxRangoConsumo(NodoAVL n ,Comparable minNomb ,Comparable maxNomb ,int minVol ,int maxVol ,int m ,int a ,Lista l){
             
-        if(n.getDerecho()!=null && maxNomb.compareTo(n.getClave())<0){
-            auxRangoConsumo(n.getDerecho(),minNomb,maxNomb,minVol,maxVol,m,a,l);
+        if(n.getIzquierdo()!=null && minNomb.compareTo(n.getClave())<=0){
+            auxRangoConsumo(n.getIzquierdo(),minNomb,maxNomb,minVol,maxVol,m,a,l);
         }
-        
-        if(minNomb.compareTo(n.getClave())<0 && maxNomb.compareTo(n.getClave())>0){
+       
+        if(minNomb.compareTo(n.getClave())<=0 && maxNomb.compareTo(n.getClave())>=0){
             float consumo= ((Ciudad) n.getElem()).consumoMensual(m,a);
+            System.out.println(n.getClave()+":"+consumo);
             if(consumo>=minVol && consumo<=maxVol){
                 l.insertar(n.getElem(),1);
             }
         }
         
-        if(n.getIzquierdo()!=null && minNomb.compareTo(n.getClave())>0){
-            auxRangoConsumo(n.getIzquierdo(),minNomb,maxNomb,minVol,maxVol,m,a,l);
+        if(n.getDerecho()!=null && maxNomb.compareTo(n.getClave())>=0){
+            auxRangoConsumo(n.getDerecho(),minNomb,maxNomb,minVol,maxVol,m,a,l);
         }
-        
+                
     }
     
     public Lista listarRangoConsumo(Comparable minNomb, Comparable maxNomb, int minVol,int maxVol,int mes,int anio){
