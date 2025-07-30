@@ -174,8 +174,8 @@ public class MapaDigrafo {
             // Aqui puede ocurrir que ya exista el arco, por lo que se verifica.
             NodoAdy cursor = origen.getPrimerAdy();
             if (cursor.getVertice().equals(destino)) {
-                    exito = false;
-                }
+                exito = false;
+            }
             while (cursor.getSigAdyacente() != null && exito) {
                 if (cursor.getVertice().equals(destino)) {
                     exito = false;
@@ -385,7 +385,7 @@ public class MapaDigrafo {
             u = (NodoVert) q.obtenerFrente();
             q.sacar();
             System.out.println(u.getElem().getNombre());
-            if (!u.getElem().getNombre().equals(destino)) {
+            if (!u.getElem().getNombre().equalsIgnoreCase(destino)) {
                 {
                     masCorto.insertar(u.getElem(), masCorto.longitud() + 1);
                 }
@@ -401,7 +401,7 @@ public class MapaDigrafo {
                             if (visitados.localizar(aux) == -1) {
                                 visitados.insertar(aux, visitados.longitud() + 1);
                                 System.out.println(aux.getVertice().getElem().getNombre());
-                                if (aux.getVertice().getElem().getNombre().equals(destino)) {
+                                if (aux.getVertice().getElem().getNombre().equalsIgnoreCase(destino)) {
                                     encontrado = true;
                                     masCorto.insertar(aux.getVertice().getElem(), masCorto.longitud() + 1);
                                 }
@@ -520,7 +520,7 @@ public class MapaDigrafo {
         float estimativaActual;
         float menorEstimativa = Float.MAX_VALUE;
         NodoVert menor = null;
-        NodoVert aux = inicio;
+        NodoVert aux = this.inicio;
         while (aux != null) {
             estimativaActual = distancias.get(aux);
             System.out.println(aux.getElem().getNombre());
