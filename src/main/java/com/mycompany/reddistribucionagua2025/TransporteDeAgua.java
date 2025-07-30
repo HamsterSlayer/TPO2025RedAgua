@@ -1084,37 +1084,7 @@ public class TransporteDeAgua {
     
     
     
-/*
- * CHECKLIST PARA MI:
- * -Parcialmente hecho, Hecho, Falta
- * OPCION 1
- * cambiosCiudades() #p
- * darAltaCiudad() #p // DEJO DE FUNCIONAR IVO
- * darBajaCiudad()#H
- * modificarCiudad() #p
- * OPCION 2 #p
- * darAltaTuberia() #H //Hay un problema con las nomenclaturas Ciudad De Mexico
- * es Cd en vez de CM
- * darBajaTuberia()#H
- * modificarTuberia() #H
- * OPCION 3
- * modificarAño #H
- * modificarMes #H
- * OPCION 4
- * infoCiudad (cantHabitantes y volumenAgua distribuido) a partir de un mesyaño
- * algoQueIvoHizo #H //falta testear
- * OPCION 5
- * Caudal Pleno #H //falta testear
- * Camino Mas Corto #H
- *
- * COMPLETO:
- * OPCION 6
- * LA OPCION 6 ES UNA MENTIRA DEL GOBIERNO
- * OPCION 7
- * Ranking Ciudades. #H pero no carga los valores
- * OPCION 8 #H
- * adios() #H
- */
+
 
     /*
      * CHECKLIST PARA MI:
