@@ -300,15 +300,15 @@ public class MapaDigrafo {
         }
         return resultado;
     }
-    
+
     @Override
     public String toString() {
         String resultado = "";
         NodoVert inicio = this.inicio;
-        //Itero sobre cada nodo
+        // Itero sobre cada nodo
         while (inicio != null) {
             resultado += String.format("%s -> ", inicio.getElem().getNombre());
-            //itero sobre cada arco
+            // itero sobre cada arco
             NodoAdy arcos = inicio.getPrimerAdy();
             while (arcos != null) {
                 resultado += arcos.getVertice().getElem();
@@ -388,7 +388,6 @@ public class MapaDigrafo {
                 }
 
                 aux = u.getPrimerAdy();
-                System.out.println(aux.getVertice().getElem().getNombre());
                 if (!encontrado) {
 
                     if (aux == null || visitados.localizar(aux) != -1) {
@@ -398,6 +397,7 @@ public class MapaDigrafo {
                         while (aux != null && !encontrado) {
                             if (visitados.localizar(aux) == -1) {
                                 visitados.insertar(aux, visitados.longitud() + 1);
+                                System.out.println(aux.getVertice().getElem().getNombre());
                                 if (aux.getVertice().getElem().getNombre().equals(destino)) {
                                     encontrado = true;
                                     masCorto.insertar(aux.getVertice().getElem(), masCorto.longitud() + 1);

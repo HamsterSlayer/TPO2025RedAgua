@@ -94,12 +94,15 @@ public class CargaArchivos {
             int aux;
             do { // Se carga toda la informacion disponible
                 linea = bufferLectura.readLine();
-                arr = linea.split(",");
-                aux = Integer.parseInt(arr[0]);
-                for (int i = 0; i < con[0].length; i++) {
-                    if ((aux - añoInicial) >= 0 && (aux - añoInicial) < 12) {
-                        con[aux - añoInicial][i] = Float.parseFloat(arr[i + 1]) * 4080; // 4080 es consumo promedio cada
-                                                                                        // 1 habitante
+                if (linea != null) {
+                    arr = linea.split(",");
+                    aux = Integer.parseInt(arr[0]);
+                    for (int i = 0; i < con[0].length; i++) {
+                        if ((aux - añoInicial) >= 0 && (aux - añoInicial) < 12) {
+                            con[aux - añoInicial][i] = Float.parseFloat(arr[i + 1]) * 4080; // 4080 es consumo promedio
+                                                                                            // cada
+                                                                                            // 1 habitante
+                        }
                     }
                 }
             } while (linea != null);
