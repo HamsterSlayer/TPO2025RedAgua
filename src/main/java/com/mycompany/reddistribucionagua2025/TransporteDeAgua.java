@@ -1,7 +1,6 @@
 package com.mycompany.reddistribucionagua2025;
 
 import com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo;
-import com.mycompany.reddistribucionagua2025.digrafo.NodoVert;
 
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -717,28 +716,33 @@ public class TransporteDeAgua {
 
     // subOpcion1: consultarHabitantesConsumo
     private static void consultarHabitantesConsumo() {
-        // Pido ciudad
+        try {
+        // Pido ciudad al usuario
         Ciudad ciudad = pedirCiudad();
         if (ciudad != null) {
-            // la pos 0 es de mes y la 1 de año
+            // Pido fecha al usuario la pos 0 es de mes y la 1 de año
             int[] fecha = pedirFecha();
             if (verificarFecha(fecha[0], fecha[1])) {
                 // Consigo los datos necesarios de ciudad
                 long habitantes = ciudad.habitantesMes(fecha[0], fecha[1]);
                 float consumoPromedio = ciudad.consumoMensual(fecha[0], fecha[1]);
-                // ACÁ PEDRO ESTA LO QUE TE DIGO :D
                 Lista listaTuberias = mapaCiudad.listarTuberiasHaciaCiudad(ciudad);
                 int longitudLista = listaTuberias.longitud();
-                // HASH
+                // Opero con HASH
                 float aguaDistribuida = 0;
                 for (int cursor = 1; cursor < longitudLista; cursor++) {
                     Tuberias aux = mapeoTuberias.get((DominioHash) listaTuberias.recuperar(cursor));
                     System.out.println(aux.toString());
                     aguaDistribuida += aux.getCaudalMaximo();
                 }
-                String salida = "Habitantes:" + habitantes
-                        + "\n consumoPromedio: " + consumoPromedio +
-                        "\n aguaDistribuida: " + aguaDistribuida;
+                
+                //Salida
+                String salida = String.format("""
+                                                %s (%2d-%d)
+                                                Habitantes: %d
+                                                Consumo Promedio: %.0f
+                                                Agua Recibida: %f
+                                              """, ciudad.getNombre().toUpperCase(),fecha[0],fecha[1],habitantes,consumoPromedio,aguaDistribuida);
                 confirmarParaContinuar(formato(salida));
 
             } else {
@@ -748,6 +752,11 @@ public class TransporteDeAgua {
             // Error ciudad no existe
             actualizarUltimaAccion("Error en introducir ciudad");
         }
+    }
+    catch (Exception e) {
+        //Evita que haya una mala entrada del usuario y se pierda todo el progreso.
+        confirmarParaContinuar("Error de entrada");
+    }
     }
 
     private static Ciudad pedirCiudad() {
@@ -1081,54 +1090,10 @@ public class TransporteDeAgua {
     }
 
     
-    
-    
-    
-/*
- * CHECKLIST PARA MI:
- * -Parcialmente hecho, Hecho, Falta
- * OPCION 1
- * cambiosCiudades() #p
- * darAltaCiudad() #p // DEJO DE FUNCIONAR IVO
- * darBajaCiudad()#H
- * modificarCiudad() #p
- * OPCION 2 #p
- * darAltaTuberia() #H //Hay un problema con las nomenclaturas Ciudad De Mexico
- * es Cd en vez de CM
- * darBajaTuberia()#H
- * modificarTuberia() #H
- * OPCION 3
- * modificarAño #H
- * modificarMes #H
- * OPCION 4
- * infoCiudad (cantHabitantes y volumenAgua distribuido) a partir de un mesyaño
- * algoQueIvoHizo #H //falta testear
- * OPCION 5
- * Caudal Pleno #H //falta testear
- * Camino Mas Corto #H
- *
- * COMPLETO:
- * OPCION 6
- * LA OPCION 6 ES UNA MENTIRA DEL GOBIERNO
- * OPCION 7
- * Ranking Ciudades. #H pero no carga los valores
- * OPCION 8 #H
- * adios() #H
- */
 
     /*
      * CHECKLIST PARA MI:
      * -Parcialmente hecho, Hecho, Falta
-     * OPCION 1
-     * cambiosCiudades() #p
-     * darAltaCiudad() #p // DEJO DE FUNCIONAR IVO
-     * darBajaCiudad()#H
-     * modificarCiudad() #p
-     * OPCION 2 #p
-     * darAltaTuberia() #H //Hay un problema con las nomenclaturas Ciudad De Mexico
-     * es Cd en vez de CM
-     * darBajaTuberia()#H
-     * modificarTuberia() #H
      * OPCION 3
      * modificarAño #H
      * modificarMes #H
@@ -1140,12 +1105,22 @@ public class TransporteDeAgua {
      * Camino Mas Corto #H
      *
      * COMPLETO:
+     * OPCION 1
+        * cambiosCiudades() #H
+        * darAltaCiudad() #H
+        * darBajaCiudad()#H
+        * modificarCiudad() #H
+     * OPCION 2 #p
+        * darAltaTuberia() #H //Hay un problema con las nomenclaturas Ciudad De Mexico
+        * es Cd en vez de CM
+        * darBajaTuberia()#H
+        * modificarTuberia() #H
      * OPCION 6
-     * LA OPCION 6 ES UNA MENTIRA DEL GOBIERNO
+        * LA OPCION 6 ES UNA MENTIRA DEL GOBIERNO
      * OPCION 7
-     * Ranking Ciudades. #H pero no carga los valores
+        * Ranking Ciudades. #H pero no carga los valores
      * OPCION 8 #H
-     * adios() #H
+        * adios() #H
      */
 
     // PROBLEMITAS
