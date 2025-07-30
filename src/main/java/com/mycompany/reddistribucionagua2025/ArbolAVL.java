@@ -472,7 +472,7 @@ public class ArbolAVL {
             texto=toStringInOrderAux(n.getIzquierdo(), anio, contador);
         }
         Ciudad ciudadAux = castearNodo(n);
-        texto+= contador[0] + "." + ciudadAux.getNombre() + "\n";
+        texto+= contador[0] + "." + ciudadAux.getNombre() + ": " + ciudadAux.consumoAnual(anio) + "\n";
         contador[0]++;
         if(n.getDerecho()!=null){
             texto+=toStringInOrderAux(n.getDerecho(), anio, contador);
