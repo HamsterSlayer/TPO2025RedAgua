@@ -772,8 +772,8 @@ public class TransporteDeAgua {
             // Verifico fecha
             if (verificarFecha(mes, anio)) {
                 // Listo por rango
-                Lista listaConsumo = tablaBusqueda.listarRangoConsumo(ciudadMin.toString(), ciudadMax.toString(),
-                        volMin, volMax, mes, anio);
+                Lista listaConsumo = tablaBusqueda.listarRangoConsumo(sacarAcentos(aux[0].replace(" ","").toLowerCase()), 
+                        sacarAcentos(aux[1].replace(" ","").toLowerCase()), volMin, volMax, mes, anio);
                 confirmarParaContinuar(formato(listaConsumo.toString()));
                 actualizarUltimaAccion("Se listo las ciudades en rango");
                 log.agregarLinea("Se mostro las ciudades en rango entre nombres:" + aux[0] + " y " + aux[1]
@@ -937,6 +937,7 @@ public class TransporteDeAgua {
                     break;
                 }
                 case 1: {
+                        
                     confirmarParaContinuar(formato(mapaCiudad.debugPrintVertices()));
                     break;
                 }
