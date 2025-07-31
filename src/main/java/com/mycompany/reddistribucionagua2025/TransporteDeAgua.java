@@ -120,27 +120,32 @@ public class TransporteDeAgua {
     private static void darAltaCiudad() {
         String datosSinFormato = "";
         String[] datos;
-        // Tomo los datos
-        limpiarPantalla();
-        System.out.println(menuCrearCiudad);
-        System.out.print("Por favor introduzca los datos: ");
-        datosSinFormato = in.nextLine();
-        datos = datosSinFormato.split(",");
+        try { //Implemento try catch para evitar que el programa crashee 
+            // Tomo los datos
+            limpiarPantalla();
+            System.out.println(menuCrearCiudad);
+            System.out.print("Por favor introduzca los datos: ");
+            datosSinFormato = in.nextLine();
+            datos = datosSinFormato.split(",");
 
-        // Inserto la nueva ciudad en las estructuras
-        Ciudad nuevaCiudad = new Ciudad(datos[0], añoInicial, Float.parseFloat(datos[1]));
-        // Verifico que no exista ya
-        boolean noExiste = true;
-        noExiste = tablaBusqueda.insertar(nuevaCiudad,
-                formatoUsuario.sacarAcentos(nuevaCiudad.getNombre().replace(" ", "").toLowerCase()));
-        if (noExiste) {
-            mapaCiudad.insertarVertice(nuevaCiudad);
-            actualizarUltimaAccion(String.format("Se creo la ciudad %s", datos[0]));
+            // Inserto la nueva ciudad en las estructuras
+            Ciudad nuevaCiudad = new Ciudad(datos[0], añoInicial, Float.parseFloat(datos[1]));
+            // Verifico que no exista ya
+            boolean noExiste = true;
+            noExiste = tablaBusqueda.insertar(nuevaCiudad,
+                    formatoUsuario.sacarAcentos(nuevaCiudad.getNombre().replace(" ", "").toLowerCase()));
+            if (noExiste) {
+                mapaCiudad.insertarVertice(nuevaCiudad);
+                actualizarUltimaAccion(String.format("Se creo la ciudad %s", datos[0]));
 
-        } else {
-            actualizarUltimaAccion(String.format("Ya existe la ciudad %s", datos[0]));
+            } else {
+                actualizarUltimaAccion(String.format("Ya existe la ciudad %s", datos[0]));
+            }
+            log.log("Se mando a crear una nueva ciudad: " + datos[0], noExiste); // Logeo
         }
-        log.log("Se mando a crear una nueva ciudad: " + datos[0], noExiste); // Logeo
+        catch (Exception e) {
+            actualizarUltimaAccion("Error en la entrada del usuario");
+        }
     }
     // ------------------------------------------------------------------------
 
@@ -170,13 +175,13 @@ public class TransporteDeAgua {
         limpiarPantalla();
         Ciudad laCiudad;
         boolean exit = false;
-        System.out.print("Por favor introduzca la ciudad que se modificará: ");
-        in.nextLine(); // Evita errores del buffer
+        System.out.println(formato("\t\t\t\tMODIFICAR CIUDAD"));
+        System.out.print("Por favor introduzca la ciudad que se modificara: ");
         String nombreCiudad = formatoUsuario.sacarAcentos(in.nextLine().replace(" ", "").toLowerCase());
         laCiudad = mapaCiudad.obtenerCiudad(nombreCiudad);
         if (laCiudad != null) {
-            int opcion = crearMenu(menuModificarCiudad, 2);
             while (!exit) {
+                int opcion = crearMenu(menuModificarCiudad, 2);
                 switch (opcion) {
                     case 1:
                         modificarDatosHabitantes(laCiudad);
@@ -184,7 +189,7 @@ public class TransporteDeAgua {
                     case 2:
                         modificarDatosConsumo(laCiudad);
                         break;
-                    case 3:
+                    case 0:
                         exit = true;
                         break;
 
@@ -196,16 +201,12 @@ public class TransporteDeAgua {
         } else {
             log.log("Se intentó modificar la ciudad " + nombreCiudad + ", pero no existía", false);
         }
-        // TERMINAR DE HACER ESTA PARTE
-        // ######################################################################
-        // log.agregarLinea("Se cargo informacion en la ciudad" +ciudadNombre);
     }
 
     private static void modificarDatosHabitantes(Ciudad laCiudad) {
         boolean exit = false;
-
         while (!exit) {
-            int opcion = crearMenu(menuModificarHabitantes, 4);
+            int opcion = crearMenu(menuModificarHabitantes, 3);
             switch (opcion) {
                 case 1:
                     ingresarDiezAnios(laCiudad);
@@ -216,7 +217,7 @@ public class TransporteDeAgua {
                 case 3:
                     ingresarUnMes(laCiudad);
                     break;
-                case 4:
+                case 0:
                     exit = true;
                     break;
                 default:
@@ -234,7 +235,7 @@ public class TransporteDeAgua {
                     habitantes[i][j] = in.nextInt();
                     in.nextLine();
                 } catch (InputMismatchException e) {
-                    System.out.println("Valor inválido, ingresando el valor padrón. (0)");
+                    System.out.println("Valor inválido, ingresando 0");
                     habitantes[i][j] = 0;
                 }
             }
@@ -1026,7 +1027,7 @@ public class TransporteDeAgua {
                 System.out.println(ultimaAccion);
                 System.out.printf("Introduzca una opcion [0-%d]:", numOpciones);
                 opcion = in.nextInt();
-                in.nextLine();
+                in.nextLine(); //limpia buffer
             } catch (InputMismatchException e) {
                 opcion = Integer.MAX_VALUE;
             }
@@ -1135,6 +1136,8 @@ public class TransporteDeAgua {
      * 
      * 
      */
+    
+    
 
     // MENUS. Son almacenados en un string.
     // --------------------------------------------------
@@ -1172,53 +1175,54 @@ public class TransporteDeAgua {
             """;
 
     private static String menuCrearCiudad = """
-                ================================================================================
-                                                CREAR CIUDAD
-                ================================================================================
-                Una ciudad debe de contener dos datos minimos.
-                >(ciudad,superficie)
-                >Ejemplo de como debe de introducirse los datos: Neuquen,59353.21
-                ================================================================================
+                    ================================================================================
+                                                    CREAR CIUDAD
+                    ================================================================================
+                    Una ciudad debe de contener dos datos minimos.
+                    >(ciudad,superficie)
+                    >Ejemplo de como debe de introducirse los datos: Neuquen,59353.21
+                    ================================================================================
             """;
 
     private static String menuEliminarCiudad = """
-            ================================================================================
-                                            ELIMINAR CIUDAD
-            ================================================================================
-            Eliminar una ciudad eliminara todos sus datos y conexiones.
-            Debe de introducir el nombre de la ciudad.
-            ================================================================================
+                    ================================================================================
+                                                    ELIMINAR CIUDAD
+                    ================================================================================
+                    Eliminar una ciudad eliminara todos sus datos y conexiones.
+                    Debe de introducir el nombre de la ciudad.
+                    ================================================================================
             """;
 
     private static String menuModificarCiudad = """
-            ================================================================================
-                                           MODIFICAR CIUDAD
-            ================================================================================
-            [1] Modificar datos de habitantes
-            [2] Modificar datos de consumo
-            ================================================================================
+                ================================================================================
+                                               MODIFICAR CIUDAD
+                ================================================================================
+                [1] Modificar datos de habitantes
+                [2] Modificar datos de consumo
+                [0] Salir
+                ================================================================================
             """;
 
     private static String menuModificarHabitantes = """
-            ================================================================================
-                                    MODIFICAR DATOS DE HABITANTES
-            ================================================================================
-            [1] Ingresar información de diez años
-            [2] Ingresar información de un año
-            [3] Ingresar información de un año y mes específico
-            [4] Salir
-            ================================================================================
+                ================================================================================
+                                        MODIFICAR DATOS DE HABITANTES
+                ================================================================================
+                [1] Ingresar información de diez anios
+                [2] Ingresar información de un anio
+                [3] Ingresar información de un anio y mes específico
+                [0] Salir
+                ================================================================================
             """;
 
     private static String menuModificarConsumo = """
-            ================================================================================
-                                    MODIFICAR DATOS DE CONSUMO
-            ================================================================================
-            [1] Ingresar consumo promedio
-            [2] Erm
-            [3] um
-            [4] Salir
-            ================================================================================
+                ================================================================================
+                                        MODIFICAR DATOS DE CONSUMO
+                ================================================================================
+                [1] Ingresar consumo promedio
+                [2] Erm
+                [3] um
+                [0] Salir
+                ================================================================================
             """;
 
     private static String menuDebug = """
@@ -1331,7 +1335,7 @@ public class TransporteDeAgua {
             """;
 
     private static String separador() {
-        return "================================================================================\n";
+        return "\t================================================================================\n";
     }
 
     private static String menuAnio = """
