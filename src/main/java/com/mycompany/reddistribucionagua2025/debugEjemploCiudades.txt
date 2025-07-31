@@ -1,0 +1,13 @@
+Neuquén, 1200000
+Cupral-Có, 800000
+Maravélica, 900000
+Solandina, 1100000
+Terraviva, 750000
+Piedraluna, 1000000
+Valleverde, 950000
+Monteaurora, 1050000
+Rionegra, 890000
+Fuenteluz, 780000
+Ventisquero Alto, 920000
+Cieloflor, 970000
+Bosquemonte, 860000
