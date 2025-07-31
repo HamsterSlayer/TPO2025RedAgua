@@ -19,8 +19,8 @@ import com.mycompany.reddistribucionagua2025.readtxt.*;
  * @author hamst
  */
 public class TransporteDeAgua {
-    private static final String informacionCiudades = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\Informacion.txt";
-    private static final String informacionTuberias = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\tuberiasInfo.txt";
+    private static final String informacionCiudades = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\debugEjemploCiudades.txt";
+    private static final String informacionTuberias = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\debugEjemploTuberias(1).txt";
     private static final String datosCiudades = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\datosCiudadesHabitantes";
     // Variables del Programa ----------------------------------
     // Estas variables se usarán para modificar y operar el programa
@@ -120,8 +120,8 @@ public class TransporteDeAgua {
     private static void darAltaCiudad() {
         String datosSinFormato = "";
         String[] datos;
-        try { //Implemento try catch para evitar que el programa crashee 
-            // Tomo los datos
+        try { // Implemento try catch para evitar que el programa crashee
+              // Tomo los datos
             limpiarPantalla();
             System.out.println(menuCrearCiudad);
             System.out.print("Por favor introduzca los datos: ");
@@ -142,8 +142,7 @@ public class TransporteDeAgua {
                 actualizarUltimaAccion(String.format("Ya existe la ciudad %s", datos[0]));
             }
             log.log("Se mando a crear una nueva ciudad: " + datos[0], noExiste); // Logeo
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             actualizarUltimaAccion("Error en la entrada del usuario");
         }
     }
@@ -746,46 +745,37 @@ public class TransporteDeAgua {
     // subOpcion1: consultarHabitantesConsumo
     private static void consultarHabitantesConsumo() {
         try {
-        // Pido ciudad al usuario
-        Ciudad ciudad = pedirCiudad();
-        if (ciudad != null) {
-            // Pido fecha al usuario la pos 0 es de mes y la 1 de año
-            int[] fecha = pedirFecha();
-            if (verificarFecha(fecha[0], fecha[1])) {
-                // Consigo los datos necesarios de ciudad
-                long habitantes = ciudad.habitantesMes(fecha[0], fecha[1]);
-                float consumoPromedio = ciudad.consumoMensual(fecha[0], fecha[1]);
-                Lista listaTuberias = mapaCiudad.listarTuberiasHaciaCiudad(ciudad);
-                int longitudLista = listaTuberias.longitud();
-                // Opero con HASH
-                float aguaDistribuida = 0;
-                for (int cursor = 1; cursor < longitudLista; cursor++) {
-                    Tuberias aux = mapeoTuberias.get((DominioHash) listaTuberias.recuperar(cursor));
-                    System.out.println(aux.toString());
-                    aguaDistribuida += aux.getCaudalMaximo();
-                }
-                
-                //Salida
-                String salida = String.format("""
-                                                %s (%2d-%d)
-                                                Habitantes: %d
-                                                Consumo Promedio: %.0f
-                                                Agua Recibida: %f
-                                              """, ciudad.getNombre().toUpperCase(),fecha[0],fecha[1],habitantes,consumoPromedio,aguaDistribuida);
-                confirmarParaContinuar(formato(salida));
+            // Pido ciudad al usuario
+            Ciudad ciudad = pedirCiudad();
+            if (ciudad != null) {
+                // Pido fecha al usuario la pos 0 es de mes y la 1 de año
+                int[] fecha = pedirFecha();
+                if (verificarFecha(fecha[0], fecha[1])) {
+                    // Consigo los datos necesarios de ciudad
+                    long habitantes = ciudad.habitantesMes(fecha[0], fecha[1]);
+                    float consumoPromedio = ciudad.consumoMensual(fecha[0], fecha[1]);
+                    float aguaDistribuida = mapaCiudad.getAguaDistribuida(ciudad);
+                    // Salida
+                    String salida = String.format("""
+                              %s (%2d-%d)
+                              Habitantes: %d
+                              Consumo Promedio: %.0f
+                              Agua Recibida: %f
+                            """, ciudad.getNombre().toUpperCase(), fecha[0], fecha[1], habitantes, consumoPromedio,
+                            aguaDistribuida);
+                    confirmarParaContinuar(formato(salida));
 
+                } else {
+                    actualizarUltimaAccion("Error en introducir fecha");
+                }
             } else {
-                actualizarUltimaAccion("Error en introducir fecha");
+                // Error ciudad no existe
+                actualizarUltimaAccion("Error en introducir ciudad");
             }
-        } else {
-            // Error ciudad no existe
-            actualizarUltimaAccion("Error en introducir ciudad");
+        } catch (Exception e) {
+            // Evita que haya una mala entrada del usuario y se pierda todo el progreso.
+            confirmarParaContinuar("Error de entrada");
         }
-    }
-    catch (Exception e) {
-        //Evita que haya una mala entrada del usuario y se pierda todo el progreso.
-        confirmarParaContinuar("Error de entrada");
-    }
     }
 
     private static Ciudad pedirCiudad() {
@@ -825,8 +815,9 @@ public class TransporteDeAgua {
             // Verifico fecha
             if (verificarFecha(mes, anio)) {
                 // Listo por rango
-                Lista listaConsumo = tablaBusqueda.listarRangoConsumo(formatoUsuario.sacarAcentos(aux[0].replace(" ","").toLowerCase()), 
-                        formatoUsuario.sacarAcentos(aux[1].replace(" ","").toLowerCase()), volMin, volMax, mes, anio);
+                Lista listaConsumo = tablaBusqueda.listarRangoConsumo(
+                        formatoUsuario.sacarAcentos(aux[0].replace(" ", "").toLowerCase()),
+                        formatoUsuario.sacarAcentos(aux[1].replace(" ", "").toLowerCase()), volMin, volMax, mes, anio);
                 confirmarParaContinuar(formato(listaConsumo.toString()));
                 actualizarUltimaAccion("Se listo las ciudades en rango");
                 log.agregarLinea("Se mostro las ciudades en rango entre nombres:" + aux[0] + " y " + aux[1]
@@ -1018,7 +1009,7 @@ public class TransporteDeAgua {
                     break;
                 }
                 case 1: {
-                        
+
                     confirmarParaContinuar(formato(mapaCiudad.debugPrintVertices()));
                     break;
                 }
@@ -1076,7 +1067,7 @@ public class TransporteDeAgua {
                 System.out.println(ultimaAccion);
                 System.out.printf("Introduzca una opcion [0-%d]:", numOpciones);
                 opcion = in.nextInt();
-                in.nextLine(); //limpia buffer
+                in.nextLine(); // limpia buffer
             } catch (InputMismatchException e) {
                 opcion = Integer.MAX_VALUE;
             }
@@ -1139,12 +1130,6 @@ public class TransporteDeAgua {
         confirmarParaContinuar(invalido);
     }
 
-    
-    
-    
-    
-
-
     /*
      * CHECKLIST PARA MI:
      * -Parcialmente hecho, Hecho, Falta
@@ -1160,21 +1145,21 @@ public class TransporteDeAgua {
      *
      * COMPLETO:
      * OPCION 1
-        * cambiosCiudades() #H
-        * darAltaCiudad() #H
-        * darBajaCiudad()#H
-        * modificarCiudad() #H
+     * cambiosCiudades() #H
+     * darAltaCiudad() #H
+     * darBajaCiudad()#H
+     * modificarCiudad() #H
      * OPCION 2 #p
-        * darAltaTuberia() #H //Hay un problema con las nomenclaturas Ciudad De Mexico
-        * es Cd en vez de CM
-        * darBajaTuberia()#H
-        * modificarTuberia() #H
+     * darAltaTuberia() #H //Hay un problema con las nomenclaturas Ciudad De Mexico
+     * es Cd en vez de CM
+     * darBajaTuberia()#H
+     * modificarTuberia() #H
      * OPCION 6
-        * LA OPCION 6 ES UNA MENTIRA DEL GOBIERNO
+     * LA OPCION 6 ES UNA MENTIRA DEL GOBIERNO
      * OPCION 7
      * Ranking Ciudades. Funciona Bien
      * OPCION 8 #H
-        * adios() #H
+     * adios() #H
      */
 
     // PROBLEMITAS
@@ -1185,8 +1170,6 @@ public class TransporteDeAgua {
      * 
      * 
      */
-    
-    
 
     // MENUS. Son almacenados en un string.
     // --------------------------------------------------

@@ -1,0 +1,19 @@
+Monteaurora, Piedraluna, 50, 193, 1.4, Activo
+Solandina, Monteaurora, 60, 251, 1.6, Activo
+Maravélica, Monteaurora, 55, 206, 1.5, Activo
+Piedraluna, Solandina, 65, 266, 1.7, Activo
+Piedraluna, Cupral-Có, 60, 250, 1.65, Activo
+Cupral-Có, Valleverde, 55, 241, 1.55, Activo
+Cupral-Có, Terraviva, 50, 199, 1.4, Activo
+Solandina, Monteaurora, 50, 235, 1.5, Activo
+Neuquén, Terraviva, 60, 243, 1.6, Activo
+Terraviva, Maravélica, 30, 132, 1.0, En reparación
+Maravélica, Bosquemonté, 25, 114, 0.9, Activo
+Rionegra, Neuquén, 50, 213, 1.45, Activo
+Bosquemonté, Neuquén, 60, 239, 1.55, Activo
+Bosquemonté, Fuenteluz, 45, 196, 1.3, Activo
+Rionegra, Ventisquero Alto, 45, 195, 1.35, Activo
+Valleverde, Rionegra, 70, 297, 1.8, Activo
+Fuenteluz, Ventisquero Alto, 55, 232, 1.5, Activo
+Ventisquero Alto, Cieloflor, 70, 288, 1.7, Activo
+Fuenteluz, Cieloflor, 50, 219, 1.45, Activo

@@ -315,8 +315,11 @@ public class MapaDigrafo {
             // itero sobre cada arco
             NodoAdy arcos = inicio.getPrimerAdy();
             while (arcos != null) {
-                resultado += arcos.getVertice().getElem();
+                resultado += arcos.getVertice().getElem().getNombre() +"("+arcos.getCaudalMaximo()+"), ";
+                arcos=arcos.getSigAdyacente();
             }
+            resultado+="\n";
+            inicio = inicio.getSigVertice();
         }
         return resultado;
     }
@@ -335,12 +338,12 @@ public class MapaDigrafo {
 
     public Lista caminoMasCorto(String ciudadOrigen, String ciudadDestino) {
         Lista camino = new Lista();
-        NodoVert origen;
+        NodoVert origen, destino;
         // Se debe de verificar que el primer pais exista sí o sí.
         origen = localizarVertice(ciudadOrigen);
-
+        destino = localizarVertice(ciudadDestino);
         if (origen != null && !ciudadOrigen.equals(ciudadDestino)) {
-            camino = caminoMasCorto(origen, ciudadDestino);
+            camino = caminoMasCorto(origen, destino);
         }
         return camino;
     }
@@ -366,59 +369,48 @@ public class MapaDigrafo {
      * @param ciudadDestino ciudad buscada string
      * @return La lista del camino mas corto
      */
-    private Lista caminoMasCorto(NodoVert origen, String ciudadDestino) {
+    private Lista caminoMasCorto(NodoVert origen, NodoVert destino) {
         Lista masCorto;
-        masCorto = masCortoDesde(origen, ciudadDestino);
+        masCorto = masCortoDesde(origen, destino);
         return masCorto;
     }
 
-    private Lista masCortoDesde(NodoVert verticeInicial, String destino) {
-        // Variables
-        Lista visitados = new Lista();
+    private Lista masCortoDesde(NodoVert origen, NodoVert ciudadDestino) {
+        NodoVert actual = origen;
+        NodoVert auxVert;
+        NodoAdy auxAdy;
+        float distanciaActual;
+        HashMap<NodoVert, Float> distancias = new HashMap<>();
+        HashMap<NodoVert, NodoVert> anteriores = new HashMap<>();
+        llenarDistancias(distancias, origen);
+        llenarAnteriores(anteriores);
         Lista masCorto = new Lista();
-        Cola q = new Cola();
-        boolean encontrado = false;
-        NodoVert u;
-        NodoAdy aux;
-        q.poner(verticeInicial);
-        // Se itera sobre los adyacentes
-        while (!q.esVacia() && !encontrado) {
-            u = (NodoVert) q.obtenerFrente();
-            q.sacar();
-            System.out.println(u.getElem().getNombre());
-            if (!u.getElem().getNombre().equalsIgnoreCase(destino)) {
-                {
-                    masCorto.insertar(u.getElem(), masCorto.longitud() + 1);
-                }
+        Lista visitados = new Lista();
+        while (visitados.localizar(ciudadDestino) == -1 && actual != null) {
+            // Busco el vertice con el camino mas corto posible estimado.
+            actual = menorEstimativa(origen, distancias, visitados);
+            if (actual != null) {
+                visitados.insertar(actual, visitados.longitud() + 1);
+                auxAdy = actual.getPrimerAdy();
+                while (auxAdy != null) {
+                    auxVert = auxAdy.getVertice();
+                    distanciaActual = distancias.get(actual);
 
-                aux = u.getPrimerAdy();
-                if (!encontrado) {
+                    // Si el nuevo camino hasta el adyacente es menor al registrado anteriormente,
+                    // actualiza la distancia recorrida y el anterior del adyacente
 
-                    if (aux == null || visitados.localizar(aux) != -1) {
-                        masCorto.eliminar(masCorto.localizar(u.getElem()));
-
-                    } else {
-                        while (aux != null && !encontrado) {
-                            if (visitados.localizar(aux) == -1) {
-                                visitados.insertar(aux, visitados.longitud() + 1);
-                                System.out.println(aux.getVertice().getElem().getNombre());
-                                if (aux.getVertice().getElem().getNombre().equalsIgnoreCase(destino)) {
-                                    encontrado = true;
-                                    masCorto.insertar(aux.getVertice().getElem(), masCorto.longitud() + 1);
-                                }
-                                q.poner(aux.getVertice());
-                            }
-                            aux = aux.getSigAdyacente();
-                            if (aux != null)
-                                System.out.println(aux.getVertice().getElem().getNombre());
-                        }
+                    if (distanciaActual + 1 < distancias.get(auxVert)) {
+                        distancias.put(auxVert, distanciaActual + 1);
+                        anteriores.put(auxVert, actual);
                     }
+                    auxAdy = auxAdy.getSigAdyacente();
                 }
             }
         }
-        if (!encontrado) {
-            masCorto.vaciar();
+        if (visitados.localizar(ciudadDestino) != -1) {
+            masCorto = reconstruirCamino(anteriores, ciudadDestino);
         }
+
         return masCorto;
     }
 
@@ -429,24 +421,28 @@ public class MapaDigrafo {
      * @param unaCiudad La ciudad en sí
      * @return float. cantidad total de agua que recibirá
      */
-    public Lista listarTuberiasHaciaCiudad(Ciudad unaCiudad) {
-        NodoVert raiz = this.inicio;
-        int cursor = 1;
-        String nomenclaturaCiudad = unaCiudad.getNomenclatura();
-        Lista keys = new Lista();
-        // Debo de iterar por todos los nodos y verificar cuales se conectan a la ciudad
-        // que busco
-        while (raiz != null) {
-            // Agrego a la distribucion el consumo si existe
-            if (existeEnNodo(raiz, unaCiudad)) {
-                // Creo la key del hash y la inserto
-                keys.insertar(new DominioHash(raiz.getElem().getNomenclatura(), nomenclaturaCiudad), cursor);
-                cursor++;
+
+    // Si un vertice tiene com adyacente la ciudad pedida, se adiciona al agua
+    // maximo el caudal de la tuberia
+
+    public float getAguaDistribuida(Ciudad laCiudad) {
+        float aguaDistribuida = 0;
+        NodoAdy aux;
+        NodoVert puntero = this.inicio;
+        boolean encontrado = false;
+        while (puntero != null) {
+            aux = puntero.getPrimerAdy();
+            while (aux != null && !encontrado) {
+                if (aux.getVertice().getElem().equals(laCiudad)) {
+                    encontrado = true;
+                    aguaDistribuida += aux.getCaudalMaximo();
+                }
+                encontrado = false;
+                aux = aux.getSigAdyacente();
             }
-            // prosigo
-            raiz = raiz.getSigVertice();
+            puntero = puntero.getSigVertice();
         }
-        return keys;
+        return aguaDistribuida;
     }
 
     // El Anticristo
@@ -560,6 +556,5 @@ public class MapaDigrafo {
     }
 
     // -------------------------------------------------------------------------
-
 
 }
