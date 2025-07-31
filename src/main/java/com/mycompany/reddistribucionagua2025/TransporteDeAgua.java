@@ -80,7 +80,7 @@ public class TransporteDeAgua {
                 case 0:
                     exit = true;
                     adios();
-                    logFinalizar(tablaBusqueda, mapaCiudad, mapeoTuberias);
+                    //logFinalizar(tablaBusqueda, mapaCiudad, mapeoTuberias); Verificar despues
                     break;
                 default:
                     opcionInvalida();
@@ -175,7 +175,7 @@ public class TransporteDeAgua {
         limpiarPantalla();
         Ciudad laCiudad;
         boolean exit = false;
-        System.out.println(formato("\t\t\t\tMODIFICAR CIUDAD"));
+        System.out.println(formato("\t\t\t\t\tMODIFICAR CIUDAD"));
         System.out.print("Por favor introduzca la ciudad que se modificara: ");
         String nombreCiudad = formatoUsuario.sacarAcentos(in.nextLine().replace(" ", "").toLowerCase());
         laCiudad = mapaCiudad.obtenerCiudad(nombreCiudad);
@@ -206,15 +206,12 @@ public class TransporteDeAgua {
     private static void modificarDatosHabitantes(Ciudad laCiudad) {
         boolean exit = false;
         while (!exit) {
-            int opcion = crearMenu(menuModificarHabitantes, 3);
+            int opcion = crearMenu(menuModificarHabitantes, 2);
             switch (opcion) {
                 case 1:
-                    ingresarDiezAnios(laCiudad);
-                    break;
-                case 2:
                     ingresarUnAnio(laCiudad);
                     break;
-                case 3:
+                case 2:
                     ingresarUnMes(laCiudad);
                     break;
                 case 0:
@@ -226,102 +223,75 @@ public class TransporteDeAgua {
         }
     }
 
-    private static void ingresarDiezAnios(Ciudad laCiudad) {
-        int[][] habitantes = new int[10][12];
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; i < 12; i++) {
-                try {
-                    System.out.println("Ingrese la cantidad de habitantes en el mes " + j + 1 + ", año " + i + 1 + ".");
-                    habitantes[i][j] = in.nextInt();
-                    in.nextLine();
-                } catch (InputMismatchException e) {
-                    System.out.println("Valor inválido, ingresando 0");
-                    habitantes[i][j] = 0;
-                }
-            }
-        }
-    }
-
     private static void ingresarUnAnio(Ciudad laCiudad) {
         long[] habitantesEnAnio = new long[12];
         int anio;
         boolean valido = false;
-        System.out.println("Ingrese el año que desea modificar:");
-        do {
-            try {
-                anio = in.nextInt();
-                in.nextLine();
-                if (laCiudad.añoValido(anio)) {
-                    valido = true;
-                } else {
-                    System.out.println("Año invalido. Por favor, ingrese un año presente en la matriz.");
+        try {
+
+            System.out.println("Ingrese el anio que desea modificar:");
+            anio = in.nextInt();
+            in.nextLine(); //evita error buffer
+            if (laCiudad.añoValido(anio)) {
+                limpiarPantalla();
+                //Pido los 12 datos
+                System.out.println(formato("\t\tPor favor ingrese 12 datos separados por coma: 342,23,1,232..."));
+                System.out.print("datos:");
+                String datosSinFormato = in.nextLine();
+                //Procedo a pasarlos a long
+                String[] datos = datosSinFormato.split(",");
+                for (int i = 0; i < datos.length; i++) {
+                    habitantesEnAnio[i] = Long.parseLong(datos[i]);
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("Caracter inválido ingresado. Por favor, ingrese un número entero.");
-                anio = 0;
+                //Seteo los datos
+                laCiudad.setHabitantesAnio(habitantesEnAnio, anio);
+                
             }
-        } while (!valido);
-        for (int i = 0; i < 12; i++) {
-            System.out.println("Ingrese la cantidad de habitantes en el mes " + i + 1);
-            habitantesEnAnio[i] = in.nextInt();
+            else {
+                confirmarParaContinuar("Anio no valido");
+            }
         }
-        laCiudad.setHabitantesAnio(habitantesEnAnio, anio);
+        catch (Exception e) {
+            actualizarUltimaAccion("Error al introducir datos");
+        }
     }
 
     private static void ingresarUnMes(Ciudad laCiudad) {
-        int anio;
-        int mes;
-        int habitantes;
-        boolean valido = false;
-        System.out.println("Ingrese el año que desea modificar:");
-        do {
-            try {
-                anio = in.nextInt();
-                in.nextLine();
-                if (laCiudad.añoValido(anio)) {
-                    valido = true;
-                } else {
-                    System.out.println("Año invalido. Por favor, ingrese un año presente en el sistema.");
-                }
-
-            } catch (InputMismatchException e) {
-                System.out.println("Caracter inválido ingresado. Por favor, ingrese un número entero.");
-                anio = 0;
+        try {
+            //Pido los datos de la fecha y chequeo
+            int[] fecha = pedirFecha();
+            if (verificarFecha(fecha[0], fecha[1])) {
+                limpiarPantalla();
+                //Pido la cantidad de habitantes
+                System.out.println(formato("Por favor introduzca la nueva cantidad de habitantes"));
+                System.out.print("Habitantes: ");
+                long habitantes = Long.parseLong(in.nextLine());
+                //La reemplazo
+                laCiudad.setHabitantes(habitantes,fecha[1],fecha[0] - 1);
+                actualizarUltimaAccion("Cambio de fecha completo");
             }
-        } while (!valido);
-        valido = false;
-        do {
-            try {
-                mes = in.nextInt();
-                in.nextLine();
-                if (mes > 0 && mes <= 12) {
-                    valido = true;
-                } else {
-                    System.out.println("Mes invalido");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Caracter inválido ingresado. Por favor, ingrese un número entero.");
-                mes = 0;
+            else {
+                actualizarUltimaAccion("Error al introducir la fecha");
             }
-        } while (!valido);
-        System.out.println("ingrese la cantidad de habitantes en la fecha: " + mes + "/" + anio);
-        habitantes = in.nextInt();
-        laCiudad.setHabitantes(habitantes, anio, mes);
+        }
+        catch(Exception e) {
+            
+        }
     }
 
     private static void modificarDatosConsumo(Ciudad laCiudad) {
         boolean exit = false;
 
         while (!exit) {
-            int opcion = crearMenu(menuModificarConsumo, 4);
+            int opcion = crearMenu(menuModificarConsumo, 2);
             switch (opcion) {
                 case 1:
+                    modificarConsumoAnio(laCiudad);
                     break;
                 case 2:
+                    modificarConsumoMes(laCiudad);
                     break;
-                case 3:
-                    break;
-                case 4:
+                case 0:
                     exit = true;
                     break;
                 default:
@@ -330,8 +300,60 @@ public class TransporteDeAgua {
         }
     }
 
-    private static void ingresarConsumoPromedio() {
+    private static void modificarConsumoAnio(Ciudad laCiudad) {
+        float[] habitantesEnAnio = new float[12];
+        int anio;
+        boolean valido = false;
+        try {
 
+            System.out.println("Ingrese el anio que desea modificar:");
+            anio = in.nextInt();
+            in.nextLine(); //evita error buffer
+            if (laCiudad.añoValido(anio)) {
+                limpiarPantalla();
+                //Pido los 12 datos
+                System.out.println(formato("\t\tPor favor ingrese 12 datos separados por coma: 342,23,1,232..."));
+                System.out.print("datos:");
+                String datosSinFormato = in.nextLine();
+                //Procedo a pasarlos a long
+                String[] datos = datosSinFormato.split(",");
+                for (int i = 0; i < datos.length; i++) {
+                    habitantesEnAnio[i] = Float.parseFloat(datos[i]);
+                }
+                //Seteo los datos
+                laCiudad.setConsumoPromedio(habitantesEnAnio, anio);
+                
+            }
+            else {
+                confirmarParaContinuar("Anio no valido");
+            }
+        }
+        catch (Exception e) {
+            actualizarUltimaAccion("Error al introducir datos");
+        }
+    }
+    
+    private static void modificarConsumoMes(Ciudad laCiudad) {
+        try {
+            //Pido los datos de la fecha y chequeo
+            int[] fecha = pedirFecha();
+            if (verificarFecha(fecha[0], fecha[1])) {
+                limpiarPantalla();
+                //Pido la cantidad de habitantes
+                System.out.println(formato("Por favor introduzca la nueva cantidad de consumo mensual"));
+                System.out.print("Consumo: ");
+                float consumo = Float.parseFloat(in.nextLine());
+                //La reemplazo
+                laCiudad.setConsumoPromedio(consumo,fecha[1],fecha[0] - 1);
+                actualizarUltimaAccion("Cambio de fecha completo");
+            }
+            else {
+                actualizarUltimaAccion("Error al introducir la fecha");
+            }
+        }
+        catch(Exception e) {
+            
+        }        
     }
 
     // OPCION 2: CAMBIOS TUBERIAS ------------------------------
@@ -359,7 +381,7 @@ public class TransporteDeAgua {
         }
     }
 
-    // Subopcion1 Alta
+    // Subopcion1 Alta Tuberia
     // tuberia---------------------------------------------------------------
     private static void darAltaTuberia() {
         limpiarPantalla();
@@ -699,13 +721,19 @@ public class TransporteDeAgua {
         int opcion;
         boolean exit = false;
         while (!exit) {
-            opcion = crearMenu(menuConsultarCiudades, 2);
+            opcion = crearMenu(menuConsultarCiudades, 4);
             switch (opcion) {
                 case 1:
                     consultarHabitantesConsumo();
                     break;
                 case 2:
                     ciudadesEnRango();
+                    break;
+                case 3:
+                    matrizCiudades();
+                    break;
+                case 4:
+                    matrizConsumo();
                     break;
                 case 0:
                     exit = true;
@@ -761,8 +789,9 @@ public class TransporteDeAgua {
     }
 
     private static Ciudad pedirCiudad() {
+        limpiarPantalla();
         Ciudad ciudadDevuelta;
-        System.out.println(formato("Por favor introduzca una ciudad"));
+        System.out.println(formato("\tPor favor introduzca una ciudad"));
         String paisIntroducido = in.nextLine();
         ciudadDevuelta = mapaCiudad.obtenerCiudad(paisIntroducido);
         return ciudadDevuelta;
@@ -777,13 +806,6 @@ public class TransporteDeAgua {
     }
 
     // ----------
-    private static String menuHabitantesConsumo = """
-            ================================================================================
-                                            CONSULTA CIUDAD
-            ================================================================================
-            Por favor Introduzca una ciudad
-            ================================================================================
-            """;
 
     // subOpcion2: ciudadesEnRango
     private static void ciudadesEnRango() {
@@ -854,7 +876,35 @@ public class TransporteDeAgua {
         }
         return estado;
     }
-
+    
+    // supOpcion3: matrizCiudades
+    private static void matrizCiudades() {
+        Ciudad unaCiudad = pedirCiudad();
+        if (unaCiudad != null) {
+            limpiarPantalla();
+            System.out.println(formato("\t" + unaCiudad.getNombre().toUpperCase() + "\n" + unaCiudad.habitantesToString()));
+            in.nextLine();
+        }
+        else {
+            actualizarUltimaAccion("La ciudad no existe");
+        }
+    }
+    
+    // subOpcion4: matrizConsumo
+    private static void matrizConsumo() {
+        Ciudad unaCiudad = pedirCiudad();
+        if (unaCiudad != null) {
+            limpiarPantalla();
+            System.out.println(formato("\t" + unaCiudad.getNombre().toUpperCase() + "\n" + unaCiudad.consumoToString()));
+            in.nextLine();            
+        }
+        else {
+            actualizarUltimaAccion("La ciudad no existe");
+        }        
+    }
+    
+    
+    
     // OPCION 5: CONSULTA TRANSPORTE AGUA --------------------------------------
     private static void consultarTransporte() {
         boolean exit = false;
@@ -1001,7 +1051,6 @@ public class TransporteDeAgua {
     }
 
     // Metodos LOGS------------------------------------------------------------
-    // MOVER A OTRO LADO #########
     private static void logFinalizar(ArbolAVL a, MapaDigrafo d, HashMap h) {
         log.agregarLinea("ESTRUCTURAS:\n");
         log.agregarLinea(a.toString());
@@ -1132,7 +1181,7 @@ public class TransporteDeAgua {
     /*
      * -RESOLVER TEMA ACENTOS
      * -Consultar Ciudades el buscarTuberiasHacia parece no funcionar
-     * 
+     * -Loggear parece no funcionar, al menos en la opcion 8
      * 
      * 
      */
@@ -1197,8 +1246,8 @@ public class TransporteDeAgua {
                 ================================================================================
                                                MODIFICAR CIUDAD
                 ================================================================================
-                [1] Modificar datos de habitantes
-                [2] Modificar datos de consumo
+                [1] Modificar datos de habitantes ... se cambiara el numero de habitantes
+                [2] Modificar datos de consumo... se cambiara la cantidad de consumo
                 [0] Salir
                 ================================================================================
             """;
@@ -1207,9 +1256,8 @@ public class TransporteDeAgua {
                 ================================================================================
                                         MODIFICAR DATOS DE HABITANTES
                 ================================================================================
-                [1] Ingresar información de diez anios
-                [2] Ingresar información de un anio
-                [3] Ingresar información de un anio y mes específico
+                [1] Ingresar informacion de un anio
+                [2] Ingresar informacion de un anio y mes especifico
                 [0] Salir
                 ================================================================================
             """;
@@ -1218,9 +1266,8 @@ public class TransporteDeAgua {
                 ================================================================================
                                         MODIFICAR DATOS DE CONSUMO
                 ================================================================================
-                [1] Ingresar consumo promedio
-                [2] Erm
-                [3] um
+                [1] Ingresar informacion de un anio
+                [2] Ingresar informacion de un anio y mes especifico
                 [0] Salir
                 ================================================================================
             """;
@@ -1259,26 +1306,26 @@ public class TransporteDeAgua {
             """;
 
     private static String menuEstados = """
-            ================================================================================
-                                           MODIFICAR TUBERIA
-            ================================================================================
-            [1] Activo
-            [2] En reparacion
-            [3] En diseño
-            [4] Inactivo
-            [0] Salir
-            ================================================================================
+                    ================================================================================
+                                                   MODIFICAR TUBERIA
+                    ================================================================================
+                    [1] Activo
+                    [2] En reparacion
+                    [3] En diseño
+                    [4] Inactivo
+                    [0] Salir
+                    ================================================================================
             """;
 
     private static String menuTransporteAgua = """
-            ================================================================================
-                                            TRANSPORTE DE AGUA
-            ================================================================================
-            CONSULTA ENTRE DOS CIUDADES:
-            [1] Caudal Pleno
-            [2] Camino Mas Corto ... Devuelve una lista con el camino mas corto entre A y B
-            [0] Salir
-            ================================================================================
+                    ================================================================================
+                                                    TRANSPORTE DE AGUA
+                    ================================================================================
+                    CONSULTA ENTRE DOS CIUDADES:
+                    [1] Caudal Pleno
+                    [2] Camino Mas Corto ... Devuelve una lista con el camino mas corto entre A y B
+                    [0] Salir
+                    ================================================================================
             """;
 
     private static String menuPedirDosCiudades = """
@@ -1379,6 +1426,8 @@ public class TransporteDeAgua {
                     GESTION:
                     [1] Habitantes y Volumen de Agua ... En un anio y mes determinado
                     [2] Nombres en Rango ... dado minNomb y maxNomb
+                    [3] Matriz Habitantes ... muestra el registro de habitantes
+                    [4] Matriz Consumo ... muestra el registro de consumo
                     [0] Salir ... Vuelve al menu principal
                     ================================================================================
             """;
@@ -1391,5 +1440,14 @@ public class TransporteDeAgua {
                     Ejemplo: Buenos Aires,Santiago,4000000,5000000,5,2016
                     ================================================================================
             """;
+    
+        private static String menuHabitantesConsumo = """
+            ================================================================================
+                                            CONSULTA CIUDAD
+            ================================================================================
+            Por favor Introduzca una ciudad
+            ================================================================================
+            """;
+
 
 }
