@@ -100,7 +100,7 @@ public class CargaArchivos {
                     aux = Integer.parseInt(arr[0]);
                     for (int i = 0; i < con[0].length; i++) {
                         if ((aux - añoInicial) >= 0 && (aux - añoInicial) < 12) {
-                            con[aux - añoInicial][i] = Float.parseFloat(arr[i + 1]) * 20; // 4080 es consumo promedio cada
+                            con[aux - añoInicial][i] = Float.parseFloat(arr[i + 1]) * 20; // 20 es consumo promedio cada
                                                                                         // 1 habitante
                         }
                     }
@@ -137,7 +137,6 @@ public class CargaArchivos {
                         DominioHash dom = new DominioHash(org.getNomenclatura(), des.getNomenclatura());
                         h.put(dom, temp);
                     }
-
                 }
             } while (linea != null);
         } catch (Exception e) {

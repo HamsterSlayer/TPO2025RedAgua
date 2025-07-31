@@ -315,8 +315,11 @@ public class MapaDigrafo {
             // itero sobre cada arco
             NodoAdy arcos = inicio.getPrimerAdy();
             while (arcos != null) {
-                resultado += arcos.getVertice().getElem();
+                resultado += arcos.getVertice().getElem().getNombre() +"("+arcos.getCaudalMaximo()+"), ";
+                arcos=arcos.getSigAdyacente();
             }
+            resultado+="\n";
+            inicio = inicio.getSigVertice();
         }
         return resultado;
     }
