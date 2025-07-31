@@ -272,6 +272,43 @@ public class MapaDigrafo {
         return resultado;
     }
 
+    /**
+     * Actualiza el caudalMaximo de una tuberia
+     * @param nomenclaturaOrigen
+     * @param nomenclaturaDestino 
+     */
+    public void actualizarEtiquetaTuberia(String nomenclaturaOrigen, String nomenclaturaDestino,float valorNuevo) {
+        NodoVert raiz = this.inicio;
+        boolean encontrado = false;
+        //Busco la ciudad de origen
+        while (raiz != null && !encontrado) {
+            if (raiz.getElem().getNomenclatura().equals(nomenclaturaOrigen)) {
+                //Actualizo la bandera
+                encontrado = true;
+            }
+            //Sigo iterando
+            raiz = raiz.getSigVertice();
+        }
+        //Si lo encuentro empiezo a buscar la ciudad de destino
+        if (encontrado) {
+            buscarNomenclaturaDestino(raiz,nomenclaturaDestino, valorNuevo);
+        }
+    }
+    
+    private void buscarNomenclaturaDestino(NodoVert origen,String nomenclaturaDestino, Float valorNuevo) {
+        NodoAdy nodo = origen.getPrimerAdy();
+        boolean encontrado = false;
+        //Busco la ciudad de destino
+        while (nodo != null && !encontrado) {
+            if (nodo.getVertice().getElem().getNomenclatura().equals(nomenclaturaDestino)) {
+                encontrado = true;
+                //Actualizo el caudal
+                nodo.setCaudalMaximo(valorNuevo);
+            }
+            nodo = nodo.getSigAdyacente();
+        }
+    }
+    //VACIO --------------------------------------------------------------------
     public boolean esVacio() {
         return this.inicio == null;
     }

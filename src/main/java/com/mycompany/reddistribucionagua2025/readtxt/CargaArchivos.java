@@ -130,7 +130,7 @@ public class CargaArchivos {
                     Ciudad org = m.obtenerCiudad(arr[0].trim());
                     Ciudad des = m.obtenerCiudad(arr[1].trim());
                     if (org != null && des != null) {
-                        Tuberias temp = new Tuberias("(" + org.getNomenclatura() + "-" + des.getNomenclatura() + ")",
+                        Tuberias temp = new Tuberias(org.getNomenclatura() + "-" + des.getNomenclatura(),
                                 Float.parseFloat(arr[2]), Float.parseFloat(arr[3]), Float.parseFloat(arr[4]),
                                 arr[5].trim());
                         m.insertarArco(org, des, Float.parseFloat(arr[2]));

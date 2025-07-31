@@ -20,7 +20,7 @@ import com.mycompany.reddistribucionagua2025.readtxt.*;
  */
 public class TransporteDeAgua {
     private static final String informacionCiudades = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\debugEjemploCiudades.txt";
-    private static final String informacionTuberias = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\debugEjemploTuberias(1).txt";
+    private static final String informacionTuberias = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\debugEjemploTuberias.txt";
     private static final String datosCiudades = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\datosCiudadesHabitantes";
     // Variables del Programa ----------------------------------
     // Estas variables se usarán para modificar y operar el programa
@@ -198,7 +198,7 @@ public class TransporteDeAgua {
             }
             log.log("Se modificó la informacion en la ciudad " + nombreCiudad, true);
         } else {
-            log.log("Se intentó modificar la ciudad " + nombreCiudad + ", pero no existía", false);
+            log.log("Se intentó modificar la ciudad " + nombreCiudad + ", pero no existia", false);
         }
     }
 
@@ -536,10 +536,13 @@ public class TransporteDeAgua {
 
             if (max < tuberia.getCaudalMinimo()) {
                 System.out.println("Ingrese un valor mayor o igual al caudal mínimo de la tuberia ("
-                        + tuberia.getCaudalMaximo() + ")");
+                        + tuberia.getCaudalMinimo() + ")");
             }
         } while (max <= 0 || max < tuberia.getCaudalMinimo());
         tuberia.setCaudalMaximo(max);
+        //Una vez actualizado el caudal, lo actualizo en el digrafo.
+        String[] nomenclatura = tuberia.getNomenclatura().split("-");
+        mapaCiudad.actualizarEtiquetaTuberia(nomenclatura[0], nomenclatura[1], max);
         actualizarUltimaAccion("Se modifico el caudalMaximo de " + tuberia.getNomenclatura());
         log.log("Se modificó el diametro de la tuberia " + tuberia.getNomenclatura() + ". " + maxAntiguo + ">>>" + max,
                 true);
@@ -1267,6 +1270,16 @@ public class TransporteDeAgua {
                   ================================================================================
             """;
 
+    //Testeo para menus mas lindos
+    private static String menuDinamico(String titulo, String descripcion) {
+        String resultado = String.format("""
+                            ================================================================================
+                                                            %s
+                            ================================================================================
+                            %s
+                           """,titulo,descripcion);
+        return resultado;
+    }
     private static String menuModificarTuberia = """
             ================================================================================
                                            MODIFICAR TUBERIA
@@ -1282,8 +1295,8 @@ public class TransporteDeAgua {
             ================================================================================
                                            MODIFICAR TUBERIA
             ================================================================================
-            [1] Modificar caudal mínimo
-            [2] Modificar caudal máximo
+            [1] Modificar caudal minimo
+            [2] Modificar caudal maximo
             [0] Salir
             ================================================================================
             """;
