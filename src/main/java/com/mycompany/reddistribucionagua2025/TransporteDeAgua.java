@@ -847,7 +847,7 @@ public class TransporteDeAgua {
                         formatoUsuario.sacarAcentos(aux[1].replace(" ", "").toLowerCase()));
                 int leng=auxL.longitud();
                 Ciudad ciuLista;
-                for(int i=0;i<leng;i++){
+                for(int i=1;i<=leng;i++){
                     ciuLista=((Ciudad)auxL.recuperar(i));
                     float vol = ciuLista.consumoMensual(mes,anio);
                     if(vol>volMin && vol<volMax){
@@ -1022,7 +1022,7 @@ public class TransporteDeAgua {
         ArbolAVL ciudadesConsumo = new ArbolAVL();
         Lista listado = tablaBusqueda.listar();
         int auxI=listado.longitud();
-        for (int i=0;i<auxI;i++){
+        for (int i=1;i<=auxI;i++){
             Ciudad ciu = (Ciudad) listado.recuperar(i);
             ciudadesConsumo.insertar(ciu, ciu.consumoAnual(anio));
         }
