@@ -845,7 +845,6 @@ public class TransporteDeAgua {
                 Lista auxL = tablaBusqueda.listarRango(
                         formatoUsuario.sacarAcentos(aux[0].replace(" ", "").toLowerCase()),
                         formatoUsuario.sacarAcentos(aux[1].replace(" ", "").toLowerCase()));
-                Lista listaConsumo = new Lista();
                 int leng=auxL.longitud();
                 Ciudad ciuLista;
                 for(int i=0;i<leng;i++){
