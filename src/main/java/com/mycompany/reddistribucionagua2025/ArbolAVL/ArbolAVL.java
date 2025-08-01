@@ -443,16 +443,16 @@ public class ArbolAVL {
         return listado;
     }
     
-    private String toStringInOrderAux(NodoAVL n, int anio, int[] contador){
+    private String toStringInOrderAux(NodoAVL n, int[] contador){
         String texto="";
         
         if(n.getDerecho()!=null){
-            texto+=toStringInOrderAux(n.getDerecho(), anio, contador);
+            texto+=toStringInOrderAux(n.getDerecho(), contador);
         }
-        texto+= contador[0] + "." + n.getClave() + "\n";
+        texto+= contador[0] + "." + n.getElem().toString() + "\n";
         contador[0]++;
         if(n.getIzquierdo()!=null){
-            texto+=toStringInOrderAux(n.getIzquierdo(), anio, contador);
+            texto+=toStringInOrderAux(n.getIzquierdo(), contador);
         }
         
         
@@ -463,7 +463,7 @@ public class ArbolAVL {
         String texto;
         int[] contador = {1};
         if(!this.esVacio()){
-            texto=toStringInOrderAux(this.raiz, anio, contador);
+            texto=toStringInOrderAux(this.raiz, contador);
         }else{
             texto="";
         }
