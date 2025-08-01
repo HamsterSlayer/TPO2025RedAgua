@@ -394,7 +394,7 @@ public class TransporteDeAgua {
         // Verifico las condiciones para la tuberia
         if (origen != null && destino != null && !existeEnHash) {
             // Creo la tuberia
-            Tuberias tuberiaNueva = new Tuberias(origen.getNomenclatura() + "-" + destino.getNomenclatura(),
+            Tuberias tuberiaNueva = new Tuberias(origen.getNomenclatura(), destino.getNomenclatura(),
                     Float.parseFloat(datos[2]), Float.parseFloat(datos[3]), Float.parseFloat(datos[4]), datos[5]);
             // Lo meto en el hash
             mapeoTuberias.put(keyTuberia, tuberiaNueva);
@@ -515,8 +515,9 @@ public class TransporteDeAgua {
             }
         } while (min <= 0 || min > tuberia.getCaudalMaximo());
         tuberia.setCaudalMinimo(min);
-        actualizarUltimaAccion("Se modifico el caudalMinimo de " + tuberia.getNomenclatura());
-        log.log("Se modificó el diametro de la tuberia " + tuberia.getNomenclatura() + ". " + minAntiguo + ">>>" + min,
+        actualizarUltimaAccion("Se modifico el caudalMinimo de " + tuberia.getAmbasNomenclaturas());
+        log.log("Se modificó el diametro de la tuberia " + tuberia.getAmbasNomenclaturas() + ". " + minAntiguo + ">>>"
+                + min,
                 true);
 
     }
@@ -539,10 +540,12 @@ public class TransporteDeAgua {
         } while (max <= 0 || max < tuberia.getCaudalMinimo());
         tuberia.setCaudalMaximo(max);
         // Una vez actualizado el caudal, lo actualizo en el digrafo.
-        String[] nomenclatura = tuberia.getNomenclatura().split("-");
-        mapaCiudad.actualizarEtiquetaTuberia(nomenclatura[0], nomenclatura[1], max);
-        actualizarUltimaAccion("Se modifico el caudalMaximo de " + tuberia.getNomenclatura());
-        log.log("Se modificó el diametro de la tuberia " + tuberia.getNomenclatura() + ". " + maxAntiguo + ">>>" + max,
+        String nomenclatura1 = tuberia.getNomenclatura1();
+        String nomenclatura2 = tuberia.getNomenclatura2();
+        mapaCiudad.actualizarEtiquetaTuberia(nomenclatura1, nomenclatura2, max);
+        actualizarUltimaAccion("Se modifico el caudalMaximo de " + tuberia.getAmbasNomenclaturas());
+        log.log("Se modificó el diametro de la tuberia " + tuberia.getAmbasNomenclaturas() + ". " + maxAntiguo + ">>>"
+                + max,
                 true);
 
     }
@@ -568,7 +571,8 @@ public class TransporteDeAgua {
                 break;
         }
         if (cambio) {
-            actualizarUltimaAccion("Se cambio el estado de " + tuberia.getNomenclatura() + " a " + tuberia.getEstado());
+            actualizarUltimaAccion(
+                    "Se cambio el estado de " + tuberia.getAmbasNomenclaturas() + " a " + tuberia.getEstado());
         }
 
     }
@@ -585,8 +589,8 @@ public class TransporteDeAgua {
             }
         } while (diam <= 0);
         tuberia.setDiametro(diam);
-        actualizarUltimaAccion("Se cambio el diametro de " + tuberia.getNomenclatura() + " a " + diam);
-        log.log("Se modificó el diametro de la tuberia " + tuberia.getNomenclatura() + ". " + diamAntiguo + ">>>"
+        actualizarUltimaAccion("Se cambio el diametro de " + tuberia.getAmbasNomenclaturas() + " a " + diam);
+        log.log("Se modificó el diametro de la tuberia " + tuberia.getAmbasNomenclaturas() + ". " + diamAntiguo + ">>>"
                 + diam, true);
 
     }

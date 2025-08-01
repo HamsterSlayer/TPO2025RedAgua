@@ -23,20 +23,22 @@ public class Tuberias {
     // -----------------------------------------------
 
     // Variables ---------------------------------------------------------------
-    private String nomenclatura;
+    private String nomenclatura1;
+    private String nomenclatura2;
     private float caudalMaximo;
     private float caudalMinimo;
     private float diametro;
     private EstadoTuberia estado;
     // --------------------------------------------------------------------------
 
-    public Tuberias(String nomenc, float cMaximo, float cMinimo, float dim, String elEstado) {
-        nomenclatura = nomenc;
+    public Tuberias(String nomenc, String nomenc2, float cMaximo, float cMinimo, float dim, String elEstado) {
+        nomenclatura1 = nomenc;
+        nomenclatura2 = nomenc2;
         caudalMaximo = cMaximo;
         caudalMinimo = cMinimo;
         diametro = dim;
         aEnum(elEstado);
-    }    
+    }
 
     public boolean validarEstado(String estadoIntroducido) {
         boolean resultado;
@@ -59,16 +61,24 @@ public class Tuberias {
         estadoIntroducido = formatoEnum(estadoIntroducido);
         this.estado = EstadoTuberia.valueOf(estadoIntroducido);
     }
-    
+
     private String formatoEnum(String texto) {
-        String resultado = texto.trim().replace(" ","_");
+        String resultado = texto.trim().replace(" ", "_");
         resultado = formatoUsuario.sacarAcentos(resultado.toLowerCase());
         resultado = resultado.toUpperCase();
         return resultado;
     }
 
-    public String getNomenclatura() {
-        return nomenclatura;
+    public String getNomenclatura1() {
+        return nomenclatura1;
+    }
+
+    public String getNomenclatura2() {
+        return nomenclatura2;
+    }
+
+    public String getAmbasNomenclaturas() {
+        return nomenclatura1 + "-" + nomenclatura2;
     }
 
     public float getCaudalMaximo() {
@@ -110,7 +120,7 @@ public class Tuberias {
 
     public String toString() {
         String resultado = String.format("Tuberia: %s, caudalMax: %f - caudalMin %f; diametro: %f. ESTADO: %s",
-                nomenclatura, caudalMaximo, caudalMinimo, diametro, estado.toString());
+                nomenclatura1 + "-" + nomenclatura2, caudalMaximo, caudalMinimo, diametro, estado.toString());
         return resultado;
     }
 }
