@@ -100,7 +100,7 @@ public class CargaArchivos {
                     aux = Integer.parseInt(arr[0]);
                     for (int i = 0; i < con[0].length; i++) {
                         if ((aux - añoInicial) >= 0 && (aux - añoInicial) < 12) {
-                            con[aux - añoInicial][i] = Float.parseFloat(arr[i + 1]) * 20; // 4080 es consumo promedio cada
+                            con[aux - añoInicial][i] = Float.parseFloat(arr[i + 1]) * 20; // 20 es consumo promedio cada
                                                                                         // 1 habitante
                         }
                     }
@@ -130,14 +130,13 @@ public class CargaArchivos {
                     Ciudad org = m.obtenerCiudad(arr[0].trim());
                     Ciudad des = m.obtenerCiudad(arr[1].trim());
                     if (org != null && des != null) {
-                        Tuberias temp = new Tuberias("(" + org.getNomenclatura() + "-" + des.getNomenclatura() + ")",
+                        Tuberias temp = new Tuberias(org.getNomenclatura() + "-" + des.getNomenclatura(),
                                 Float.parseFloat(arr[2]), Float.parseFloat(arr[3]), Float.parseFloat(arr[4]),
                                 arr[5].trim());
                         m.insertarArco(org, des, Float.parseFloat(arr[2]));
                         DominioHash dom = new DominioHash(org.getNomenclatura(), des.getNomenclatura());
                         h.put(dom, temp);
                     }
-
                 }
             } while (linea != null);
         } catch (Exception e) {
