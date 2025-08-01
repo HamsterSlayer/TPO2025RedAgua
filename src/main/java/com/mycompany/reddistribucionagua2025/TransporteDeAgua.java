@@ -828,6 +828,7 @@ public class TransporteDeAgua {
         System.out.println(menuCiudadesEnRango);
         System.out.print("Introduzca los datos: ");
         String[] aux = (in.nextLine()).split(",");
+        String textoResultado="";
         // Posiciones: ciudad1,ciudad2,vol,vol2,mes,año
         // Asigno cada posicion a una variable mas legible
         int volMax = Math.max(Integer.parseInt(aux[2]), Integer.parseInt(aux[3]));
@@ -841,10 +842,19 @@ public class TransporteDeAgua {
             // Verifico fecha
             if (verificarFecha(mes, anio)) {
                 // Listo por rango
-                Lista listaConsumo = tablaBusqueda.listarRangoConsumo(
+                Lista auxL = tablaBusqueda.listarRango(
                         formatoUsuario.sacarAcentos(aux[0].replace(" ", "").toLowerCase()),
-                        formatoUsuario.sacarAcentos(aux[1].replace(" ", "").toLowerCase()), volMin, volMax, mes, anio);
-                confirmarParaContinuar(formato(listaConsumo.toString()));
+                        formatoUsuario.sacarAcentos(aux[1].replace(" ", "").toLowerCase()));
+                int leng=auxL.longitud();
+                Ciudad ciuLista;
+                for(int i=1;i<=leng;i++){
+                    ciuLista=((Ciudad)auxL.recuperar(i));
+                    float vol = ciuLista.consumoMensual(mes,anio);
+                    if(vol>volMin && vol<volMax){
+                        textoResultado+=ciuLista.getNombre()+", ";
+                    }
+                }
+                confirmarParaContinuar(formato(textoResultado));
                 actualizarUltimaAccion("Se listo las ciudades en rango");
                 log.agregarLinea("Se mostro las ciudades en rango entre nombres:" + aux[0] + " y " + aux[1]
                         + ", con rango de vol entre: " + aux[2] + " y " + aux[3] + " en mes:" + aux[4] + " y año "
@@ -1007,18 +1017,24 @@ public class TransporteDeAgua {
 
     private static void listadoPorConsumoEnAnio() {
         System.out.print("Indique un anio: ");
-        int aux = in.nextInt();
+        int anio = in.nextInt();
         in.nextLine(); // limpia buffer
-        ArbolAVL ciudades = tablaBusqueda.crearArbolConsumo(aux);
+        ArbolAVL ciudadesConsumo = new ArbolAVL();
+        Lista listado = tablaBusqueda.listar();
+        int auxI=listado.longitud();
+        for (int i=1;i<=auxI;i++){
+            Ciudad ciu = (Ciudad) listado.recuperar(i);
+            ciudadesConsumo.insertar(ciu, ciu.consumoAnual(anio));
+        }
         limpiarPantalla();
         // Contenido
         System.out.println(separador());
-        System.out.println("RANKING CONSUMO ANUAL (" + aux + ")");
-        System.out.println(ciudades.toStringInOrder(aux));
+        System.out.println("RANKING CONSUMO ANUAL (" + anio + ")");
+        System.out.println(ciudadesConsumo.toStringInOrder(anio));
         System.out.println(separador());
         in.nextLine(); // Confirmar antes de continuar
 
-        log.agregarLinea("Se mostro ciudades ordenadas por consumo en el año " + aux);
+        log.agregarLinea("Se mostro ciudades ordenadas por consumo en el año " + anio);
     }
 
     // --------------------------------------------------------------------------
