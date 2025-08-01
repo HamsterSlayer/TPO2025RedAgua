@@ -1017,18 +1017,24 @@ public class TransporteDeAgua {
 
     private static void listadoPorConsumoEnAnio() {
         System.out.print("Indique un anio: ");
-        int aux = in.nextInt();
+        int anio = in.nextInt();
         in.nextLine(); // limpia buffer
-        ArbolAVL ciudades = tablaBusqueda.crearArbolConsumo(aux);
+        ArbolAVL ciudadesConsumo = new ArbolAVL();
+        Lista listado = tablaBusqueda.listar();
+        int auxI=listado.longitud();
+        for (int i=0;i<auxI;i++){
+            Ciudad ciu = (Ciudad) listado.recuperar(i);
+            ciudadesConsumo.insertar(ciu, ciu.consumoAnual(anio));
+        }
         limpiarPantalla();
         // Contenido
         System.out.println(separador());
-        System.out.println("RANKING CONSUMO ANUAL (" + aux + ")");
-        System.out.println(ciudades.toStringInOrder(aux));
+        System.out.println("RANKING CONSUMO ANUAL (" + anio + ")");
+        System.out.println(ciudadesConsumo.toStringInOrder(anio));
         System.out.println(separador());
         in.nextLine(); // Confirmar antes de continuar
 
-        log.agregarLinea("Se mostro ciudades ordenadas por consumo en el año " + aux);
+        log.agregarLinea("Se mostro ciudades ordenadas por consumo en el año " + anio);
     }
 
     // --------------------------------------------------------------------------
