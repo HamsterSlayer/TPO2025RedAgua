@@ -259,5 +259,12 @@ public class Ciudad {
         }
         return devuelto;
     }
+    
+    @Override
+    public boolean equals(Object otroObjeto) {
+        //Fuerzo Casteo Ciudad.
+        Ciudad casteo = (Ciudad) otroObjeto;
+        return this.getNomenclatura().equals(casteo.nomenclatura);
+    }
 
 }
