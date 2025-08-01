@@ -214,8 +214,8 @@ public class Ciudad {
         return año - añoInicial;
     }
 
-    public boolean equals(Ciudad otraCiudad) {
-        return (this.nomenclatura).equals(otraCiudad.nomenclatura);
+    public boolean equals(Object otraCiudad) {
+        return (this.nomenclatura).equals(((Ciudad) otraCiudad).getNomenclatura());
     }
 
     public String toString() {

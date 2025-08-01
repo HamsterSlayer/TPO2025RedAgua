@@ -163,7 +163,7 @@ public class TransporteDeAgua {
 
         // Lo elimino de la tabla de busqueda
         if (tablaBusqueda.eliminar(nombreCiudad)) {
-            Ciudad ciudadBuscada = mapaCiudad.obtenerCiudad(nombreCiudad);
+            Ciudad ciudadBuscada = (Ciudad) mapaCiudad.obtenerElem(new Ciudad(nombreCiudad));
             // Lo elimino del digrafo
             log.log("Se mando a eliminar la ciudad: " + nombreCiudad,
                     mapaCiudad.eliminarVertice(ciudadBuscada) || tablaBusqueda.eliminar(nombreCiudad)); // Logeo
@@ -183,7 +183,7 @@ public class TransporteDeAgua {
         System.out.println(formato("\t\t\t\t\tMODIFICAR CIUDAD"));
         System.out.print("Por favor introduzca la ciudad que se modificara: ");
         String nombreCiudad = formatoUsuario.sacarAcentos(in.nextLine().replace(" ", "").toLowerCase());
-        laCiudad = mapaCiudad.obtenerCiudad(nombreCiudad);
+        laCiudad = (Ciudad) mapaCiudad.obtenerElem(new Ciudad(nombreCiudad));
         if (laCiudad != null) {
             while (!exit) {
                 // Obtengo datos de la ciudad para que sea mas facil de leer el menu
@@ -398,8 +398,8 @@ public class TransporteDeAgua {
         String datosSinFormato = in.nextLine();
         String[] datos = datosSinFormato.split(",");
         // ---
-        Ciudad origen = mapaCiudad.obtenerCiudad(datos[0]);
-        Ciudad destino = mapaCiudad.obtenerCiudad(datos[1]);
+        Ciudad origen = (Ciudad) mapaCiudad.obtenerElem(new Ciudad(datos[0]));
+        Ciudad destino = (Ciudad) mapaCiudad.obtenerElem(new Ciudad(datos[1]));
         DominioHash keyTuberia = new DominioHash(origen.getNomenclatura(), destino.getNomenclatura());
         boolean existeEnHash = mapeoTuberias.containsKey(keyTuberia);
 
@@ -432,8 +432,8 @@ public class TransporteDeAgua {
         String[] ciudades = datosSinFormato.split(",");
         // --
         // Obtengo las dos ciudades
-        Ciudad origen = mapaCiudad.obtenerCiudad(ciudades[0]);
-        Ciudad destino = mapaCiudad.obtenerCiudad(ciudades[1]);
+        Ciudad origen = (Ciudad) mapaCiudad.obtenerElem(new Ciudad(ciudades[0]));
+        Ciudad destino = (Ciudad) mapaCiudad.obtenerElem(new Ciudad(ciudades[1]));
         System.out.println(origen + " <Origen Destino> " + destino);
         if (origen != null && destino != null) {
             // Si ambas existen procedo a eliminar las tuberias
@@ -465,8 +465,8 @@ public class TransporteDeAgua {
         String[] ciudades = datosSinFormato.split(",");
         // --
         // Obtengo las dos ciudades
-        Ciudad origen = mapaCiudad.obtenerCiudad(ciudades[0]);
-        Ciudad destino = mapaCiudad.obtenerCiudad(ciudades[1]);
+        Ciudad origen = (Ciudad) mapaCiudad.obtenerElem(new Ciudad(ciudades[0]));
+        Ciudad destino = (Ciudad) mapaCiudad.obtenerElem(new Ciudad(ciudades[1]));
         if (origen != null && destino != null) {
             // Si ambas existen procedo a eliminar las tuberias
             DominioHash llave = new DominioHash(origen.getNomenclatura(), destino.getNomenclatura());
@@ -645,7 +645,7 @@ public class TransporteDeAgua {
         System.out.println(menuPais);
         System.out.print("Por favor introduzca el nombre de un pais: ");
         String ciudadSinEncontrar = in.nextLine();
-        Ciudad ciudad = mapaCiudad.obtenerCiudad(ciudadSinEncontrar);
+        Ciudad ciudad = (Ciudad) mapaCiudad.obtenerElem(new Ciudad(ciudadSinEncontrar));
         if (ciudad != null) {
             limpiarPantalla();
             // Tomo datos año ------
@@ -696,7 +696,7 @@ public class TransporteDeAgua {
         System.out.println(menuPais);
         System.out.print("Por favor introduzca el nombre de un pais: ");
         String ciudadSinEncontrar = in.nextLine();
-        Ciudad ciudad = mapaCiudad.obtenerCiudad(ciudadSinEncontrar);
+        Ciudad ciudad = (Ciudad) mapaCiudad.obtenerElem(new Ciudad(ciudadSinEncontrar));
         if (ciudad != null) {
             limpiarPantalla();
             // Tomo datos año ------
@@ -812,7 +812,7 @@ public class TransporteDeAgua {
         Ciudad ciudadDevuelta;
         System.out.println(formato("\tPor favor introduzca una ciudad"));
         String paisIntroducido = in.nextLine();
-        ciudadDevuelta = mapaCiudad.obtenerCiudad(paisIntroducido);
+        ciudadDevuelta = (Ciudad) mapaCiudad.obtenerElem(new Ciudad(paisIntroducido));
         return ciudadDevuelta;
     }
 
@@ -831,13 +831,13 @@ public class TransporteDeAgua {
         System.out.println(menuCiudadesEnRango);
         System.out.print("Introduzca los datos: ");
         String[] aux = (in.nextLine()).split(",");
-        String textoResultado="";
+        String textoResultado = "";
         // Posiciones: ciudad1,ciudad2,vol,vol2,mes,año
         // Asigno cada posicion a una variable mas legible
         int volMax = Math.max(Integer.parseInt(aux[2]), Integer.parseInt(aux[3]));
         int volMin = Math.min(Integer.parseInt(aux[2]), Integer.parseInt(aux[3]));
-        Ciudad ciudadMin = mapaCiudad.obtenerCiudad(aux[0]);
-        Ciudad ciudadMax = mapaCiudad.obtenerCiudad(aux[1]);
+        Ciudad ciudadMin = (Ciudad) mapaCiudad.obtenerElem(new Ciudad(aux[0]));
+        Ciudad ciudadMax = (Ciudad) mapaCiudad.obtenerElem(new Ciudad(aux[1]));
         // Verifico ciudades
         if (ciudadMin != null && ciudadMax != null) {
             int mes = Integer.parseInt(aux[4]) - 1;
@@ -848,13 +848,13 @@ public class TransporteDeAgua {
                 Lista auxL = tablaBusqueda.listarRango(
                         formatoUsuario.sacarAcentos(aux[0].replace(" ", "").toLowerCase()),
                         formatoUsuario.sacarAcentos(aux[1].replace(" ", "").toLowerCase()));
-                int leng=auxL.longitud();
+                int leng = auxL.longitud();
                 Ciudad ciuLista;
-                for(int i=1;i<=leng;i++){
-                    ciuLista=((Ciudad)auxL.recuperar(i));
-                    float vol = ciuLista.consumoMensual(mes,anio);
-                    if(vol>volMin && vol<volMax){
-                        textoResultado+=ciuLista.getNombre()+", ";
+                for (int i = 1; i <= leng; i++) {
+                    ciuLista = ((Ciudad) auxL.recuperar(i));
+                    float vol = ciuLista.consumoMensual(mes, anio);
+                    if (vol > volMin && vol < volMax) {
+                        textoResultado += ciuLista.getNombre() + ", ";
                     }
                 }
                 confirmarParaContinuar(formato(textoResultado));
@@ -972,7 +972,7 @@ public class TransporteDeAgua {
 
     // subOpcion1
     private static void caudalPleno(String ciudadA, String ciudadB) {
-        Lista caudalPleno = mapaCiudad.caudalPleno(ciudadA, ciudadB);
+        Lista caudalPleno = mapaCiudad.dijkstra(ciudadA, ciudadB);
         if (!caudalPleno.esVacia()) {
             System.out.println("El camino entre " + ciudadA + " y " + ciudadB + " con menor caudal pleno es ");
             System.out.println(toNombres(caudalPleno));
@@ -1024,8 +1024,8 @@ public class TransporteDeAgua {
         in.nextLine(); // limpia buffer
         ArbolAVL ciudadesConsumo = new ArbolAVL();
         Lista listado = tablaBusqueda.listar();
-        int auxI=listado.longitud();
-        for (int i=1;i<=auxI;i++){
+        int auxI = listado.longitud();
+        for (int i = 1; i <= auxI; i++) {
             Ciudad ciu = (Ciudad) listado.recuperar(i);
             ciudadesConsumo.insertar(ciu, ciu.consumoAnual(anio));
         }
