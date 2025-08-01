@@ -6,7 +6,7 @@ import com.mycompany.reddistribucionagua2025.digrafo.Ciudad;
 import com.mycompany.reddistribucionagua2025.readtxt.formatoUsuario;
 import com.mycompany.reddistribucionagua2025.Lista.Lista;
 import com.mycompany.reddistribucionagua2025.ArbolAVL.ArbolAVL;
-import com.mycompany.reddistribucionagua2025.Digrafo.MapaDigrafo;
+import com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo;
 
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -186,10 +186,11 @@ public class TransporteDeAgua {
         laCiudad = mapaCiudad.obtenerCiudad(nombreCiudad);
         if (laCiudad != null) {
             while (!exit) {
-                //Obtengo datos de la ciudad para que sea mas facil de leer el menu
+                // Obtengo datos de la ciudad para que sea mas facil de leer el menu
                 String infoCiudad = String.format("Ciudad Seleccionada: %s", laCiudad.getNombre().toUpperCase());
-                //int opcion = crearMenu(menuModificarCiudad, 2);
-                int opcion = crearMenu(menuDinamico("MODIFICAR CIUDAD",infoCiudad + "\n" + opcionesMenuModificarCiudad),2);
+                // int opcion = crearMenu(menuModificarCiudad, 2);
+                int opcion = crearMenu(
+                        menuDinamico("MODIFICAR CIUDAD", infoCiudad + "\n" + opcionesMenuModificarCiudad), 2);
                 switch (opcion) {
                     case 1:
                         modificarDatosHabitantes(laCiudad, infoCiudad);
@@ -214,7 +215,8 @@ public class TransporteDeAgua {
     private static void modificarDatosHabitantes(Ciudad laCiudad, String infoCiudad) {
         boolean exit = false;
         while (!exit) {
-            int opcion = crearMenu(menuDinamico("MODIFICAR DATOS DE HABITANTES", infoCiudad + "\n" + opcionesModificarHabitantes), 2);
+            int opcion = crearMenu(
+                    menuDinamico("MODIFICAR DATOS DE HABITANTES", infoCiudad + "\n" + opcionesModificarHabitantes), 2);
             switch (opcion) {
                 case 1:
                     ingresarUnAnio(laCiudad);
@@ -283,11 +285,12 @@ public class TransporteDeAgua {
         }
     }
 
-    private static void modificarDatosConsumo(Ciudad laCiudad,String infoCiudad) {
+    private static void modificarDatosConsumo(Ciudad laCiudad, String infoCiudad) {
         boolean exit = false;
 
         while (!exit) {
-            int opcion = crearMenu(menuDinamico("MODIFICAR DATOS DE CONSUMO", infoCiudad + "\n" + opcionesModificarConsumo), 2);
+            int opcion = crearMenu(
+                    menuDinamico("MODIFICAR DATOS DE CONSUMO", infoCiudad + "\n" + opcionesModificarConsumo), 2);
             switch (opcion) {
                 case 1:
                     modificarConsumoAnio(laCiudad);
@@ -1261,21 +1264,20 @@ public class TransporteDeAgua {
                 [0] Salir
                 ================================================================================
             """;
-    
-    private static String opcionesMenuModificarCiudad = """
-                                                            [1] Modificar datos de habitantes ... se cambiara el numero de habitantes
-                                                            [2] Modificar datos de consumo... se cambiara la cantidad de consumo
-                                                            [0] Salir
-                                                        """;
 
-    private static String opcionesModificarHabitantes ="""
+    private static String opcionesMenuModificarCiudad = """
+                [1] Modificar datos de habitantes ... se cambiara el numero de habitantes
+                [2] Modificar datos de consumo... se cambiara la cantidad de consumo
+                [0] Salir
+            """;
+
+    private static String opcionesModificarHabitantes = """
                 [1] Ingresar informacion de un anio
                 [2] Ingresar informacion de un anio y mes especifico
                 [0] Salir
             """;
 
-    private static String opcionesModificarConsumo =
-            """
+    private static String opcionesModificarConsumo = """
                 [1] Ingresar informacion de un anio
                 [2] Ingresar informacion de un anio y mes especifico
                 [0] Salir
@@ -1296,12 +1298,12 @@ public class TransporteDeAgua {
     // Testeo para menus mas lindos
     private static String menuDinamico(String titulo, String descripcion) {
         String resultado = String.format("""
-                                ================================================================================
-                                                            %s
-                                ================================================================================
-                                %s
-                                ================================================================================                           
-                           """,titulo,descripcion);
+                     ================================================================================
+                                                 %s
+                     ================================================================================
+                     %s
+                     ================================================================================
+                """, titulo, descripcion);
         return resultado;
     }
 

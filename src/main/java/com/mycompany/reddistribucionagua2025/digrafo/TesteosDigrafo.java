@@ -1,4 +1,4 @@
-package com.mycompany.reddistribucionagua2025.Digrafo;
+package com.mycompany.reddistribucionagua2025.digrafo;
 
 import com.mycompany.reddistribucionagua2025.digrafo.Ciudad;
 import com.mycompany.reddistribucionagua2025.Lista.Lista;
@@ -68,8 +68,8 @@ public class TesteosDigrafo {
         mapa.insertarArco(ciudad1, ciudad7, 1);
         mapa.insertarArco(ciudad7, ciudad8, 1);
         mapa.insertarArco(ciudad8, ciudad6, 1);
-        Lista caudalPleno = mapa.caudalPleno("Nueva York", "Londres");
-        Lista masCorto = mapa.caminoMasCorto("Nueva York", "Londres");
+        Lista caudalPleno = mapa.dijkstra(new Ciudad("Nueva York"), new Ciudad("Londres"));
+        Lista masCorto = mapa.caminoMasCorto(new Ciudad("Nueva York"), new Ciudad("Londres"));
         System.out.println("Caudal Pleno: " + toNombres(caudalPleno));
         System.out.println("Camino más corto: " + toNombres(masCorto));
     }

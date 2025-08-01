@@ -8,7 +8,7 @@ import com.mycompany.reddistribucionagua2025.ArbolAVL.ArbolAVL;
 import com.mycompany.reddistribucionagua2025.digrafo.Ciudad;
 import com.mycompany.reddistribucionagua2025.Hash.DominioHash;
 import com.mycompany.reddistribucionagua2025.Hash.Tuberias;
-import com.mycompany.reddistribucionagua2025.Digrafo.MapaDigrafo;
+import com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo;
 import java.util.HashMap;
 
 public class CargaArchivos {
@@ -128,8 +128,8 @@ public class CargaArchivos {
                 linea = bufferLectura.readLine();
                 if (linea != null) {
                     arr = linea.split(",");
-                    Ciudad org = m.obtenerCiudad(arr[0].trim());
-                    Ciudad des = m.obtenerCiudad(arr[1].trim());
+                    Ciudad org = (Ciudad) m.obtenerElem(new Ciudad(arr[0].trim()));
+                    Ciudad des = (Ciudad) m.obtenerElem(new Ciudad(arr[1].trim()));
                     if (org != null && des != null) {
                         Tuberias temp = new Tuberias(org.getNomenclatura(), des.getNomenclatura(),
                                 Float.parseFloat(arr[2]), Float.parseFloat(arr[3]), Float.parseFloat(arr[4]),

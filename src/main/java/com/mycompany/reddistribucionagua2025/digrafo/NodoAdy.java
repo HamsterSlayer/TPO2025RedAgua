@@ -1,19 +1,18 @@
-package com.mycompany.reddistribucionagua2025.Digrafo;
+package com.mycompany.reddistribucionagua2025.digrafo;
 
 public class NodoAdy {
-    //Atributos --------------------------------------------------------
+    // Atributos --------------------------------------------------------
     private NodoVert vertice;
     private NodoAdy sigAdyacente;
-    private float caudalMaximo;
-    
-    
-    //Metodos --------------------------------------------------------
-    public NodoAdy(NodoVert vertice, float caudalMaximo) {
+    private float etiqueta;
+
+    // Metodos --------------------------------------------------------
+    public NodoAdy(NodoVert vertice, float laEtiqueta) {
         this.vertice = vertice;
-        this.caudalMaximo = caudalMaximo;
+        this.etiqueta = laEtiqueta;
     }
 
-    //Vertice
+    // Vertice
     public NodoVert getVertice() {
         return vertice;
     }
@@ -22,7 +21,7 @@ public class NodoAdy {
         this.vertice = vertice;
     }
 
-    //sigAdyacente
+    // sigAdyacente
     public NodoAdy getSigAdyacente() {
         return sigAdyacente;
     }
@@ -30,14 +29,14 @@ public class NodoAdy {
     public void setSigAdyacente(NodoAdy sigAdyacente) {
         this.sigAdyacente = sigAdyacente;
     }
-    
-    //Caudal
-    public float getCaudalMaximo() {
-        return caudalMaximo;
+
+    // Caudal
+    public float getEtiqueta() {
+        return etiqueta;
     }
 
-    public void setCaudalMaximo(float caudalMaximo) {
-        this.caudalMaximo = caudalMaximo;
+    public void setCaudalMaximo(float laEtiqueta) {
+        this.etiqueta = laEtiqueta;
     }
-    
+
 }

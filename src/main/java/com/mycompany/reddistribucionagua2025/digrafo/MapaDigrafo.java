@@ -1,4 +1,4 @@
-package com.mycompany.reddistribucionagua2025.Digrafo;
+package com.mycompany.reddistribucionagua2025.digrafo;
 
 import java.util.HashMap;
 
@@ -28,13 +28,13 @@ public class MapaDigrafo {
     }
 
     // Vertices ---------------------------------------------------------
-    public boolean insertarVertice(Ciudad ciudadNueva) {
+    public boolean insertarVertice(Object elemNuevo) {
         boolean resultado = true;
 
         if (this.esVacio()) {
             // Si está vacío simplemente creo un nuevo nodo en inicio
-            this.inicio = new NodoVert(ciudadNueva);
-        } else if (this.inicio.getElem().equals(ciudadNueva)) {
+            this.inicio = new NodoVert(elemNuevo);
+        } else if (this.inicio.getElem().equals(elemNuevo)) {
             // Si el primer elemento es igual al insertado
             resultado = false;
         } else {
@@ -46,7 +46,7 @@ public class MapaDigrafo {
             // En un solo recorrido voy al último Nodo y a la vez verifico que no esté
             // repetido
             while (!repetido && cursor.getSigVertice() != null) {
-                if (cursor.getSigVertice().getElem().equals(ciudadNueva)) {
+                if (cursor.getSigVertice().getElem().equals(elemNuevo)) {
                     resultado = false;
                     repetido = true;
                 } else {
@@ -57,14 +57,14 @@ public class MapaDigrafo {
 
             if (!repetido) {
                 // Si no hay ninguno repetido creo el nodo y lo seteo como parte del digrafo
-                NodoVert nuevo = new NodoVert(ciudadNueva);
+                NodoVert nuevo = new NodoVert(elemNuevo);
                 cursor.setSigVertice(nuevo);
             }
         }
         return resultado;
     }
 
-    public boolean eliminarVertice(Ciudad ciudadVieja) {
+    public boolean eliminarVertice(Object elem) {
         boolean resultado = true;
         boolean nodoEliminado = false;
         // COMPROBACIÓN VACÍO
@@ -75,28 +75,28 @@ public class MapaDigrafo {
         // ELIMINACIÓN
         else {
             // Se debe de tratar el primer caso de forma especial.
-            if (inicio.getElem().equals(ciudadVieja)) {
+            if (inicio.getElem().equals(elem)) {
                 // Caso especial: el primer vertice es el que se debe eliminar.
                 inicio = inicio.getSigVertice();
                 nodoEliminado = true;
             } else {
                 // Sino simplemente se verifica que no tenga arcos con la ciudad.
-                eliminarArcoAux(inicio, ciudadVieja); // Uso un metodo auxiliar usado en la eliminacion de arcos
+                eliminarArcoAux(inicio, elem); // Uso un metodo auxiliar usado en la eliminacion de arcos
             }
             // ---
 
             // Siempre se tendrá que recorrer todo el grafo para eliminar los arcos
             NodoVert cursor = inicio;
             while (cursor.getSigVertice() != null) {
-                if (!nodoEliminado && cursor.getSigVertice().getElem().equals(ciudadVieja)) {
+                if (!nodoEliminado && cursor.getSigVertice().getElem().equals(elem)) {
                     nodoEliminado = true; // Se encontró la ciudad
                     // Caso generico: el vertice está entre otros dos
                     NodoVert buscado = cursor.getSigVertice();
                     cursor.setSigVertice(buscado.getSigVertice());
                 } else {
                     // Si no es el nodo entonces elimino cualquier arco hacia la ciudad.
-                    eliminarArcoAux(cursor.getSigVertice(), ciudadVieja); // Uso un metodo auxiliar usado en la
-                                                                          // eliminacion de arcos
+                    eliminarArcoAux(cursor.getSigVertice(), elem); // Uso un metodo auxiliar usado en la
+                                                                   // eliminacion de arcos
                     cursor = cursor.getSigVertice();
                 }
             }
@@ -105,12 +105,12 @@ public class MapaDigrafo {
         return resultado;
     }
 
-    public boolean existeVertice(Ciudad ciudadExistente) {
+    public boolean existeVertice(Object elem) {
         boolean existe = false;
         NodoVert cursor = this.inicio;
         // El recorrido es N sí o sí en el peor de los casos.
         while (cursor != null && !existe) {
-            if (cursor.getElem().equals(ciudadExistente)) {
+            if (cursor.getElem().equals(elem)) {
                 existe = true;
             }
             cursor = cursor.getSigVertice();
@@ -118,14 +118,12 @@ public class MapaDigrafo {
         return existe;
     }
 
-    private NodoVert localizarVertice(String ciudad) {
-        ciudad = formatoUsuario.formatoNombre(ciudad);
+    private NodoVert localizarVertice(Object elem) {
         NodoVert nodo = this.inicio;
         NodoVert devuelto = null;
         boolean encontrado = false;
         while (nodo != null && !encontrado) {
-            String nombreNodo = formatoUsuario.formatoNombre(nodo.getElem().getNombre());
-            if (nombreNodo.equals(ciudad)) {
+            if (nodo.getElem().equals(elem)) {
                 encontrado = true;
                 devuelto = nodo;
             }
@@ -135,19 +133,19 @@ public class MapaDigrafo {
     }
 
     // Arcos----------------------------------------------------------------------
-    public boolean insertarArco(Ciudad origen, Ciudad destino, float etiqueta) {
+    public boolean insertarArco(Object elemOrigen, Object elemDestino, float etiqueta) {
         // Debo de buscar ambos vertices
         boolean realizado = false;
         NodoVert cursor = this.inicio;
         NodoVert nodoOrigen = null;
         NodoVert nodoDestino = null;
         while (cursor != null && !realizado) {
-            if (cursor.getElem().equals(origen)) {
+            if (cursor.getElem().equals(elemOrigen)) {
                 // Si encuentro el cursor de origen, lo registro y verifico que se pueda
                 // terminar el while.
                 nodoOrigen = cursor;
                 realizado = nodoDestino != null;
-            } else if (cursor.getElem().equals(destino)) {
+            } else if (cursor.getElem().equals(elemDestino)) {
                 // Si encuentro el cursor de destino, lo registro y verifico que se pueda
                 // terminar el while.
                 nodoDestino = cursor;
@@ -191,29 +189,29 @@ public class MapaDigrafo {
         return exito;
     }
 
-    public boolean eliminarArco(Ciudad ciudadOrigen, Ciudad ciudadEliminada) {
+    public boolean eliminarArco(Object elemOrigen, Object elemEliminado) {
         // Debo de buscar El nodo en primer lugar.
         boolean realizado = false;
         NodoVert cursor = this.inicio;
         while (cursor != null && !realizado) {
-            if (cursor.getElem().equals(ciudadOrigen)) {
+            if (cursor.getElem().equals(elemOrigen)) {
                 realizado = true;
             } else {
                 cursor = cursor.getSigVertice();
             }
         }
         if (realizado) {
-            realizado = eliminarArcoAux(cursor, ciudadEliminada);
+            realizado = eliminarArcoAux(cursor, elemEliminado);
         }
         return realizado;
     }
 
-    private boolean eliminarArcoAux(NodoVert nodo, Ciudad ciudadEliminada) {
+    private boolean eliminarArcoAux(NodoVert nodo, Object elemEliminado) {
         boolean exito = false;
         // Hay dos casos al eliminar.
         if (nodo.getPrimerAdy() != null) {
             NodoVert verticeAdy = nodo.getPrimerAdy().getVertice();
-            if (verticeAdy.getElem().equals(ciudadEliminada)) {
+            if (verticeAdy.getElem().equals(elemEliminado)) {
                 // Primer caso: Se desea eliminar el arco inicial.
                 nodo.setPrimerAdy(nodo.getPrimerAdy().getSigAdyacente());
                 exito = true;
@@ -222,7 +220,7 @@ public class MapaDigrafo {
                 NodoAdy cursor = nodo.getPrimerAdy();
                 while (cursor.getSigAdyacente() != null && !exito) {
                     NodoVert tempAdy = cursor.getSigAdyacente().getVertice();
-                    if (verticeAdy.getElem().equals(ciudadEliminada)) {
+                    if (verticeAdy.getElem().equals(elemEliminado)) {
                         exito = true;
                     } else {
                         cursor = cursor.getSigAdyacente();
@@ -237,18 +235,18 @@ public class MapaDigrafo {
         return exito;
     }
 
-    public boolean existeArco(Ciudad ciudadOrigen, Ciudad ciudadBuscada) {
+    public boolean existeArco(Object elemOrigen, Object elemBuscado) {
         boolean existe = false;
         NodoVert cursor = this.inicio;
         while (cursor != null && !existe) {
-            if (cursor.getElem().equals(ciudadOrigen)) {
+            if (cursor.getElem().equals(elemOrigen)) {
                 existe = true;
             } else {
                 cursor = cursor.getSigVertice();
             }
         }
         if (existe) {
-            existe = existeEnNodo(cursor, ciudadBuscada);
+            existe = existeEnNodo(cursor, elemBuscado);
         }
         return existe;
     }
@@ -260,11 +258,11 @@ public class MapaDigrafo {
      * @param ciudadBuscada ciudad destino
      * @return devuelve true o false
      */
-    private boolean existeEnNodo(NodoVert cursor, Ciudad ciudadBuscada) {
+    private boolean existeEnNodo(NodoVert cursor, Object elemBuscado) {
         boolean resultado = false;
         NodoAdy cursorAdy = cursor.getPrimerAdy();
         while (cursorAdy != null && !resultado) {
-            if (cursorAdy.getVertice().getElem().equals(ciudadBuscada)) {
+            if (cursorAdy.getVertice().getElem().equals(elemBuscado)) {
                 resultado = true;
             }
             cursorAdy = cursorAdy.getSigAdyacente();
@@ -274,41 +272,43 @@ public class MapaDigrafo {
 
     /**
      * Actualiza el caudalMaximo de una tuberia
+     * 
      * @param nomenclaturaOrigen
-     * @param nomenclaturaDestino 
+     * @param nomenclaturaDestino
      */
-    public void actualizarEtiquetaTuberia(String nomenclaturaOrigen, String nomenclaturaDestino,float valorNuevo) {
+    public void actualizarEtiquetaTuberia(Object elemOrigen, Object elemDestino, float valorNuevo) {
         NodoVert raiz = this.inicio;
         boolean encontrado = false;
-        //Busco la ciudad de origen
+        // Busco la ciudad de origen
         while (raiz != null && !encontrado) {
-            if (raiz.getElem().getNomenclatura().equals(nomenclaturaOrigen)) {
-                //Actualizo la bandera
+            if (raiz.getElem().equals(elemDestino)) {
+                // Actualizo la bandera
                 encontrado = true;
             }
-            //Sigo iterando
+            // Sigo iterando
             raiz = raiz.getSigVertice();
         }
-        //Si lo encuentro empiezo a buscar la ciudad de destino
+        // Si lo encuentro empiezo a buscar la ciudad de destino
         if (encontrado) {
-            buscarNomenclaturaDestino(raiz,nomenclaturaDestino, valorNuevo);
+            buscarElemDestino(raiz, elemDestino, valorNuevo);
         }
     }
-    
-    private void buscarNomenclaturaDestino(NodoVert origen,String nomenclaturaDestino, Float valorNuevo) {
+
+    private void buscarElemDestino(NodoVert origen, Object elemDestino, Float valorNuevo) {
         NodoAdy nodo = origen.getPrimerAdy();
         boolean encontrado = false;
-        //Busco la ciudad de destino
+        // Busco la ciudad de destino
         while (nodo != null && !encontrado) {
-            if (nodo.getVertice().getElem().getNomenclatura().equals(nomenclaturaDestino)) {
+            if (nodo.getVertice().getElem().equals(elemDestino)) {
                 encontrado = true;
-                //Actualizo el caudal
+                // Actualizo el caudal
                 nodo.setCaudalMaximo(valorNuevo);
             }
             nodo = nodo.getSigAdyacente();
         }
     }
-    //VACIO --------------------------------------------------------------------
+
+    // VACIO --------------------------------------------------------------------
     public boolean esVacio() {
         return this.inicio == null;
     }
@@ -318,7 +318,7 @@ public class MapaDigrafo {
         NodoVert temp = inicio;
         String resultado = "";
         while (temp != null) {
-            resultado += temp.getElem().getNombre() + " " + temp.getElem().getNomenclatura() + "\n";
+            resultado += temp.getElem().toString() + " " + temp.getElem().toString() + "\n";
             temp = temp.getSigVertice();
         }
         return resultado;
@@ -328,10 +328,10 @@ public class MapaDigrafo {
         NodoVert temp = inicio;
         String resultado = "";
         while (temp != null) {
-            String nombre = temp.getElem().getNombre();
+            String nombre = temp.getElem().toString();
             NodoAdy malaPracticaProg = temp.getPrimerAdy();
             while (malaPracticaProg != null) {
-                resultado += ("De " + nombre + " A " + malaPracticaProg.getVertice().getElem().getNombre() + "\n");
+                resultado += ("De " + nombre + " A " + malaPracticaProg.getVertice().getElem().toString() + "\n");
                 malaPracticaProg = malaPracticaProg.getSigAdyacente();
             }
             temp = temp.getSigVertice();
@@ -342,62 +342,45 @@ public class MapaDigrafo {
         return resultado;
     }
 
-    @Override
-    public String toString() {
-        String resultado = "";
-        NodoVert inicio = this.inicio;
-        // Itero sobre cada nodo
-        while (inicio != null) {
-            resultado += String.format("%s -> ", inicio.getElem().getNombre());
-            // itero sobre cada arco
-            NodoAdy arcos = inicio.getPrimerAdy();
-            while (arcos != null) {
-                resultado += arcos.getVertice().getElem().getNombre() +"("+arcos.getCaudalMaximo()+"), ";
-                arcos=arcos.getSigAdyacente();
-            }
-            resultado+="\n";
-            inicio = inicio.getSigVertice();
-        }
-        return resultado;
-    }
-
     // --------------------------------------------------------------------------
 
     // Busqueda de Paises para camino mas corto ---------------------------------
-    public Ciudad obtenerCiudad(String ciudad) {
-        Ciudad devuelto = null;
-        NodoVert nodoCiudad = localizarVertice(ciudad);
-        if (nodoCiudad != null) {
-            devuelto = nodoCiudad.getElem();
+    public Object obtenerElem(Object elem) {
+        Object devuelto = null;
+        NodoVert nodoElem = localizarVertice(elem);
+        if (nodoElem != null) {
+            devuelto = nodoElem.getElem();
         }
         return devuelto;
     }
 
-    public Lista caminoMasCorto(String ciudadOrigen, String ciudadDestino) {
+    public Lista caminoMasCorto(Object elemOrigen, Object elemDestino) {
         Lista camino = new Lista();
         NodoVert origen, destino;
         // Se debe de verificar que el primer pais exista sí o sí.
-        origen = localizarVertice(ciudadOrigen);
-        destino = localizarVertice(ciudadDestino);
-        if (origen != null && !ciudadOrigen.equals(ciudadDestino)) {
+        origen = localizarVertice(elemOrigen);
+        destino = localizarVertice(elemDestino);
+        if (origen != null && !elemOrigen.equals(elemDestino)) {
             camino = caminoMasCorto(origen, destino);
         }
         return camino;
     }
 
-    public Ciudad obtenerCiudadNomenclatura(String nomenclatura) {
-        boolean existe = false;
-        NodoVert nodo = this.inicio;
-        Ciudad ciudadEncontrada = null;
-        while (nodo != null && !existe) {
-            if (nodo.getElem().getNomenclatura().equals(nomenclatura)) {
-                existe = true;
-                ciudadEncontrada = nodo.getElem();
-            }
-            nodo = nodo.getSigVertice();
-        }
-        return ciudadEncontrada;
-    }
+    /*
+     * public Ciudad obtenerCiudadNomenclatura(Object nomenclatura) {
+     * boolean existe = false;
+     * NodoVert nodo = this.inicio;
+     * Ciudad ciudadEncontrada = null;
+     * while (nodo != null && !existe) {
+     * if (nodo.getElem().getNomenclatura().equals(nomenclatura)) {
+     * existe = true;
+     * ciudadEncontrada = nodo.getElem();
+     * }
+     * nodo = nodo.getSigVertice();
+     * }
+     * return ciudadEncontrada;
+     * }
+     */
 
     /**
      * Recibe el nodo desde donde se buscará.
@@ -472,7 +455,7 @@ public class MapaDigrafo {
             while (aux != null && !encontrado) {
                 if (aux.getVertice().getElem().equals(laCiudad)) {
                     encontrado = true;
-                    aguaDistribuida += aux.getCaudalMaximo();
+                    aguaDistribuida += aux.getEtiqueta();
                 }
                 encontrado = false;
                 aux = aux.getSigAdyacente();
@@ -482,33 +465,32 @@ public class MapaDigrafo {
         return aguaDistribuida;
     }
 
-    // El Anticristo
-    public Lista caudalPleno(String ciudadOrigen, String ciudadDestino) {
+    public Lista dijkstra(Object elemOrigen, Object elemDestino) {
         Lista camino = new Lista();
         NodoVert origen;
         NodoVert destino;
         // Se debe de verificar que el primer pais exista sí o sí.
-        origen = localizarVertice(ciudadOrigen);
-        destino = localizarVertice(ciudadDestino);
-        if (origen != null && !ciudadOrigen.equals(ciudadDestino)) {
-            camino = caudalPleno(origen, destino);
+        origen = localizarVertice(elemOrigen);
+        destino = localizarVertice(elemDestino);
+        if (origen != null && !elemOrigen.equals(elemDestino)) {
+            camino = dijkstra(origen, destino);
         }
         return camino;
     }
 
-    private Lista caudalPleno(NodoVert origen, NodoVert ciudadDestino) {
+    private Lista dijkstra(NodoVert origen, NodoVert destino) {
         NodoVert actual = origen;
         NodoVert auxVert;
         NodoAdy auxAdy;
-        float caudalActual;
-        float caudalNuevo;
+        float distanciaActual;
+        float distanciaNueva;
         HashMap<NodoVert, Float> distancias = new HashMap<>();
         HashMap<NodoVert, NodoVert> anteriores = new HashMap<>();
         llenarDistancias(distancias, origen);
         llenarAnteriores(anteriores);
-        Lista caudalPleno = new Lista();
+        Lista dijkstra = new Lista();
         Lista visitados = new Lista();
-        while (visitados.localizar(ciudadDestino) == -1 && actual != null) {
+        while (visitados.localizar(destino) == -1 && actual != null) {
             // Busco el vertice con el camino mas corto posible estimado.
             actual = menorEstimativa(origen, distancias, visitados);
             if (actual != null) {
@@ -516,25 +498,25 @@ public class MapaDigrafo {
                 auxAdy = actual.getPrimerAdy();
                 while (auxAdy != null) {
                     auxVert = auxAdy.getVertice();
-                    caudalActual = distancias.get(actual);
-                    caudalNuevo = auxAdy.getCaudalMaximo();
+                    distanciaActual = distancias.get(actual);
+                    distanciaNueva = auxAdy.getEtiqueta();
 
                     // Si el nuevo camino hasta el adyacente es menor al registrado anteriormente,
                     // actualiza la distancia recorrida y el anterior del adyacente
 
-                    if (caudalActual + caudalNuevo < distancias.get(auxVert)) {
-                        distancias.put(auxVert, caudalActual + caudalNuevo);
+                    if (distanciaActual + distanciaNueva < distancias.get(auxVert)) {
+                        distancias.put(auxVert, distanciaActual + distanciaNueva);
                         anteriores.put(auxVert, actual);
                     }
                     auxAdy = auxAdy.getSigAdyacente();
                 }
             }
         }
-        if (visitados.localizar(ciudadDestino) != -1) {
-            caudalPleno = reconstruirCamino(anteriores, ciudadDestino);
+        if (visitados.localizar(destino) != -1) {
+            dijkstra = reconstruirCamino(anteriores, destino);
         }
 
-        return caudalPleno;
+        return dijkstra;
     }
 
     // Crea una lista con los punteros del mapa anteriores
@@ -557,7 +539,6 @@ public class MapaDigrafo {
         NodoVert aux = this.inicio;
         while (aux != null) {
             estimativaActual = distancias.get(aux);
-            System.out.println(aux.getElem().getNombre());
             if (visitados.localizar(aux) == -1 && estimativaActual < menorEstimativa) {
                 menorEstimativa = estimativaActual;
                 menor = aux;

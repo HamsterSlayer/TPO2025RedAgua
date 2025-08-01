@@ -22,6 +22,17 @@ public class Ciudad {
     private static int nomenclaturaContador = 3000;
 
     // Constructor --------------------------------------------------------------
+    public Ciudad(String nombre) {
+        long[][] nulo = new long[0][0];
+        float[][] nulo2 = new float[0][];
+        this.nombre = nombre;
+        this.añoInicial = 0;
+        this.cantHabitantes = nulo;
+        this.superficie = 0;
+        this.consumoPromedio = nulo2;
+        calcularNomenclatura();
+    }
+
     public Ciudad(String nombre, int añoInicial, long[][] cantHabitantes, float superficie, float[][] consumoPromedio) {
         this.nombre = nombre;
         this.añoInicial = añoInicial;
@@ -94,7 +105,7 @@ public class Ciudad {
         int pos = añoAPosicion(anio);
         this.cantHabitantes[pos][mes] = habitantes;
     }
-    
+
     public void setHabitantes(long habitantes, int anio, int mes) {
         int pos = añoAPosicion(anio);
         this.cantHabitantes[pos][mes] = habitantes;
@@ -119,18 +130,17 @@ public class Ciudad {
     public float[][] getConsumoPromedio() {
         return consumoPromedio;
     }
-    
+
     public void setConsumoPromedio(float[] habitantes, int anio) {
         int pos = añoAPosicion(anio);
         this.consumoPromedio[pos] = habitantes;
     }
-    
+
     public void setConsumoPromedio(float consumo, int anio, int mes) {
         int pos = añoAPosicion(anio);
         this.consumoPromedio[pos][mes] = consumo;
     }
-    
-    
+
     /**
      * 
      * @param año recibe el año dentro del rango (por ejemplo: 2010)
@@ -150,14 +160,14 @@ public class Ciudad {
         }
         return consumoAnual;
     }
-    
-    private void debugImprimirConsumo(){
-        String text="";
-        for(int i=0;i<consumoPromedio.length;i++){
-            for(int j=0;j<consumoPromedio.length;j++){
-                text+="["+consumoPromedio[i][j]+"] ";
+
+    private void debugImprimirConsumo() {
+        String text = "";
+        for (int i = 0; i < consumoPromedio.length; i++) {
+            for (int j = 0; j < consumoPromedio.length; j++) {
+                text += "[" + consumoPromedio[i][j] + "] ";
             }
-            text+="\n";
+            text += "\n";
         }
         System.out.println(text);
     }
@@ -211,17 +221,17 @@ public class Ciudad {
     public String toString() {
         return String.format("Ciudad de Nombre:%s con superficie %f", this.nombre, this.superficie);
     }
-    
+
     public String habitantesToString() {
         String devuelto = "";
-        //Recorro anios
+        // Recorro anios
         int anioDisplay = this.añoInicial;
-        for (long[] anio: this.cantHabitantes) {
+        for (long[] anio : this.cantHabitantes) {
             String anioDisplayString = String.valueOf(anioDisplay);
             devuelto += String.format("\t%s ", anioDisplayString);
-            //Recorro mes
-            for (long datoMes: anio) {
-                //Lo paso a string para formatearlo lindo
+            // Recorro mes
+            for (long datoMes : anio) {
+                // Lo paso a string para formatearlo lindo
                 String datoMesString = String.valueOf(datoMes);
                 devuelto += String.format("\t%s", datoMesString);
             }
@@ -230,17 +240,17 @@ public class Ciudad {
         }
         return devuelto;
     }
-    
+
     public String consumoToString() {
         String devuelto = "";
-        //Recorro anios
+        // Recorro anios
         int anioDisplay = this.añoInicial;
-        for (float[] consumo: this.consumoPromedio) {
+        for (float[] consumo : this.consumoPromedio) {
             String anioDisplayString = String.valueOf(anioDisplay);
             devuelto += String.format("\t%s ", anioDisplayString);
-            //Recorro mes
-            for (float datoMes: consumo) {
-                //Lo paso a string para formatearlo lindo
+            // Recorro mes
+            for (float datoMes : consumo) {
+                // Lo paso a string para formatearlo lindo
                 String datoMesString = String.valueOf(datoMes);
                 devuelto += String.format("\t%s", datoMesString);
             }
@@ -249,5 +259,5 @@ public class Ciudad {
         }
         return devuelto;
     }
-    
+
 }
