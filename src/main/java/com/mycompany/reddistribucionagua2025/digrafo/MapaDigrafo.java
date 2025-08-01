@@ -21,7 +21,6 @@ public class MapaDigrafo {
 
     // Atributos --------------------------------------------------------
     private NodoVert inicio;
-
     // Constructor --------------------------------------------------------
     public MapaDigrafo() {
         inicio = null;
@@ -132,6 +131,18 @@ public class MapaDigrafo {
             nodo = nodo.getSigVertice();
         }
         return devuelto;
+    }
+    
+    public Lista getCiudades() {
+        Lista listaNueva = new Lista();
+        NodoVert raiz = this.inicio;
+        int contador = 1;
+        while (raiz != null) {
+            listaNueva.insertar(raiz.getElem(), contador);
+            contador++;
+            raiz = raiz.getSigVertice();
+        }
+        return listaNueva;
     }
 
     // Arcos----------------------------------------------------------------------

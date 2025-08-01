@@ -50,7 +50,7 @@ public class TransporteDeAgua {
         generadorHabitantes.crearDatos(false, añoInicial);
         actualizarUltimaAccion("Se cargaron los datos");
         //GUI
-        GUI menu = new GUI();
+        GUI menu = new GUI(mapaCiudad);
         // Menu
         /*int opcion;
         boolean exit = false;
