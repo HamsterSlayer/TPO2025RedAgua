@@ -1,6 +1,7 @@
 package com.mycompany.reddistribucionagua2025;
 
 import com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo;
+import com.mycompany.reddistribucionagua2025.interfazGrafica.GUI;
 
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -48,8 +49,10 @@ public class TransporteDeAgua {
         añoInicial = Info.conseguirAñoInicial();
         generadorHabitantes.crearDatos(false, añoInicial);
         actualizarUltimaAccion("Se cargaron los datos");
+        //GUI
+        GUI menu = new GUI();
         // Menu
-        int opcion;
+        /*int opcion;
         boolean exit = false;
         while (!exit) {
             limpiarPantalla();
@@ -85,7 +88,7 @@ public class TransporteDeAgua {
                 default:
                     opcionInvalida();
             }
-        }
+        }*/
     }
 
     // ---------------------------------------------
