@@ -39,9 +39,11 @@ public class CargaArchivos {
                 if (linea != null) {
                     arr = linea.split(",");
                     hab = obtenerArrayInt(
-                            rutaCarpeta + "\\" + formatoUsuario.sacarAcentos(arr[0].replace(" ", "").toLowerCase()) + ".txt");
+                            rutaCarpeta + "\\" + formatoUsuario.sacarAcentos(arr[0].replace(" ", "").toLowerCase())
+                                    + ".txt");
                     consumo = obtenerArrayFloat(
-                            rutaCarpeta + "\\" + formatoUsuario.sacarAcentos(arr[0].replace(" ", "").toLowerCase()) + ".txt");
+                            rutaCarpeta + "\\" + formatoUsuario.sacarAcentos(arr[0].replace(" ", "").toLowerCase())
+                                    + ".txt");
                     Ciudad temp = new Ciudad(arr[0], añoInicial, hab, Float.parseFloat(arr[1].trim()), consumo);
                     // Ciudad temp = new Ciudad(arr[0],añoInicial,Float.parseFloat(arr[1].trim()));
                     arbol.insertar(temp, formatoUsuario.sacarAcentos(temp.getNombre().replace(" ", "").toLowerCase()));
@@ -100,7 +102,7 @@ public class CargaArchivos {
                     for (int i = 0; i < con[0].length; i++) {
                         if ((aux - añoInicial) >= 0 && (aux - añoInicial) < 12) {
                             con[aux - añoInicial][i] = Float.parseFloat(arr[i + 1]) * 20; // 20 es consumo promedio cada
-                                                                                        // 1 habitante
+                                                                                          // 1 habitante
                         }
                     }
                 }
@@ -129,7 +131,7 @@ public class CargaArchivos {
                     Ciudad org = m.obtenerCiudad(arr[0].trim());
                     Ciudad des = m.obtenerCiudad(arr[1].trim());
                     if (org != null && des != null) {
-                        Tuberias temp = new Tuberias(org.getNomenclatura() + "-" + des.getNomenclatura(),
+                        Tuberias temp = new Tuberias(org.getNomenclatura(), des.getNomenclatura(),
                                 Float.parseFloat(arr[2]), Float.parseFloat(arr[3]), Float.parseFloat(arr[4]),
                                 arr[5].trim());
                         m.insertarArco(org, des, Float.parseFloat(arr[2]));
