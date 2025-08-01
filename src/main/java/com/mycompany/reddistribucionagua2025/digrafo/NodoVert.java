@@ -1,6 +1,6 @@
-package com.mycompany.reddistribucionagua2025.digrafo;
+package com.mycompany.reddistribucionagua2025.Digrafo;
 
-import com.mycompany.reddistribucionagua2025.Ciudad;
+import com.mycompany.reddistribucionagua2025.digrafo.Ciudad;
 
 public class NodoVert {
         //Atributos --------------------------------------------------------

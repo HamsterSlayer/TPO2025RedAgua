@@ -1,4 +1,8 @@
-package com.mycompany.reddistribucionagua2025;
+package com.mycompany.reddistribucionagua2025.ArbolAVL;
+
+import com.mycompany.reddistribucionagua2025.digrafo.Ciudad;
+import com.mycompany.reddistribucionagua2025.Lista.Lista;
+
 /**
  *
  * @author ivoel

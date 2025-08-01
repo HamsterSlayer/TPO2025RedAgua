@@ -1,9 +1,9 @@
-package com.mycompany.reddistribucionagua2025;
+package com.mycompany.reddistribucionagua2025.Cola;
 
 public class Cola {
-    private Nodo2 frente;
+    private NodoCola frente;
 
-    private Nodo2 fin;
+    private NodoCola fin;
 
     public Cola() {
         frente = null;
@@ -11,7 +11,7 @@ public class Cola {
     }
 
     public boolean poner(Object elemento) {
-        Nodo2 nuevoNodo = new Nodo2(elemento, null);
+        NodoCola nuevoNodo = new NodoCola(elemento, null);
         if (fin == null) {
             fin = nuevoNodo;
             frente = nuevoNodo;
@@ -54,14 +54,14 @@ public class Cola {
     public Cola clone() {
         Cola clone = new Cola();
         if (frente != null) {
-            Nodo2 auxFrente = frente;
-            Nodo2 nuevoNodo = new Nodo2(auxFrente.getElemento(), null);
+            NodoCola auxFrente = frente;
+            NodoCola nuevoNodo = new NodoCola(auxFrente.getElemento(), null);
             auxFrente = auxFrente.getEnlace();
-            Nodo2 auxClone = nuevoNodo;
+            NodoCola auxClone = nuevoNodo;
             clone.frente = nuevoNodo;
             clone.fin = nuevoNodo;
             while (auxFrente != null) {
-                auxClone.setEnlace(new Nodo2(auxFrente.getElemento(), null));
+                auxClone.setEnlace(new NodoCola(auxFrente.getElemento(), null));
                 auxClone = auxClone.getEnlace();
                 if (auxFrente.getEnlace() == null)
                     clone.fin = auxFrente;
@@ -74,7 +74,7 @@ public class Cola {
     public String toString() {
         String s = "[";
         if (frente != null) {
-            Nodo2 auxFrente = frente;
+            NodoCola auxFrente = frente;
             while (auxFrente != null) {
                 s += auxFrente.getElemento();
                 auxFrente = auxFrente.getEnlace();

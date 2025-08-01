@@ -1,4 +1,4 @@
-package com.mycompany.reddistribucionagua2025.digrafo;
+package com.mycompany.reddistribucionagua2025.Digrafo;
 
 public class NodoAdy {
     //Atributos --------------------------------------------------------

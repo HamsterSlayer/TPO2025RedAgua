@@ -1,4 +1,4 @@
-package com.mycompany.reddistribucionagua2025;
+package com.mycompany.reddistribucionagua2025.Hash;
 
 public class DominioHash {
     private String nomOrigen;

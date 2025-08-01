@@ -1,6 +1,12 @@
 package com.mycompany.reddistribucionagua2025;
 
-import com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo;
+import com.mycompany.reddistribucionagua2025.Hash.DominioHash;
+import com.mycompany.reddistribucionagua2025.Hash.Tuberias;
+import com.mycompany.reddistribucionagua2025.digrafo.Ciudad;
+import com.mycompany.reddistribucionagua2025.readtxt.formatoUsuario;
+import com.mycompany.reddistribucionagua2025.Lista.Lista;
+import com.mycompany.reddistribucionagua2025.ArbolAVL.ArbolAVL;
+import com.mycompany.reddistribucionagua2025.Digrafo.MapaDigrafo;
 
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -19,8 +25,8 @@ import com.mycompany.reddistribucionagua2025.readtxt.*;
  * @author hamst
  */
 public class TransporteDeAgua {
-    private static final String informacionCiudades = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\debugEjemploCiudades.txt";
-    private static final String informacionTuberias = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\debugEjemploTuberias.txt";
+    private static final String informacionCiudades = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\debugEjemploCiudades.txt";
+    private static final String informacionTuberias = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\debugEjemploTuberias.txt";
     private static final String datosCiudades = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\datosCiudadesHabitantes";
     // Variables del Programa ----------------------------------
     // Estas variables se usarán para modificar y operar el programa
@@ -31,7 +37,7 @@ public class TransporteDeAgua {
     private static CargaArchivos Info = new CargaArchivos(informacionCiudades, datosCiudades);
     private static CargaArchivos InfoTub = new CargaArchivos(informacionTuberias);
     private static EscrituraArchivos log = new EscrituraArchivos(
-            "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\sesion.LOG");
+            "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\sesion.LOG");
     private static generadorDatosCiudades generadorHabitantes = new generadorDatosCiudades(informacionCiudades,
             datosCiudades);
     // Variables del Menu --------------------------------------
@@ -859,7 +865,7 @@ public class TransporteDeAgua {
         Tuberias aux;
         DominioHash dominioAux;
         int i = 1;
-        int tam = camino.longitud;
+        int tam = camino.longitud();
         while (i + 1 <= tam && !estado.equals("EN_DISENO")) {
             nom1 = ((Ciudad) (camino.recuperar(i))).getNomenclatura();
             nom2 = ((Ciudad) (camino.recuperar(i + 1))).getNomenclatura();

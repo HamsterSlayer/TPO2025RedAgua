@@ -1,4 +1,4 @@
-package com.mycompany.reddistribucionagua2025;
+package com.mycompany.reddistribucionagua2025.Lista;
 
 public class Lista {
     Nodo cabecera;

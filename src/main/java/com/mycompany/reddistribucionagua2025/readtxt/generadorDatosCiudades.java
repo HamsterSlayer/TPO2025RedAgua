@@ -1,6 +1,5 @@
 package com.mycompany.reddistribucionagua2025.readtxt;
 
-import com.mycompany.reddistribucionagua2025.formatoUsuario;
 import java.util.Random;
 import java.io.FileWriter;
 import java.io.IOException;

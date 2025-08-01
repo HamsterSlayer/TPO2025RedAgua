@@ -1,12 +1,12 @@
-package com.mycompany.reddistribucionagua2025;
+package com.mycompany.reddistribucionagua2025.Cola;
 
-public class Nodo {
+public class NodoCola {
     // Atributos
     private Object elemento;
-    private Nodo enlace;
+    private NodoCola enlace;
 
     // Constructor
-    public Nodo(Object miElemento, Nodo miEnlace) {
+    public NodoCola(Object miElemento, NodoCola miEnlace) {
         elemento = miElemento;
         enlace = miEnlace;
     }
@@ -19,11 +19,11 @@ public class Nodo {
         elemento = miElemento;
     }
 
-    public Nodo getEnlace() {
+    public NodoCola getEnlace() {
         return enlace;
     }
 
-    public void setEnlace(Nodo miEnlace) {
+    public void setEnlace(NodoCola miEnlace) {
         enlace = miEnlace;
     }
 }

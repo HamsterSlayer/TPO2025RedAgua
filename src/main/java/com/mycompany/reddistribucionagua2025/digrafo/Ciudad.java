@@ -1,4 +1,4 @@
-package com.mycompany.reddistribucionagua2025;
+package com.mycompany.reddistribucionagua2025.digrafo;
 
 /**
  * Representa una ciudad en el sistema de tuberías. La nomenclatura es su clave

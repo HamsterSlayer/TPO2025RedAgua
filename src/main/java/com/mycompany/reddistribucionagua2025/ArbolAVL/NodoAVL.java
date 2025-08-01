@@ -1,6 +1,6 @@
-package com.mycompany.reddistribucionagua2025;
+package com.mycompany.reddistribucionagua2025.ArbolAVL;
 
-import com.mycompany.reddistribucionagua2025.Ciudad;
+import com.mycompany.reddistribucionagua2025.digrafo.Ciudad;
 
 /**
  *

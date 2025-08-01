@@ -1,12 +1,12 @@
-package com.mycompany.reddistribucionagua2025.digrafo;
+package com.mycompany.reddistribucionagua2025.Digrafo;
 
 import java.util.HashMap;
 
-import com.mycompany.reddistribucionagua2025.Ciudad;
-import com.mycompany.reddistribucionagua2025.Cola;
-import com.mycompany.reddistribucionagua2025.DominioHash;
-import com.mycompany.reddistribucionagua2025.Lista;
-import com.mycompany.reddistribucionagua2025.formatoUsuario;
+import com.mycompany.reddistribucionagua2025.digrafo.Ciudad;
+import com.mycompany.reddistribucionagua2025.Cola.Cola;
+import com.mycompany.reddistribucionagua2025.Hash.DominioHash;
+import com.mycompany.reddistribucionagua2025.Lista.Lista;
+import com.mycompany.reddistribucionagua2025.readtxt.formatoUsuario;
 
 /**
  * Digrafo simple etiquetado de ciudades. Las etiquetas son el caudalMaximo de

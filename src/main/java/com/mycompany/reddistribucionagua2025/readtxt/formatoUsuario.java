@@ -1,4 +1,4 @@
-package com.mycompany.reddistribucionagua2025;
+package com.mycompany.reddistribucionagua2025.readtxt;
 
 /**
  * Ofrece a todas las clases un formato en común para manejar la entrada del

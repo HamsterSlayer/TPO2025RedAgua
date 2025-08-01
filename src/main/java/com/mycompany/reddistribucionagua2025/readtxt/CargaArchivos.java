@@ -4,12 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import com.mycompany.reddistribucionagua2025.ArbolAVL;
-import com.mycompany.reddistribucionagua2025.Ciudad;
-import com.mycompany.reddistribucionagua2025.DominioHash;
-import com.mycompany.reddistribucionagua2025.Tuberias;
-import com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo;
-import com.mycompany.reddistribucionagua2025.formatoUsuario;
+import com.mycompany.reddistribucionagua2025.ArbolAVL.ArbolAVL;
+import com.mycompany.reddistribucionagua2025.digrafo.Ciudad;
+import com.mycompany.reddistribucionagua2025.Hash.DominioHash;
+import com.mycompany.reddistribucionagua2025.Hash.Tuberias;
+import com.mycompany.reddistribucionagua2025.Digrafo.MapaDigrafo;
 import java.util.HashMap;
 
 public class CargaArchivos {
