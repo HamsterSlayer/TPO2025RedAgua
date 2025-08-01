@@ -736,17 +736,21 @@ public class TransporteDeAgua {
                             """, ciudad.getNombre().toUpperCase(), fecha[0], fecha[1], habitantes, consumoPromedio,
                             aguaDistribuida);
                     confirmarParaContinuar(formato(salida));
+                    log.log("Se consulto el consumo de los habitantes en " + fecha[0] + "/" + fecha[1], true);
 
                 } else {
                     actualizarUltimaAccion("Error en introducir fecha");
+                    log.log("Se consulto el consumo de los habitantes en " + fecha[0] + "/" + fecha[1], false);
                 }
             } else {
                 // Error ciudad no existe
                 actualizarUltimaAccion("Error en introducir ciudad");
+                log.log("Se consulto el consumo de los habitantes", false);
             }
         } catch (Exception e) {
             // Evita que haya una mala entrada del usuario y se pierda todo el progreso.
             confirmarParaContinuar("Error de entrada");
+            log.log("Se consulto el consumo de los habitantes", false);
         }
     }
 
@@ -890,11 +894,12 @@ public class TransporteDeAgua {
             System.out.println("El camino entre " + ciudadA + " y " + ciudadB + " con menor caudal pleno es ");
             System.out.println(toNombres(caudalPleno));
             System.out.println("Estado del camino: " + getEstadoCamino(caudalPleno));
-
+            log.log("Se encontró el caudal pleno entre " + ciudadA + " y " + ciudadB, true);
         }
 
         else {
             System.out.println("No existe camino");
+            log.log("Se encontró el caudal pleno entre " + ciudadA + " y " + ciudadB, false);
         }
     }
 
@@ -906,8 +911,10 @@ public class TransporteDeAgua {
                     "El camino entre " + ciudadA + " y " + ciudadB + " que pasa por la menor cantidad de ciudades es ");
             System.out.println(toNombres(devuelto));
             System.out.println("Estado del camino: " + getEstadoCamino(devuelto));
+            log.log("Se encontró el camino más corto entre " + ciudadA + " y " + ciudadB, true);
         } else {
             System.out.println("No existe camino");
+            log.log("Se encontró el camino más corto entre " + ciudadA + " y " + ciudadB, false);
         }
     }
 
