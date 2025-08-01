@@ -394,7 +394,8 @@ public class MapaDigrafo {
         masCorto = masCortoDesde(origen, destino);
         return masCorto;
     }
-
+    
+    //Usamos algoritmos Dijkstra
     private Lista masCortoDesde(NodoVert origen, NodoVert ciudadDestino) {
         NodoVert actual = origen;
         NodoVert auxVert;

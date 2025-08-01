@@ -388,30 +388,28 @@ public class ArbolAVL {
     }
     
     
-    private void auxRangoConsumo(NodoAVL n ,Comparable minNomb ,Comparable maxNomb ,int minVol ,int maxVol ,int m ,int a ,Lista l){
+    private void auxRango(NodoAVL n ,Comparable minNomb ,Comparable maxNomb, Lista l){
             
         if(n.getDerecho()!=null && maxNomb.compareTo(n.getClave())>=0){
-            auxRangoConsumo(n.getDerecho(),minNomb,maxNomb,minVol,maxVol,m,a,l);
+            auxRango(n.getDerecho(),minNomb,maxNomb,l);
         }
        
         if(minNomb.compareTo(n.getClave())<=0 && maxNomb.compareTo(n.getClave())>=0){
-            float consumo= ((Ciudad) n.getElem()).consumoMensual(m,a);
-            if(consumo>=minVol && consumo<=maxVol){
-                l.insertar(n.getElem(),1);
-            }
+            l.insertar(n.getElem(),1);
+            
         }   
         if(n.getIzquierdo()!=null && minNomb.compareTo(n.getClave())<=0){
-            auxRangoConsumo(n.getIzquierdo(),minNomb,maxNomb,minVol,maxVol,m,a,l);
+            auxRango(n.getIzquierdo(),minNomb,maxNomb,l);
         }
         
                 
     }
     
-    public Lista listarRangoConsumo(Comparable minNomb, Comparable maxNomb, int minVol,int maxVol,int mes,int anio){
+    public Lista listarRango(Comparable minNomb, Comparable maxNomb){
         Lista listado;
         if(!this.esVacio()){
             listado=new Lista();
-            auxRangoConsumo(this.raiz,minNomb,maxNomb,minVol,maxVol,mes,anio,listado);
+            auxRango(this.raiz,minNomb,maxNomb,listado);
         }else{
             listado=null;
         }
@@ -445,38 +443,13 @@ public class ArbolAVL {
         return listado;
     }
     
-    private void arbolConsumoAux(NodoAVL n, ArbolAVL a,int anio){
-        if(n.getDerecho()!=null){
-            arbolConsumoAux(n.getDerecho(),a,anio);
-        }
-        
-        Ciudad aux = (Ciudad) n.getElem();
-        a.insertar(aux,aux.consumoAnual(anio)+""+n.getClave());//Se hace en Inorder de mayor a menor para que devuelva una lista de menor a mayor
-        
-        if(n.getIzquierdo()!=null){
-            arbolConsumoAux(n.getIzquierdo(),a,anio);
-        }
-    }
-    
-    public ArbolAVL crearArbolConsumo(int anio){
-        ArbolAVL arbolito;
-        if(!this.esVacio()){
-            arbolito=new ArbolAVL();
-            arbolConsumoAux(this.raiz,arbolito,anio);
-        }else{
-            arbolito=null;
-        }
-        return arbolito;
-    }
-    
     private String toStringInOrderAux(NodoAVL n, int anio, int[] contador){
         String texto="";
         
         if(n.getDerecho()!=null){
             texto+=toStringInOrderAux(n.getDerecho(), anio, contador);
         }
-        Ciudad ciudadAux = castearNodo(n);
-        texto+= contador[0] + "." + ciudadAux.getNombre() + ": " + ciudadAux.consumoAnual(anio) + "\n";
+        texto+= contador[0] + "." + n.getClave() + "\n";
         contador[0]++;
         if(n.getIzquierdo()!=null){
             texto+=toStringInOrderAux(n.getIzquierdo(), anio, contador);
@@ -499,20 +472,17 @@ public class ArbolAVL {
     }
     
     private String auxString(String texto, NodoAVL n){
-        Ciudad ciudadRaiz= castearNodo(n);
-        texto+=ciudadRaiz.getNombre()+"(alt: "+n.getAltura()+") HI: ";
+        texto+=n.toString()+"(alt: "+n.getAltura()+") HI: ";
         if(n.getIzquierdo()!=null){
             //Fuerzo casteo ciudad para HI
-            Ciudad ciudadAux = castearNodo(n.getIzquierdo());
-            texto+=ciudadAux.getNombre();
+            texto+=n.getIzquierdo().getClave();
         }else{
             texto+="-";
         }
             texto+=" HD: ";
         if(n.getDerecho()!=null){
             //Fuerzo casteo ciudad para HD
-            Ciudad ciudadAux = castearNodo(n.getDerecho());
-            texto+=ciudadAux.getNombre();
+            texto+=n.getDerecho().getClave();
         }else{
             texto+="-";
         }
@@ -527,15 +497,11 @@ public class ArbolAVL {
     }
     
     public String toString(){
-        Ciudad ciudadAux = castearNodo(this.raiz);
-        String texto="Raiz: "+ciudadAux.getNombre()+"\n";
+        String texto="Raiz: "+this.raiz.toString()+"\n";
               
         texto+=auxString("",this.raiz);
         
         return texto;
     }
     
-    private Ciudad castearNodo(NodoAVL nodo) {
-        return (Ciudad) nodo.getElem();
-    }
 }
