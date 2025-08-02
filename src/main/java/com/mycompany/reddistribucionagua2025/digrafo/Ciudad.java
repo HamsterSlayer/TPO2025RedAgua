@@ -214,7 +214,6 @@ public class Ciudad {
         return año - añoInicial;
     }
 
-
     @Override
     public String toString() {
         return String.format("Ciudad de Nombre:%s con superficie %f", this.nombre, this.superficie);
@@ -257,13 +256,14 @@ public class Ciudad {
         }
         return devuelto;
     }
-    
+
     @Override
     public boolean equals(Object otroObjeto) {
-        //Fuerzo Casteo Ciudad.
+        // Fuerzo Casteo Ciudad.
         Ciudad casteo = (Ciudad) otroObjeto;
-        //Conflicto acá. Las ciudades son iguales 
-        return this.getNomenclatura().equals(casteo.nomenclatura) || this.nombre.equals(casteo.nombre);
+        // Conflicto acá. Las ciudades son iguales
+        return this.getNomenclatura().equalsIgnoreCase(casteo.nomenclatura)
+                || this.nombre.equalsIgnoreCase(casteo.nombre);
     }
 
 }
