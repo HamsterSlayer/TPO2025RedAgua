@@ -1,6 +1,8 @@
 package com.mycompany.reddistribucionagua2025.readtxt;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author ivoel
@@ -21,7 +23,9 @@ public class EscrituraArchivos {
     public void agregarLinea(String linea){
         if(ruta!=null){
             try{
-                w.write(linea+"\n");
+                LocalTime time = LocalTime.now();
+                String timeDisplay = "(" + time.format(DateTimeFormatter.ofPattern("HH:mm:ss")) + ") ";
+                w.write( timeDisplay + linea+"\n");
             } catch (IOException ex) {//Un mensaje de error si hubo un problema al escribir el archivo
                 System.err.println("Error al escribir el archivo");
             }
