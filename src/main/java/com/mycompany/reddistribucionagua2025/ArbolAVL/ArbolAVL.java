@@ -210,6 +210,19 @@ public class ArbolAVL {
         }
         return devolver;
     }
+    
+    private NodoAVL mayorNodoSacar(NodoAVL p,NodoAVL n){
+        NodoAVL devolver;
+        if(n.getDerecho()==null){
+            p.setDerecho(n.getIzquierdo());
+            devolver=n;
+        }else{
+            devolver=mayorNodoSacar(n,n.getDerecho());
+            n.recalcularAltura();
+            p.setIzquierdo(balanceo(n,n.getIzquierdo(),'I'));
+        }
+        return devolver;
+    }
    
     private boolean eliminarAux(NodoAVL p, NodoAVL n, char hijo, Comparable claveBuscado){
         Comparable clave = n.getClave();
@@ -224,9 +237,12 @@ public class ArbolAVL {
                     p.setDerecho(null);
                 }
             }else if(dosHijos(n)){
-                
                 NodoAVL aux;
-                aux=menorNodoSacar(n,n.getDerecho());
+                if(getBalance(this.raiz.getDerecho()) > getBalance(this.raiz.getIzquierdo()) ){
+                    aux=menorNodoSacar(this.raiz,this.raiz.getDerecho());
+                }else{
+                    aux=mayorNodoSacar(this.raiz,this.raiz.getIzquierdo());
+                }
                 aux.setIzquierdo(n.getIzquierdo());
                 aux.setDerecho(n.getDerecho());
                 if(hijo=='D'){
@@ -297,9 +313,12 @@ public class ArbolAVL {
                 if(noHijos(this.raiz)){
                     this.raiz=null;
                 }else if(dosHijos(this.raiz)){
-                    
                     NodoAVL aux;
-                    aux=menorNodoSacar(this.raiz,this.raiz.getDerecho());
+                    if(getBalance(this.raiz.getDerecho()) > getBalance(this.raiz.getIzquierdo()) ){
+                        aux=menorNodoSacar(this.raiz,this.raiz.getDerecho());
+                    }else {
+                        aux=mayorNodoSacar(this.raiz,this.raiz.getIzquierdo());
+                    }
                     aux.setIzquierdo(this.raiz.getIzquierdo());
                     aux.setDerecho(this.raiz.getDerecho());
                     this.raiz=aux;
