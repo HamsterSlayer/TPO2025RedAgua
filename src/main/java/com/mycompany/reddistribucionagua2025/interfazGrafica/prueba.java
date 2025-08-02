@@ -4,19 +4,31 @@
  */
 package com.mycompany.reddistribucionagua2025.interfazGrafica;
 
+import com.mycompany.reddistribucionagua2025.Ciudad;
+import com.mycompany.reddistribucionagua2025.Lista;
+import com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo;
+import java.awt.*;
+import javax.swing.*;
+
 /**
  *
  * @author hamst
  */
 public class prueba extends javax.swing.JFrame {
-    
+    private MapaDigrafo mapaDatos;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(prueba.class.getName());
 
     /**
      * Creates new form prueba
+     * @param datos
      */
-    public prueba() {
+    public prueba(MapaDigrafo datos) {
+        mapaDatos = datos;
         initComponents();
+        CustomPanel prueba = new CustomPanel(mapaDatos);
+        this.add(prueba);
+        this.pack();
+        this.setVisible(true);
     }
 
     /**
@@ -30,7 +42,6 @@ public class prueba extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -43,6 +54,8 @@ public class prueba extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Gestion De Agua");
         setPreferredSize(new java.awt.Dimension(800, 600));
+
+        jPanel1.setForeground(new java.awt.Color(30, 30, 30));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Sistema Gestion De Agua");
@@ -66,20 +79,7 @@ public class prueba extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 427, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 263, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
-        jPanel2.getAccessibleContext().setAccessibleName("graphicDigraph");
-
+        jPanel3.setForeground(new java.awt.Color(30, 30, 30));
         jPanel3.setPreferredSize(new java.awt.Dimension(150, 200));
         jPanel3.setLayout(new java.awt.CardLayout());
 
@@ -153,27 +153,7 @@ public class prueba extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new prueba().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -183,9 +163,63 @@ public class prueba extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }
+
+   
+    class CustomPanel extends JPanel {
+        //Atributos
+        private MapaDigrafo datos;
+        private Node[] panels;
+        private int nodeRadius = 30;
+        
+        public CustomPanel(MapaDigrafo datos) {
+            //Tomo datitos
+            this.datos = datos;
+            setLayout(new GridLayout(0, 1));
+            setPreferredSize(new Dimension(600, 400));
+        }
+        
+        //Drawing ---------------------------
+        @Override
+        protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        if (datos != null) {
+            drawNodes(g2d,nodeRadius);
+        }
+        
+        //drawNode(g2d,nodeRadius,20,20,"Prueba");
+        //g2d.setColor(Color.BLACK);
+        /*g2d.setStroke(new BasicStroke(2.0f));
+        g2d.setColor(Color.BLUE);
+        g2d.*/
+        
+        }
+        //---------------------------
+        
+        
+        private void drawNodes(Graphics g2d, int size) {
+            //Variables
+            Lista aux = datos.getCiudades();
+            panels = new Node[aux.longitud()];
+            
+            int width = this.getWidth();
+            int height = this.getHeight();
+            int widthCursor = width / 10;
+            int heightCursor = height / 10;
+            
+            //Genero los paneles
+            for (int i = 1; i < aux.longitud(); i++) {
+                Ciudad ciudad = (Ciudad) aux.recuperar(i);
+                Node panelTemp = new Node(ciudad.getNombre());
+                panels[i-1] = panelTemp;
+                this.add(panelTemp);
+            }
+        }
+
+        
+    }

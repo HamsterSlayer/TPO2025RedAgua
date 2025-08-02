@@ -2,6 +2,7 @@ package com.mycompany.reddistribucionagua2025;
 
 import com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo;
 import com.mycompany.reddistribucionagua2025.interfazGrafica.GUI;
+import com.mycompany.reddistribucionagua2025.interfazGrafica.prueba;
 
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -50,7 +51,8 @@ public class TransporteDeAgua {
         generadorHabitantes.crearDatos(false, añoInicial);
         actualizarUltimaAccion("Se cargaron los datos");
         //GUI
-        GUI menu = new GUI(mapaCiudad);
+        //GUI menu = new GUI(mapaCiudad);
+        prueba menu = new prueba(mapaCiudad);
         // Menu
         /*int opcion;
         boolean exit = false;
