@@ -46,7 +46,7 @@ public class CargaArchivos {
                                     + ".txt");
                     Ciudad temp = new Ciudad(arr[0], añoInicial, hab, Float.parseFloat(arr[1].trim()), consumo);
                     // Ciudad temp = new Ciudad(arr[0],añoInicial,Float.parseFloat(arr[1].trim()));
-                    arbol.insertar(temp, formatoUsuario.sacarAcentos(temp.getNombre().replace(" ", "").toLowerCase()));
+                    arbol.insertar(temp, temp.getNombre()); //formatoUsuario.sacarAcentos(temp.getNombre().replace(" ", "").toLowerCase())
                     mapa.insertarVertice(temp);
                 }
             } while (linea != null);
