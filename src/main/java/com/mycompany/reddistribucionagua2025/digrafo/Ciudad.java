@@ -214,9 +214,6 @@ public class Ciudad {
         return año - añoInicial;
     }
 
-    public boolean equals(Object otraCiudad) {
-        return (this.nomenclatura).equals(((Ciudad) otraCiudad).getNomenclatura());
-    }
 
     public String toString() {
         return String.format("Ciudad de Nombre:%s con superficie %f", this.nombre, this.superficie);
