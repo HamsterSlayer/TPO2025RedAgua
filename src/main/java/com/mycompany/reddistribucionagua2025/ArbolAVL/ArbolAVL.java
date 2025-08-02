@@ -201,12 +201,24 @@ public class ArbolAVL {
     private NodoAVL menorNodoSacar(NodoAVL p,NodoAVL n){
         NodoAVL devolver;
         if(n.getIzquierdo()==null){
+            p.setDerecho(n.getDerecho());
+            devolver=n;
+        }else{
+            devolver=menorNodoSacarAux(n,n.getIzquierdo());
+            n.recalcularAltura();
+        }
+        return devolver;
+    }
+    
+    private NodoAVL menorNodoSacarAux(NodoAVL p,NodoAVL n){
+        NodoAVL devolver;
+        if(n.getIzquierdo()==null){
             p.setIzquierdo(n.getDerecho());
             devolver=n;
         }else{
             devolver=menorNodoSacar(n,n.getIzquierdo());
             n.recalcularAltura();
-            p.setDerecho(balanceo(n,n.getDerecho(),'D'));
+            p.setIzquierdo(balanceo(n,n.getDerecho(),'D'));
         }
         return devolver;
     }
@@ -214,12 +226,24 @@ public class ArbolAVL {
     private NodoAVL mayorNodoSacar(NodoAVL p,NodoAVL n){
         NodoAVL devolver;
         if(n.getDerecho()==null){
+            p.setIzquierdo(n.getIzquierdo());
+            devolver=n;
+        }else{
+            devolver=mayorNodoSacarAux(n,n.getDerecho());
+            n.recalcularAltura();
+        }
+        return devolver;
+    }
+    
+    private NodoAVL mayorNodoSacarAux(NodoAVL p,NodoAVL n){
+        NodoAVL devolver;
+        if(n.getDerecho()==null){
             p.setDerecho(n.getIzquierdo());
             devolver=n;
         }else{
-            devolver=mayorNodoSacar(n,n.getDerecho());
+            devolver=mayorNodoSacarAux(n,n.getDerecho());
             n.recalcularAltura();
-            p.setIzquierdo(balanceo(n,n.getIzquierdo(),'I'));
+            p.setDerecho(balanceo(n,n.getIzquierdo(),'I'));
         }
         return devolver;
     }
