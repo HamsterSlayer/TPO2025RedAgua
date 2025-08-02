@@ -261,7 +261,8 @@ public class Ciudad {
     public boolean equals(Object otroObjeto) {
         //Fuerzo Casteo Ciudad.
         Ciudad casteo = (Ciudad) otroObjeto;
-        return this.getNomenclatura().equals(casteo.nomenclatura);
+        //Conflicto acá. Las ciudades son iguales 
+        return this.getNomenclatura().equals(casteo.nomenclatura) || this.nombre.equals(casteo.nombre);
     }
 
 }
