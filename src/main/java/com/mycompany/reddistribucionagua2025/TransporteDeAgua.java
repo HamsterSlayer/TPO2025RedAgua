@@ -86,7 +86,7 @@ public class TransporteDeAgua {
                 case 0:
                     exit = true;
                     adios();
-                    // logFinalizar(tablaBusqueda, mapaCiudad, mapeoTuberias); Verificar despues
+                    logFinalizar(tablaBusqueda, mapaCiudad, mapeoTuberias);
                     break;
                 default:
                     opcionInvalida();
@@ -160,18 +160,21 @@ public class TransporteDeAgua {
         System.out.println(menuEliminarCiudad);
         System.out.print("Por favor introduzca los datos: ");
         String nombreCiudad = formatoUsuario.sacarAcentos(in.nextLine().replace(" ", "").toLowerCase());
-
-        // Lo elimino de la tabla de busqueda
-        if (tablaBusqueda.eliminar(nombreCiudad)) {
-            Ciudad ciudadBuscada = (Ciudad) mapaCiudad.obtenerElem(new Ciudad(nombreCiudad));
-            // Lo elimino del digrafo
-            log.log("Se mando a eliminar la ciudad: " + nombreCiudad,
-                    mapaCiudad.eliminarVertice(ciudadBuscada) || tablaBusqueda.eliminar(nombreCiudad)); // Logeo
-            actualizarUltimaAccion(String.format("Se elimino la ciudad %s", nombreCiudad));
-        } else {
-            actualizarUltimaAccion(String.format("No existe la ciudad %s", nombreCiudad));
+        try {
+            // Lo elimino de la tabla de busqueda
+            if (tablaBusqueda.eliminar(nombreCiudad)) {
+                Ciudad ciudadBuscada = (Ciudad) mapaCiudad.obtenerElem(new Ciudad(nombreCiudad));
+                // Lo elimino del digrafo
+                log.log("Se mando a eliminar la ciudad: " + nombreCiudad,
+                        mapaCiudad.eliminarVertice(ciudadBuscada) || tablaBusqueda.eliminar(nombreCiudad)); // Logeo
+                actualizarUltimaAccion(String.format("Se elimino la ciudad %s", nombreCiudad));
+            } else {
+                actualizarUltimaAccion(String.format("No existe la ciudad %s", nombreCiudad));
+            }
         }
-
+        catch (Exception e) {
+            actualizarUltimaAccion("Error BAJA CIUDAD");
+        }
     }
     // ------------------------------------------------------------------------
 
@@ -1056,7 +1059,7 @@ public class TransporteDeAgua {
                 }
                 case 1: {
 
-                    confirmarParaContinuar(formato(mapaCiudad.debugPrintVertices()));
+                    confirmarParaContinuar(formato(debugVertice()));
                     break;
                 }
                 case 2: {
@@ -1064,7 +1067,7 @@ public class TransporteDeAgua {
                     break;
                 }
                 case 3: {
-                    confirmarParaContinuar(formato(mapeoTuberias.toString() + "\n"));
+                    confirmarParaContinuar(formato(debugArcos()));
                 }
                     break;
                 case 4:
@@ -1075,6 +1078,35 @@ public class TransporteDeAgua {
         log.agregarLinea("Se fue al menu de Debug para mostrar las estructuras");
     }
 
+    
+    private static String debugVertice() {
+        String resultado = mapaCiudad.debugPrintVertices();
+        //Formato para hacerlo visiblemente mas lindo
+        String[] ciudades = resultado.split("\n");
+        resultado = "";
+        for (String ciudad: ciudades) {
+            //Solo extraigo el nombre 
+            int inicio = ciudad.indexOf(":");
+            int fin = ciudad.indexOf(" con superficie");
+            System.out.println("inicio: " + inicio + "fin" + fin);
+            resultado += "\t" + ciudad.substring(inicio + 1,fin);
+            resultado += "\n";
+        }
+        return resultado;
+    }
+    
+    private static String debugArcos() {
+        String resultado = mapeoTuberias.toString();
+        //Formato para hacerlo visiblemente mas lindo
+        /*String[] tuberias = resultado.split("\n");
+        resultado = "";
+        for (String tuberia: tuberias) {
+            int inicio = tuberia.indexOf(":");
+            
+            
+        }*/
+        return resultado;
+    }
     // -------------------------------------------------------------------------
 
     // OPCION 8: SALIR --------------------------------------------------------
@@ -1089,10 +1121,13 @@ public class TransporteDeAgua {
 
     // Metodos LOGS------------------------------------------------------------
     private static void logFinalizar(ArbolAVL a, MapaDigrafo d, HashMap h) {
-        log.agregarLinea("ESTRUCTURAS:\n");
-        log.agregarLinea(a.toString());
-        log.agregarLinea(d.toString());
-        log.agregarLinea(h.toString());
+        log.agregarLinea("ESTRUCTURAS DE DATOS:\n\n");
+        log.agregarLinea("AVL: ###########\n");
+        log.agregarLinea(a.toString() + "\n###########\n\n");
+        log.agregarLinea("DIGRAFO: ###########\n");
+        log.agregarLinea(d.toString() + "\n###########\n\n");
+        log.agregarLinea("HASHMAP: ###########\n");
+        log.agregarLinea(h.toString() + "\n###########\n\n");
         log.cerrar();
     }
 

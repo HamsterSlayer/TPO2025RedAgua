@@ -318,7 +318,7 @@ public class MapaDigrafo {
         NodoVert temp = inicio;
         String resultado = "";
         while (temp != null) {
-            resultado += temp.getElem().toString() + " " + temp.getElem().toString() + "\n";
+            resultado += temp.getElem().toString() + "\n";
             temp = temp.getSigVertice();
         }
         return resultado;
@@ -329,10 +329,10 @@ public class MapaDigrafo {
         String resultado = "";
         while (temp != null) {
             String nombre = temp.getElem().toString();
-            NodoAdy malaPracticaProg = temp.getPrimerAdy();
-            while (malaPracticaProg != null) {
-                resultado += ("De " + nombre + " A " + malaPracticaProg.getVertice().getElem().toString() + "\n");
-                malaPracticaProg = malaPracticaProg.getSigAdyacente();
+            NodoAdy nodoAdyacente = temp.getPrimerAdy();
+            while (nodoAdyacente != null) {
+                resultado += ("De: " + nombre + " A: " + nodoAdyacente.getVertice().getElem().toString() + "\n");
+                nodoAdyacente = nodoAdyacente.getSigAdyacente();
             }
             temp = temp.getSigVertice();
         }
@@ -575,5 +575,32 @@ public class MapaDigrafo {
     }
 
     // -------------------------------------------------------------------------
-
+    /**
+     * Devuelve la lista de adyacencia del diagrafo
+     * @return 
+     */
+    public String toString() {
+        String resultado = "";
+        NodoVert inicio = this.inicio;
+        while (inicio != null) {
+            //Recorro cada nodo
+            resultado += String.format("Nodo: %s -> " ,inicio.getElem().toString());
+            //Adjunto sus arcos
+            resultado += toStringAux(inicio);
+            resultado += "\n";
+            inicio = inicio.getSigVertice();
+        }
+        return resultado;
+    }
+    
+    private String toStringAux(NodoVert nodo) {
+        String resultado = "";
+        NodoAdy inicio = nodo.getPrimerAdy();
+        while (inicio != null) {
+            resultado += String.format("%s -> " ,inicio.getVertice().getElem().toString());
+            inicio = inicio.getSigAdyacente();
+        }
+        resultado += "*";
+        return resultado;
+    }
 }

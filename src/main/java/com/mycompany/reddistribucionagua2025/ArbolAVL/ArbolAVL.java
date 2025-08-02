@@ -472,7 +472,7 @@ public class ArbolAVL {
     }
     
     private String auxString(String texto, NodoAVL n){
-        texto+=n.toString()+"(alt: "+n.getAltura()+") HI: ";
+        texto+=n.getElem().toString()+"(alt: "+n.getAltura()+") HI: ";
         if(n.getIzquierdo()!=null){
             //Fuerzo casteo ciudad para HI
             texto+=n.getIzquierdo().getClave();
@@ -497,7 +497,7 @@ public class ArbolAVL {
     }
     
     public String toString(){
-        String texto="Raiz: "+this.raiz.toString()+"\n";
+        String texto="Raiz: "+this.raiz.getElem().toString()+"\n";
               
         texto+=auxString("",this.raiz);
         
