@@ -138,8 +138,8 @@ public class TransporteDeAgua {
             Ciudad nuevaCiudad = new Ciudad(datos[0], añoInicial, Float.parseFloat(datos[1]));
             // Verifico que no exista ya
             boolean noExiste = true;
-            noExiste = tablaBusqueda.insertar(nuevaCiudad,
-                    formatoUsuario.sacarAcentos(nuevaCiudad.getNombre().replace(" ", "").toLowerCase()));
+            noExiste = tablaBusqueda.insertar(nuevaCiudad,nuevaCiudad.getNombre());
+                    //formatoUsuario.sacarAcentos(nuevaCiudad.getNombre().replace(" ", "").toLowerCase()));
             if (noExiste) {
                 mapaCiudad.insertarVertice(nuevaCiudad);
                 actualizarUltimaAccion(String.format("Se creo la ciudad %s", datos[0]));
@@ -159,7 +159,7 @@ public class TransporteDeAgua {
         limpiarPantalla();
         System.out.println(menuEliminarCiudad);
         System.out.print("Por favor introduzca los datos: ");
-        String nombreCiudad = formatoUsuario.sacarAcentos(in.nextLine().replace(" ", "").toLowerCase());
+        String nombreCiudad = in.nextLine(); //formatoUsuario.sacarAcentos(in.nextLine().replace(" ", "").toLowerCase());
         try {
             // Lo elimino de la tabla de busqueda
             if (tablaBusqueda.eliminar(nombreCiudad)) {
@@ -185,7 +185,7 @@ public class TransporteDeAgua {
         boolean exit = false;
         System.out.println(formato("\t\t\t\t\tMODIFICAR CIUDAD"));
         System.out.print("Por favor introduzca la ciudad que se modificara: ");
-        String nombreCiudad = formatoUsuario.sacarAcentos(in.nextLine().replace(" ", "").toLowerCase());
+        String nombreCiudad = in.nextLine(); //formatoUsuario.sacarAcentos(in.nextLine().replace(" ", "").toLowerCase());
         laCiudad = (Ciudad) mapaCiudad.obtenerElem(new Ciudad(nombreCiudad));
         if (laCiudad != null) {
             while (!exit) {
@@ -848,9 +848,9 @@ public class TransporteDeAgua {
             // Verifico fecha
             if (verificarFecha(mes, anio)) {
                 // Listo por rango
-                Lista auxL = tablaBusqueda.listarRango(
-                        formatoUsuario.sacarAcentos(aux[0].replace(" ", "").toLowerCase()),
-                        formatoUsuario.sacarAcentos(aux[1].replace(" ", "").toLowerCase()));
+                Lista auxL = tablaBusqueda.listarRango(aux[0],aux[1]);
+                        /*formatoUsuario.sacarAcentos(aux[0].replace(" ", "").toLowerCase()),
+                        formatoUsuario.sacarAcentos(aux[1].replace(" ", "").toLowerCase()));*/
                 int leng = auxL.longitud();
                 Ciudad ciuLista;
                 for (int i = 1; i <= leng; i++) {
@@ -969,7 +969,7 @@ public class TransporteDeAgua {
         System.out.println(menuPedirDosCiudades);
         String[] devuelto;
         System.out.print("Ciudades:");
-        devuelto = formatoUsuario.sacarAcentos((in.nextLine()).toLowerCase()).split(",");
+        devuelto = in.nextLine().split(","); //formatoUsuario.sacarAcentos((in.nextLine()).toLowerCase()).split(",");
         return devuelto;
     }
 
