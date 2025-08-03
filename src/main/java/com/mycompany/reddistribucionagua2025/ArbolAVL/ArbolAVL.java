@@ -197,32 +197,7 @@ public class ArbolAVL {
     private boolean dosHijos(NodoAVL n){
         return (n.getIzquierdo()!=null && n.getDerecho()!=null);
     }
-    
-    private NodoAVL menorNodoSacar(NodoAVL p,NodoAVL n){
-        NodoAVL devolver;
-        if(n.getIzquierdo()==null){
-            p.setDerecho(n.getDerecho());
-            devolver=n;
-        }else{
-            devolver=menorNodoSacarAux(n,n.getIzquierdo());
-            n.recalcularAltura();
-        }
-        return devolver;
-    }
-    
-    private NodoAVL menorNodoSacarAux(NodoAVL p,NodoAVL n){
-        NodoAVL devolver;
-        if(n.getIzquierdo()==null){
-            p.setIzquierdo(n.getDerecho());
-            devolver=n;
-        }else{
-            devolver=menorNodoSacar(n,n.getIzquierdo());
-            n.recalcularAltura();
-            p.setIzquierdo(balanceo(n,n.getDerecho(),'D'));
-        }
-        return devolver;
-    }
-    
+        
     private NodoAVL mayorNodoSacar(NodoAVL p,NodoAVL n){
         NodoAVL devolver;
         if(n.getDerecho()==null){
@@ -262,11 +237,7 @@ public class ArbolAVL {
                 }
             }else if(dosHijos(n)){
                 NodoAVL aux;
-                if(getBalance(this.raiz.getDerecho()) > getBalance(this.raiz.getIzquierdo()) ){
-                    aux=menorNodoSacar(this.raiz,this.raiz.getDerecho());
-                }else{
-                    aux=mayorNodoSacar(this.raiz,this.raiz.getIzquierdo());
-                }
+                aux=mayorNodoSacar(n,n.getIzquierdo());
                 aux.setIzquierdo(n.getIzquierdo());
                 aux.setDerecho(n.getDerecho());
                 if(hijo=='D'){
@@ -338,11 +309,7 @@ public class ArbolAVL {
                     this.raiz=null;
                 }else if(dosHijos(this.raiz)){
                     NodoAVL aux;
-                    if(getBalance(this.raiz.getDerecho()) > getBalance(this.raiz.getIzquierdo()) ){
-                        aux=menorNodoSacar(this.raiz,this.raiz.getDerecho());
-                    }else {
-                        aux=mayorNodoSacar(this.raiz,this.raiz.getIzquierdo());
-                    }
+                    aux=mayorNodoSacar(this.raiz,this.raiz.getIzquierdo());
                     aux.setIzquierdo(this.raiz.getIzquierdo());
                     aux.setDerecho(this.raiz.getDerecho());
                     this.raiz=aux;
