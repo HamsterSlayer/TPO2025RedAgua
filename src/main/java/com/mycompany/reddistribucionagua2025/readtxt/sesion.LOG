@@ -1,47 +1,82 @@
-(18:37:08) EXITO : Se mando a eliminar la ciudad: Neuquén
-(18:37:10) ESTRUCTURAS DE DATOS:
+(18:53:18) ESTRUCTURAS DE DATOS:
 
 
-(18:37:10) AVL: ###########
+(18:53:18) AVL: ###########
 
-(18:37:10) Raiz: Ciudad de Nombre:Monteaurora con superficie 1050000,000000
-Ciudad de Nombre:Monteaurora con superficie 1050000,000000(alt: 0) HI: Cupral-Có HD: Solandina
-Ciudad de Nombre:Cupral-Có con superficie 800000,000000(alt: 2) HI: Maravélica HD: Maravélica
-Ciudad de Nombre:Maravélica con superficie 900000,000000(alt: 1) HI: Fuenteluz HD: -
-Ciudad de Nombre:Fuenteluz con superficie 780000,000000(alt: 0) HI: - HD: -
-Ciudad de Nombre:Maravélica con superficie 900000,000000(alt: 1) HI: Fuenteluz HD: -
-Ciudad de Nombre:Fuenteluz con superficie 780000,000000(alt: 0) HI: - HD: -
-Ciudad de Nombre:Solandina con superficie 1100000,000000(alt: 2) HI: Piedraluna HD: Valleverde
-Ciudad de Nombre:Piedraluna con superficie 1000000,000000(alt: 1) HI: - HD: Rionegra
-Ciudad de Nombre:Rionegra con superficie 890000,000000(alt: 0) HI: - HD: -
-Ciudad de Nombre:Valleverde con superficie 950000,000000(alt: 1) HI: Terraviva HD: Ventisquero Alto
-Ciudad de Nombre:Terraviva con superficie 750000,000000(alt: 0) HI: - HD: -
-Ciudad de Nombre:Ventisquero Alto con superficie 920000,000000(alt: 0) HI: - HD: -
+(18:53:18) Raiz: Ciudad de Nombre:Montevideo con superficie 890123,000000
+Ciudad de Nombre:Montevideo con superficie 890123,000000(alt: 5) HI: Ciudad de México HD: San Juan
+Ciudad de Nombre:Ciudad de México con superficie 451298,000000(alt: 4) HI: Buenos Aires HD: Lima
+Ciudad de Nombre:Buenos Aires con superficie 856723,000000(alt: 3) HI: Barranquilla HD: Caracas
+Ciudad de Nombre:Barranquilla con superficie 567890,000000(alt: 2) HI: Asunción HD: Bogotá
+Ciudad de Nombre:Asunción con superficie 456789,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Bogotá con superficie 678901,000000(alt: 1) HI: - HD: Brasília
+Ciudad de Nombre:Brasília con superficie 890123,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Caracas con superficie 567890,000000(alt: 1) HI: Cali HD: -
+Ciudad de Nombre:Cali con superficie 234567,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Lima con superficie 912345,000000(alt: 3) HI: Habana HD: Medellín
+Ciudad de Nombre:Habana con superficie 567890,000000(alt: 2) HI: Guadalajara HD: La Paz
+Ciudad de Nombre:Guadalajara con superficie 789012,000000(alt: 1) HI: Fortaleza HD: -
+Ciudad de Nombre:Fortaleza con superficie 789012,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:La Paz con superficie 123456,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Medellín con superficie 901234,000000(alt: 1) HI: Managua HD: Monterrey
+Ciudad de Nombre:Managua con superficie 901234,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Monterrey con superficie 345678,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:San Juan con superficie 123456,000000(alt: 4) HI: Río de Janeiro HD: Santiago
+Ciudad de Nombre:Río de Janeiro con superficie 723456,000000(alt: 3) HI: Puebla HD: San José
+Ciudad de Nombre:Puebla con superficie 678901,000000(alt: 2) HI: Panamá HD: Quito
+Ciudad de Nombre:Panamá con superficie 345678,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Quito con superficie 234567,000000(alt: 1) HI: - HD: Recife
+Ciudad de Nombre:Recife con superficie 456789,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:San José con superficie 789012,000000(alt: 1) HI: Salvador HD: -
+Ciudad de Nombre:Salvador con superficie 123456,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Santiago con superficie 398765,000000(alt: 2) HI: San Salvador HD: Tegucigalpa
+Ciudad de Nombre:San Salvador con superficie 234567,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Tegucigalpa con superficie 678901,000000(alt: 1) HI: Santo Domingo HD: Tijuana
+Ciudad de Nombre:Santo Domingo con superficie 890123,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Tijuana con superficie 456789,000000(alt: 0) HI: - HD: -
 
 ###########
 
 
-(18:37:10) DIGRAFO: ###########
+(18:53:18) DIGRAFO: ###########
 
-(18:37:10) Nodo: Ciudad de Nombre:Cupral-Có con superficie 800000,000000 -> Ciudad de Nombre:Valleverde con superficie 950000,000000 -> Ciudad de Nombre:Terraviva con superficie 750000,000000 -> *
-Nodo: Ciudad de Nombre:Maravélica con superficie 900000,000000 -> Ciudad de Nombre:Monteaurora con superficie 1050000,000000 -> *
-Nodo: Ciudad de Nombre:Solandina con superficie 1100000,000000 -> Ciudad de Nombre:Monteaurora con superficie 1050000,000000 -> *
-Nodo: Ciudad de Nombre:Terraviva con superficie 750000,000000 -> Ciudad de Nombre:Maravélica con superficie 900000,000000 -> *
-Nodo: Ciudad de Nombre:Piedraluna con superficie 1000000,000000 -> Ciudad de Nombre:Solandina con superficie 1100000,000000 -> Ciudad de Nombre:Cupral-Có con superficie 800000,000000 -> *
-Nodo: Ciudad de Nombre:Valleverde con superficie 950000,000000 -> Ciudad de Nombre:Rionegra con superficie 890000,000000 -> *
-Nodo: Ciudad de Nombre:Monteaurora con superficie 1050000,000000 -> Ciudad de Nombre:Piedraluna con superficie 1000000,000000 -> *
-Nodo: Ciudad de Nombre:Rionegra con superficie 890000,000000 -> Ciudad de Nombre:Ventisquero Alto con superficie 920000,000000 -> *
-Nodo: Ciudad de Nombre:Fuenteluz con superficie 780000,000000 -> Ciudad de Nombre:Ventisquero Alto con superficie 920000,000000 -> Ciudad de Nombre:Cieloflor con superficie 970000,000000 -> *
-Nodo: Ciudad de Nombre:Ventisquero Alto con superficie 920000,000000 -> Ciudad de Nombre:Cieloflor con superficie 970000,000000 -> *
-Nodo: Ciudad de Nombre:Cieloflor con superficie 970000,000000 -> *
-Nodo: Ciudad de Nombre:Bosquemonte con superficie 860000,000000 -> *
+(18:53:18) Nodo: Ciudad de Nombre:Buenos Aires con superficie 856723,000000 -> *
+Nodo: Ciudad de Nombre:Ciudad de México con superficie 451298,000000 -> *
+Nodo: Ciudad de Nombre:Río de Janeiro con superficie 723456,000000 -> *
+Nodo: Ciudad de Nombre:Santiago con superficie 398765,000000 -> *
+Nodo: Ciudad de Nombre:Lima con superficie 912345,000000 -> *
+Nodo: Ciudad de Nombre:Bogotá con superficie 678901,000000 -> *
+Nodo: Ciudad de Nombre:Quito con superficie 234567,000000 -> *
+Nodo: Ciudad de Nombre:Caracas con superficie 567890,000000 -> *
+Nodo: Ciudad de Nombre:Montevideo con superficie 890123,000000 -> *
+Nodo: Ciudad de Nombre:La Paz con superficie 123456,000000 -> *
+Nodo: Ciudad de Nombre:Asunción con superficie 456789,000000 -> *
+Nodo: Ciudad de Nombre:San José con superficie 789012,000000 -> *
+Nodo: Ciudad de Nombre:Panamá con superficie 345678,000000 -> *
+Nodo: Ciudad de Nombre:Tegucigalpa con superficie 678901,000000 -> *
+Nodo: Ciudad de Nombre:Managua con superficie 901234,000000 -> *
+Nodo: Ciudad de Nombre:San Salvador con superficie 234567,000000 -> *
+Nodo: Ciudad de Nombre:Habana con superficie 567890,000000 -> *
+Nodo: Ciudad de Nombre:Santo Domingo con superficie 890123,000000 -> *
+Nodo: Ciudad de Nombre:San Juan con superficie 123456,000000 -> *
+Nodo: Ciudad de Nombre:Tijuana con superficie 456789,000000 -> *
+Nodo: Ciudad de Nombre:Guadalajara con superficie 789012,000000 -> *
+Nodo: Ciudad de Nombre:Monterrey con superficie 345678,000000 -> *
+Nodo: Ciudad de Nombre:Puebla con superficie 678901,000000 -> *
+Nodo: Ciudad de Nombre:Medellín con superficie 901234,000000 -> *
+Nodo: Ciudad de Nombre:Cali con superficie 234567,000000 -> *
+Nodo: Ciudad de Nombre:Barranquilla con superficie 567890,000000 -> *
+Nodo: Ciudad de Nombre:Brasília con superficie 890123,000000 -> *
+Nodo: Ciudad de Nombre:Salvador con superficie 123456,000000 -> *
+Nodo: Ciudad de Nombre:Recife con superficie 456789,000000 -> *
+Nodo: Ciudad de Nombre:Fortaleza con superficie 789012,000000 -> *
 
 ###########
 
 
-(18:37:10) HASHMAP: ###########
+(18:53:18) HASHMAP: ###########
 
-(18:37:10) {com.mycompany.reddistribucionagua2025.Hash.DominioHash@1eeb4bca=Tuberia: VA3010-CI3011, caudalMax: 70,000000 - caudalMin 288,000000; diametro: 1,700000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@e0833aa=Tuberia: VA3006-RI3008, caudalMax: 70,000000 - caudalMin 297,000000; diametro: 1,800000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@1b9a62de=Tuberia: CU3001-VA3006, caudalMax: 55,000000 - caudalMin 241,000000; diametro: 1,550000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@ecfcc839=Tuberia: MA3002-MO3007, caudalMax: 55,000000 - caudalMin 206,000000; diametro: 1,500000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@392e16eb=Tuberia: PI3005-CU3001, caudalMax: 60,000000 - caudalMin 250,000000; diametro: 1,650000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@1ec7b3e1=Tuberia: MO3007-PI3005, caudalMax: 50,000000 - caudalMin 193,000000; diametro: 1,400000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@18690fa2=Tuberia: CU3001-TE3004, caudalMax: 50,000000 - caudalMin 199,000000; diametro: 1,400000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@748eaa42=Tuberia: SO3003-MO3007, caudalMax: 50,000000 - caudalMin 235,000000; diametro: 1,500000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@542713d7=Tuberia: PI3005-SO3003, caudalMax: 65,000000 - caudalMin 266,000000; diametro: 1,700000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@6965143=Tuberia: RI3008-VA3010, caudalMax: 45,000000 - caudalMin 195,000000; diametro: 1,350000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@df724645=Tuberia: TE3004-MA3002, caudalMax: 30,000000 - caudalMin 132,000000; diametro: 1,000000. ESTADO: EN_REPARACION, com.mycompany.reddistribucionagua2025.Hash.DominioHash@f927ea30=Tuberia: RI3008-NE3000, caudalMax: 50,000000 - caudalMin 213,000000; diametro: 1,450000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@d9e12d1c=Tuberia: FU3009-VA3010, caudalMax: 55,000000 - caudalMin 232,000000; diametro: 1,500000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@b9e5d558=Tuberia: FU3009-CI3011, caudalMax: 50,000000 - caudalMin 219,000000; diametro: 1,450000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@e9d9c366=Tuberia: NE3000-TE3004, caudalMax: 60,000000 - caudalMin 243,000000; diametro: 1,600000. ESTADO: ACTIVO}
+(18:53:18) {}
 ###########
 
 

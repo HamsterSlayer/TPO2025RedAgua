@@ -25,8 +25,8 @@ import com.mycompany.reddistribucionagua2025.readtxt.*;
  * @author hamst
  */
 public class TransporteDeAgua {
-    private static final String informacionCiudades = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\debugEjemploCiudades.txt";
-    private static final String informacionTuberias = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\debugEjemploTuberias.txt";
+    private static final String informacionCiudades = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\informacion.txt";
+    private static final String informacionTuberias = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\infoTuberias.txt";
     private static final String datosCiudades = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\datosCiudadesHabitantes";
     // Variables del Programa ----------------------------------
     // Estas variables se usarán para modificar y operar el programa
