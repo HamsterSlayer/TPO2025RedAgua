@@ -257,13 +257,18 @@ public class Ciudad {
         return devuelto;
     }
 
-    @Override
-    public boolean equals(Object otroObjeto) {
+    public boolean equals(Ciudad otraCiudad) {
         // Fuerzo Casteo Ciudad.
-        Ciudad casteo = (Ciudad) otroObjeto;
         // Conflicto acá. Las ciudades son iguales
-        return this.getNomenclatura().equalsIgnoreCase(casteo.nomenclatura)
-                || this.nombre.equalsIgnoreCase(casteo.nombre);
+        return this.getNomenclatura().equalsIgnoreCase(otraCiudad.nomenclatura)
+                || this.nombre.equalsIgnoreCase(otraCiudad.nombre);
+    }
+    
+    public boolean equals(String otroObjeto) {
+        // Fuerzo Casteo Ciudad.
+        // Conflicto acá. Las ciudades son iguales
+        return this.getNomenclatura().equalsIgnoreCase(otroObjeto)
+                || this.nombre.equalsIgnoreCase(otroObjeto);
     }
 
 }
