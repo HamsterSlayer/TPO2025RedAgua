@@ -3,7 +3,6 @@ package com.mycompany.reddistribucionagua2025;
 import com.mycompany.reddistribucionagua2025.Hash.DominioHash;
 import com.mycompany.reddistribucionagua2025.Hash.Tuberias;
 import com.mycompany.reddistribucionagua2025.digrafo.Ciudad;
-import com.mycompany.reddistribucionagua2025.readtxt.formatoUsuario;
 import com.mycompany.reddistribucionagua2025.Lista.Lista;
 import com.mycompany.reddistribucionagua2025.ArbolAVL.ArbolAVL;
 import com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo;
@@ -13,7 +12,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.mycompany.reddistribucionagua2025.readtxt.*;
 
-/**
+/**Agregar casos de prueba para cada estructura 
  *
  * @author Todos
  */
@@ -1042,7 +1041,6 @@ public class TransporteDeAgua {
 
         log.agregarLinea("Se mostro ciudades ordenadas por consumo en el año " + anio);
     }
-
     // --------------------------------------------------------------------------
 
     // OPCION 7: DEBUGGING -----------------------------------------------------
