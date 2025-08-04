@@ -974,9 +974,9 @@ public class TransporteDeAgua {
     }
 
     // subOpcion1
-    private static void caudalPleno(String ciudadA, String ciudadB) {
-        Lista caudalPleno = mapaCiudad.dijkstra(ciudadA, ciudadB);
-        if (!caudalPleno.esVacia()) {
+    private static void caudalPleno(String ciudadA, String ciudadB){
+        Lista caudalPleno = mapaCiudad.dijkstra(new Ciudad(ciudadA), new Ciudad(ciudadB));
+        if (!caudalPleno.esVacia()){
             System.out.println("El camino entre " + ciudadA + " y " + ciudadB + " con menor caudal pleno es ");
             System.out.println(toNombres(caudalPleno));
             System.out.println("Estado del camino: " + getEstadoCamino(caudalPleno));
@@ -991,7 +991,7 @@ public class TransporteDeAgua {
 
     // subOpcion2
     private static void caminoMasCorto(String ciudadA, String ciudadB) {
-        Lista devuelto = mapaCiudad.caminoMasCorto(ciudadA, ciudadB);
+        Lista devuelto = mapaCiudad.caminoMasCorto(new Ciudad(ciudadA), new Ciudad(ciudadB));
         if (!devuelto.esVacia()) {
             System.out.println(
                     "El camino entre " + ciudadA + " y " + ciudadB + " que pasa por la menor cantidad de ciudades es ");

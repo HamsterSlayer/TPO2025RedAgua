@@ -492,7 +492,7 @@ public class MapaDigrafo {
         Lista dijkstra = new Lista();
         Lista visitados = new Lista();
         while (visitados.localizar(destino) == -1 && actual != null) {
-            // Busco el vertice con el camino mas corto posible estimado.
+            //Busco el vertice con el camino mas corto posible estimado.
             actual = menorEstimativa(origen, distancias, visitados);
             if (actual != null) {
                 visitados.insertar(actual, visitados.longitud() + 1);
