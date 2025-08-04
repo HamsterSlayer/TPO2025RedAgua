@@ -2,8 +2,6 @@ package com.mycompany.reddistribucionagua2025.readtxt;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import com.mycompany.reddistribucionagua2025.ArbolAVL.ArbolAVL;
 import com.mycompany.reddistribucionagua2025.digrafo.Ciudad;
 import com.mycompany.reddistribucionagua2025.Hash.DominioHash;
