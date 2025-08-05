@@ -270,5 +270,19 @@ public class Ciudad {
         return this.getNomenclatura().equalsIgnoreCase(otroObjeto)
                 || this.nombre.equalsIgnoreCase(otroObjeto);
     }
+    
+    @Override
+    public boolean equals(Object otroObjeto) {
+        // Conflicto acá. Las ciudades son iguales
+        boolean resultado;
+        if (otroObjeto instanceof Ciudad ) {
+            resultado = this.getNomenclatura().equals(((Ciudad) otroObjeto).getNomenclatura())
+                || this.nombre.equals(((Ciudad) otroObjeto).getNombre());
+        }
+        else {
+            resultado = this.getNombre().equals(otroObjeto);
+        }
+        return resultado;
+    }
 
 }
