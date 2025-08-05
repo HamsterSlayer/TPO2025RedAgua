@@ -26,7 +26,7 @@ import com.mycompany.reddistribucionagua2025.readtxt.*;
  */
 public class TransporteDeAgua {
     private static final String informacionCiudades = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\informacion.txt";
-    private static final String informacionTuberias = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\tuberiasInfo.txt";
+    private static final String informacionTuberias = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\tuberiasInfo6.txt";
     private static final String datosCiudades = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\datosCiudadesHabitantes";
     // Variables del Programa ----------------------------------
     // Estas variables se usarán para modificar y operar el programa

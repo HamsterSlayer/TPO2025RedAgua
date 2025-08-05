@@ -43,8 +43,7 @@ public class ArbolAVL {
         if(n!=null){
             int balancePadre,balanceHijo;
             balancePadre=getBalance(p);
-            balanceHijo=getBalance(n);           
-                        
+            balanceHijo=getBalance(n);
             if(balancePadre==2){
                 if(balanceHijo==1 || balanceHijo==0){
                     aux=rotarDerecha(p);
@@ -224,7 +223,6 @@ public class ArbolAVL {
         boolean exito;
         if(claveBuscado.compareTo(clave)==0){
             exito=true;
-            
             if(noHijos(n)){
                 if(hijo=='I'){
                     p.setIzquierdo(null);
@@ -236,6 +234,7 @@ public class ArbolAVL {
                 aux=mayorNodoSacar(n,n.getIzquierdo());
                 aux.setIzquierdo(n.getIzquierdo());
                 aux.setDerecho(n.getDerecho());
+                aux.recalcularAltura();
                 if(hijo=='D'){
                     p.setDerecho(aux);
                 }else{
@@ -246,15 +245,15 @@ public class ArbolAVL {
                 
                 if(n.getIzquierdo()!=null){
                     if(hijo=='D'){
-                    p.setDerecho(n.getIzquierdo());
+                        p.setDerecho(n.getIzquierdo());
                     }else{
-                    p.setIzquierdo(n.getIzquierdo());
+                        p.setIzquierdo(n.getIzquierdo());
                     }
                 }else{
                     if(hijo=='D'){
-                    p.setDerecho(n.getDerecho());
+                        p.setDerecho(n.getDerecho());
                     }else{
-                    p.setIzquierdo(n.getDerecho());
+                        p.setIzquierdo(n.getDerecho());
                     }
                 }
                 
@@ -306,6 +305,7 @@ public class ArbolAVL {
                     aux=mayorNodoSacar(this.raiz,this.raiz.getIzquierdo());
                     aux.setIzquierdo(this.raiz.getIzquierdo());
                     aux.setDerecho(this.raiz.getDerecho());
+                    aux.recalcularAltura();
                     this.raiz=aux;
                 }else{
                 
