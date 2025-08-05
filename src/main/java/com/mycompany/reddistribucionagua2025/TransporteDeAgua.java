@@ -3,7 +3,6 @@ package com.mycompany.reddistribucionagua2025;
 import com.mycompany.reddistribucionagua2025.Hash.DominioHash;
 import com.mycompany.reddistribucionagua2025.Hash.Tuberias;
 import com.mycompany.reddistribucionagua2025.digrafo.Ciudad;
-import com.mycompany.reddistribucionagua2025.readtxt.formatoUsuario;
 import com.mycompany.reddistribucionagua2025.Lista.Lista;
 import com.mycompany.reddistribucionagua2025.ArbolAVL.ArbolAVL;
 import com.mycompany.reddistribucionagua2025.digrafo.MapaDigrafo;
@@ -13,7 +12,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.mycompany.reddistribucionagua2025.readtxt.*;
 
-/**
+/**Agregar casos de prueba para cada estructura 
  *
  * @author Todos
  */
@@ -138,8 +137,9 @@ public class TransporteDeAgua {
             Ciudad nuevaCiudad = new Ciudad(datos[0], añoInicial, Float.parseFloat(datos[1]));
             // Verifico que no exista ya
             boolean noExiste = true;
-            noExiste = tablaBusqueda.insertar(nuevaCiudad,nuevaCiudad.getNombre());
-                    //formatoUsuario.sacarAcentos(nuevaCiudad.getNombre().replace(" ", "").toLowerCase()));
+            noExiste = tablaBusqueda.insertar(nuevaCiudad, nuevaCiudad.getNombre());
+            // formatoUsuario.sacarAcentos(nuevaCiudad.getNombre().replace(" ",
+            // "").toLowerCase()));
             if (noExiste) {
                 mapaCiudad.insertarVertice(nuevaCiudad);
                 actualizarUltimaAccion(String.format("Se creo la ciudad %s", datos[0]));
@@ -159,7 +159,8 @@ public class TransporteDeAgua {
         limpiarPantalla();
         System.out.println(menuEliminarCiudad);
         System.out.print("Por favor introduzca los datos: ");
-        String nombreCiudad = in.nextLine(); //formatoUsuario.sacarAcentos(in.nextLine().replace(" ", "").toLowerCase());
+        String nombreCiudad = in.nextLine(); // formatoUsuario.sacarAcentos(in.nextLine().replace(" ",
+                                             // "").toLowerCase());
         try {
             // Lo elimino de la tabla de busqueda
             if (tablaBusqueda.eliminar(nombreCiudad)) {
@@ -171,8 +172,7 @@ public class TransporteDeAgua {
             } else {
                 actualizarUltimaAccion(String.format("No existe la ciudad %s", nombreCiudad));
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             actualizarUltimaAccion("Error BAJA CIUDAD");
         }
     }
@@ -185,7 +185,8 @@ public class TransporteDeAgua {
         boolean exit = false;
         System.out.println(formato("\t\t\t\t\tMODIFICAR CIUDAD"));
         System.out.print("Por favor introduzca la ciudad que se modificara: ");
-        String nombreCiudad = in.nextLine(); //formatoUsuario.sacarAcentos(in.nextLine().replace(" ", "").toLowerCase());
+        String nombreCiudad = in.nextLine(); // formatoUsuario.sacarAcentos(in.nextLine().replace(" ",
+                                             // "").toLowerCase());
         laCiudad = (Ciudad) mapaCiudad.obtenerElem(new Ciudad(nombreCiudad));
         if (laCiudad != null) {
             while (!exit) {
@@ -848,9 +849,11 @@ public class TransporteDeAgua {
             // Verifico fecha
             if (verificarFecha(mes, anio)) {
                 // Listo por rango
-                Lista auxL = tablaBusqueda.listarRango(aux[0],aux[1]);
-                        /*formatoUsuario.sacarAcentos(aux[0].replace(" ", "").toLowerCase()),
-                        formatoUsuario.sacarAcentos(aux[1].replace(" ", "").toLowerCase()));*/
+                Lista auxL = tablaBusqueda.listarRango(aux[0], aux[1]);
+                /*
+                 * formatoUsuario.sacarAcentos(aux[0].replace(" ", "").toLowerCase()),
+                 * formatoUsuario.sacarAcentos(aux[1].replace(" ", "").toLowerCase()));
+                 */
                 int leng = auxL.longitud();
                 Ciudad ciuLista;
                 for (int i = 1; i <= leng; i++) {
@@ -969,14 +972,14 @@ public class TransporteDeAgua {
         System.out.println(menuPedirDosCiudades);
         String[] devuelto;
         System.out.print("Ciudades:");
-        devuelto = in.nextLine().split(","); //formatoUsuario.sacarAcentos((in.nextLine()).toLowerCase()).split(",");
+        devuelto = in.nextLine().split(","); // formatoUsuario.sacarAcentos((in.nextLine()).toLowerCase()).split(",");
         return devuelto;
     }
 
     // subOpcion1
-    private static void caudalPleno(String ciudadA, String ciudadB){
+    private static void caudalPleno(String ciudadA, String ciudadB) {
         Lista caudalPleno = mapaCiudad.dijkstra(new Ciudad(ciudadA), new Ciudad(ciudadB));
-        if (!caudalPleno.esVacia()){
+        if (!caudalPleno.esVacia()) {
             System.out.println("El camino entre " + ciudadA + " y " + ciudadB + " con menor caudal pleno es ");
             System.out.println(toNombres(caudalPleno));
             System.out.println("Estado del camino: " + getEstadoCamino(caudalPleno));
@@ -1042,7 +1045,6 @@ public class TransporteDeAgua {
 
         log.agregarLinea("Se mostro ciudades ordenadas por consumo en el año " + anio);
     }
-
     // --------------------------------------------------------------------------
 
     // OPCION 7: DEBUGGING -----------------------------------------------------
@@ -1051,7 +1053,7 @@ public class TransporteDeAgua {
         int opcion;
         boolean exitTemp = false;
         while (!exitTemp) {
-            opcion = crearMenu(menuDebug, 4);
+            opcion = crearMenu(menuDebug, 5);
             switch (opcion) {
                 case 0: {
                     exitTemp = true;
@@ -1072,40 +1074,98 @@ public class TransporteDeAgua {
                     break;
                 case 4:
                     confirmarParaContinuar(formato(tablaBusqueda.toString()) + "\n");
+                    break;
+                case 5:
+                    pruebaCaminos();
                 default:
             }
         }
         log.agregarLinea("Se fue al menu de Debug para mostrar las estructuras");
     }
 
-    
     private static String debugVertice() {
         String resultado = mapaCiudad.debugPrintVertices();
-        //Formato para hacerlo visiblemente mas lindo
+        // Formato para hacerlo visiblemente mas lindo
         String[] ciudades = resultado.split("\n");
         resultado = "";
-        for (String ciudad: ciudades) {
-            //Solo extraigo el nombre 
+        for (String ciudad : ciudades) {
+            // Solo extraigo el nombre
             int inicio = ciudad.indexOf(":");
             int fin = ciudad.indexOf(" con superficie");
             System.out.println("inicio: " + inicio + "fin" + fin);
-            resultado += "\t" + ciudad.substring(inicio + 1,fin);
+            resultado += "\t" + ciudad.substring(inicio + 1, fin);
             resultado += "\n";
         }
         return resultado;
     }
-    
+
     private static String debugArcos() {
         String resultado = mapeoTuberias.toString();
-        //Formato para hacerlo visiblemente mas lindo
-        /*String[] tuberias = resultado.split("\n");
-        resultado = "";
-        for (String tuberia: tuberias) {
-            int inicio = tuberia.indexOf(":");
-            
-            
-        }*/
+        // Formato para hacerlo visiblemente mas lindo
+        /*
+         * String[] tuberias = resultado.split("\n");
+         * resultado = "";
+         * for (String tuberia: tuberias) {
+         * int inicio = tuberia.indexOf(":");
+         * 
+         * 
+         * }
+         */
         return resultado;
+    }
+
+    public static void pruebaCaminos() {
+        System.out.println("Unidad de test para los métodos de Caudal Pleno y de Camino Más corto");
+        System.out.println("Existen dos caminos posibles desde Panamá a Tijuana. \n" +
+                "1: Panamá-Puebla-Tijuana, con 3 vertices y caudal total 1010\n" +
+                "2: Panamá-Tegucipalpa, con 2 vertices y caudal total 1730 \n" +
+                "Si los métodos funcionan correctamente, el método Caudal pleno deberia retornar el camino 1," +
+                " y el metodo camino más corto deberia retornar el camino 2");
+
+        System.out.println("Caudal pleno de Panamá a Tijuana");
+
+        System.out.println(toNombres(mapaCiudad.dijkstra(new Ciudad("Panamá"), new Ciudad("Tijuana"))));
+
+        System.out.println("Camino más corto de Panamá a Tijuana");
+
+        System.out.println(toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Panamá"), new Ciudad("Tijuana"))));
+
+        System.out.println("Ingreso una ciudad que no existe en el gráfico," +
+                " intentando llegar a una ciudad que existe: Canberra a Panamá");
+        System.out.println("Caudal Pleno de Canberra a Panamá");
+
+        System.out.println(toNombres(mapaCiudad.dijkstra(new Ciudad("Canberra"), new Ciudad("Panamá"))));
+
+        System.out.println("Camino más corto de Canberra a Panamá");
+
+        System.out.println(toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Canberra"), new Ciudad("Panamá"))));
+        System.out.println("Ingreso una ciudad que existe en el gráfico," +
+                " intentando llegar a una ciudad que no existe: Panamá a Canberra");
+        System.out.println("Caudal Pleno de Panamá a Canberra");
+
+        System.out.println(toNombres(mapaCiudad.dijkstra(new Ciudad("Canberra"), new Ciudad("Panamá"))));
+
+        System.out.println("Camino más corto de Panamá a Canberra");
+
+        System.out.println(toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Canberra"), new Ciudad("Panamá"))));
+
+        System.out.println("Ingreso dos ciudades que no existen en el gráfico," +
+                " intentando llegar de Canberra a Osaka");
+        System.out.println("Caudal Pleno de Canberra a Osaka");
+
+        System.out.println(mapaCiudad.dijkstra(new Ciudad("Canberra"), new Ciudad("Osaka")));
+
+        System.out.println("Camino más corto de Canberra a Osaka");
+
+        System.out.println(toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Canberra"), new Ciudad("Osaka"))));
+
+        System.out.println("Ingreso dos ciudades que tienen unicamente un camino posible: Monterrey a Santo Domingo");
+        System.out.println("Caudal Pleno de Monterrey a Santo Domingo");
+
+        System.out.println(toNombres(mapaCiudad.dijkstra(new Ciudad("Monterrey"), new Ciudad("Santo Domingo"))));
+        System.out.println("Camino más corto de Monterrey a Santo Domingo");
+
+        System.out.println(toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Monterrey"), new Ciudad("Santo Domingo"))));
     }
     // -------------------------------------------------------------------------
 
@@ -1342,6 +1402,7 @@ public class TransporteDeAgua {
                   [2] Listar todas las tuberias [Digrafo]
                   [3] Listar tuberias en HASH.
                   [4] Listar todas las ciudades [Arbol]
+                  [5] Unidad de Prueba para los métodos de caminos
                   [0] Salir
                   ================================================================================
             """;
