@@ -220,7 +220,7 @@ public class MapaDigrafo {
                 NodoAdy cursor = nodo.getPrimerAdy();
                 while (cursor.getSigAdyacente() != null && !exito) {
                     NodoVert tempAdy = cursor.getSigAdyacente().getVertice();
-                    if (verticeAdy.getElem().equals(elemEliminado)) {
+                    if (tempAdy.getElem().equals(elemEliminado)) {
                         exito = true;
                     } else {
                         cursor = cursor.getSigAdyacente();

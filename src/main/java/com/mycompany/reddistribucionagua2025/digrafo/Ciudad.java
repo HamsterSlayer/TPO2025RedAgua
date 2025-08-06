@@ -256,7 +256,7 @@ public class Ciudad {
         }
         return devuelto;
     }
-
+    /*
     @Override
     public boolean equals(Object otroObjeto) {
         // Fuerzo Casteo Ciudad.
@@ -264,18 +264,23 @@ public class Ciudad {
         // Conflicto acá. Las ciudades son iguales
         return this.getNomenclatura().equalsIgnoreCase(casteo.nomenclatura)
                 || this.nombre.equalsIgnoreCase(casteo.nombre);
-    }
+    }*/
     
     @Override
     public boolean equals(Object otroObjeto) {
-        // Conflicto acá. Las ciudades son iguales
         boolean resultado;
-        if (otroObjeto instanceof Ciudad ) {
+        if (otroObjeto == null) {
+            //Evito comparaciones con null
+            resultado = false;
+        }
+        else if (otroObjeto instanceof Ciudad ) {
+            //Una ciudad puede ser igual en nombre o nomenclatura
             resultado = this.getNomenclatura().equals(((Ciudad) otroObjeto).getNomenclatura())
                 || this.nombre.equals(((Ciudad) otroObjeto).getNombre());
         }
         else {
-            resultado = this.getNombre().equals(otroObjeto);
+            //Caso generico: se comparan los toString.
+            resultado = this.getNombre().equals(otroObjeto.toString());
         }
         return resultado;
     }
