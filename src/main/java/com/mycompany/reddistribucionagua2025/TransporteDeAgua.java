@@ -1117,7 +1117,7 @@ public class TransporteDeAgua {
     public static void pruebaCaminos() {
         System.out.println("Unidad de test para los métodos de Caudal Pleno y de Camino Más corto");
         System.out.println("Existen dos caminos posibles desde Panamá a Tijuana. \n" +
-                "1: Panamá-Puebla-Madrid-Tijuana, con 4 vertices y caudal total 1010\n" +
+                "1: Panamá-Puebla-Madrid-Tijuana, con 4 vertices y caudal total 880\n" +
                 "2: Panamá-Tegucipalpa-Tijuana, con 3 vertices y caudal total 1730 \n" +
                 "Si los métodos funcionan correctamente, el método Caudal pleno deberia retornar el camino 1," +
                 " y el metodo camino más corto deberia retornar el camino 2");
