@@ -57,5 +57,6 @@ Medellín, San Salvador, 600, 70, 1100, Activo
 Monterrey, Santiago, 1200, 280, 2100, Activo
 Montevideo, Santo Domingo, 550, 65, 1000, En reparación
 Panamá, Tegucigalpa, 880, 150, 1550, Activo
-Puebla, Tijuana, 430, 50, 850, Activo
 Quito, Asunción, 790, 100, 1450, Activo
+Puebla, Madrid, 200, 100, 1400, Activo
+Madrid, Tijuana, 100, 200, 1430, Activo

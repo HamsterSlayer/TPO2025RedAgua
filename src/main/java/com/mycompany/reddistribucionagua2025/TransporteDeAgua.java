@@ -25,7 +25,7 @@ import com.mycompany.reddistribucionagua2025.readtxt.*;
  */
 public class TransporteDeAgua {
     private static final String informacionCiudades = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\informacion.txt";
-    private static final String informacionTuberias = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\tuberiasInfo6.txt";
+    private static final String informacionTuberias = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\tuberiasInfo.txt";
     private static final String datosCiudades = "src\\main\\java\\com\\mycompany\\reddistribucionagua2025\\readtxt\\datosCiudadesHabitantes";
     // Variables del Programa ----------------------------------
     // Estas variables se usarán para modificar y operar el programa
@@ -1117,8 +1117,8 @@ public class TransporteDeAgua {
     public static void pruebaCaminos() {
         System.out.println("Unidad de test para los métodos de Caudal Pleno y de Camino Más corto");
         System.out.println("Existen dos caminos posibles desde Panamá a Tijuana. \n" +
-                "1: Panamá-Puebla-Tijuana, con 3 vertices y caudal total 1010\n" +
-                "2: Panamá-Tegucipalpa, con 2 vertices y caudal total 1730 \n" +
+                "1: Panamá-Puebla-Madrid-Tijuana, con 4 vertices y caudal total 1010\n" +
+                "2: Panamá-Tegucipalpa-Tijuana, con 3 vertices y caudal total 1730 \n" +
                 "Si los métodos funcionan correctamente, el método Caudal pleno deberia retornar el camino 1," +
                 " y el metodo camino más corto deberia retornar el camino 2");
 
