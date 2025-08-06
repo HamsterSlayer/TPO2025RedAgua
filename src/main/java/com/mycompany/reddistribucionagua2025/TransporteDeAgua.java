@@ -1033,7 +1033,7 @@ public class TransporteDeAgua {
         int auxI = listado.longitud();
         for (int i = 1; i <= auxI; i++) {
             Ciudad ciu = (Ciudad) listado.recuperar(i);
-            ciudadesConsumo.insertar(ciu, ciu.consumoAnual(anio));
+            ciudadesConsumo.insertar(ciu, ciu.consumoAnual(anio)+ciu.getNombre()); //La clave es el consumoAnual + Nombre para que acepte ciudades con mismo consumo.
         }
         limpiarPantalla();
         // Contenido
