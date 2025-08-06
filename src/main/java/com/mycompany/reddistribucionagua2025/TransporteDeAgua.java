@@ -1033,7 +1033,9 @@ public class TransporteDeAgua {
         int auxI = listado.longitud();
         for (int i = 1; i <= auxI; i++) {
             Ciudad ciu = (Ciudad) listado.recuperar(i);
-            ciudadesConsumo.insertar(ciu, ciu.consumoAnual(anio)+ciu.getNombre()); //La clave es el consumoAnual + Nombre para que acepte ciudades con mismo consumo.
+            ciudadesConsumo.insertar(ciu, ciu.consumoAnual(anio) + ciu.getNombre()); // La clave es el consumoAnual +
+                                                                                     // Nombre para que acepte ciudades
+                                                                                     // con mismo consumo.
         }
         limpiarPantalla();
         // Contenido
@@ -1115,20 +1117,21 @@ public class TransporteDeAgua {
     }
 
     public static void pruebaCaminos() {
-        System.out.println(separador() + "\n" + "Unidad de test para los metodos de Caudal Pleno y de Camino Mas corto");
-        System.out.println("Existen dos caminos posibles desde Panama a Tijuana. \n" +
-                "1: Panama-Puebla-Tijuana, con 3 vertices y caudal total 1010\n" +
-                "2: Panama-Tegucipalpa, con 2 vertices y caudal total 1730 \n" +
+        System.out
+                .println(separador() + "\n" + "Unidad de test para los metodos de Caudal Pleno y de Camino Mas corto");
+        System.out.println("Existen dos caminos posibles desde Panamá a Tijuana. \n" +
+                "1: Panamá-Puebla-Tijuana, con 3 vertices y caudal total 1010\n" +
+                "2: Panamá-Tegucipalpa, con 2 vertices y caudal total 1730 \n" +
                 "Si los metodos funcionan correctamente, el metodo Caudal pleno deberia retornar el camino 1," +
                 " y el metodo camino más corto deberia retornar el camino 2");
 
-        System.out.println("Caudal pleno de Panama a Tijuana");
+        System.out.println("Caudal pleno de Panamá a Tijuana");
 
-        System.out.println(toNombres(mapaCiudad.dijkstra(new Ciudad("Panama"), new Ciudad("Tijuana"))));
+        System.out.println(toNombres(mapaCiudad.dijkstra(new Ciudad("Panamá"), new Ciudad("Tijuana"))));
 
-        System.out.println("Camino más corto de Panama a Tijuana");
+        System.out.println("Camino más corto de Panamá a Tijuana");
 
-        System.out.println(toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Panama"), new Ciudad("Tijuana"))));
+        System.out.println(toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Panamá"), new Ciudad("Tijuana"))));
 
         System.out.println("Ingreso una ciudad que no existe en el gráfico," +
                 " intentando llegar a una ciudad que existe: Canberra a Panamá");
