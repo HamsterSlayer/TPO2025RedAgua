@@ -953,6 +953,7 @@ public class TransporteDeAgua {
                 case 1: {
                     ciudades = pedirDosCiudades();
                     caudalPleno(ciudades[0], ciudades[1]);
+                    in.nextLine();
                     log.agregarLinea(
                             "Se consulto el transporte con menos caudal entre " + ciudades[0] + " y " + ciudades[1]);
                     break;
@@ -960,6 +961,7 @@ public class TransporteDeAgua {
                 case 2: {
                     ciudades = pedirDosCiudades();
                     caminoMasCorto(ciudades[0], ciudades[1]);
+                    in.nextLine();
                     // logInformacionTransporteAgua(ciudades[0],ciudades[1],false);
                     log.agregarLinea("Se consulto el transporte mas corto entre " + ciudades[0] + " y " + ciudades[1]);
                 }

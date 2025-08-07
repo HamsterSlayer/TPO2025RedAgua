@@ -1,0 +1,89 @@
+(16:38:40) EXITO : Se encontró el caudal pleno entre Panamá y Tijuana
+(16:38:42) Se consulto el transporte con menos caudal entre Panamá y Tijuana
+(16:38:45) EXITO : Se encontró el camino más corto entre Panamá y Tijuana
+(16:38:46) Se consulto el transporte mas corto entre Panamá y Tijuana
+(16:39:21) Se fue al menu de consulta de ciudades
+(16:39:24) ESTRUCTURAS DE DATOS:
+
+
+(16:39:24) AVL: ###########
+
+(16:39:24) Raiz: Ciudad de Nombre:Montevideo con superficie 890123,000000
+Ciudad de Nombre:Montevideo con superficie 890123,000000(alt: 5) HI: Ciudad de México HD: San Juan
+Ciudad de Nombre:Ciudad de México con superficie 451298,000000(alt: 4) HI: Buenos Aires HD: Lima
+Ciudad de Nombre:Buenos Aires con superficie 856723,000000(alt: 3) HI: Barranquilla HD: Caracas
+Ciudad de Nombre:Barranquilla con superficie 567890,000000(alt: 2) HI: Asunción HD: Bogotá
+Ciudad de Nombre:Asunción con superficie 456789,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Bogotá con superficie 678901,000000(alt: 1) HI: - HD: Brasília
+Ciudad de Nombre:Brasília con superficie 890123,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Caracas con superficie 567890,000000(alt: 1) HI: Cali HD: -
+Ciudad de Nombre:Cali con superficie 234567,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Lima con superficie 912345,000000(alt: 3) HI: Habana HD: Medellín
+Ciudad de Nombre:Habana con superficie 567890,000000(alt: 2) HI: Guadalajara HD: La Paz
+Ciudad de Nombre:Guadalajara con superficie 789012,000000(alt: 1) HI: Fortaleza HD: -
+Ciudad de Nombre:Fortaleza con superficie 789012,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:La Paz con superficie 123456,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Medellín con superficie 901234,000000(alt: 2) HI: Managua HD: Monterrey
+Ciudad de Nombre:Managua con superficie 901234,000000(alt: 1) HI: Madrid HD: -
+Ciudad de Nombre:Madrid con superficie 600092,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Monterrey con superficie 345678,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:San Juan con superficie 123456,000000(alt: 4) HI: Río de Janeiro HD: Santiago
+Ciudad de Nombre:Río de Janeiro con superficie 723456,000000(alt: 3) HI: Puebla HD: San José
+Ciudad de Nombre:Puebla con superficie 678901,000000(alt: 2) HI: Panamá HD: Quito
+Ciudad de Nombre:Panamá con superficie 345678,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Quito con superficie 234567,000000(alt: 1) HI: - HD: Recife
+Ciudad de Nombre:Recife con superficie 456789,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:San José con superficie 789012,000000(alt: 1) HI: Salvador HD: -
+Ciudad de Nombre:Salvador con superficie 123456,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Santiago con superficie 398765,000000(alt: 2) HI: San Salvador HD: Tegucigalpa
+Ciudad de Nombre:San Salvador con superficie 234567,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Tegucigalpa con superficie 678901,000000(alt: 1) HI: Santo Domingo HD: Tijuana
+Ciudad de Nombre:Santo Domingo con superficie 890123,000000(alt: 0) HI: - HD: -
+Ciudad de Nombre:Tijuana con superficie 456789,000000(alt: 0) HI: - HD: -
+
+###########
+
+
+(16:39:24) DIGRAFO: ###########
+
+(16:39:24) Nodo: Ciudad de Nombre:Buenos Aires con superficie 856723,000000 -> Ciudad de Nombre:Fortaleza con superficie 789012,000000 -> Ciudad de Nombre:Cali con superficie 234567,000000 -> Ciudad de Nombre:Monterrey con superficie 345678,000000 -> *
+Nodo: Ciudad de Nombre:Ciudad de México con superficie 451298,000000 -> Ciudad de Nombre:Fortaleza con superficie 789012,000000 -> Ciudad de Nombre:Puebla con superficie 678901,000000 -> *
+Nodo: Ciudad de Nombre:Río de Janeiro con superficie 723456,000000 -> *
+Nodo: Ciudad de Nombre:Santiago con superficie 398765,000000 -> Ciudad de Nombre:Santo Domingo con superficie 890123,000000 -> *
+Nodo: Ciudad de Nombre:Lima con superficie 912345,000000 -> Ciudad de Nombre:Managua con superficie 901234,000000 -> Ciudad de Nombre:San José con superficie 789012,000000 -> *
+Nodo: Ciudad de Nombre:Bogotá con superficie 678901,000000 -> Ciudad de Nombre:Managua con superficie 901234,000000 -> *
+Nodo: Ciudad de Nombre:Quito con superficie 234567,000000 -> Ciudad de Nombre:Recife con superficie 456789,000000 -> Ciudad de Nombre:Asunción con superficie 456789,000000 -> *
+Nodo: Ciudad de Nombre:Caracas con superficie 567890,000000 -> Ciudad de Nombre:Fortaleza con superficie 789012,000000 -> Ciudad de Nombre:Ciudad de México con superficie 451298,000000 -> Ciudad de Nombre:Panamá con superficie 345678,000000 -> *
+Nodo: Ciudad de Nombre:Montevideo con superficie 890123,000000 -> Ciudad de Nombre:Panamá con superficie 345678,000000 -> Ciudad de Nombre:Santo Domingo con superficie 890123,000000 -> *
+Nodo: Ciudad de Nombre:La Paz con superficie 123456,000000 -> Ciudad de Nombre:Managua con superficie 901234,000000 -> Ciudad de Nombre:Salvador con superficie 123456,000000 -> *
+Nodo: Ciudad de Nombre:Asunción con superficie 456789,000000 -> Ciudad de Nombre:Barranquilla con superficie 567890,000000 -> Ciudad de Nombre:Bogotá con superficie 678901,000000 -> Ciudad de Nombre:La Paz con superficie 123456,000000 -> *
+Nodo: Ciudad de Nombre:San José con superficie 789012,000000 -> Ciudad de Nombre:San Juan con superficie 123456,000000 -> *
+Nodo: Ciudad de Nombre:Panamá con superficie 345678,000000 -> Ciudad de Nombre:Puebla con superficie 678901,000000 -> Ciudad de Nombre:Tegucigalpa con superficie 678901,000000 -> *
+Nodo: Ciudad de Nombre:Tegucigalpa con superficie 678901,000000 -> Ciudad de Nombre:Tijuana con superficie 456789,000000 -> *
+Nodo: Ciudad de Nombre:Managua con superficie 901234,000000 -> Ciudad de Nombre:Medellín con superficie 901234,000000 -> Ciudad de Nombre:San Juan con superficie 123456,000000 -> *
+Nodo: Ciudad de Nombre:San Salvador con superficie 234567,000000 -> *
+Nodo: Ciudad de Nombre:Habana con superficie 567890,000000 -> Ciudad de Nombre:La Paz con superficie 123456,000000 -> *
+Nodo: Ciudad de Nombre:Santo Domingo con superficie 890123,000000 -> Ciudad de Nombre:Tegucigalpa con superficie 678901,000000 -> *
+Nodo: Ciudad de Nombre:San Juan con superficie 123456,000000 -> Ciudad de Nombre:San Salvador con superficie 234567,000000 -> *
+Nodo: Ciudad de Nombre:Tijuana con superficie 456789,000000 -> Ciudad de Nombre:Asunción con superficie 456789,000000 -> *
+Nodo: Ciudad de Nombre:Guadalajara con superficie 789012,000000 -> Ciudad de Nombre:Recife con superficie 456789,000000 -> *
+Nodo: Ciudad de Nombre:Monterrey con superficie 345678,000000 -> Ciudad de Nombre:Santiago con superficie 398765,000000 -> *
+Nodo: Ciudad de Nombre:Puebla con superficie 678901,000000 -> Ciudad de Nombre:Quito con superficie 234567,000000 -> Ciudad de Nombre:Madrid con superficie 600092,000000 -> *
+Nodo: Ciudad de Nombre:Medellín con superficie 901234,000000 -> Ciudad de Nombre:Monterrey con superficie 345678,000000 -> Ciudad de Nombre:San Salvador con superficie 234567,000000 -> *
+Nodo: Ciudad de Nombre:Cali con superficie 234567,000000 -> Ciudad de Nombre:Caracas con superficie 567890,000000 -> Ciudad de Nombre:Montevideo con superficie 890123,000000 -> *
+Nodo: Ciudad de Nombre:Barranquilla con superficie 567890,000000 -> Ciudad de Nombre:Buenos Aires con superficie 856723,000000 -> Ciudad de Nombre:Lima con superficie 912345,000000 -> *
+Nodo: Ciudad de Nombre:Brasília con superficie 890123,000000 -> *
+Nodo: Ciudad de Nombre:Salvador con superficie 123456,000000 -> Ciudad de Nombre:San José con superficie 789012,000000 -> *
+Nodo: Ciudad de Nombre:Recife con superficie 456789,000000 -> Ciudad de Nombre:Río de Janeiro con superficie 723456,000000 -> *
+Nodo: Ciudad de Nombre:Fortaleza con superficie 789012,000000 -> Ciudad de Nombre:Habana con superficie 567890,000000 -> Ciudad de Nombre:Guadalajara con superficie 789012,000000 -> Ciudad de Nombre:Quito con superficie 234567,000000 -> *
+Nodo: Ciudad de Nombre:Madrid con superficie 600092,000000 -> Ciudad de Nombre:Tijuana con superficie 456789,000000 -> *
+
+###########
+
+
+(16:39:24) HASHMAP: ###########
+
+(16:39:24) {com.mycompany.reddistribucionagua2025.Hash.DominioHash@8fe8e628=Tuberia: TI3019-AS3010, caudalMax: 460,000000 - caudalMin 55,000000; diametro: 0,850000. ESTADO: EN_REPARACION, com.mycompany.reddistribucionagua2025.Hash.DominioHash@33cdb2=Tuberia: LI3004-SJ3011, caudalMax: 680,000000 - caudalMin 85,000000; diametro: 1250,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@98a2f221=Tuberia: CA3007-Cd3001, caudalMax: 800,000000 - caudalMin 110,000000; diametro: 1400,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@f577e672=Tuberia: LI3004-MA3014, caudalMax: 900,000000 - caudalMin 150,000000; diametro: 1600,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@7757e69f=Tuberia: PA3012-TE3013, caudalMax: 880,000000 - caudalMin 150,000000; diametro: 1550,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@1037f1fe=Tuberia: LP3009-MA3014, caudalMax: 700,000000 - caudalMin 105,000000; diametro: 1,350000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@f347b80d=Tuberia: AS3010-BA3025, caudalMax: 750,000000 - caudalMin 90,000000; diametro: 1200,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@5ac9dc83=Tuberia: BO3005-MA3014, caudalMax: 1100,000000 - caudalMin 230,000000; diametro: 1950,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@533d3336=Tuberia: MO3008-PA3012, caudalMax: 1100,000000 - caudalMin 250,000000; diametro: 2000,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@14637da8=Tuberia: FO3029-HA3016, caudalMax: 430,000000 - caudalMin 40,000000; diametro: 0,820000. ESTADO: INACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@45382874=Tuberia: ME3023-MO3021, caudalMax: 650,000000 - caudalMin 75,000000; diametro: 1100,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@9422812f=Tuberia: SJ3011-SJ3018, caudalMax: 370,000000 - caudalMin 30,000000; diametro: 0,700000. ESTADO: INACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@6cf87875=Tuberia: QU3006-AS3010, caudalMax: 790,000000 - caudalMin 100,000000; diametro: 1450,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@c8a109ef=Tuberia: MA3014-SJ3018, caudalMax: 930,000000 - caudalMin 170,000000; diametro: 1650,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@6ecf37c=Tuberia: SJ3018-SS3015, caudalMax: 720,000000 - caudalMin 100,000000; diametro: 1250,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@f40d00dd=Tuberia: AS3010-BO3005, caudalMax: 780,000000 - caudalMin 95,000000; diametro: 1350,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@2e8e36da=Tuberia: BA3000-MO3021, caudalMax: 580,000000 - caudalMin 65,000000; diametro: 1050,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@229c4a89=Tuberia: BA3000-FO3029, caudalMax: 1150,000000 - caudalMin 280,000000; diametro: 2,100000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@ace4bbb1=Tuberia: CA3007-PA3012, caudalMax: 480,000000 - caudalMin 55,000000; diametro: 900,000000. ESTADO: EN_REPARACION, com.mycompany.reddistribucionagua2025.Hash.DominioHash@be1d80ca=Tuberia: MA3014-ME3023, caudalMax: 680,000000 - caudalMin 90,000000; diametro: 1,250000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@7ddfb407=Tuberia: RE3028-Rd3002, caudalMax: 850,000000 - caudalMin 130,000000; diametro: 1500,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@fd5ec8c4=Tuberia: SA3027-SJ3011, caudalMax: 450,000000 - caudalMin 50,000000; diametro: 800,000000. ESTADO: EN_REPARACION, com.mycompany.reddistribucionagua2025.Hash.DominioHash@cbdd9ec1=Tuberia: Cd3001-PU3022, caudalMax: 730,000000 - caudalMin 95,000000; diametro: 1350,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@74ecc070=Tuberia: PU3022-MA3030, caudalMax: 200,000000 - caudalMin 100,000000; diametro: 1400,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@5886039b=Tuberia: MO3008-SD3017, caudalMax: 550,000000 - caudalMin 65,000000; diametro: 1000,000000. ESTADO: EN_REPARACION, com.mycompany.reddistribucionagua2025.Hash.DominioHash@559a1744=Tuberia: SD3017-TE3013, caudalMax: 950,000000 - caudalMin 190,000000; diametro: 1,800000. ESTADO: EN_DISENO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@d99b22c4=Tuberia: CA3024-MO3008, caudalMax: 850,000000 - caudalMin 120,000000; diametro: 1500,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@1cb87799=Tuberia: BA3000-CA3024, caudalMax: 1000,000000 - caudalMin 200,000000; diametro: 1800,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@1ecfe06a=Tuberia: TE3013-TI3019, caudalMax: 580,000000 - caudalMin 70,000000; diametro: 1050,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@8935921d=Tuberia: QU3006-RE3028, caudalMax: 820,000000 - caudalMin 130,000000; diametro: 1,550000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@59aef502=Tuberia: SA3003-SD3017, caudalMax: 950,000000 - caudalMin 180,000000; diametro: 1700,000000. ESTADO: EN_DISENO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@24d8f134=Tuberia: FO3029-QU3006, caudalMax: 1000,000000 - caudalMin 200,000000; diametro: 1800,000000. ESTADO: EN_DISENO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@1a7505da=Tuberia: LP3009-SA3027, caudalMax: 400,000000 - caudalMin 45,000000; diametro: 800,000000. ESTADO: INACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@7cd9f8a9=Tuberia: PU3022-QU3006, caudalMax: 550,000000 - caudalMin 65,000000; diametro: 950,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@57e625=Tuberia: HA3016-LP3009, caudalMax: 410,000000 - caudalMin 45,000000; diametro: 0,800000. ESTADO: INACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@52b8e98=Tuberia: AS3010-LP3009, caudalMax: 700,000000 - caudalMin 80,000000; diametro: 1300,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@7165fc51=Tuberia: PA3012-PU3022, caudalMax: 580,000000 - caudalMin 65,000000; diametro: 1,050000. ESTADO: EN_REPARACION, com.mycompany.reddistribucionagua2025.Hash.DominioHash@ba789b8c=Tuberia: Cd3001-FO3029, caudalMax: 820,000000 - caudalMin 120,000000; diametro: 1450,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@9c998eaf=Tuberia: CA3007-FO3029, caudalMax: 920,000000 - caudalMin 180,000000; diametro: 1,700000. ESTADO: EN_DISENO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@c67137c8=Tuberia: MA3030-TI3019, caudalMax: 100,000000 - caudalMin 200,000000; diametro: 1430,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@c7c5637f=Tuberia: CA3024-CA3007, caudalMax: 1050,000000 - caudalMin 210,000000; diametro: 1900,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@4fad9a17=Tuberia: ME3023-SS3015, caudalMax: 600,000000 - caudalMin 70,000000; diametro: 1100,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@4c652fd=Tuberia: BA3025-LI3004, caudalMax: 650,000000 - caudalMin 70,000000; diametro: 1150,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@cea2129f=Tuberia: GU3020-RE3028, caudalMax: 520,000000 - caudalMin 60,000000; diametro: 980,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@13c87b36=Tuberia: FO3029-GU3020, caudalMax: 500,000000 - caudalMin 60,000000; diametro: 900,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@f34520bb=Tuberia: BA3025-BA3000, caudalMax: 620,000000 - caudalMin 80,000000; diametro: 1150,000000. ESTADO: ACTIVO, com.mycompany.reddistribucionagua2025.Hash.DominioHash@b5d277ec=Tuberia: MO3021-SA3003, caudalMax: 1200,000000 - caudalMin 280,000000; diametro: 2100,000000. ESTADO: ACTIVO}
+###########
+
+
