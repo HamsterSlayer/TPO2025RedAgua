@@ -1117,41 +1117,115 @@ public class TransporteDeAgua {
     }
 
     public static void pruebaCaminos() {
-        System.out
+        limpiarPantalla();
+        String resultado = String.format("""
+                      ================================================================================
+                            Unidad de test para los metodos de Caudal Pleno y de Camino Mas corto
+                      ================================================================================
+                      Existen dos caminos posibles desde Panama a Tijuana:
+                        1: Panama-Puebla-Madrid-Tijuana, con 3 vertices y caudal total 1010
+                        2: Panama-Tegucipalpa-Tijuana, con 2 vertices y caudal total 1730
+                      
+                        (debe retornar el camino 1)
+                        Caudal Pleno de Panama a Tijuana:
+                          %s
+
+                        (debe retornar el camino 2)
+                        Camino Mas Corto de Panama a Tijuana:
+                          %s
+                      
+                      ================================================================================
+                      Prueba con una ciudad que no existe (Canberra) a una ciudad que existe (Panama)
+                      
+                        (no deben mostrar nada) 
+                        Caudal Pleno de Canberra a Panama:
+                          %s
+
+                        Camino Mas Corto de Canberra a Panama:
+                          %s
+                      
+                      Probamos el inverso
+                      
+                        (no deben mostrar nada) 
+                        Caudal Pleno de Panama a Canberra:
+                            %s
+                                            
+                        Camino Mas Corto de Panama a Canberra:
+                            %s         
+                                   
+                      ================================================================================
+                      Prueba con dos ciudades que no existen (Canberra y Osaka)
+                        
+                        (no deben mostrar nada)                                       
+                        Caudal Pleno de Canberra a Osaka:
+                                                %s
+                                              
+                        Camino Mas Corto de Canberra a Osaka:
+                                                %s        
+                                    
+                      ================================================================================
+                      Dos ciudades con solamente un camino posible (Monterrey y Santo Domingo)
+                        
+                                         
+                        Caudal Pleno de Monterrey a Santo Domingo:
+                          %s
+
+                        Camino Mas Corto de Monterrey a Santo Domingo:
+                          %s
+                      
+                      ================================================================================
+                      """,
+                    toNombres(mapaCiudad.dijkstra(new Ciudad("Panamá"), new Ciudad("Tijuana"))),
+                    toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Panamá"), new Ciudad("Tijuana"))),
+                    toNombres(mapaCiudad.dijkstra(new Ciudad("Canberra"), new Ciudad("Panamá"))),
+                    toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Canberra"), new Ciudad("Panamá"))),
+                    toNombres(mapaCiudad.dijkstra(new Ciudad("Panamá"), new Ciudad("Canberra"))),
+                    toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Panamá"), new Ciudad("Canberra"))),
+                    toNombres(mapaCiudad.dijkstra(new Ciudad("Canberra"), new Ciudad("Osaka"))),
+                    toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Canberra"), new Ciudad("Osaka"))),
+                    toNombres(mapaCiudad.dijkstra(new Ciudad("Monterrey"), new Ciudad("Santo Domingo"))),
+                    toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Monterrey"), new Ciudad("Santo Domingo")))
+                    );
+        
+        System.out.println(resultado);
+        in.nextLine();
+        /*System.out
                 .println(separador() + "\n" + "Unidad de test para los metodos de Caudal Pleno y de Camino Mas corto");
-        System.out.println("Existen dos caminos posibles desde Panamá a Tijuana. \n" +
-                "1: Panamá-Puebla-Tijuana, con 3 vertices y caudal total 1010\n" +
-                "2: Panamá-Tegucipalpa, con 2 vertices y caudal total 1730 \n" +
+        System.out.println("Existen dos caminos posibles desde Panama a Tijuana. \n" +
+                "1: Panama-Puebla-Madrid-Tijuana, con 3 vertices y caudal total 1010\n" +
+                "2: Panama-Tegucipalpa-Tijuana, con 2 vertices y caudal total 1730 \n\n" +
                 "Si los metodos funcionan correctamente, el metodo Caudal pleno deberia retornar el camino 1," +
-                " y el metodo camino más corto deberia retornar el camino 2");
-
-        System.out.println("Caudal pleno de Panamá a Tijuana");
-
-        System.out.println(toNombres(mapaCiudad.dijkstra(new Ciudad("Panamá"), new Ciudad("Tijuana"))));
-
-        System.out.println("Camino más corto de Panamá a Tijuana");
-
-        System.out.println(toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Panamá"), new Ciudad("Tijuana"))));
-
+                " y el metodo camino mas corto deberia retornar el camino 2");
+        System.out.println(separador());
+        System.out.println("Caudal pleno de Panama a Tijuana");
+        System.out.println(toNombres(mapaCiudad.dijkstra(new Ciudad("Panama"), new Ciudad("Tijuana"))));
+        System.out.println(separador());
+        System.out.println(separador()+ "\n");
+        System.out.println("Camino mas corto de Panama a Tijuana");
+        System.out.println(toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Panama"), new Ciudad("Tijuana"))));
+        System.out.println(separador()+ "\n");
+        System.out.println(separador()+ "\n");
+        
+        
         System.out.println("Ingreso una ciudad que no existe en el gráfico," +
-                " intentando llegar a una ciudad que existe: Canberra a Panamá");
-        System.out.println("Caudal Pleno de Canberra a Panamá");
-
-        System.out.println(toNombres(mapaCiudad.dijkstra(new Ciudad("Canberra"), new Ciudad("Panamá"))));
-
-        System.out.println("Camino más corto de Canberra a Panamá");
-
-        System.out.println(toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Canberra"), new Ciudad("Panamá"))));
+                " intentando llegar a una ciudad que existe: Canberra a Panama");
+        System.out.println("Caudal Pleno de Canberra a Panama");
+        System.out.println(toNombres(mapaCiudad.dijkstra(new Ciudad("Canberra"), new Ciudad("Panama"))));
+        System.out.println(separador()+ "\n");
+        System.out.println("Camino más corto de Canberra a Panama");
+        System.out.println(toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Canberra"), new Ciudad("Panama"))));
+        
+        
         System.out.println("Ingreso una ciudad que existe en el gráfico," +
-                " intentando llegar a una ciudad que no existe: Panamá a Canberra");
-        System.out.println("Caudal Pleno de Panamá a Canberra");
+                " intentando llegar a una ciudad que no existe: Panama a Canberra");
+        System.out.println("Caudal Pleno de Panama a Canberra");
+        System.out.println(toNombres(mapaCiudad.dijkstra(new Ciudad("Canberra"), new Ciudad("Panama"))));
+        System.out.println("Camino más corto de Panama a Canberra");
+        System.out.println(toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Canberra"), new Ciudad("Panama"))));
 
-        System.out.println(toNombres(mapaCiudad.dijkstra(new Ciudad("Canberra"), new Ciudad("Panamá"))));
-
-        System.out.println("Camino más corto de Panamá a Canberra");
-
-        System.out.println(toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Canberra"), new Ciudad("Panamá"))));
-
+        
+        
+        
         System.out.println("Ingreso dos ciudades que no existen en el gráfico," +
                 " intentando llegar de Canberra a Osaka");
         System.out.println("Caudal Pleno de Canberra a Osaka");
@@ -1162,6 +1236,8 @@ public class TransporteDeAgua {
 
         System.out.println(toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Canberra"), new Ciudad("Osaka"))));
 
+        
+        
         System.out.println("Ingreso dos ciudades que tienen unicamente un camino posible: Monterrey a Santo Domingo");
         System.out.println("Caudal Pleno de Monterrey a Santo Domingo");
 
@@ -1169,8 +1245,8 @@ public class TransporteDeAgua {
         System.out.println("Camino más corto de Monterrey a Santo Domingo");
 
         System.out.println(toNombres(mapaCiudad.caminoMasCorto(new Ciudad("Monterrey"), new Ciudad("Santo Domingo"))));
-        System.out.println(separador());
-        in.nextLine();
+        System.out.println(separador());*/
+        
     }
     // -------------------------------------------------------------------------
 

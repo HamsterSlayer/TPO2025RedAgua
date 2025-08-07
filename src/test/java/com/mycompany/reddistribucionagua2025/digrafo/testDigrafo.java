@@ -15,7 +15,7 @@ public class testDigrafo {
     //Precarga
     MapaDigrafo digrafo = new MapaDigrafo();
     
-    //Metodos de debug
+    //Metodos de debug --------------------------------------------------------
     private void insertar(String ciudades) {
         String[] listaCiudades = ciudades.split(",");
         for (String ciudad : listaCiudades) {
@@ -75,17 +75,15 @@ public class testDigrafo {
     public testDigrafo() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    // TESTS ----------------------------------------------------------------
     
     @Test
     public void pruebaInsertarVertices() {
+        assertEquals(true, digrafo.esVacio());
         String ciudades = "Neuquen,La Pampa";
         //Pruebo insertar
         this.insertar(ciudades);
+        assertEquals(false, digrafo.esVacio());
         assertEquals(digrafo.toString(),toStringVertices(ciudades));
         
         //Vuelvo a intentarlo. No deberían de volver a agregarse.
