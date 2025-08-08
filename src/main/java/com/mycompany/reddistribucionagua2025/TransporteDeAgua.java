@@ -858,7 +858,7 @@ public class TransporteDeAgua {
                 Ciudad ciuLista;
                 for (int i = 1; i <= leng; i++) {
                     ciuLista = ((Ciudad) auxL.recuperar(i));
-                    float vol = ciuLista.consumoMensual(mes, anio);
+                    float vol = ciuLista.consumoMensual(mes + 1, anio);
                     if (vol > volMin && vol < volMax) {
                         textoResultado += ciuLista.getNombre() + ", ";
                     }
